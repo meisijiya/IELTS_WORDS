@@ -1,0 +1,13 @@
+# Yasi Words — Data Prep Toolchain
+# Pinned 2026-07-20. Regenerate via `python3 -m pip freeze --user > tools/requirements.txt`
+pdfminer.six==20260107
+pdfplumber==0.11.10
+pymupdf==1.28.0
+pypdfium2==5.12.1
+Pillow==12.3.0
+pytest==9.1.1
+iniconfig==2.3.0
+pluggy==1.6.0
+packaging==26.2
+charset-normalizer==3.4.9
+jsonschema==4.10.3

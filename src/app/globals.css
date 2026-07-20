@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #F8FAFC;
+  --surface: #FFFFFF;
+  --foreground: #0F172A;
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+  --border: #E2E8F0;
+  --accent: #E8845F;
+  --accent-hover: #D97757;
+  --accent-soft: #FDE7DA;
+  --accent-foreground: #FFFFFF;
+  --success: #0D9488;
+  --warning: #D97706;
+  --error: #DC2626;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0F172A;
+    --surface: #1E293B;
+    --foreground: #F1F5F9;
+    --muted: #334155;
+    --muted-foreground: #94A3B8;
+    --border: #334155;
+    --accent: #F4A261;
+    --accent-hover: #E8845F;
+    --accent-soft: #4A2E1E;
+    --accent-foreground: #FFFFFF;
+    --success: #14B8A6;
+    --warning: #FBBF24;
+    --error: #F87171;
+  }
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Microsoft YaHei",
+    system-ui,
+    sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+input,
+button {
+  font-family: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}

@@ -1,0 +1,132 @@
+[
+  {
+    "page": 1,
+    "spelling": "federal",
+    "raw_lines": ["federal", "adj. 联邦制的, 联邦政府的"],
+    "expected": {
+      "spelling": "federal",
+      "pos": "adj.",
+      "glosses": [
+        {"pos": "adj.", "meaning": "联邦制的, 联邦政府的"}
+      ]
+    }
+  },
+  {
+    "page": 1,
+    "spelling": "republican",
+    "raw_lines": [
+      "republican",
+      "n. 共和主义者, 共和党人, 北爱尔兰共和主义者; adj. 共和的, 共和党的, 北爱尔兰",
+      "共和派的"
+    ],
+    "expected": {
+      "spelling": "republican",
+      "pos": "n./adj.",
+      "glosses": [
+        {"pos": "n.", "meaning": "共和主义者, 共和党人, 北爱尔兰共和主义者"},
+        {"pos": "adj.", "meaning": "共和的, 共和党的, 北爱尔兰共和派的"}
+      ],
+      "flags": ["cross_line_gloss"]
+    }
+  },
+  {
+    "page": 1,
+    "spelling": "congress",
+    "raw_lines": ["congress", "n. 代表大会, 国会, 政治团体, 集会"],
+    "expected": {
+      "spelling": "congress",
+      "pos": "n.",
+      "glosses": [
+        {"pos": "n.", "meaning": "代表大会, 国会, 政治团体, 集会"}
+      ]
+    }
+  },
+  {
+    "page": 1,
+    "spelling": "campaign",
+    "raw_lines": ["campaign", "n. 活动, 战役; v. 进行活动"],
+    "expected": {
+      "spelling": "campaign",
+      "pos": "n./v.",
+      "glosses": [
+        {"pos": "n.", "meaning": "活动, 战役"},
+        {"pos": "v.", "meaning": "进行活动"}
+      ]
+    }
+  },
+  {
+    "page": 1,
+    "spelling": "factor",
+    "raw_lines": ["factor", "n. 因素, 因"],
+    "expected": {
+      "spelling": "factor",
+      "pos": "n.",
+      "glosses": [
+        {"pos": "n.", "meaning": "因素, 因"}
+      ]
+    }
+  },
+  {
+    "page": 161,
+    "spelling": "salvage",
+    "raw_lines": ["salvage", "n. 抢救, 抢救物; v. 抢救, 挽救"],
+    "expected": {
+      "spelling": "salvage",
+      "pos": "n./v.",
+      "glosses": [
+        {"pos": "n.", "meaning": "抢救, 抢救物"},
+        {"pos": "v.", "meaning": "抢救, 挽救"}
+      ]
+    }
+  },
+  {
+    "page": 161,
+    "spelling": "shepherd",
+    "raw_lines": ["shepherd", "n. 牧羊人; v. 引导"],
+    "expected": {
+      "spelling": "shepherd",
+      "pos": "n./v.",
+      "glosses": [
+        {"pos": "n.", "meaning": "牧羊人"},
+        {"pos": "v.", "meaning": "引导"}
+      ]
+    }
+  },
+  {
+    "page": 161,
+    "spelling": "token",
+    "raw_lines": ["token", "n. 代币, 兑换券, 积分, 象征; adj. 象征性的, 象征性付款"],
+    "expected": {
+      "spelling": "token",
+      "pos": "n./adj.",
+      "glosses": [
+        {"pos": "n.", "meaning": "代币, 兑换券, 积分, 象征"},
+        {"pos": "adj.", "meaning": "象征性的, 象征性付款"}
+      ]
+    }
+  },
+  {
+    "page": 323,
+    "spelling": "Mars",
+    "raw_lines": ["Mars", "n. 火星"],
+    "expected": {
+      "spelling": "Mars",
+      "pos": "n.",
+      "glosses": [
+        {"pos": "n.", "meaning": "火星"}
+      ]
+    }
+  },
+  {
+    "page": 323,
+    "spelling": "acoustics",
+    "raw_lines": ["acoustics", "n. 声学"],
+    "expected": {
+      "spelling": "acoustics",
+      "pos": "n.",
+      "glosses": [
+        {"pos": "n.", "meaning": "声学"}
+      ]
+    }
+  }
+]

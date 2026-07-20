@@ -1,0 +1,16 @@
+[
+  {
+    "book": "book_a",
+    "filename": "yasi_concise.json",
+    "description": "雅思词汇真经 (3611词) — 精简版",
+    "records": 3611,
+    "size_kb": 722.5
+  },
+  {
+    "book": "book_b",
+    "filename": "ielts_full.json",
+    "description": "IELTS (7076词) — 完整版",
+    "records": 7076,
+    "size_kb": 1215.6
+  }
+]

@@ -1,0 +1,52 @@
+# All base images are pulled via domestic Aliyun mirror.
+# To switch mirrors, edit the two `image:` / `FROM registry.cn-hangzhou...` lines.
+
+services:
+  postgres:
+    image: registry.cn-hangzhou.aliyuncs.com/library/postgres:16-alpine
+    container_name: yasi-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-yasi}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-yasi_dev_pwd_change_me}
+      POSTGRES_DB: ${POSTGRES_DB:-yasi_db}
+      TZ: ${TZ:-Asia/Shanghai}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-yasi} -d ${POSTGRES_DB:-yasi_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - yasi-net
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: yasi-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-yasi}:${POSTGRES_PASSWORD:-yasi_dev_pwd_change_me}@postgres:5432/${POSTGRES_DB:-yasi_db}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-yasi-2026-dev}
+      SESSION_SECRET: ${SESSION_SECRET:-change-me-in-production-min-32-chars-long}
+      NODE_ENV: production
+      TZ: ${TZ:-Asia/Shanghai}
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    volumes:
+      - app_logs:/app/logs
+    networks:
+      - yasi-net
+
+volumes:
+  pgdata:
+  app_logs:
+
+networks:
+  yasi-net:
+    driver: bridge

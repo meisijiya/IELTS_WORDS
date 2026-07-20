@@ -1,0 +1,20 @@
+[
+  {
+    "book": "a",
+    "pymupdf_chars": 479,
+    "pdfplumber_chars": 459,
+    "diff_chars_first_run": 443,
+    "identical": false,
+    "pymupdf_first_200": "雅思词汇真经\n雅思\n共计 3,611 词\natmosphere\nn. 大气层, 大气, 空气, 氛围\nhydrosphere\nn. 水圈\nlithosphere\nn. 岩石圈\noxygen\nn. 氧气\noxide\nn. 氧化物\ncarbon dioxide\nn. 二氧化碳\nhydrogen\nn. 氢\ncore\nn. 核心, 中心部分, 果核, 核心肌群, 核心团队; adj. 核心的, 核心信仰,",
+    "pdfplumber_first_200": "2026/7/19 17:48 雅思词汇真经 - 共3,611词 | ⽆痛单词\n雅思词汇真经\n雅思 共计 3,611 词\natmosphere n.大气层, 大气, 空气, 氛围\nhydrosphere n.水圈\nlithosphere n.岩石圈\noxygen n.氧气\noxide n.氧化物\ncarbon dioxide n.二氧化碳\nhydrogen n.氢\nn.核心, 中心部分, 果核, "
+  },
+  {
+    "book": "b",
+    "pymupdf_chars": 522,
+    "pdfplumber_chars": 503,
+    "diff_chars_first_run": 478,
+    "identical": false,
+    "pymupdf_first_200": "IELTS\n雅思考试词汇，词表已排除基础词。\n雅思\n共计 7,076 词\nfederal\nadj. 联邦制的, 联邦政府的\nrepublican\nn. 共和主义者, 共和党人, 北爱尔兰共和主义者; adj. 共和的, 共和党的, 北爱尔兰\n共和派的\ncongress\nn. 代表大会, 国会, 政治团体, 集会\ncampaign\nn. 活动, 战役; v. 进行活动\nfactor\nn. 因素, 因",
+    "pdfplumber_first_200": "2026/7/19 17:48 IELTS - 共7,076词 | ⽆痛单词\nIELTS\n雅思考试词汇，词表已排除基础词。\n雅思 共计 7,076 词\nfederal adj.联邦制的, 联邦政府的\nn.共和主义者, 共和党人, 北爱尔兰共和主义者; adj.共和的, 共和党的, 北爱尔兰\nrepublican\n共和派的\ncongress n.代表大会, 国会, 政治团体, 集会\ncampaign"
+  }
+]

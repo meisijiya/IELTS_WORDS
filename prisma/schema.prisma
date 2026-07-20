@@ -1,0 +1,97 @@
+// Prisma schema — Yasi Words
+//
+// Phase 4 (dev):  provider = sqlite, file at prisma/dev.db
+// Phase 7 (prod): provider = postgresql, DATABASE_URL → cloud PG (Neon/Supabase)
+//
+// Schema fields chosen for cross-provider compatibility:
+//   - String for enums (sqlite has no native enum)
+//   - Json for nested arrays/objects (sqlite stores as text, postgres as jsonb)
+//   - DateTime / Int / Float / Boolean: both providers support
+//
+// This file is single source of truth. To switch to PostgreSQL:
+//   1. Edit `provider = "postgresql"`
+//   2. rm -rf prisma/migrations
+//   3. npx prisma migrate dev --name init
+//   4. npx prisma db seed
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Wordbook {
+  id          Int      @id @default(autoincrement())
+  slug        String   @unique // "concise" | "full"
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+
+  words    Word[]
+  sessions Session[]
+}
+
+model Word {
+  id         Int      @id @default(autoincrement())
+  wordbookId Int
+  wordbook   Wordbook @relation(fields: [wordbookId], references: [id], onDelete: Cascade)
+
+  spelling  String
+  pos       String?  // combined POS string e.g. "n./v." or null
+  glosses   String   // JSON: [{pos: "n.", meaning: "..."}]
+  flags     String?  // JSON: ["cross_line_gloss"] or null
+
+  // Memory state (SM-2 simplified)
+  level      Int       @default(0)   // 0 = new, 1-5 = mastery ladder
+  easeFactor Float     @default(2.5)
+  interval   Int       @default(0)   // days until next review
+  dueAt      DateTime?               // next review timestamp
+  attempts   Int       @default(0)   // total attempts
+  correct    Int       @default(0)   // total correct
+
+  attemptsLog Attempt[]
+
+  @@unique([wordbookId, spelling])
+  @@index([wordbookId, dueAt])
+  @@index([wordbookId, level])
+}
+
+model Session {
+  id           String   @id // UUID
+  wordbookId   Int
+  wordbook     Wordbook @relation(fields: [wordbookId], references: [id], onDelete: Cascade)
+  wordIds      String?  // JSON array of word IDs (null = random N from wordbook)
+  startedAt    DateTime @default(now())
+  endedAt      DateTime?
+  totalWords   Int      @default(0)
+  correctCount Int      @default(0)
+
+  attempts Attempt[]
+}
+
+model Attempt {
+  id        Int      @id @default(autoincrement())
+  sessionId String
+  session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  wordId    Int
+  word      Word     @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  typed     String
+  correct   Boolean
+  retries   Int      @default(0)
+  errorType String?  // "spelling" | "skip" | null
+  createdAt DateTime @default(now())
+
+  @@index([sessionId])
+  @@index([wordId])
+}
+
+model UserSettings {
+  id             Int      @id @default(autoincrement())
+  dailyWordCount Int      @default(20)
+  flashMs        Int      @default(800)
+  fadeMs         Int      @default(300)
+  updatedAt      DateTime @updatedAt
+}

@@ -1,0 +1,132 @@
+[
+  {
+    "page": 1,
+    "spelling": "atmosphere",
+    "raw_lines": ["atmosphere", "n. 大气层, 大气, 空气, 氛围"],
+    "expected": {
+      "spelling": "atmosphere",
+      "pos": "n.",
+      "glosses": [
+        {"pos": "n.", "meaning": "大气层, 大气, 空气, 氛围"}
+      ]
+    }
+  },
+  {
+    "page": 1,
+    "spelling": "hydrosphere",
+    "raw_lines": ["hydrosphere", "n. 水圈"],
+    "expected": {
+      "spelling": "hydrosphere",
+      "pos": "n.",
+      "glosses": [
+        {"pos": "n.", "meaning": "水圈"}
+      ]
+    }
+  },
+  {
+    "page": 1,
+    "spelling": "oxygen",
+    "raw_lines": ["oxygen", "n. 氧气"],
+    "expected": {
+      "spelling": "oxygen",
+      "pos": "n.",
+      "glosses": [
+        {"pos": "n.", "meaning": "氧气"}
+      ]
+    }
+  },
+  {
+    "page": 1,
+    "spelling": "carbon dioxide",
+    "raw_lines": ["carbon", "dioxide", "n. 二氧化碳"],
+    "expected": {
+      "spelling": "carbon dioxide",
+      "pos": "n.",
+      "glosses": [
+        {"pos": "n.", "meaning": "二氧化碳"}
+      ],
+      "flags": ["multi_word_spelling"]
+    }
+  },
+  {
+    "page": 83,
+    "spelling": "radish",
+    "raw_lines": ["radish", "n. 萝卜"],
+    "expected": {
+      "spelling": "radish",
+      "pos": "n.",
+      "glosses": [
+        {"pos": "n.", "meaning": "萝卜"}
+      ]
+    }
+  },
+  {
+    "page": 83,
+    "spelling": "peel",
+    "raw_lines": ["peel", "v. 削皮, 剥落, 脱皮; n. 果皮, 剥下的皮"],
+    "expected": {
+      "spelling": "peel",
+      "pos": "v./n.",
+      "glosses": [
+        {"pos": "v.", "meaning": "削皮, 剥落, 脱皮"},
+        {"pos": "n.", "meaning": "果皮, 剥下的皮"}
+      ]
+    }
+  },
+  {
+    "page": 83,
+    "spelling": "strip",
+    "raw_lines": [
+      "strip",
+      "n. 条, 狭长地带, 队服, 脱衣舞表演, 商业街, 连环漫画; v. 脱衣服, 表演脱衣舞, 剥离,",
+      "清空, 拆卸, 剥夺"
+    ],
+    "expected": {
+      "spelling": "strip",
+      "pos": "n./v.",
+      "glosses": [
+        {"pos": "n.", "meaning": "条, 狭长地带, 队服, 脱衣舞表演, 商业街, 连环漫画"},
+        {"pos": "v.", "meaning": "脱衣服, 表演脱衣舞, 剥离, 清空, 拆卸, 剥夺"}
+      ],
+      "flags": ["cross_line_gloss"]
+    }
+  },
+  {
+    "page": 165,
+    "spelling": "contemporary",
+    "raw_lines": ["contemporary", "adj. 同时代的, 现代的, 现代风格的; n. 同时代的人"],
+    "expected": {
+      "spelling": "contemporary",
+      "pos": "adj./n.",
+      "glosses": [
+        {"pos": "adj.", "meaning": "同时代的, 现代的, 现代风格的"},
+        {"pos": "n.", "meaning": "同时代的人"}
+      ]
+    }
+  },
+  {
+    "page": 167,
+    "spelling": "intermediate",
+    "raw_lines": ["intermediate", "adj. 中间的, 中级的; n. 中级学习者"],
+    "expected": {
+      "spelling": "intermediate",
+      "pos": "adj./n.",
+      "glosses": [
+        {"pos": "adj.", "meaning": "中间的, 中级的"},
+        {"pos": "n.", "meaning": "中级学习者"}
+      ]
+    }
+  },
+  {
+    "page": 167,
+    "spelling": "simultaneous",
+    "raw_lines": ["simultaneous", "adj. 同时的"],
+    "expected": {
+      "spelling": "simultaneous",
+      "pos": "adj.",
+      "glosses": [
+        {"pos": "adj.", "meaning": "同时的"}
+      ]
+    }
+  }
+]

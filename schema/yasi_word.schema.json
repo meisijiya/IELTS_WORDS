@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://yasi.local/schema/yasi_word.schema.json",
+  "title": "Yasi Word Record",
+  "description": "A single word entry from the IELTS vocabulary PDFs (simplified schema — phonetic and examples omitted after smoke test observation).",
+  "type": "object",
+  "required": ["spelling", "glosses"],
+  "additionalProperties": false,
+  "properties": {
+    "spelling": {
+      "type": "string",
+      "description": "The English word or phrase (e.g. 'atmosphere', 'carbon dioxide').",
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z '\\-,.]*$"
+    },
+    "pos": {
+      "type": ["string", "null"],
+      "description": "Combined raw POS string from PDF (e.g. 'n./v.', 'adj.'). Optional.",
+      "pattern": "^[a-z]+\\.([/.][a-z]+\\.)*$"
+    },
+    "glosses": {
+      "type": "array",
+      "description": "One entry per POS group. Within a single POS, multiple Chinese meanings are joined with commas in `meaning`.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["pos", "meaning"],
+        "additionalProperties": false,
+        "properties": {
+          "pos": {
+            "type": "string",
+            "pattern": "^[a-z]+\\.$",
+            "description": "Single POS marker ending with period, e.g. 'n.', 'v.', 'adj.'."
+          },
+          "meaning": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Comma-joined Chinese meanings, e.g. '大气层, 大气, 空气, 氛围'."
+          }
+        }
+      }
+    },
+    "flags": {
+      "type": "array",
+      "description": "Parser confidence markers (optional).",
+      "items": {
+        "type": "string",
+        "enum": [
+          "page_boundary_gloss",
+          "multi_word_spelling",
+          "unmatched_pos",
+          "duplicate_word",
+          "cross_line_gloss"
+        ]
+      }
+    }
+  }
+}
