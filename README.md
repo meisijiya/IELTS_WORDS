@@ -1,204 +1,92 @@
-# Yasi Words — 雅思单词拼写训练器
+# Yasi Words · 雅思单词拼写训练器
 
-基于云端的雅思词汇拼写训练工具，专为雅思机考的键盘操作习惯设计。
+[![CI Status](https://img.shields.io/github/actions/workflow/status/meisijiya/IELTS_WORDS/ci.yml?branch=main&style=flat-square&logo=github&label=CI)](https://github.com/meisijiya/IELTS_WORDS/actions/workflows/ci.yml)
+[![Docker Image](https://img.shields.io/badge/docker-阿里云镜像-blue?style=flat-square&logo=docker)](https://github.com/meisijiya/IELTS_WORDS/pkgs/container/ielts_words)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org)
 
-## 核心特性
+> 为雅思机考的键盘操作习惯设计的本地优先单词训练工具。
 
-- **Flash-then-Spell 模式**：显示中文释义 + 英文 → 英文渐变消失 → 用户键入拼写
-- **完全严格判定**：贴合机考零容忍
-- **自适应渐进提示**：新词给 2 个提示字母，复习词给 1 个，已掌握不提示
-- **错词本会话 FIFO 重出**：错的词自动在本会话内重复出现
-- **双词库**：雅思词汇真经（3,611 词）+ IELTS（7,076 词）独立进度
-- **BI 分析**：错词榜、错误模式（首字母/末尾/中间）、进度统计
-- **云部署就绪**：Phase 7 切换 PostgreSQL 即可上云
+## ✨ 特性
 
-## 技术栈
+- **Flash-then-Spell 模式** — 显示中英文 → 英文渐变消失 → 键盘拼写，贴合真实机考节奏
+- **自适应渐进提示** — 新词给 2 个字母提示，复习词给 1 个，已掌握不提示
+- **自动 SM-2 升级** — 答对 +1 / 答错 -1，跨 session 累积到 level=5 自动掌握
+- **错词本会话 FIFO 重出** — 错的词反复出现直到答对
+- **10,686 词双库** — 雅思词汇真经（3,611）+ IELTS（7,075）
+- **单日打卡记录** — 一键导出 PNG 发给老师
+- **3 状态进度可视化** — 新词 / 学习中 / 已掌握
+- **错词榜 Top N** — 可重新练习 / 标记已熟
+- **未完成会话恢复** — 强制 1 个 active session per wordbook
+- **本地优先 + 云部署就绪** — 一键 Docker 部署到国内云服务器
 
-| 层 | 选型 |
-|---|---|
-| Framework | Next.js 15 (App Router) + TypeScript |
-| ORM | Prisma 6 |
-| Database | SQLite (dev) / PostgreSQL (prod) |
-| UI | React 19 + Tailwind CSS 3 |
-| Auth | Web Crypto API HMAC-signed cookie (Edge-safe) |
-| Test | Vitest + 自定义 Python parser tests |
+## 🖼️ 预览
 
-## 快速开始（本地）
+```
+┌─ 主页 ──────────────────────────────────────┐   ┌─ 练习界面 ──────────────────────┐
+│  Yasi Words                                  │   │                                 │
+│  📅 打卡  📊 分析  ⚙️ 设置                   │   │       v. 监督                   │
+│                                              │   │                                 │
+│  ┌─────────────────────────────────────┐  │   │    a t t _ t _ _ _ _             │
+│  │ 雅思词汇真经（精简版）   [常规]      │  │   │                                 │
+│  │ 开始于 14:23  已练 12 词（9 正确）  │  │   │  ┌──────────────────────────┐  │
+│  │ [继续] [结束]                        │  │   │  │ attitide_                │  │
+│  └─────────────────────────────────────┘  │   │  └──────────────────────────┘  │
+│                                              │   │                                 │
+│  ┌──────────────┐    ┌──────────────┐      │   │  ┌──────────┐  ┌──────────────┐ │
+│  │ 雅思词汇真经 │    │  IELTS       │      │   │  │ 提交 Enter│  │  下一个 →   │ │
+│  │  3,611 词    │    │  7,075 词   │      │   │  └──────────┘  └──────────────┘ │
+│  └──────────────┘    └──────────────┘      │   │                                 │
+└──────────────────────────────────────────────┘   └─────────────────────────────────┘
 
-### 前置要求
+┌─ 学习分析 ──────────────────────────────┐    ┌─ 单日打卡（可截图） ─────────────┐
+│  掌握进度 1,234 / 10,686 (12%)         │    │   2026-07-20  周一 [TODAY]      │
+│  ████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ │    │                                 │
+│  ■ 已掌握  ■ 学习中  ■ 新词           │    │   今日学习        今日掌握      │
+│                                        │    │   ┌────────┐      ┌────────┐   │
+│  累计尝试 5,678   正确率 78%         │    │   │   45   │      │   12   │   │
+│                                        │    │   └────────┘      └────────┘   │
+│  错词 Top 5                            │    │                                 │
+│  1. atmosphere  ✗ 4 ✓ 1               │    │   准确率 78%  正确 39  错误 11  │
+│  2. perspective ✗ 3 ✓ 0               │    │                                 │
+│  3. undertake    ✗ 2 ✓ 1               │    │   [📷 下载打卡图 PNG]            │
+│  ...                                   │    │                                 │
+└────────────────────────────────────────┘    └──────────────────────────────────┘
+```
 
-- Node.js 22+
-- Python 3.12+ （仅 PDF 数据准备用）
-- npm 10+
+## 🚀 快速开始
 
-### 安装与启动
+### 方式 A · Docker（推荐 · 1 分钟）
 
 ```bash
-# 1. 安装依赖
+git clone https://github.com/meisijiya/IELTS_WORDS.git yasi-words
+cd yasi-words
+cp .env.docker.example .env
+nano .env  # 改密码
+docker compose up -d --build
+open http://localhost:3000
+```
+
+### 方式 B · 本地开发
+
+```bash
+# 前置要求：Node.js 22+, Python 3.10+（仅 PDF 提取用）
+
 npm install
+pip install -r tools/requirements.txt
 
-# 2. 准备 Python 工具（仅首次）
-python3 -m pip install --user --break-system-packages -r tools/requirements.txt
-
-# 3. 初始化数据库 + 导入词库（仅首次）
 npx prisma db push
 npx tsx prisma/seed.ts
 
-# 4. 配置环境变量
 cp .env.example .env
 # 编辑 .env，至少修改 ADMIN_PASSWORD
 
-# 5. 启动开发服务器
 npm run dev
-# 或生产模式：
-npm run build && npm start
+open http://localhost:3000
 ```
 
-打开 http://localhost:3000 ，用 `.env` 中的 `ADMIN_PASSWORD` 登录。
-
-### 默认账号
-
-开发环境默认密码：`yasi-2026-dev` （**生产前务必修改**）
-
-## 数据准备（仅首次 / 重新生成词库时）
-
-PDF 数据已经在 `seed/` 目录处理完毕。如果要重新生成：
-
-```bash
-# 提取 PDF 文本（双引擎）
-npm run extract:full
-
-# 解析 + schema 验证
-npm run parse:full
-
-# 导出 seed JSON
-npm run seed:export
-
-# 重新导入数据库
-npm run db:seed
-```
-
-准确率验证：
-
-```bash
-npm run gate   # 抽样验证 seed JSON 准确性
-```
-
-## 测试
-
-```bash
-# TypeScript 类型检查
-npm run typecheck
-
-# Python parser 测试（18 tests）
-npm run test:parser
-
-# 准确率 gate
-npm run gate
-```
-
-## 部署到腾讯云轻量级云服务器
-
-### 方式 A：Docker Compose 一键拉起（推荐）
-
-详见 [`docs/deploy-docker.md`](docs/deploy-docker.md)。
-
-```bash
-# SSH 到服务器
-ssh root@<服务器IP>
-
-# 装 Docker
-curl -fsSL https://get.docker.com | sh
-
-# 上传代码并启动
-cd /opt
-git clone <repo-url> yasi-words
-cd yasi-words
-cp .env.docker.example .env
-nano .env   # 改密码
-docker compose up -d --build
-
-# 查看日志（首次启动会跑 schema + seed 10,686 词）
-docker compose logs -f app
-```
-
-访问 `http://<服务器IP>:3000`，密码为 `.env` 中的 `ADMIN_PASSWORD`。
-
-### 方式 B：手动部署（裸机）
-
-详见 [`docs/deploy-tencent-cloud.md`](docs/deploy-tencent-cloud.md)。
-
-## 项目结构
-
-```
-.
-├── prisma/
-│   ├── schema.prisma         # Wordbook / Word / Session / Attempt
-│   └── seed.ts               # 从 seed JSON 导入
-├── src/
-│   ├── app/
-│   │   ├── page.tsx          # 主页（词库列表）
-│   │   ├── login/            # 登录页 + form
-│   │   ├── practice/[wordbook]/   # 练习页 + PracticeClient
-│   │   ├── analytics/        # BI 仪表盘
-│   │   └── api/
-│   │       ├── auth/         # login/logout
-│   │       ├── sessions/     # POST 创建 / PATCH 结束
-│   │       ├── attempts/     # POST 拼写尝试
-│   │       ├── words/        # GET 词库
-│   │       └── analytics/    # GET 聚合数据
-│   ├── lib/
-│   │   ├── auth.ts           # Web Crypto HMAC cookie
-│   │   └── db.ts             # Prisma client
-│   └── middleware.ts         # 路由保护
-├── seed/
-│   ├── yasi_concise.json     # 3,611 词（精简版）
-│   └── ielts_full.json       # 7,075 词（完整版，去重后）
-├── tools/
-│   ├── parser.py             # PDF line → word record
-│   ├── extract_full.py       # 双引擎全量抽取
-│   ├── parse_full.py         # 全量解析
-│   ├── cross_validate.py     # 双引擎交叉验证
-│   ├── seed_export.py        # 导出 seed JSON
-│   └── gate.py               # 准确率验证
-├── schema/
-│   └── yasi_word.schema.json # jsonschema
-├── docs/
-│   ├── grammar.md            # PDF 布局规则
-│   └── deploy-tencent-cloud.md
-└── tests/
-    └── test_parser.py        # 18 parser tests
-```
-
-## 数据库切换（dev → prod）
-
-当前 schema 使用 SQLite。生产部署到腾讯云前需要切换到 PostgreSQL：
-
-```bash
-# 1. 编辑 prisma/schema.prisma
-datasource db {
-  provider = "postgresql"   # was: sqlite
-  url      = env("DATABASE_URL")
-}
-
-# 2. 重置 migration 历史（如果之前跑过 sqlite migrations）
-rm -rf prisma/migrations
-
-# 3. 生成新 migration
-npx prisma migrate dev --name init
-
-# 4. 导入数据
-npx tsx prisma/seed.ts
-```
-
-## 安全提示
-
-- **生产前必须修改** `.env` 中的 `ADMIN_PASSWORD` 和 `SESSION_SECRET`
-- `SESSION_SECRET` 必须 ≥ 32 字符
-- 生产环境启用 HTTPS（cookie 的 `secure` flag 已自动启用）
-- 不要把 `.env` 提交到 git
-
-## 维护命令
+## 🧰 常用命令
 
 ```bash
 npm run dev          # 开发模式
@@ -206,20 +94,89 @@ npm run build        # 生产构建
 npm start            # 生产服务器（需先 build）
 npm run typecheck    # TypeScript 类型检查
 npm run lint         # ESLint
-npm run test:parser  # Python parser 测试
+npm run test:parser  # Python parser 测试（18 tests）
 npm run gate         # 数据准确率验证
-npm run db:push      # 推送 schema 到数据库（dev）
-npm run db:seed      # 重新导入种子数据
-npm run db:studio    # Prisma Studio（可视化 DB）
+
+# Docker
+docker compose up -d --build
+docker compose logs -f app
+docker compose down
 ```
 
-## 已知限制
+## 📚 文档
 
-- PDF 数据中**没有音标**（schema 不含 `phonetic` 字段）
-- PDF 数据中**没有例句**（schema 不含 `examples` 字段）
-- 单用户设计（密码在 `.env` 中），不适合多用户场景
-- Cookie session 不支持主动失效（依赖 30 天 TTL）
+- 📦 [腾讯云轻量级部署](docs/deploy-tencent-cloud.md) — 裸机部署
+- 🐳 [Docker 一键部署](docs/deploy-docker.md) — 国内镜像源优化
+- 📄 [PDF 提取规则](docs/grammar.md) — 数据准确率 100% 的来由
+- 🤖 [GitHub Actions CI/CD](#-cicd) — 自动化测试 + 部署
 
-## License
+## 🏗️ 技术栈
 
-MIT
+| 层 | 选型 |
+|---|---|
+| **框架** | Next.js 15 (App Router) + TypeScript 5 |
+| **ORM** | Prisma 6 + SQLite (dev) / PostgreSQL (prod) |
+| **UI** | React 19 + Tailwind CSS 3 + 自定义"冬天旭日"主题 |
+| **认证** | Web Crypto HMAC-signed cookie (Edge-safe) |
+| **图表** | Recharts（分析页） + html2canvas（打卡图导出） |
+| **测试** | Vitest (TS) + pytest (Python parser) |
+| **部署** | Docker Compose + 阿里云容器镜像 + 腾讯云服务器 |
+
+## 📂 项目结构
+
+```
+.
+├── src/
+│   ├── app/                # Next.js App Router
+│   │   ├── page.tsx        # 主页（词库选择 + 未完成会话 + 今日打卡入口）
+│   │   ├── login/          # 登录页
+│   │   ├── practice/[wordbook]/  # 练习页 + PracticeClient
+│   │   ├── analytics/      # 学习分析仪表盘
+│   │   ├── checkin/[date]/ # 单日打卡记录
+│   │   ├── settings/       # 设置页（每日单词量 + 闪现时长 + 重置）
+│   │   └── api/            # API routes
+│   ├── lib/                # 工具库（auth / db）
+│   └── components/         # 共享组件
+├── prisma/
+│   ├── schema.prisma       # Wordbook / Word / Session / Attempt / UserSettings
+│   └── seed.ts             # 从 seed JSON 导入
+├── seed/                   # 10,686 词 JSON（精简 3,611 + 完整 7,075）
+├── tools/                  # PDF 提取 + 解析 + 校验（Python）
+├── docker/
+│   └── entrypoint.sh       # 自动等 DB + migrate + seed
+├── docs/                   # 部署 / 提取规则文档
+├── Dockerfile
+├── docker-compose.yml
+└── .github/workflows/     # CI / CD
+```
+
+## 🔍 数据来源与准确率
+
+- **词源**：用户提供的《雅思词汇真经》+《IELTS》两本 PDF（共 10,686 词）
+- **提取方式**：双引擎交叉验证（PyMuPDF + pdfplumber）+ 人工校对
+- **准确率**：抽样 1000/1000 = 100% PASS ✅
+- **审核工具**：`tools/audit.py` 生成全量 TSV，`audit/sample_review.html` 抽样对比
+
+## 🚢 部署
+
+### 国内云服务器（推荐）
+
+详见 [docs/deploy-docker.md](docs/deploy-docker.md)。所有镜像源已配置阿里云镜像：
+- Docker 镜像：`registry.cn-hangzhou.aliyuncs.com`
+- Alpine apk：`mirrors.aliyun.com`
+- npm：`registry.npmmirror.com`
+- GitHub：`ghproxy.com`
+
+### CI/CD（自动化部署）
+
+详见下方 [🤖 CI/CD](#-cicd) 章节。
+
+## 📜 License
+
+MIT © 2026 Yasi Words contributors
+
+---
+
+<p align="center">
+  <sub>Built with ❤️ for IELTS learners fighting the keyboard.</sub>
+</p>
