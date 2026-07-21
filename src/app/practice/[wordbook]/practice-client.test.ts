@@ -20,9 +20,12 @@ describe("cleanInput", () => {
     expect(cleanInput("heart attack extra", 12)).toBe("heart attack");
   });
 
-  it("trims leading/trailing whitespace but preserves internal spaces", () => {
-    expect(cleanInput("  heart  ", 5)).toBe("heart");
-    expect(cleanInput("  heart attack  ", 12)).toBe("heart attack");
+  it("trims leading whitespace but preserves trailing + internal spaces", () => {
+    expect(cleanInput("  heart", 10)).toBe("heart");
+    expect(cleanInput("  heart attack  ", 20)).toBe("heart attack  ");
+    // Trailing space stays visible so user can see their input;
+    // checkAnswer will judge it wrong and they'll delete it.
+    expect(cleanInput("heart attack ", 13)).toBe("heart attack ");
   });
 
   it("handles empty input", () => {

@@ -30,14 +30,16 @@ function normalizeSpelling(spelling: string): string {
 }
 
 /**
- * Strip non-letter, non-space chars, trim leading/trailing whitespace,
- * and cap to maxLen. Preserves internal spaces so compound words like
- * "heart attack" can be typed. Exported for unit testing.
+ * Strip non-letter, non-space chars, trim leading whitespace only,
+ * and cap to maxLen. Preserves internal + trailing spaces so compound
+ * words like "heart attack" can be typed, and a trailing space is
+ * visible to the user (instead of being silently dropped). Exported
+ * for unit testing.
  */
 export function cleanInput(raw: string, maxLen: number): string {
   return raw
     .replace(/[^a-zA-Z ]/g, "")
-    .replace(/^\s+|\s+$/g, "")
+    .replace(/^\s+/g, "")
     .slice(0, maxLen);
 }
 
