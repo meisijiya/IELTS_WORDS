@@ -33,18 +33,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "missing fields" }, { status: 400 });
   }
 
+  try {
   const [attempt, updatedWord, deMastered, newlyMastered] = await prisma.$transaction(async (tx) => {
     const session = await tx.session.findUnique({
       where: { id: sessionId },
       select: { mode: true },
     });
-    if (!session) throw new Error(`session ${sessionId} not found`);
+    if (!session) throw new ApiError(404, "SESSION_NOT_FOUND", "Session 不存在");
 
     const word = await tx.word.findUnique({
       where: { id: wordId },
       select: { level: true, masteredAt: true, attempts: true, correct: true },
     });
-    if (!word) throw new Error(`word ${wordId} not found`);
+    if (!word) throw new ApiError(404, "WORD_NOT_FOUND", "Word 不存在");
 
     // Review mode (错题批量练习): only log the attempt, never mutate Word state.
     // Drill mode (默认): full SM-2 ladder / mastery promotion logic.
@@ -118,4 +119,20 @@ export async function POST(request: Request) {
     deMastered,
     masteredAt: updatedWord.masteredAt,
   });
+  } catch (e) {
+    if (e instanceof ApiError) {
+      return NextResponse.json({ error: e.code, message: e.message }, { status: e.status });
+    }
+    throw e;
+  }
+}
+
+class ApiError extends Error {
+  constructor(
+    public status: number,
+    public code: string,
+    message: string,
+  ) {
+    super(message);
+  }
 }

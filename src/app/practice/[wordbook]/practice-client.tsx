@@ -20,6 +20,7 @@ const FEEDBACK_CORRECT_MS = 700;
 const QUEUE_BATCH = 20;
 const REFILL_THRESHOLD = 5;
 const QUEUE_HARD_CAP = 60;
+const MAX_LEVEL = 5;
 
 function normalizeSpelling(spelling: string): string {
   return spelling
@@ -321,11 +322,13 @@ export function PracticeClient({
 
   async function postAttempt(word: Word, input: string, correct: boolean) {
     if (!sessionId) return;
+    const ac = new AbortController();
     try {
       const res = await fetch("/api/attempts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ sessionId, wordId: word.id, typed: input, correct }),
+        signal: ac.signal,
       });
       if (!res.ok) return;
       const data: {
@@ -334,24 +337,31 @@ export function PracticeClient({
         newlyMastered: boolean;
         deMastered: boolean;
       } = await res.json();
-      // Mirror server state into queue[0] so badges (which read `current = queue[0]`) reflect fresh numbers.
-      setQueue((prev) => {
-        if (prev[0]?.id !== word.id) return prev;
-        const updated: Word = {
-          ...prev[0],
-          level: data.wordLevel,
-          attempts: prev[0].attempts + 1,
-          correct: prev[0].correct + (correct ? 1 : 0),
-          masteredAt: data.newlyMastered
-            ? data.masteredAt
-            : data.deMastered
-              ? null
-              : prev[0].masteredAt,
-        };
-        return [updated, ...prev.slice(1)];
-      });
-    } catch {
-      // Network failure doesn't block UI; user already saw the feedback.
+      // Search the whole queue — if the word was advanced off the front or
+      // pushed back on a wrong answer, it may not be queue[0] anymore.
+      setQueue((prev) =>
+        prev.map((w) =>
+          w.id !== word.id
+            ? w
+            : {
+                ...w,
+                level: data.wordLevel,
+                attempts: w.attempts + 1,
+                correct: w.correct + (correct ? 1 : 0),
+                masteredAt: data.newlyMastered
+                  ? data.masteredAt
+                  : data.deMastered
+                    ? null
+                    : w.masteredAt,
+              },
+        ),
+      );
+    } catch (e) {
+      if (e instanceof DOMException && e.name === "AbortError") return;
+      // eslint-disable-next-line no-console
+      console.warn("[attempts] submit failed:", e);
+    } finally {
+      ac.abort();
     }
   }
 
@@ -439,6 +449,22 @@ export function PracticeClient({
       if (stats.streak > 0) setStats({ ...stats, streak: 0, wrong: stats.wrong + 1 });
       else setStats({ ...stats, wrong: stats.wrong + 1 });
     }
+    // Optimistic local update — apply BEFORE advance can pop the word off queue[0]
+    // so the badge updates the moment user submits (no waiting for /api/attempts round-trip).
+    setQueue((prev) =>
+      prev.map((w) =>
+        w.id !== current.id
+          ? w
+          : {
+              ...w,
+              level: isCorrect
+                ? Math.min(MAX_LEVEL, w.level + 1)
+                : Math.max(0, w.level - 1),
+              attempts: w.attempts + 1,
+              correct: w.correct + (isCorrect ? 1 : 0),
+            },
+      ),
+    );
     postAttempt(current, userInput, isCorrect);
   }
 
