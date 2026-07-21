@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "未授权" }, { status: 401 });
   }
 
-  let body: { wordbookId?: number; wordIds?: number[] };
+  let body: { wordbookId?: number; wordIds?: number[]; mode?: string };
   try {
     body = await request.json();
   } catch {
@@ -34,6 +34,7 @@ export async function POST(request: Request) {
 
   const wordIdsJson = body.wordIds && body.wordIds.length > 0 ? JSON.stringify(body.wordIds) : null;
   const isTargeted = wordIdsJson !== null;
+  const mode = body.mode === "review" ? "review" : "drill";
 
   // Targeted sessions (错词批量练习) coexist with random sessions.
   // Conflict only when both are random, or both targeted with the SAME id set.
@@ -72,8 +73,9 @@ export async function POST(request: Request) {
       id: randomUUID(),
       wordbookId,
       wordIds: wordIdsJson,
+      mode,
     },
   });
 
-  return NextResponse.json({ id: session.id, created: true });
+  return NextResponse.json({ id: session.id, mode, created: true });
 }

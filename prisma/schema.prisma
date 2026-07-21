@@ -65,6 +65,9 @@ model Session {
   wordbookId   Int
   wordbook     Wordbook @relation(fields: [wordbookId], references: [id], onDelete: Cascade)
   wordIds      String?  // JSON array of word IDs (null = random N from wordbook)
+  // "drill" — accumulates Word.level/correct on attempts (default);
+  // "review" — only records the Attempt row; Word state stays unchanged.
+  mode         String   @default("drill")
   startedAt    DateTime @default(now())
   endedAt      DateTime?
   totalWords   Int      @default(0)

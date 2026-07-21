@@ -124,6 +124,7 @@ export function PracticeClient({
             body: JSON.stringify({
               wordbookId,
               wordIds: practiceWordIds ?? undefined,
+              mode: practiceWordIds ? "review" : "drill",
             }),
           });
           if (created.status === 409) {
@@ -536,7 +537,44 @@ export function PracticeClient({
       </div>
     );
   }
-  if (!current) return <p className="text-muted-foreground">无单词数据</p>;
+  if (!current) {
+    if (answered === 0) {
+      return (
+        <div className="max-w-md mx-auto px-4 py-12 text-center space-y-4">
+          <p className="text-muted-foreground">无单词数据</p>
+          <Link
+            href="/"
+            className="inline-block px-4 py-2 bg-accent text-accent-fg rounded-md font-medium hover:bg-accent-hover transition"
+          >
+            ← 返回主页
+          </Link>
+        </div>
+      );
+    }
+    // Empty queue but user has answered — show summary so they can leave.
+    return (
+      <div className="max-w-md mx-auto px-4 py-12 text-center space-y-6 animate-fade-in">
+        <h2 className="text-3xl font-bold tracking-tight">🎉 本轮完成</h2>
+        <p className="text-lg text-muted-foreground">
+          ✓ {stats.correct}　·　✗ {stats.wrong}　·　共 {answered} 词
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <Link
+            href="/"
+            className="inline-block px-6 py-2.5 bg-accent text-accent-fg rounded-md font-medium hover:bg-accent-hover transition"
+          >
+            返回主页
+          </Link>
+          <Link
+            href={practiceWordIds ? `/wrong-words/${wordbookSlug}` : "/analytics"}
+            className="inline-block px-6 py-2.5 border border-border rounded-md font-medium hover:border-accent hover:text-accent transition"
+          >
+            {practiceWordIds ? "查看错词榜" : "查看分析"}
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   const meaning = current.glosses.map((g) => g.meaning).join("; ");
   const len = current.spelling.length;

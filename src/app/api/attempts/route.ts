@@ -34,11 +34,33 @@ export async function POST(request: Request) {
   }
 
   const [attempt, updatedWord, deMastered, newlyMastered] = await prisma.$transaction(async (tx) => {
+    const session = await tx.session.findUnique({
+      where: { id: sessionId },
+      select: { mode: true },
+    });
+    if (!session) throw new Error(`session ${sessionId} not found`);
+
     const word = await tx.word.findUnique({
       where: { id: wordId },
-      select: { level: true, masteredAt: true },
+      select: { level: true, masteredAt: true, attempts: true, correct: true },
     });
     if (!word) throw new Error(`word ${wordId} not found`);
+
+    // Review mode (错题批量练习): only log the attempt, never mutate Word state.
+    // Drill mode (默认): full SM-2 ladder / mastery promotion logic.
+    if (session.mode === "review") {
+      const a = await tx.attempt.create({
+        data: {
+          sessionId,
+          wordId,
+          typed,
+          correct,
+          retries: body.retries ?? 0,
+          errorType: body.errorType ?? null,
+        },
+      });
+      return [a, word, false, false] as const;
+    }
 
     let newLevel: number;
     // undefined = leave masteredAt untouched; null/Date = explicit write

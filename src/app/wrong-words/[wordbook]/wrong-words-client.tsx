@@ -31,11 +31,19 @@ const TOP_OPTIONS = [
 export function WrongWordsClient({
   wordbook,
   range,
+  reviewed,
   mistakes: initial,
+  allMistakes,
+  reviewedTodayIds,
+  reviewedTodayCount,
 }: {
   wordbook: { id: number; slug: string; name: string };
   range: string;
+  reviewed: "all" | "remaining";
   mistakes: Mistake[];
+  allMistakes: Mistake[];
+  reviewedTodayIds: number[];
+  reviewedTodayCount: number;
 }) {
   const router = useRouter();
   const params = useSearchParams();
@@ -43,6 +51,10 @@ export function WrongWordsClient({
   const [topN, setTopN] = useState<number>(20);
   const [expanded, setExpanded] = useState<number | null>(null);
   const [markedIds, setMarkedIds] = useState<Set<number>>(new Set());
+  const reviewedSet = useMemo(
+    () => new Set(reviewedTodayIds),
+    [reviewedTodayIds],
+  );
   const [busyId, setBusyId] = useState<number | null>(null);
 
   useEffect(() => {
@@ -54,9 +66,16 @@ export function WrongWordsClient({
     [mistakes, topN],
   );
 
-  const batchIdsParam = useMemo(
-    () => mistakes.map((m) => m.wordId).join(","),
-    [mistakes],
+  const allIdsParam = useMemo(
+    () => [...new Set(allMistakes.map((m) => m.wordId))].join(","),
+    [allMistakes],
+  );
+  const remainingIdsParam = useMemo(
+    () => allMistakes
+      .filter((m) => !reviewedSet.has(m.wordId))
+      .map((m) => m.wordId)
+      .join(","),
+    [allMistakes, reviewedSet],
   );
 
   function setRange(next: string) {
@@ -133,21 +152,39 @@ export function WrongWordsClient({
         </div>
       </div>
 
-      {mistakes.length > 0 && (
+      {allMistakes.length > 0 && (
         <div className="rounded-lg shadow-soft-md bg-accent text-accent-fg overflow-hidden">
-          <Link
-            href={`/practice/${wordbook.slug}?ids=${batchIdsParam}`}
-            className="flex items-center justify-between px-5 py-4 hover:bg-accent-hover transition"
-          >
-            <div>
-              <p className="font-semibold flex items-center gap-2">
-                🎯 批量练习所有错词
-                <span className="text-sm opacity-90">（{mistakes.length} 词）</span>
+          <div className="px-5 pt-4 pb-2 text-xs opacity-90 flex items-baseline justify-between">
+            <span>🎯 批量练习模式：</span>
+            <span className="tabular-nums">
+              全量 {allMistakes.length} · 已复习 {reviewedTodayCount} · 剩余 {allMistakes.length - reviewedTodayCount}
+            </span>
+          </div>
+          <div className="grid grid-cols-2 divide-x divide-accent-fg/20">
+            <Link
+              href={`/practice/${wordbook.slug}?ids=${allIdsParam}`}
+              className="px-5 py-4 hover:bg-accent-hover transition text-left"
+            >
+              <p className="font-semibold flex items-baseline gap-2">
+                全量复习
+                <span className="text-sm opacity-90">（{allMistakes.length} 词）</span>
               </p>
-              <p className="text-xs opacity-80 mt-1">创建独立的错词会话，可与现有未完成会话并行</p>
-            </div>
-            <span className="text-2xl">→</span>
-          </Link>
+              <p className="text-xs opacity-80 mt-1">包括今日已复习的</p>
+            </Link>
+            <Link
+              href={`/practice/${wordbook.slug}?ids=${remainingIdsParam}`}
+              className={`px-5 py-4 transition text-left ${
+                remainingIdsParam ? "hover:bg-accent-hover" : "opacity-40 pointer-events-none"
+              }`}
+              aria-disabled={!remainingIdsParam}
+            >
+              <p className="font-semibold flex items-baseline gap-2">
+                仅剩余
+                <span className="text-sm opacity-90">（{allMistakes.length - reviewedTodayCount} 词）</span>
+              </p>
+              <p className="text-xs opacity-80 mt-1">跳过今日已复习的</p>
+            </Link>
+          </div>
         </div>
       )}
 
@@ -174,6 +211,11 @@ export function WrongWordsClient({
                     <span className="font-medium truncate">{w.spelling}</span>
                     {w.pos && (
                       <span className="text-xs font-mono text-muted-fg shrink-0">{w.pos}</span>
+                    )}
+                    {reviewedSet.has(w.wordId) && (
+                      <span className="text-xs px-2 py-0.5 bg-success/15 text-success rounded-full font-medium shrink-0">
+                        ✓ 今日已复习
+                      </span>
                     )}
                   </span>
                   <span className="text-xs text-muted-fg shrink-0">

@@ -7,19 +7,18 @@ export const dynamic = "force-dynamic";
 
 interface PageProps {
   params: Promise<{ wordbook: string }>;
-  searchParams: Promise<{ range?: string }>;
+  searchParams: Promise<{ range?: string; reviewed?: "all" | "remaining" }>;
 }
 
 export default async function WrongWordsPage({ params, searchParams }: PageProps) {
   const { wordbook: slug } = await params;
-  const { range = "all" } = await searchParams;
+  const { range = "all", reviewed = "remaining" } = await searchParams;
 
   const wordbook = await prisma.wordbook.findUnique({ where: { slug } });
   if (!wordbook) {
     redirect("/analytics");
   }
 
-  // Pull a wider set than /api/analytics (50 cap) so the page can rank all-time fails.
   const since = (() => {
     const now = new Date();
     if (range === "today") return new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -36,15 +35,27 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
     return null;
   })();
 
-  const attempts = await prisma.attempt.findMany({
-    where: {
-      session: { wordbookId: wordbook.id },
-      ...(since ? { createdAt: { gte: since } } : {}),
-    },
-    include: { word: true },
-    orderBy: { createdAt: "desc" },
-    take: 5000,
-  });
+  const [attempts, todayAttempts] = await Promise.all([
+    prisma.attempt.findMany({
+      where: {
+        session: { wordbookId: wordbook.id },
+        ...(since ? { createdAt: { gte: since } } : {}),
+      },
+      include: { word: true },
+      orderBy: { createdAt: "desc" },
+      take: 5000,
+    }),
+    prisma.attempt.findMany({
+      where: {
+        session: { wordbookId: wordbook.id },
+        createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
+      },
+      select: { wordId: true },
+      distinct: ["wordId"],
+    }),
+  ]);
+
+  const reviewedToday = new Set(todayAttempts.map((a) => a.wordId));
 
   const map = new Map<number, { wordId: number; spelling: string; pos: string | null; glosses: { pos: string; meaning: string }[]; mistakes: number; correct: number; level: number }>();
   for (const a of attempts) {
@@ -66,11 +77,21 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
     .filter((m) => m.mistakes > 0 && m.level < 5)
     .sort((a, b) => b.mistakes - a.mistakes || a.correct - b.correct);
 
+  const filteredMistakes = reviewed === "remaining"
+    ? mistakes.filter((m) => !reviewedToday.has(m.wordId))
+    : mistakes;
+
+  const reviewedCount = mistakes.filter((m) => reviewedToday.has(m.wordId)).length;
+
   return (
     <WrongWordsClient
       wordbook={{ id: wordbook.id, slug: wordbook.slug, name: wordbook.name }}
       range={range}
-      mistakes={mistakes}
+      reviewed={reviewed}
+      mistakes={filteredMistakes}
+      reviewedTodayIds={[...reviewedToday]}
+      reviewedTodayCount={reviewedCount}
+      allMistakes={mistakes}
     />
   );
 }
