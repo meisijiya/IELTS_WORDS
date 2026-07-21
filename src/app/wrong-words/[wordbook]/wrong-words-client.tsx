@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import type { DailyStat } from "@/lib/word-history";
+import { WrongWordSparkline } from "@/components/wrong-word-sparkline";
 
 interface Mistake {
   wordId: number;
@@ -229,6 +230,9 @@ export function WrongWordsClient({
                 </button>
                 {isExpanded && (
                   <div className="px-3 pb-3 pt-1 border-t border-border/60 bg-muted/20 space-y-2">
+                    <div className="pt-2">
+                      <WrongWordSparkline data={wordHistories[w.wordId] ?? []} />
+                    </div>
                     {w.glosses.length > 0 && (
                       <ul className="text-sm space-y-0.5">
                         {w.glosses.slice(0, 3).map((g, i) => (
