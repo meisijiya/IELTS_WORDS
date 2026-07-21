@@ -112,6 +112,61 @@ docker compose down
 docker compose down -v
 ```
 
+## 🔊 音频文件
+
+`/public/audio/` 是 `.gitignore` 的，**新镜像首次启动时 audio 为空**。
+
+entrypoint 自动检测并下载：
+
+- 检测 `public/audio/*.mp3` 文件数
+- **< 1000** → 自动跑 `python3 tools/fetch_pronunciations.py` 下载 US+UK 双口音（约 30 分钟，取决于网速）
+- **≥ 1000** → 跳过（audio 已 baked-in 或来自 volume mount）
+
+下载失败的词会被记录到 `public/audio/FAILED.txt`，下次启动可手动重试：
+
+```bash
+docker compose exec app python3 tools/fetch_pronunciations.py --limit 0
+```
+
+### 加速首次部署（可选）
+
+**方式 A · 用预打包的 audio tarball**：在能访问的机器上下载好 audio，
+打包传到服务器，服务器启动时导入。这比让容器内重下要快。
+
+```bash
+# 1. 在本地下载 audio（一次性 ~30 min）
+python3 tools/fetch_pronunciations.py
+
+# 2. 打包
+tar czf audio.tgz public/audio/
+
+# 3. 上传到服务器（任意方式：scp / rclone / OSS / Gitee LFS）
+scp audio.tgz root@<服务器IP>:/opt/yasi-words/
+
+# 4. 服务器上解包（容器启动前）
+cd /opt/yasi-words
+tar xzf audio.tgz public/audio/
+
+# 5. docker compose up，entrypoint 检测到 ≥1000 → 跳过下载
+docker compose up -d --build
+```
+
+**方式 B · 用 GitHub Release（如果带宽够）**：
+
+- 把 `audio.tgz` 上传到 GitHub Releases（无需 LFS，常规附件支持 2GB）
+- 服务器启动时从 release 下载：
+
+```bash
+# 在 docker-compose.yml 加一个 init container：
+#   - 用 wget 下载 release/audio.tgz 并解包到 named volume
+```
+
+**方式 C · 不用任何优化，等 30 分钟**：
+
+- 适合一次性 demo 服务器
+- 容器已经在跑了，没人能访问之前 download 就完成
+- entrypoint 自动启动时跑，能最多省事
+
 ## 反向代理（HTTPS，可选）
 
 ```bash
