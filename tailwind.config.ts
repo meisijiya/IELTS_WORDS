@@ -79,6 +79,11 @@ const config: Config = {
           "60%": { transform: "scale(1.08)", opacity: "1" },
           "100%": { transform: "scale(1)", opacity: "1" },
         },
+        "streak-flash": {
+          "0%": { transform: "scale(1)", filter: "brightness(1)" },
+          "40%": { transform: "scale(1.15)", filter: "brightness(1.4)" },
+          "100%": { transform: "scale(1)", filter: "brightness(1)" },
+        },
       },
       animation: {
         "fade-in": "fade-in 200ms ease-out",
@@ -86,6 +91,7 @@ const config: Config = {
         shimmer: "shimmer 2s linear infinite",
         shake: "shake 350ms ease-in-out",
         "pop-in": "pop-in 220ms ease-out",
+        "streak-flash": "streak-flash 600ms ease-out",
       },
     },
   },

@@ -178,15 +178,23 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
           </section>
 
           <section className="space-y-3">
-            <div className="flex items-baseline justify-between">
+            <div className="flex items-baseline justify-between gap-2 flex-wrap">
               <h2 className="text-lg font-semibold">错词榜 · Top {data.topMissed.length}</h2>
               {data.topMissed.length > 0 && wordbook && (
-                <Link
-                  href={`/practice/${wordbook.slug}?ids=${mistakeIdsParam}`}
-                  className="text-sm text-accent hover:underline"
-                >
-                  🎯 批量练习这些错词
-                </Link>
+                <div className="flex gap-3 text-sm">
+                  <Link
+                    href={`/wrong-words/${wordbook.slug}?range=${range}`}
+                    className="text-muted-fg hover:text-accent transition"
+                  >
+                    查看全部 →
+                  </Link>
+                  <Link
+                    href={`/practice/${wordbook.slug}?ids=${mistakeIdsParam}`}
+                    className="text-accent hover:underline"
+                  >
+                    🎯 批量练习
+                  </Link>
+                </div>
               )}
             </div>
             {data.topMissed.length === 0 ? (
