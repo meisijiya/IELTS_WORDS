@@ -91,9 +91,17 @@ def fetch(spelling: str, type_id: int = 2, retries: int = 3) -> bytes | None:
             )
             with urlopen(req, timeout=15, context=ctx) as resp:
                 data = resp.read()
-            if len(data) > 1000 and (data[:3] == b"ID3" or data[:2] in (b"\xff\xfb", b"\xff\xf3") or data[:1] == b"\xff"):
+            # Youdao returns WAV (RIFF/WAVE) for some words — accept it;
+            # the .mp3 extension is just a label, browsers play either via
+            # MIME sniffing.
+            if len(data) > 1000 and (
+                data[:3] == b"ID3"
+                or data[:2] in (b"\xff\xfb", b"\xff\xf3")
+                or data[:1] == b"\xff"
+                or data[:4] == b"RIFF"
+            ):
                 return data
-            last_err = f"non-mp3 ({len(data)} bytes, prefix={data[:30]!r})"
+            last_err = f"non-audio ({len(data)} bytes, prefix={data[:30]!r})"
         except Exception as exc:
             last_err = f"{type(exc).__name__}: {exc}"
         if attempt < retries - 1:

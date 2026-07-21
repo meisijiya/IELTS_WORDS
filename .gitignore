@@ -44,8 +44,7 @@ next-env.d.ts
 /diff/
 /parsed/
 
-# Audit reports (large generated TSVs)
-/audit/
+
 
 # Planning + omo metadata (generated locally)
 /.planning/
