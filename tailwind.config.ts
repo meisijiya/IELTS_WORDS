@@ -69,11 +69,23 @@ const config: Config = {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        shake: {
+          "0%, 100%": { transform: "translateX(0)" },
+          "20%, 60%": { transform: "translateX(-6px)" },
+          "40%, 80%": { transform: "translateX(6px)" },
+        },
+        "pop-in": {
+          "0%": { transform: "scale(0.6)", opacity: "0" },
+          "60%": { transform: "scale(1.08)", opacity: "1" },
+          "100%": { transform: "scale(1)", opacity: "1" },
+        },
       },
       animation: {
         "fade-in": "fade-in 200ms ease-out",
         "fade-out": "fade-out 200ms ease-in",
         shimmer: "shimmer 2s linear infinite",
+        shake: "shake 350ms ease-in-out",
+        "pop-in": "pop-in 220ms ease-out",
       },
     },
   },

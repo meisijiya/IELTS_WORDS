@@ -11,15 +11,28 @@ ENV npm_config_registry=https://registry.npmmirror.com
 
 WORKDIR /app
 
-# Install OS deps for python (PDF parsing fallback)
-RUN apk add --no-cache python3 py3-pip
+# Install OS deps: python3 for tools/, curl for optional audio bundle below.
+RUN apk add --no-cache python3 py3-pip curl
 
 # Install Node deps
 COPY package.json package-lock.json ./
 RUN npm ci
 
-# Copy source
+# Copy source (public/audio/ gitignored — empty here; baked below if AUDIO_BUNDLE_URL set)
 COPY . .
+
+# Bake pronunciation audio into the image at build time.
+# ghproxy.com prefix works for GitHub releases inside mainland China.
+# Default empty → image ships without pre-baked audio (still functions, just silent).
+ARG AUDIO_BUNDLE_URL=""
+RUN if [ -n "$AUDIO_BUNDLE_URL" ]; then \
+      echo "Baking audio from $AUDIO_BUNDLE_URL"; \
+      mkdir -p public/audio; \
+      curl -fsSL --max-time 300 "$AUDIO_BUNDLE_URL" | tar xz -C public/audio/ \
+        || echo "WARN: audio bundle fetch failed; continuing without audio"; \
+    else \
+      echo "AUDIO_BUNDLE_URL not set — image ships without pre-baked audio"; \
+    fi
 
 # Generate Prisma client (sqlite for local dev consistency)
 RUN npx prisma generate

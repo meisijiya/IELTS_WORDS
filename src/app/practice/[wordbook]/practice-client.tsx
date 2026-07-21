@@ -176,11 +176,50 @@ export function PracticeClient({
     }
   }
 
+  function playTone(freq: number, ms: number, type: OscillatorType = "sine", vol = 0.18) {
+    try {
+      const Ctx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      const ctx = new Ctx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.value = freq;
+      osc.type = type;
+      const t0 = ctx.currentTime;
+      gain.gain.setValueAtTime(vol, t0);
+      gain.gain.exponentialRampToValueAtTime(0.001, t0 + ms / 1000);
+      osc.start(t0);
+      osc.stop(t0 + ms / 1000 + 0.02);
+      osc.onended = () => ctx.close();
+    } catch {
+      // ignore
+    }
+  }
+
+  function playCorrectChime() {
+    playTone(1046, 110, "sine");
+    window.setTimeout(() => playTone(1568, 140, "sine"), 90);
+  }
+
+  function playWrongBuzz() {
+    playTone(440, 130, "sawtooth");
+    window.setTimeout(() => playTone(330, 180, "sawtooth"), 100);
+  }
+
   useEffect(() => {
     if (!showSpelling && !feedback) {
       inputRef.current?.focus();
     }
   }, [showSpelling, feedback]);
+
+  // Play pronunciation a second time when answer submitted (correct or wrong).
+  useEffect(() => {
+    if (feedback && current && enablePronunciation) {
+      const id = window.setTimeout(() => playPronunciation(current.spelling), 80);
+      return () => window.clearTimeout(id);
+    }
+  }, [feedback]);
 
   async function postAttempt(word: Word, input: string, correct: boolean) {
     if (!sessionId) return;
@@ -242,6 +281,8 @@ export function PracticeClient({
       expected: isCorrect ? undefined : current.spelling,
       typed: isCorrect ? undefined : userInput,
     });
+    if (isCorrect) playCorrectChime();
+    else playWrongBuzz();
     postAttempt(current, userInput, isCorrect);
   }
 
@@ -364,6 +405,16 @@ export function PracticeClient({
             {current.spelling}
           </div>
         ) : null}
+        {feedback && feedback.correct && (
+          <div key={`ok-${current.id}-${stats.correct}`} className="text-3xl font-bold text-success animate-pop-in">
+            {current.spelling}
+          </div>
+        )}
+        {feedback && !feedback.correct && (
+          <div key={`wrong-${current.id}-${stats.wrong}`} className="text-3xl font-bold text-error animate-shake">
+            {current.spelling}
+          </div>
+        )}
       </div>
 
       <div className="text-center text-lg text-muted-foreground min-h-[2rem]">

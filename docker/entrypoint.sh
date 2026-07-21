@@ -48,19 +48,9 @@ else
   echo "[entrypoint] skipping seed (DB has $WORD_COUNT words)"
 fi
 
-# Auto-fetch pronunciation audio if not baked in.
-# public/audio/ is gitignored; threshold 1000 = skip if already cached.
+# Audio is baked into the image via Dockerfile AUDIO_BUNDLE_URL; report count only.
 AUDIO_COUNT=$(find public/audio -type f -name "*.mp3" 2>/dev/null | wc -l)
-echo "[entrypoint] audio files present: $AUDIO_COUNT"
-if [ "$AUDIO_COUNT" -lt 1000 ]; then
-  echo "[entrypoint] audio insufficient — running fetch_pronunciations.py (US+UK)..."
-  python3 tools/fetch_pronunciations.py --concurrency 6 --delay 0.2 || \
-    echo "[entrypoint] WARN: audio fetch incomplete; some words may lack audio"
-  AUDIO_COUNT=$(find public/audio -type f -name "*.mp3" 2>/dev/null | wc -l)
-  echo "[entrypoint] audio fetch done: $AUDIO_COUNT files"
-else
-  echo "[entrypoint] audio sufficient, skipping fetch"
-fi
+echo "[entrypoint] audio files (baked in): $AUDIO_COUNT"
 
 # Restore Prisma schema if we patched it
 if [ "${NEED_RESTORE:-0}" = "1" ]; then
