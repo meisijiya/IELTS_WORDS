@@ -52,7 +52,7 @@ def normalize(spelling: str) -> str:
 
 def collect_words(book: str) -> list[tuple[str, str]]:
     """Return list of (spelling, book_slug)."""
-    file_map = {"concise": "yasi_concise.json", "full": "ielts_full.json"}
+    file_map = {"concise": "yasi_concise.json", "full": "ielts_full.json", "cet6": "cet6.json"}
     path = SEED / file_map[book]
     data = json.loads(path.read_text(encoding="utf-8"))
     out = []
@@ -103,7 +103,7 @@ def fetch(spelling: str, type_id: int = 2, retries: int = 3) -> bytes | None:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--book", choices=["concise", "full"], action="append", help="limit to specific book(s)")
+    ap.add_argument("--book", choices=["concise", "full", "cet6"], action="append", help="limit to specific book(s)")
     ap.add_argument("--us", action="store_true", help="US English only (skip UK)")
     ap.add_argument("--uk", action="store_true", help="UK English only (skip US)")
     ap.add_argument("--concurrency", type=int, default=8, help="concurrent requests (default 8; lower if rate-limited)")

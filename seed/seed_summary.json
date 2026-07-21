@@ -12,5 +12,12 @@
     "description": "IELTS (7076词) — 完整版",
     "records": 7076,
     "size_kb": 1215.6
+  },
+  {
+    "book": "book_c",
+    "filename": "cet6.json",
+    "description": "大学英语六级词汇 (5518词) — CET-6",
+    "records": 5518,
+    "size_kb": 1613.8
   }
 ]

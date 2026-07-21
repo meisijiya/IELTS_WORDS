@@ -24,6 +24,12 @@ const WORDBOOKS = [
     description: "完整 7076 词 · 进阶全覆盖",
     seedFile: "ielts_full.json",
   },
+  {
+    slug: "cet6",
+    name: "大学英语六级词汇",
+    description: "CET-6 5518 词 · 含真人发音",
+    seedFile: "cet6.json",
+  },
 ];
 
 async function main() {
