@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/db";
 import { redirect } from "next/navigation";
+import { aggregateWordHistories } from "@/lib/word-history";
 import { WrongWordsClient } from "./wrong-words-client";
 
 export const dynamic = "force-dynamic";
@@ -19,8 +20,9 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
     redirect("/analytics");
   }
 
+  const now = new Date();
+
   const since = (() => {
-    const now = new Date();
     if (range === "today") return new Date(now.getFullYear(), now.getMonth(), now.getDate());
     if (range === "week") {
       const d = new Date(now);
@@ -35,7 +37,10 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
     return null;
   })();
 
-  const [attempts, todayAttempts] = await Promise.all([
+  const thirtyDaysAgo = new Date(now);
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+  const [attempts, todayAttempts, historyAttempts] = await Promise.all([
     prisma.attempt.findMany({
       where: {
         session: { wordbookId: wordbook.id },
@@ -52,6 +57,15 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
       },
       select: { wordId: true },
       distinct: ["wordId"],
+    }),
+    prisma.attempt.findMany({
+      where: {
+        session: { wordbookId: wordbook.id },
+        createdAt: { gte: thirtyDaysAgo },
+      },
+      select: { wordId: true, correct: true, createdAt: true },
+      orderBy: { createdAt: "desc" },
+      take: 5000,
     }),
   ]);
 
@@ -83,6 +97,8 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
 
   const reviewedCount = mistakes.filter((m) => reviewedToday.has(m.wordId)).length;
 
+  const wordHistories = aggregateWordHistories(historyAttempts, now);
+
   return (
     <WrongWordsClient
       wordbook={{ id: wordbook.id, slug: wordbook.slug, name: wordbook.name }}
@@ -92,6 +108,7 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
       reviewedTodayIds={[...reviewedToday]}
       reviewedTodayCount={reviewedCount}
       allMistakes={mistakes}
+      wordHistories={wordHistories}
     />
   );
 }

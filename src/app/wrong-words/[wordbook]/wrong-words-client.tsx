@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import type { DailyStat } from "@/lib/word-history";
 
 interface Mistake {
   wordId: number;
@@ -36,6 +37,7 @@ export function WrongWordsClient({
   allMistakes,
   reviewedTodayIds,
   reviewedTodayCount,
+  wordHistories,
 }: {
   wordbook: { id: number; slug: string; name: string };
   range: string;
@@ -44,6 +46,7 @@ export function WrongWordsClient({
   allMistakes: Mistake[];
   reviewedTodayIds: number[];
   reviewedTodayCount: number;
+  wordHistories: Record<number, DailyStat[]>;
 }) {
   const router = useRouter();
   const params = useSearchParams();
