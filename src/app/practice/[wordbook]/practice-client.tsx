@@ -29,6 +29,18 @@ function normalizeSpelling(spelling: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
+/**
+ * Strip non-letter, non-space chars, trim leading/trailing whitespace,
+ * and cap to maxLen. Preserves internal spaces so compound words like
+ * "heart attack" can be typed. Exported for unit testing.
+ */
+export function cleanInput(raw: string, maxLen: number): string {
+  return raw
+    .replace(/[^a-zA-Z ]/g, "")
+    .replace(/^\s+|\s+$/g, "")
+    .slice(0, maxLen);
+}
+
 function computeHintPositions(spelling: string, level: number): Set<number> {
   const hints = new Set<number>();
   const len = spelling.length;
@@ -483,10 +495,7 @@ export function PracticeClient({
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (feedback) return;
-    const clean = e.target.value
-      .replace(/[^a-zA-Z]/g, "")
-      .slice(0, current?.spelling.length ?? 0);
-    setUserInput(clean);
+    setUserInput(cleanInput(e.target.value, current?.spelling.length ?? 0));
   }
 
   async function handleEndSessionFinal() {
