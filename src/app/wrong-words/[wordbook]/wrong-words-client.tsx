@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { PartyPopper, Target, Dumbbell, Check, X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import type { DailyStat } from "@/lib/word-history";
@@ -25,10 +26,8 @@ const RANGE_TABS: { value: string; label: string }[] = [
 ];
 
 const TOP_OPTIONS = [
-  { value: 5, label: "Top 5" },
   { value: 10, label: "Top 10" },
-  { value: 20, label: "Top 20" },
-  { value: 0, label: "全部" },
+  { value: 0, label: "查看全部" },
 ];
 
 export function WrongWordsClient({
@@ -51,7 +50,7 @@ export function WrongWordsClient({
   const router = useRouter();
   const params = useSearchParams();
   const [mistakes, setMistakes] = useState(initial);
-  const [topN, setTopN] = useState<number>(20);
+  const [topN, setTopN] = useState<number>(10);
   const [expanded, setExpanded] = useState<number | null>(null);
   const [markedIds, setMarkedIds] = useState<Set<number>>(new Set());
   const reviewedSet = useMemo(
@@ -117,7 +116,7 @@ export function WrongWordsClient({
         </h1>
         <p className="text-sm text-muted-fg">
           {mistakes.length === 0
-            ? "🎉 当前范围暂无错词"
+            ? <span className="inline-flex items-center gap-1.5"><PartyPopper className="h-4 w-4" /> 当前范围暂无错词</span>
             : `共 ${mistakes.length} 个错词，按错误次数排序`}
         </p>
       </header>
@@ -160,7 +159,7 @@ export function WrongWordsClient({
       {allMistakes.length > 0 && (
         <div className="rounded-lg shadow-soft-md bg-accent text-accent-fg overflow-hidden">
           <div className="px-5 pt-4 pb-2 text-xs opacity-90 flex items-baseline justify-between">
-            <span>🎯 批量练习模式：</span>
+            <span className="inline-flex items-center gap-1.5"><Target className="h-3.5 w-3.5" /> 批量练习模式：</span>
             <span className="tabular-nums">
               全量 {allMistakes.length} · 已复习 {reviewedTodayCount} · 剩余 {allMistakes.length - reviewedTodayCount}
             </span>
@@ -194,7 +193,7 @@ export function WrongWordsClient({
       )}
 
       {visibleMistakes.length === 0 ? (
-        <p className="text-center text-muted-fg py-12">当前 Top 没有错词 💪</p>
+        <p className="text-center text-muted-fg py-12 inline-flex items-center gap-1.5"><Dumbbell className="h-4 w-4" /> 当前 Top 没有错词</p>
       ) : (
         <ol className="space-y-2">
           {visibleMistakes.map((w, idx) => {
@@ -218,15 +217,15 @@ export function WrongWordsClient({
                       <span className="text-xs font-mono text-muted-fg shrink-0">{w.pos}</span>
                     )}
                     {reviewedSet.has(w.wordId) && (
-                      <span className="text-xs px-2 py-0.5 bg-success/15 text-success rounded-full font-medium shrink-0">
-                        ✓ 今日已复习
+                      <span className="text-xs px-2 py-0.5 bg-success/15 text-success rounded-full font-medium shrink-0 inline-flex items-center gap-1">
+                        <Check className="h-3 w-3" /> 今日已复习
                       </span>
                     )}
                   </span>
                   <span className="text-xs text-muted-fg shrink-0">
-                    <span className="text-error font-semibold">{w.mistakes} ✗</span>
+                    <span className="text-error font-semibold inline-flex items-center gap-0.5">{w.mistakes} <X className="h-3 w-3" /></span>
                     <span className="mx-1">·</span>
-                    <span className="text-success">{w.correct} ✓</span>
+                    <span className="text-success inline-flex items-center gap-0.5">{w.correct} <Check className="h-3 w-3" /></span>
                   </span>
                 </button>
                 {isExpanded && (
