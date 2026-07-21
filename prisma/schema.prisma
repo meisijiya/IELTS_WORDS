@@ -51,6 +51,7 @@ model Word {
   dueAt      DateTime?               // next review timestamp
   attempts   Int       @default(0)   // total attempts
   correct    Int       @default(0)   // total correct
+  masteredAt DateTime?               // first time level reached 5; null on de-master
 
   attemptsLog Attempt[]
 
@@ -90,7 +91,6 @@ model Attempt {
 
 model UserSettings {
   id                    Int      @id @default(autoincrement())
-  dailyWordCount        Int      @default(20)
   flashMs               Int      @default(800)
   fadeMs                Int      @default(300)
   // "both" | "flash" | "feedback" | "off" — pronounces on flash-phase and/or feedback-phase

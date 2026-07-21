@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 type PronMode = "both" | "flash" | "feedback" | "off";
 
 interface Settings {
-  dailyWordCount: number;
   flashMs: number;
   fadeMs: number;
   pronunciationMode: PronMode;
@@ -71,28 +70,6 @@ export function SettingsClient() {
       <Link href="/" className="text-sm text-muted-fg hover:text-accent">
         ← 返回主页
       </Link>
-
-      <section className="space-y-3">
-        <h2 className="text-lg font-semibold">每日学习单词量</h2>
-        <p className="text-sm text-muted-fg">
-          每次"开始练习"会从这个数量中随机抽取（不重复）
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {[5, 10, 20, 50, 100].map((n) => (
-            <button
-              key={n}
-              onClick={() => setSettings({ ...settings, dailyWordCount: n })}
-              className={`px-4 py-2 rounded border ${
-                settings.dailyWordCount === n
-                  ? "bg-accent text-accent-fg border-accent"
-                  : "border-gray-300 dark:border-gray-700 hover:border-accent"
-              }`}
-            >
-              {n} 词
-            </button>
-          ))}
-        </div>
-      </section>
 
       <section className="space-y-3">
         <h2 className="text-lg font-semibold">闪现时长（毫秒）</h2>

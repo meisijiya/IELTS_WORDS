@@ -10,6 +10,9 @@ interface Word {
   pos: string | null;
   glosses: { pos: string; meaning: string }[];
   level: number;
+  attempts: number;
+  correct: number;
+  masteredAt: string | null;
 }
 
 const FADE_MS = 300;
@@ -508,6 +511,29 @@ export function PracticeClient({
       <div className="text-center text-lg text-muted-foreground min-h-[2rem]">
         {current.pos && <span className="mr-2 font-mono text-sm">{current.pos}</span>}
         <span>{meaning}</span>
+      </div>
+
+      <div className="flex items-center justify-center gap-3 text-xs flex-wrap">
+        {current.masteredAt ? (
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-success/15 text-success rounded-full font-medium">
+            ✦ 已熟练
+            <span className="text-success/70">· 第 {current.attempts} 次（答对 {current.correct} 次）</span>
+            <span className="text-success/70">· 复习中</span>
+          </span>
+        ) : current.attempts > 0 ? (
+          <>
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-accent-soft text-accent rounded-full font-medium">
+              等级 {current.level} / 5
+            </span>
+            <span className="text-muted-foreground">
+              已答对 {current.correct} 次 · 总尝试 {current.attempts}
+            </span>
+          </>
+        ) : (
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-muted text-muted-foreground rounded-full">
+            ✧ 新词
+          </span>
+        )}
       </div>
 
       <div className="space-y-5">
