@@ -155,7 +155,6 @@ export function PracticeClient({
           return;
         }
         setQueue(words);
-        setAnswered(words.length);
         setLoading(false);
       } catch (e) {
         if (cancelled) return;
