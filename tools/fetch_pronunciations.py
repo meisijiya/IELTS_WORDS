@@ -68,7 +68,6 @@ _GLOBAL_DELAY = 0.4  # seconds between requests (per worker)
 
 def fetch(spelling: str, type_id: int = 2, retries: int = 3) -> bytes | None:
     """Fetch mp3 bytes; None on persistent failure. Sleeps _GLOBAL_DELAY after each call."""
-    import ssl
     url = f"{YOUDAO_BASE}?audio={quote(spelling)}&type={type_id}"
     last_err = None
     try:
@@ -77,9 +76,6 @@ def fetch(spelling: str, type_id: int = 2, retries: int = 3) -> bytes | None:
         pass
     for attempt in range(retries):
         try:
-            ctx = ssl.create_default_context()
-            ctx.check_hostname = False
-            ctx.verify_mode = ssl.CERT_NONE
             req = Request(
                 url,
                 headers={
@@ -89,7 +85,7 @@ def fetch(spelling: str, type_id: int = 2, retries: int = 3) -> bytes | None:
                     "Referer": "https://www.youdao.com/",
                 },
             )
-            with urlopen(req, timeout=15, context=ctx) as resp:
+            with urlopen(req, timeout=15) as resp:
                 data = resp.read()
             # Youdao returns WAV (RIFF/WAVE) for some words — accept it;
             # the .mp3 extension is just a label, browsers play either via

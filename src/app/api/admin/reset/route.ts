@@ -57,6 +57,7 @@ export async function POST(request: Request) {
     await prisma.attempt.deleteMany({});
     await prisma.session.deleteMany({});
     await prisma.word.updateMany({
+      where: { OR: [{ attempts: { gt: 0 } }, { correct: { gt: 0 } }, { level: { gt: 0 } }, { masteredAt: { not: null } }] },
       data: { level: 0, interval: 0, dueAt: null, attempts: 0, correct: 0, masteredAt: null },
     });
     return NextResponse.json({ ok: true, scope: "all" });
@@ -67,6 +68,7 @@ export async function POST(request: Request) {
   await prisma.attempt.deleteMany({});
   await prisma.session.deleteMany({});
   await prisma.word.updateMany({
+    where: { OR: [{ attempts: { gt: 0 } }, { correct: { gt: 0 } }, { level: { gt: 0 } }, { masteredAt: { not: null } }] },
     data: { level: 0, interval: 0, dueAt: null, attempts: 0, correct: 0, masteredAt: null },
   });
   return NextResponse.json({ ok: true, scope: "progress" });

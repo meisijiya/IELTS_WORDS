@@ -191,9 +191,18 @@ export async function readCheckin(
     wordsAttempted: row.wordsAttempted,
     sessionsCount: row.sessionsCount,
     cumulativeMastered: row.cumulativeMastered,
-    topMissed: JSON.parse(row.topMissedJson),
-    wordbookBreakdown: JSON.parse(row.wordbookBreakdownJson),
+    topMissed: safeParseJson(row.topMissedJson, []),
+    wordbookBreakdown: safeParseJson(row.wordbookBreakdownJson, {}),
     weekday: WEEKDAYS[new Date(row.date + "T00:00:00").getDay()],
     isToday: row.date === fmtDate(new Date()),
   };
+}
+
+function safeParseJson<T>(raw: string | null | undefined, fallback: T): T {
+  if (!raw) return fallback;
+  try {
+    return JSON.parse(raw) as T;
+  } catch {
+    return fallback;
+  }
 }

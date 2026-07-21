@@ -107,8 +107,6 @@ model Checkin {
   topMissedJson         String   @default("[]") // JSON: Mistake[]
   wordbookBreakdownJson String   @default("{}") // JSON: Record<wordbookId, WordbookStat>
   createdAt             DateTime @default(now())
-
-  @@index([date])
 }
 
 model UserSettings {

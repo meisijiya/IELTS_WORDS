@@ -115,10 +115,6 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
     if (!data?.topMissed) return [];
     return data.topMissed.slice(0, 10);
   }, [data?.topMissed]);
-  const mistakeIdsParam = useMemo(() => {
-    if (!data?.topMissed.length) return "";
-    return data.topMissed.map((w) => w.wordId).slice(0, 20).join(",");
-  }, [data?.topMissed]);
 
   if (wordbooks.length === 0) {
     return <p className="text-muted-fg">暂无词库</p>;

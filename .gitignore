@@ -44,6 +44,13 @@ next-env.d.ts
 /diff/
 /parsed/
 
+# Audit dir: scripts + reports are tracked, ignore generated TSV/HTML intermediates.
+/audit/*.tsv
+/audit/*.html
+
+# WSL writes these Zone.Identifier files when crossing NTFS boundaries.
+*:Zone.Identifier
+
 
 
 # Planning + omo metadata (generated locally)
