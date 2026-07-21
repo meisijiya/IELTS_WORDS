@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 
@@ -164,12 +165,12 @@ export function CheckinClient({ date }: { date: string }) {
         {!hasActivity ? (
           <div className="px-8 py-16 text-center">
             <p className="text-muted-foreground mb-4">这一天还没有学习记录</p>
-            <a
+            <Link
               href="/"
               className="inline-block px-5 py-2 bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent-hover transition"
             >
               开始学习
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="px-8 py-8 space-y-8">

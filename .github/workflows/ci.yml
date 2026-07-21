@@ -61,5 +61,5 @@ jobs:
       - name: Run parser tests
         run: python3 -m pytest tests/ -v
 
-      - name: Run accuracy gate
-        run: python3 tools/gate.py --sample 200
+      # Accuracy gate removed: requires source PDFs (~22 MB), which are
+      # gitignored. Run locally with `npm run gate` after seeding PDFs.

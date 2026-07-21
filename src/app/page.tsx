@@ -114,7 +114,7 @@ export default async function HomePage() {
             📌 未完成会话 · {activeSessions.length} 个
           </h2>
           <p className="text-xs text-muted-foreground mb-3">
-            点击「继续」会恢复当前会话。点击「结束」会放弃该会话（数据保留为"已完成"状态）。
+            点击「继续」会恢复当前会话。点击「结束」会放弃该会话（数据保留为「已完成」状态）。
           </p>
           <div className="space-y-2">
             {activeSessions.map((s) => (
