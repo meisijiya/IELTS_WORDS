@@ -89,9 +89,11 @@ model Attempt {
 }
 
 model UserSettings {
-  id             Int      @id @default(autoincrement())
-  dailyWordCount Int      @default(20)
-  flashMs        Int      @default(800)
-  fadeMs         Int      @default(300)
-  updatedAt      DateTime @updatedAt
+  id                    Int      @id @default(autoincrement())
+  dailyWordCount        Int      @default(20)
+  flashMs               Int      @default(800)
+  fadeMs                Int      @default(300)
+  enablePronunciation   Boolean  @default(true)
+  accent                String   @default("us") // "us" | "uk"
+  updatedAt             DateTime @updatedAt
 }

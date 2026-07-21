@@ -15,6 +15,13 @@ const FADE_MS = 300;
 const FEEDBACK_CORRECT_MS = 700;
 const SESSION_DEFAULT = 20;
 
+function normalizeSpelling(spelling: string): string {
+  return spelling
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 function computeHintPositions(spelling: string, level: number): Set<number> {
   const hints = new Set<number>();
   const len = spelling.length;
@@ -63,6 +70,8 @@ export function PracticeClient({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [flashMs, setFlashMs] = useState(800);
+  const [enablePronunciation, setEnablePronunciation] = useState(true);
+  const [accent, setAccent] = useState<"us" | "uk">("us");
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -75,10 +84,16 @@ export function PracticeClient({
         ]);
         if (!settingsRes.ok) throw new Error("加载设置失败");
         if (!activeRes.ok) throw new Error("查询未完成会话失败");
-        const settings: { flashMs: number } = await settingsRes.json();
+        const settings: {
+          flashMs: number;
+          enablePronunciation: boolean;
+          accent: "us" | "uk";
+        } = await settingsRes.json();
         const active: ActiveSessionResponse = await activeRes.json();
         if (cancelled) return;
         setFlashMs(settings.flashMs);
+        setEnablePronunciation(settings.enablePronunciation);
+        setAccent(settings.accent);
 
         let sid: string;
         if (active.session) {
@@ -140,13 +155,26 @@ export function PracticeClient({
     setUserInput("");
     setShowSpelling(true);
     setSpellingOpacity(1);
+    if (enablePronunciation) {
+      playPronunciation(current.spelling);
+    }
     const fadeTimer = setTimeout(() => setSpellingOpacity(0), flashMs);
     const hideTimer = setTimeout(() => setShowSpelling(false), flashMs + FADE_MS);
     return () => {
       clearTimeout(fadeTimer);
       clearTimeout(hideTimer);
     };
-  }, [current, feedback, flashMs]);
+  }, [current, feedback, flashMs, enablePronunciation, accent]);
+
+  function playPronunciation(spelling: string) {
+    try {
+      const audio = new Audio(`/audio/${normalizeSpelling(spelling)}.${accent}.mp3`);
+      audio.volume = 0.8;
+      audio.play().catch(() => {});
+    } catch {
+      // ignore
+    }
+  }
 
   useEffect(() => {
     if (!showSpelling && !feedback) {

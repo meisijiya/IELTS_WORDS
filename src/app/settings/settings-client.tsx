@@ -7,6 +7,8 @@ interface Settings {
   dailyWordCount: number;
   flashMs: number;
   fadeMs: number;
+  enablePronunciation: boolean;
+  accent: "us" | "uk";
 }
 
 export function SettingsClient() {
@@ -102,6 +104,58 @@ export function SettingsClient() {
             </button>
           ))}
         </div>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold">单词发音</h2>
+        <p className="text-sm text-muted-foreground">
+          开启后，单词闪现阶段会同时播放真人发音（雅思听力训练）
+        </p>
+
+        <div className="flex items-center justify-between p-4 bg-background border border-border rounded-lg">
+          <div>
+            <p className="font-medium">自动播放发音</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              关闭则完全不下载音频文件，节省流量
+            </p>
+          </div>
+          <button
+            onClick={() =>
+              setSettings({ ...settings, enablePronunciation: !settings.enablePronunciation })
+            }
+            className={`relative w-12 h-6 rounded-full transition ${
+              settings.enablePronunciation ? "bg-accent" : "bg-muted"
+            }`}
+            aria-label="toggle pronunciation"
+          >
+            <span
+              className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${
+                settings.enablePronunciation ? "left-6" : "left-0.5"
+              }`}
+            />
+          </button>
+        </div>
+
+        {settings.enablePronunciation && (
+          <div className="space-y-2">
+            <p className="text-sm font-medium">口音</p>
+            <div className="flex gap-2">
+              {(["us", "uk"] as const).map((a) => (
+                <button
+                  key={a}
+                  onClick={() => setSettings({ ...settings, accent: a })}
+                  className={`px-4 py-2 rounded border ${
+                    settings.accent === a
+                      ? "bg-accent text-accent-fg border-accent"
+                      : "border-gray-300 dark:border-gray-700 hover:border-accent"
+                  }`}
+                >
+                  {a === "us" ? "美音 🇺🇸" : "英音 🇬🇧"}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-800">
