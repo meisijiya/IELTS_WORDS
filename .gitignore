@@ -70,3 +70,7 @@ __pycache__/
 
 # OS
 Thumbs.db
+
+# Local handoff / internal notes (team only, not part of upstream)
+/HANDOFF.md
+/HANDOFF.txt
