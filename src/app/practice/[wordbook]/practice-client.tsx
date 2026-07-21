@@ -76,12 +76,14 @@ export function PracticeClient({
   const [feedback, setFeedback] = useState<{ correct: boolean; expected?: string; typed?: string } | null>(null);
   const [showSpelling, setShowSpelling] = useState(false);
   const [spellingOpacity, setSpellingOpacity] = useState(0);
-  const [stats, setStats] = useState({ correct: 0, wrong: 0 });
+  const [stats, setStats] = useState({ correct: 0, wrong: 0, streak: 0 });
+  const [streakFlash, setStreakFlash] = useState<number | null>(null);
   const [finished, setFinished] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [flashMs, setFlashMs] = useState(800);
   const [pronunciationMode, setPronunciationMode] = useState<"both" | "flash" | "feedback" | "off">("both");
+  const [pullPriority, setPullPriority] = useState<"review" | "balanced" | "new">("review");
   const [accent, setAccent] = useState<"us" | "uk">("us");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -98,12 +100,14 @@ export function PracticeClient({
         const settings: {
           flashMs: number;
           pronunciationMode: "both" | "flash" | "feedback" | "off";
+          pullPriority: "review" | "balanced" | "new";
           accent: "us" | "uk";
         } = await settingsRes.json();
         const active: ActiveSessionResponse = await activeRes.json();
         if (cancelled) return;
         setFlashMs(settings.flashMs);
         setPronunciationMode(settings.pronunciationMode);
+        setPullPriority(settings.pullPriority);
         setAccent(settings.accent);
 
         let sid: string;
@@ -137,7 +141,7 @@ export function PracticeClient({
 
         const url = practiceWordIds
           ? `/api/words?wordbookId=${wordbookId}&ids=${practiceWordIds.join(",")}`
-          : `/api/words?wordbookId=${wordbookId}&random=true&limit=${QUEUE_BATCH}`;
+          : `/api/words?wordbookId=${wordbookId}&random=true&limit=${QUEUE_BATCH}&priority=${pullPriority}`;
         const wordsRes = await fetch(url);
         if (!wordsRes.ok) throw new Error("加载单词失败");
         const { words }: { words: Word[] } = await wordsRes.json();
@@ -216,6 +220,13 @@ export function PracticeClient({
     window.setTimeout(() => playTone(1568, 140, "sine"), 90);
   }
 
+  function playStreakChime(streak: number) {
+    const baseFreq = 1320 + Math.min(streak, 6) * 100;
+    playTone(baseFreq, 120, "triangle");
+    window.setTimeout(() => playTone(baseFreq * 1.5, 140, "triangle"), 60);
+    window.setTimeout(() => playTone(baseFreq * 2, 180, "sine"), 130);
+  }
+
   function playWrongBuzz() {
     playTone(440, 130, "sawtooth");
     window.setTimeout(() => playTone(330, 180, "sawtooth"), 100);
@@ -259,11 +270,6 @@ export function PracticeClient({
   }
 
   function advance(word: Word, wasCorrect: boolean) {
-    const newStats = {
-      correct: stats.correct + (wasCorrect ? 1 : 0),
-      wrong: stats.wrong + (wasCorrect ? 0 : 1),
-    };
-    setStats(newStats);
     setQueue((prev) => {
       const next = prev.slice(1);
       if (!wasCorrect) next.push(word);
@@ -274,9 +280,6 @@ export function PracticeClient({
     setUserInput("");
     setFeedback(null);
     refillQueue();
-    if (queue.length <= 1 && !wasCorrect) {
-      // queue is about to be empty after pop; more words incoming via refill
-    }
   }
 
   async function refillQueue() {
@@ -286,7 +289,7 @@ export function PracticeClient({
     setRefilling(true);
     try {
       const res = await fetch(
-        `/api/words?wordbookId=${wordbookId}&random=true&limit=${QUEUE_BATCH}`,
+        `/api/words?wordbookId=${wordbookId}&random=true&limit=${QUEUE_BATCH}&priority=${pullPriority}`,
       );
       if (!res.ok) return;
       const { words }: { words: Word[] } = await res.json();
@@ -323,8 +326,18 @@ export function PracticeClient({
       expected: isCorrect ? undefined : current.spelling,
       typed: isCorrect ? undefined : userInput,
     });
-    if (isCorrect) playCorrectChime();
-    else playWrongBuzz();
+    if (isCorrect) {
+      playCorrectChime();
+      const next = stats.streak + 1;
+      setStats({ ...stats, streak: next, correct: stats.correct + 1, wrong: stats.wrong });
+      if (next > 0 && next % 3 === 0) {
+        playStreakChime(next);
+      }
+    } else {
+      playWrongBuzz();
+      if (stats.streak > 0) setStats({ ...stats, streak: 0, wrong: stats.wrong + 1 });
+      else setStats({ ...stats, wrong: stats.wrong + 1 });
+    }
     postAttempt(current, userInput, isCorrect);
   }
 
@@ -402,6 +415,9 @@ export function PracticeClient({
         <h2 className="text-3xl font-bold tracking-tight">本轮完成 🎉</h2>
         <p className="text-lg text-muted-foreground">
           ✓ {stats.correct}　·　✗ {stats.wrong}　·　共 {originalSize} 词
+          {stats.streak > 1 && (
+            <span className="ml-3 text-accent">🔥 {stats.streak} 连击中</span>
+          )}
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link

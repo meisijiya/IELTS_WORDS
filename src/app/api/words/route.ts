@@ -16,6 +16,27 @@ interface WordDto {
   masteredAt: string | null;
 }
 
+type PullMode = "review" | "balanced" | "new";
+type Pool = "new" | "learned" | "mastered";
+
+const PULL_CONFIG: Record<PullMode, {
+  ratio: [number, number, number]; // [new, learned, mastered]
+  fallback: [Pool, Pool, Pool];
+}> = {
+  // "速通雅思"：复习优先（默认）。熟悉 + 已熟练为主，新词保持供血
+  review:   { ratio: [4, 8, 8],  fallback: ["mastered", "learned", "new"] },
+  // 平衡：跟以前一样的 14/5/1
+  balanced: { ratio: [14, 5, 1], fallback: ["new", "learned", "mastered"] },
+  // 新词优先：扩张为主
+  new:      { ratio: [18, 2, 0], fallback: ["new", "learned", "mastered"] },
+};
+
+function normalizePullMode(value: unknown): PullMode {
+  return value === "review" || value === "balanced" || value === "new"
+    ? value
+    : "review";
+}
+
 function shuffle<T>(arr: readonly T[], seed?: number): T[] {
   // Fisher–Yates with optional deterministic seed for tests.
   const out = [...arr];
@@ -71,6 +92,8 @@ export async function GET(request: Request) {
   // weighted=true: 14 new + 5 learned + 1 mastered, fall-back fills with anything
   const weighted = url.searchParams.get("weighted") !== "false" && random;
   const idsParam = url.searchParams.get("ids");
+  // priority=review|balanced|new — overrides the default ratio + fallback order
+  const priority = normalizePullMode(url.searchParams.get("priority"));
 
   if (!Number.isInteger(wordbookId) || wordbookId < 1) {
     return NextResponse.json({ error: "wordbookId required" }, { status: 400 });
@@ -110,32 +133,29 @@ export async function GET(request: Request) {
     const used = new Set<number>();
     const ids: number[] = [];
 
-    const newTake = Math.min(14, newSet.length);
-    for (const id of pickIds(newSet, newTake)) {
-      ids.push(id);
-      used.add(id);
-    }
-    const learnedTake = Math.min(5, learnedSet.length, N - ids.length);
-    for (const id of pickIds(learnedSet, learnedTake)) {
-      if (!used.has(id)) {
-        ids.push(id);
-        used.add(id);
+    const poolMap: Record<Pool, { id: number }[]> = {
+      new: newSet,
+      learned: learnedSet,
+      mastered: masteredSet,
+    };
+    const [newShare, learnedShare, masteredShare] = PULL_CONFIG[priority].ratio;
+
+    for (const pool of ["new", "learned", "mastered"] as Pool[]) {
+      const want = pool === "new" ? newShare : pool === "learned" ? learnedShare : masteredShare;
+      const take = Math.min(want, poolMap[pool].length, N - ids.length);
+      for (const id of pickIds(poolMap[pool], take)) {
+        if (!used.has(id)) {
+          ids.push(id);
+          used.add(id);
+        }
       }
     }
-    const masteredTake = Math.min(1, masteredSet.length, N - ids.length);
-    for (const id of pickIds(masteredSet, masteredTake)) {
-      if (!used.has(id)) {
-        ids.push(id);
-        used.add(id);
-      }
-    }
-    // Fill the rest from anything still available, in priority: new > learned > mastered
     if (ids.length < N) {
-      const fallback = [
-        ...newSet.filter((w) => !used.has(w.id)),
-        ...learnedSet.filter((w) => !used.has(w.id)),
-        ...masteredSet.filter((w) => !used.has(w.id)),
-      ];
+      const fallbackOrder = PULL_CONFIG[priority].fallback;
+      const fallback: { id: number }[] = [];
+      for (const pool of fallbackOrder) {
+        fallback.push(...poolMap[pool].filter((w) => !used.has(w.id)));
+      }
       for (const w of shuffle(fallback)) {
         if (ids.length >= N) break;
         if (!used.has(w.id)) {

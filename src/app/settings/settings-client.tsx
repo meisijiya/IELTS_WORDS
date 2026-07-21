@@ -4,11 +4,13 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type PronMode = "both" | "flash" | "feedback" | "off";
+type PullMode = "review" | "balanced" | "new";
 
 interface Settings {
   flashMs: number;
   fadeMs: number;
   pronunciationMode: PronMode;
+  pullPriority: PullMode;
   enablePronunciation: boolean;
   accent: "us" | "uk";
 }
@@ -18,6 +20,12 @@ const PRON_OPTIONS: { value: PronMode; label: string; hint: string }[] = [
   { value: "flash", label: "仅闪现", hint: "只在单词闪现阶段播发音" },
   { value: "feedback", label: "仅反馈", hint: "只在答对/答错反馈时播发音" },
   { value: "off", label: "静音", hint: "完全不播放发音" },
+];
+
+const PULL_OPTIONS: { value: PullMode; label: string; ratio: string }[] = [
+  { value: "review",   label: "复习优先", ratio: "4 新 + 8 学过 + 8 已熟练" },
+  { value: "balanced", label: "均衡",    ratio: "14 新 + 5 学过 + 1 已熟练" },
+  { value: "new",      label: "新词优先", ratio: "18 新 + 2 学过 + 0 已熟练" },
 ];
 
 export function SettingsClient() {
@@ -148,6 +156,37 @@ export function SettingsClient() {
             </div>
           </div>
         )}
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold">拉取优先级</h2>
+        <p className="text-sm text-muted-fg">
+          决定一批拉取中新词、学过、已熟练的比例（默认复习优先）
+        </p>
+        <div className="space-y-2">
+          {PULL_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => setSettings({ ...settings, pullPriority: opt.value })}
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-md border transition text-left ${
+                settings.pullPriority === opt.value
+                  ? "bg-accent text-accent-fg border-accent"
+                  : "border-border hover:border-accent/50"
+              }`}
+            >
+              <span className="font-medium">{opt.label}</span>
+              <span
+                className={`text-xs font-mono ${
+                  settings.pullPriority === opt.value
+                    ? "text-accent-fg/70"
+                    : "text-muted-foreground"
+                }`}
+              >
+                {opt.ratio}
+              </span>
+            </button>
+          ))}
+        </div>
       </section>
 
       <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-800">

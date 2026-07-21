@@ -95,6 +95,8 @@ model UserSettings {
   fadeMs                Int      @default(300)
   // "both" | "flash" | "feedback" | "off" — pronounces on flash-phase and/or feedback-phase
   pronunciationMode     String   @default("both")
+  // "review" (default: 复习优先) | "balanced" (14/5/1) | "new" (新词优先) — 拉取优先级
+  pullPriority          String   @default("review")
   // @deprecated — superseded by pronunciationMode. Kept for back-compat reads.
   enablePronunciation   Boolean  @default(true)
   accent                String   @default("us") // "us" | "uk"

@@ -6,17 +6,25 @@ const DEFAULTS = {
   flashMs: 800,
   fadeMs: 300,
   pronunciationMode: "both" as "both" | "flash" | "feedback" | "off",
+  pullPriority: "review" as "review" | "balanced" | "new",
   enablePronunciation: true,
   accent: "us",
 };
 const SINGLETON_ID = 1;
 
 const PRON_MODES = new Set(["both", "flash", "feedback", "off"]);
+const PULL_MODES = new Set(["review", "balanced", "new"]);
 
 function normalizePronMode(value: unknown): typeof DEFAULTS.pronunciationMode {
   return typeof value === "string" && PRON_MODES.has(value)
     ? (value as typeof DEFAULTS.pronunciationMode)
     : DEFAULTS.pronunciationMode;
+}
+
+function normalizePullPriority(value: unknown): typeof DEFAULTS.pullPriority {
+  return typeof value === "string" && PULL_MODES.has(value)
+    ? (value as typeof DEFAULTS.pullPriority)
+    : DEFAULTS.pullPriority;
 }
 
 async function ensureSingleton() {
@@ -36,11 +44,14 @@ export async function GET() {
     (settings as { pronunciationMode?: string }).pronunciationMode ??
       (settings.enablePronunciation ? "both" : "off"),
   );
+  const pullPriority = normalizePullPriority(
+    (settings as { pullPriority?: string }).pullPriority,
+  );
   return NextResponse.json({
-    
     flashMs: settings.flashMs,
     fadeMs: settings.fadeMs,
     pronunciationMode: mode,
+    pullPriority,
     enablePronunciation: settings.enablePronunciation,
     accent: settings.accent,
   });
@@ -68,18 +79,20 @@ export async function PUT(request: Request) {
     ? normalizePronMode(body.pronunciationMode)
     : (legacyEnable ? "both" : "off");
   const enablePronunciation = pronunciationMode !== "off";
+  const pullPriority = normalizePullPriority(body.pullPriority);
   const accent = body.accent === "uk" ? "uk" : "us";
 
   await ensureSingleton();
   const updated = await prisma.userSettings.update({
     where: { id: SINGLETON_ID },
-    data: {  flashMs, fadeMs, pronunciationMode, enablePronunciation, accent },
+    data: { flashMs, fadeMs, pronunciationMode, enablePronunciation, pullPriority, accent },
   });
 
   return NextResponse.json({
     flashMs: updated.flashMs,
     fadeMs: updated.fadeMs,
     pronunciationMode: pronunciationMode,
+    pullPriority,
     enablePronunciation: updated.enablePronunciation,
     accent: updated.accent,
   });
