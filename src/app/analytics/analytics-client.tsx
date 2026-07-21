@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { X, Check } from "lucide-react";
+import { X, Check, ArrowRight } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 interface Wordbook {
@@ -69,7 +69,6 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
   const [error, setError] = useState<string | null>(null);
   const [expandedWordId, setExpandedWordId] = useState<number | null>(null);
   const [markedIds, setMarkedIds] = useState<Set<number>>(new Set());
-  const [showAllTopMissed, setShowAllTopMissed] = useState(false);
 
   useEffect(() => {
     if (!selectedId) return;
@@ -114,8 +113,8 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
   const wordbook = wordbooks.find((w) => w.id === selectedId);
   const visibleTopMissed = useMemo(() => {
     if (!data?.topMissed) return [];
-    return showAllTopMissed ? data.topMissed : data.topMissed.slice(0, 10);
-  }, [data?.topMissed, showAllTopMissed]);
+    return data.topMissed.slice(0, 10);
+  }, [data?.topMissed]);
   const mistakeIdsParam = useMemo(() => {
     if (!data?.topMissed.length) return "";
     return data.topMissed.map((w) => w.wordId).slice(0, 20).join(",");
@@ -186,13 +185,14 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
           <section className="space-y-3">
             <div className="flex items-baseline justify-between gap-2 flex-wrap">
               <h2 className="text-lg font-semibold">错词榜 · {data.topMissed.length}</h2>
-              {data.topMissed.length > 10 && (
-                <button
-                  onClick={() => setShowAllTopMissed((v) => !v)}
-                  className="px-3 py-1 text-sm rounded-md border border-border text-muted-fg hover:border-accent hover:text-accent transition font-medium"
+              {data.topMissed.length > 0 && wordbook && (
+                <Link
+                  href={`/wrong-words/${wordbook.slug}?range=${range}`}
+                  className="text-sm text-muted-fg hover:text-accent transition inline-flex items-center gap-1"
                 >
-                  {showAllTopMissed ? "Top 10" : `查看全部 (${data.topMissed.length})`}
-                </button>
+                  查看全部
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
               )}
             </div>
             {data.topMissed.length === 0 ? (

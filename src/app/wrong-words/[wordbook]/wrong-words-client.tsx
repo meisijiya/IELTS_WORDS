@@ -26,8 +26,10 @@ const RANGE_TABS: { value: string; label: string }[] = [
 ];
 
 const TOP_OPTIONS = [
+  { value: 5, label: "Top 5" },
   { value: 10, label: "Top 10" },
-  { value: 0, label: "查看全部" },
+  { value: 20, label: "Top 20" },
+  { value: 0, label: "全部" },
 ];
 
 export function WrongWordsClient({
@@ -50,7 +52,7 @@ export function WrongWordsClient({
   const router = useRouter();
   const params = useSearchParams();
   const [mistakes, setMistakes] = useState(initial);
-  const [topN, setTopN] = useState<number>(10);
+  const [topN, setTopN] = useState<number>(0);
   const [expanded, setExpanded] = useState<number | null>(null);
   const [markedIds, setMarkedIds] = useState<Set<number>>(new Set());
   const reviewedSet = useMemo(
