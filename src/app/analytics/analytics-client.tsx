@@ -69,6 +69,7 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
   const [error, setError] = useState<string | null>(null);
   const [expandedWordId, setExpandedWordId] = useState<number | null>(null);
   const [markedIds, setMarkedIds] = useState<Set<number>>(new Set());
+  const [showAllTopMissed, setShowAllTopMissed] = useState(false);
 
   useEffect(() => {
     if (!selectedId) return;
@@ -111,6 +112,10 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
   }
 
   const wordbook = wordbooks.find((w) => w.id === selectedId);
+  const visibleTopMissed = useMemo(() => {
+    if (!data?.topMissed) return [];
+    return showAllTopMissed ? data.topMissed : data.topMissed.slice(0, 10);
+  }, [data?.topMissed, showAllTopMissed]);
   const mistakeIdsParam = useMemo(() => {
     if (!data?.topMissed.length) return "";
     return data.topMissed.map((w) => w.wordId).slice(0, 20).join(",");
@@ -181,20 +186,20 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
           <section className="space-y-3">
             <div className="flex items-baseline justify-between gap-2 flex-wrap">
               <h2 className="text-lg font-semibold">错词榜 · {data.topMissed.length}</h2>
-              {data.topMissed.length > 0 && wordbook && (
-                <Link
-                  href={`/wrong-words/${wordbook.slug}?range=${range}`}
-                  className="text-sm text-muted-fg hover:text-accent transition"
+              {data.topMissed.length > 10 && (
+                <button
+                  onClick={() => setShowAllTopMissed((v) => !v)}
+                  className="px-3 py-1 text-sm rounded-md border border-border text-muted-fg hover:border-accent hover:text-accent transition font-medium"
                 >
-                  查看全部 →
-                </Link>
+                  {showAllTopMissed ? "Top 10" : `查看全部 (${data.topMissed.length})`}
+                </button>
               )}
             </div>
             {data.topMissed.length === 0 ? (
               <p className="text-muted-fg text-sm">暂无错词记录</p>
             ) : (
               <ol className="space-y-2">
-                {data.topMissed.map((w, i) => {
+                {visibleTopMissed.map((w, i) => {
                   const expanded = expandedWordId === w.wordId;
                   return (
                     <li key={w.wordId} className="border border-gray-200 dark:border-gray-800 rounded">
