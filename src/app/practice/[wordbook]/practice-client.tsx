@@ -185,10 +185,24 @@ export function PracticeClient({
   }, [current, feedback, flashMs, pronunciationMode, accent]);
 
   function playPronunciation(spelling: string) {
+    playAudioWithFallback(`/audio/${normalizeSpelling(spelling)}.${accent}.mp3`);
+  }
+
+  function playAudioWithFallback(primaryUrl: string) {
     try {
-      const audio = new Audio(`/audio/${normalizeSpelling(spelling)}.${accent}.mp3`);
+      const audio = new Audio(primaryUrl);
       audio.volume = 0.8;
-      audio.play().catch(() => {});
+      audio.onerror = () => {
+        // Fall back to the other accent if the primary isn't on disk.
+        const other = primaryUrl.replace(/\.(us|uk)\.mp3$/, (_, a) => (a === "us" ? ".uk.mp3" : ".us.mp3"));
+        if (other === primaryUrl) return;
+        const fb = new Audio(other);
+        fb.volume = 0.8;
+        fb.play().catch(() => {});
+      };
+      audio.play().catch(() => {
+        audio.dispatchEvent(new Event("error"));
+      });
     } catch {
       // ignore
     }
@@ -248,11 +262,38 @@ export function PracticeClient({
 
   async function postAttempt(word: Word, input: string, correct: boolean) {
     if (!sessionId) return;
-    await fetch("/api/attempts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ sessionId, wordId: word.id, typed: input, correct }),
-    });
+    try {
+      const res = await fetch("/api/attempts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId, wordId: word.id, typed: input, correct }),
+      });
+      if (!res.ok) return;
+      const data: {
+        wordLevel: number;
+        masteredAt: string | null;
+        newlyMastered: boolean;
+        deMastered: boolean;
+      } = await res.json();
+      // Mirror server state into queue[0] so badges (which read `current = queue[0]`) reflect fresh numbers.
+      setQueue((prev) => {
+        if (prev[0]?.id !== word.id) return prev;
+        const updated: Word = {
+          ...prev[0],
+          level: data.wordLevel,
+          attempts: prev[0].attempts + 1,
+          correct: prev[0].correct + (correct ? 1 : 0),
+          masteredAt: data.newlyMastered
+            ? data.masteredAt
+            : data.deMastered
+              ? null
+              : prev[0].masteredAt,
+        };
+        return [updated, ...prev.slice(1)];
+      });
+    } catch {
+      // Network failure doesn't block UI; user already saw the feedback.
+    }
   }
 
   async function endSession(finalStats: { correct: number; wrong: number }) {
@@ -505,22 +546,46 @@ export function PracticeClient({
 
       <div className="text-center min-h-[3.5rem] flex items-center justify-center">
         {showSpelling && !feedback ? (
-          <div
-            className="text-4xl font-bold tracking-wider transition-opacity"
+          <button
+            type="button"
+            onClick={() => playPronunciation(current.spelling)}
+            className="group relative text-4xl font-bold tracking-wider transition-opacity cursor-pointer hover:text-accent"
             style={{ opacity: spellingOpacity, transitionDuration: `${FADE_MS}ms` }}
+            title="点击重播发音"
           >
             {current.spelling}
-          </div>
+            <span className="absolute -right-7 top-1/2 -translate-y-1/2 text-base opacity-0 group-hover:opacity-100 transition-opacity select-none" aria-hidden>
+              🔊
+            </span>
+          </button>
         ) : null}
         {feedback && feedback.correct && (
-          <div key={`ok-${current.id}-${stats.correct}`} className="text-3xl font-bold text-success animate-pop-in">
+          <button
+            type="button"
+            key={`ok-${current.id}-${stats.correct}`}
+            onClick={() => playPronunciation(current.spelling)}
+            className="group relative text-3xl font-bold text-success animate-pop-in cursor-pointer hover:text-success/70"
+            title="点击重播发音"
+          >
             {current.spelling}
-          </div>
+            <span className="absolute -right-7 top-1/2 -translate-y-1/2 text-base opacity-50 group-hover:opacity-100 transition-opacity select-none" aria-hidden>
+              🔊
+            </span>
+          </button>
         )}
         {feedback && !feedback.correct && (
-          <div key={`wrong-${current.id}-${stats.wrong}`} className="text-3xl font-bold text-error animate-shake">
+          <button
+            type="button"
+            key={`wrong-${current.id}-${stats.wrong}`}
+            onClick={() => playPronunciation(current.spelling)}
+            className="group relative text-3xl font-bold text-error animate-shake cursor-pointer hover:text-error/70"
+            title="点击重播发音"
+          >
             {current.spelling}
-          </div>
+            <span className="absolute -right-7 top-1/2 -translate-y-1/2 text-base opacity-50 group-hover:opacity-100 transition-opacity select-none" aria-hidden>
+              🔊
+            </span>
+          </button>
         )}
       </div>
 
