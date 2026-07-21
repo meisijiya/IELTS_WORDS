@@ -1,6 +1,6 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
-import { WrongWordSparkline } from "./wrong-word-sparkline";
+import { WrongWordSparkline, findNearestIndex } from "./wrong-word-sparkline";
 
 // Helper: build a 30-day window where every day has 0 attempts.
 function zeroDays(): import("@/lib/word-history").DailyStat[] {
@@ -37,5 +37,38 @@ describe("WrongWordSparkline", () => {
     const html = renderToStaticMarkup(<WrongWordSparkline data={zeroDays()} />);
     expect(html).not.toContain("<svg");
     expect(html).toContain("近 30 天无练习记录");
+  });
+
+  it("does not render tooltip in initial (no-hover) state", () => {
+    const html = renderToStaticMarkup(<WrongWordSparkline data={withAttempts()} />);
+    // No guide line, no dot, no tooltip text in initial render
+    expect(html).not.toContain("2026-07-18"); // date of the only attempt
+    expect(html).not.toMatch(/<line/);
+    expect(html).not.toMatch(/<circle/);
+  });
+});
+
+describe("findNearestIndex", () => {
+  const data = zeroDays();
+
+  it("returns -1 for empty data", () => {
+    expect(findNearestIndex(50, [])).toBe(-1);
+  });
+
+  it("clamps to first index when x < 0", () => {
+    expect(findNearestIndex(-100, data)).toBe(0);
+  });
+
+  it("clamps to last index when x > viewBox width", () => {
+    expect(findNearestIndex(500, data)).toBe(29);
+  });
+
+  it("rounds to nearest data point", () => {
+    // 30 points across 120 units → dx ≈ 4.14; index = round(x / 4.14)
+    expect(findNearestIndex(0, data)).toBe(0);
+    expect(findNearestIndex(4.14, data)).toBe(1);
+    expect(findNearestIndex(60, data)).toBe(14);
+    expect(findNearestIndex(116, data)).toBe(28);
+    expect(findNearestIndex(120, data)).toBe(29);
   });
 });

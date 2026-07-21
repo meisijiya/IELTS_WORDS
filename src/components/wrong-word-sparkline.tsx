@@ -1,20 +1,34 @@
 "use client";
 
+import { useState, type MouseEvent } from "react";
 import type { DailyStat } from "@/lib/word-history";
+
+const W = 120;
+const H = 32;
 
 interface WrongWordSparklineProps {
   data: DailyStat[];
 }
 
-const W = 120;
-const H = 32;
+/**
+ * Map an SVG-space x coordinate (0..W) to the nearest data point index.
+ * Exported for unit testing; -1 when data is empty.
+ */
+export function findNearestIndex(x: number, data: DailyStat[]): number {
+  if (data.length === 0) return -1;
+  const dx = W / (data.length - 1);
+  const idx = Math.round(x / dx);
+  return Math.max(0, Math.min(data.length - 1, idx));
+}
 
 /**
  * 30-day daily-accuracy sparkline for a single wrong word.
- * ~120×32px inline SVG. Empty branch shown when the word has no
- * attempts in the 30-day window. Hover tooltip added in slice-3.
+ * ~120×32px inline SVG. Empty branch when no attempts in 30-day window.
+ * Hover shows a guide line + dot + tooltip with `date · X/Y · Z%`.
  */
 export function WrongWordSparkline({ data }: WrongWordSparklineProps) {
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+
   const hasAttempts = data.length > 0 && data.some((d) => d.total > 0);
   if (!hasAttempts) {
     return (
@@ -29,29 +43,77 @@ export function WrongWordSparkline({ data }: WrongWordSparklineProps) {
   for (let i = 0; i < n; i++) {
     const d = data[i]!;
     const acc = d.total > 0 ? d.correct / d.total : 0;
-    const x = i * dx;
-    const y = H - acc * H;
-    pts.push(`${x.toFixed(2)},${y.toFixed(2)}`);
+    pts.push(`${(i * dx).toFixed(2)},${(H - acc * H).toFixed(2)}`);
   }
 
+  function handleMouseMove(e: MouseEvent<SVGSVGElement>) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const ratio = rect.width > 0 ? (e.clientX - rect.left) / rect.width : 0;
+    const x = Math.max(0, Math.min(1, ratio)) * W;
+    setHoverIdx(findNearestIndex(x, data));
+  }
+  function handleMouseLeave() {
+    setHoverIdx(null);
+  }
+
+  const hover = hoverIdx !== null ? data[hoverIdx]! : null;
+  const hoverX = hoverIdx !== null ? hoverIdx * dx : 0;
+  const hoverY =
+    hoverIdx !== null && hover && hover.total > 0
+      ? H - (hover.correct / hover.total) * H
+      : H;
+  const hoverPct =
+    hoverIdx !== null && hover && hover.total > 0
+      ? Math.round((hover.correct / hover.total) * 100)
+      : 0;
+
   return (
-    <svg
-      viewBox={`0 0 ${W} ${H}`}
-      width="100%"
-      height={H}
-      preserveAspectRatio="none"
-      className="text-accent block"
-      role="img"
-      aria-label="近30天准确率"
-    >
-      <path
-        d={`M ${pts.join(" L ")}`}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <div className="relative">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        width="100%"
+        height={H}
+        preserveAspectRatio="none"
+        className="text-accent block"
+        role="img"
+        aria-label="近30天准确率"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        <path
+          d={`M ${pts.join(" L ")}`}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1.5}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        {hoverIdx !== null && (
+          <>
+            <line
+              x1={hoverX}
+              x2={hoverX}
+              y1={0}
+              y2={H}
+              stroke="currentColor"
+              strokeWidth={1}
+              opacity={0.4}
+            />
+            <circle cx={hoverX} cy={hoverY} r={2} fill="currentColor" />
+          </>
+        )}
+      </svg>
+      {hover && (
+        <div
+          className="absolute -top-7 px-1.5 py-0.5 bg-foreground text-background text-xs rounded shadow-sm whitespace-nowrap pointer-events-none"
+          style={{
+            left: `${(hoverIdx! / (n - 1)) * 100}%`,
+            transform: "translateX(-50%)",
+          }}
+        >
+          {`${hover.date} · ${hover.correct}/${hover.total} · ${hoverPct}%`}
+        </div>
+      )}
+    </div>
   );
 }
