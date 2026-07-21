@@ -65,7 +65,6 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
       },
       select: { wordId: true, correct: true, createdAt: true },
       orderBy: { createdAt: "desc" },
-      take: 5000,
     }),
   ]);
 

@@ -12,10 +12,11 @@ interface WrongWordSparklineProps {
 
 /**
  * Map an SVG-space x coordinate (0..W) to the nearest data point index.
- * Exported for unit testing; -1 when data is empty.
+ * Exported for unit testing; -1 when data is empty, 0 when length === 1.
  */
 export function findNearestIndex(x: number, data: DailyStat[]): number {
   if (data.length === 0) return -1;
+  if (data.length === 1) return 0;
   const dx = W / (data.length - 1);
   const idx = Math.round(x / dx);
   return Math.max(0, Math.min(data.length - 1, idx));
@@ -23,8 +24,10 @@ export function findNearestIndex(x: number, data: DailyStat[]): number {
 
 /**
  * 30-day daily-accuracy sparkline for a single wrong word.
- * ~120×32px inline SVG. Empty branch when no attempts in 30-day window.
- * Hover shows a guide line + dot + tooltip with `date · X/Y · Z%`.
+ * Fixed 120×32px inline SVG; responsive via max-w-full. Empty branch
+ * when no attempts in 30-day window. Hover shows a guide line + dot
+ * + tooltip with `date · X/Y · Z%`. Tooltip clamps its translateX at
+ * first/last points so it doesn't get clipped by ancestor overflow.
  */
 export function WrongWordSparkline({ data }: WrongWordSparklineProps) {
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
@@ -37,7 +40,7 @@ export function WrongWordSparkline({ data }: WrongWordSparklineProps) {
   }
 
   const n = data.length;
-  const dx = W / (n - 1);
+  const dx = n > 1 ? W / (n - 1) : 0;
 
   const pts: string[] = [];
   for (let i = 0; i < n; i++) {
@@ -66,15 +69,21 @@ export function WrongWordSparkline({ data }: WrongWordSparklineProps) {
     hoverIdx !== null && hover && hover.total > 0
       ? Math.round((hover.correct / hover.total) * 100)
       : 0;
+  const tooltipTranslate =
+    hoverIdx === 0
+      ? "translateX(0)"
+      : hoverIdx === n - 1
+      ? "translateX(-100%)"
+      : "translateX(-50%)";
 
   return (
-    <div className="relative">
+    <div className="relative w-[120px] max-w-full">
       <svg
         viewBox={`0 0 ${W} ${H}`}
-        width="100%"
+        width={W}
         height={H}
         preserveAspectRatio="none"
-        className="text-accent block"
+        className="text-accent block max-w-full h-auto"
         role="img"
         aria-label="近30天准确率"
         onMouseMove={handleMouseMove}
@@ -108,7 +117,7 @@ export function WrongWordSparkline({ data }: WrongWordSparklineProps) {
           className="absolute -top-7 px-1.5 py-0.5 bg-foreground text-background text-xs rounded shadow-sm whitespace-nowrap pointer-events-none"
           style={{
             left: `${(hoverIdx! / (n - 1)) * 100}%`,
-            transform: "translateX(-50%)",
+            transform: tooltipTranslate,
           }}
         >
           {`${hover.date} · ${hover.correct}/${hover.total} · ${hoverPct}%`}

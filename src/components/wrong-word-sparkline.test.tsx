@@ -63,6 +63,13 @@ describe("findNearestIndex", () => {
     expect(findNearestIndex(500, data)).toBe(29);
   });
 
+  it("returns 0 for single-element data (avoids dx=Infinity)", () => {
+    const single = [{ date: "2026-07-21", correct: 1, total: 1 }];
+    expect(findNearestIndex(0, single)).toBe(0);
+    expect(findNearestIndex(60, single)).toBe(0);
+    expect(findNearestIndex(500, single)).toBe(0);
+  });
+
   it("rounds to nearest data point", () => {
     // 30 points across 120 units → dx ≈ 4.14; index = round(x / 4.14)
     expect(findNearestIndex(0, data)).toBe(0);
