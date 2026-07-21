@@ -13,7 +13,7 @@ interface PageProps {
 
 export default async function WrongWordsPage({ params, searchParams }: PageProps) {
   const { wordbook: slug } = await params;
-  const { range = "all", reviewed = "remaining" } = await searchParams;
+  const { range = "all" } = await searchParams;
 
   const wordbook = await prisma.wordbook.findUnique({ where: { slug } });
   if (!wordbook) {
@@ -52,7 +52,7 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
     }),
     prisma.attempt.findMany({
       where: {
-        session: { wordbookId: wordbook.id },
+        session: { wordbookId: wordbook.id, mode: "review" },
         createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
       },
       select: { wordId: true },
@@ -86,13 +86,13 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
     map.set(a.wordId, cur);
   }
 
+  // List always shows ALL wrong words; `reviewed` is no longer a list filter
+  // (was confusing — user clicks "全部" range and sees empty list because
+  // today's reviewed ones got filtered out). Batch card "仅剩余" stays,
+  // computed dynamically from reviewedTodayIds.
   const mistakes = [...map.values()]
     .filter((m) => m.mistakes > 0 && m.level < 5)
     .sort((a, b) => b.mistakes - a.mistakes || a.correct - b.correct);
-
-  const filteredMistakes = reviewed === "remaining"
-    ? mistakes.filter((m) => !reviewedToday.has(m.wordId))
-    : mistakes;
 
   const reviewedCount = mistakes.filter((m) => reviewedToday.has(m.wordId)).length;
 
@@ -102,8 +102,7 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
     <WrongWordsClient
       wordbook={{ id: wordbook.id, slug: wordbook.slug, name: wordbook.name }}
       range={range}
-      reviewed={reviewed}
-      mistakes={filteredMistakes}
+      mistakes={mistakes}
       reviewedTodayIds={[...reviewedToday]}
       reviewedTodayCount={reviewedCount}
       allMistakes={mistakes}

@@ -33,7 +33,6 @@ const TOP_OPTIONS = [
 export function WrongWordsClient({
   wordbook,
   range,
-  reviewed,
   mistakes: initial,
   allMistakes,
   reviewedTodayIds,
@@ -42,7 +41,6 @@ export function WrongWordsClient({
 }: {
   wordbook: { id: number; slug: string; name: string };
   range: string;
-  reviewed: "all" | "remaining";
   mistakes: Mistake[];
   allMistakes: Mistake[];
   reviewedTodayIds: number[];
@@ -124,15 +122,15 @@ export function WrongWordsClient({
       </header>
 
       <div className="flex flex-wrap gap-2 items-center justify-between">
-        <div className="flex gap-1 rounded-md border border-border p-1">
+        <div className="flex gap-1">
           {RANGE_TABS.map((t) => (
             <button
               key={t.value}
               onClick={() => setRange(t.value)}
-              className={`px-3 py-1.5 text-sm rounded transition ${
+              className={`px-3 py-1.5 text-sm rounded-md border transition font-medium ${
                 range === t.value
-                  ? "bg-accent text-accent-fg"
-                  : "text-muted-fg hover:text-foreground"
+                  ? "bg-accent text-accent-fg border-accent"
+                  : "border-border text-muted-fg hover:border-accent/60 hover:text-foreground"
               }`}
             >
               {t.label}
@@ -144,7 +142,7 @@ export function WrongWordsClient({
             <button
               key={opt.value}
               onClick={() => setTopN(opt.value)}
-              className={`px-3 py-1.5 text-sm rounded-md border transition ${
+              className={`px-3 py-1.5 text-sm rounded-md border transition font-medium ${
                 topN === opt.value
                   ? "bg-accent text-accent-fg border-accent"
                   : "border-border text-muted-fg hover:border-accent/60"

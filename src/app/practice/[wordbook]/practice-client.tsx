@@ -336,8 +336,9 @@ export function PracticeClient({
         newlyMastered: boolean;
         deMastered: boolean;
       } = await res.json();
-      // Search the whole queue — if the word was advanced off the front or
-      // pushed back on a wrong answer, it may not be queue[0] anymore.
+      // Sync server-known fields (level / masteredAt) only. attempts/correct
+      // are already incremented optimistically in submit() — re-incrementing
+      // here would double-count per answer.
       setQueue((prev) =>
         prev.map((w) =>
           w.id !== word.id
@@ -345,8 +346,6 @@ export function PracticeClient({
             : {
                 ...w,
                 level: data.wordLevel,
-                attempts: w.attempts + 1,
-                correct: w.correct + (correct ? 1 : 0),
                 masteredAt: data.newlyMastered
                   ? data.masteredAt
                   : data.deMastered
