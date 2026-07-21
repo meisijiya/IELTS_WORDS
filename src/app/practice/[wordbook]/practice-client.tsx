@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface Word {
   id: number;
@@ -13,7 +14,9 @@ interface Word {
 
 const FADE_MS = 300;
 const FEEDBACK_CORRECT_MS = 700;
-const SESSION_DEFAULT = 20;
+const QUEUE_BATCH = 20;
+const REFILL_THRESHOLD = 5;
+const QUEUE_HARD_CAP = 60;
 
 function normalizeSpelling(spelling: string): string {
   return spelling
@@ -55,11 +58,16 @@ export function PracticeClient({
   wordbookSlug: string;
   practiceWordIds: number[] | null;
 }) {
+  const router = useRouter();
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [resumedSession, setResumedSession] = useState<{ correctCount: number; totalWords: number } | null>(null);
   const [queue, setQueue] = useState<Word[]>([]);
-  const [originalSize, setOriginalSize] = useState(0);
-  const [current, setCurrent] = useState<Word | null>(null);
+  const [answered, setAnswered] = useState(0);
+  const [refilling, setRefilling] = useState(false);
+  const [showEndDialog, setShowEndDialog] = useState(false);
+  const endingRef = useRef(false);
+  const current = queue[0] ?? null;
+  const originalSize = answered;
   const [hintPositions, setHintPositions] = useState<Set<number>>(new Set());
   const [userInput, setUserInput] = useState("");
   const [feedback, setFeedback] = useState<{ correct: boolean; expected?: string; typed?: string } | null>(null);
@@ -70,7 +78,7 @@ export function PracticeClient({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [flashMs, setFlashMs] = useState(800);
-  const [enablePronunciation, setEnablePronunciation] = useState(true);
+  const [pronunciationMode, setPronunciationMode] = useState<"both" | "flash" | "feedback" | "off">("both");
   const [accent, setAccent] = useState<"us" | "uk">("us");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -86,13 +94,13 @@ export function PracticeClient({
         if (!activeRes.ok) throw new Error("查询未完成会话失败");
         const settings: {
           flashMs: number;
-          enablePronunciation: boolean;
+          pronunciationMode: "both" | "flash" | "feedback" | "off";
           accent: "us" | "uk";
         } = await settingsRes.json();
         const active: ActiveSessionResponse = await activeRes.json();
         if (cancelled) return;
         setFlashMs(settings.flashMs);
-        setEnablePronunciation(settings.enablePronunciation);
+        setPronunciationMode(settings.pronunciationMode);
         setAccent(settings.accent);
 
         let sid: string;
@@ -124,18 +132,21 @@ export function PracticeClient({
         if (cancelled) return;
         setSessionId(sid);
 
-        const count = practiceWordIds?.length ?? SESSION_DEFAULT;
         const url = practiceWordIds
           ? `/api/words?wordbookId=${wordbookId}&ids=${practiceWordIds.join(",")}`
-          : `/api/words?wordbookId=${wordbookId}&random=true&limit=${count}`;
+          : `/api/words?wordbookId=${wordbookId}&random=true&limit=${QUEUE_BATCH}`;
         const wordsRes = await fetch(url);
         if (!wordsRes.ok) throw new Error("加载单词失败");
         const { words }: { words: Word[] } = await wordsRes.json();
         if (cancelled) return;
 
+        if (words.length === 0) {
+          setError("🎉 已无可练单词（全部 level=5 已掌握）");
+          setLoading(false);
+          return;
+        }
         setQueue(words);
-        setOriginalSize(words.length);
-        setCurrent(words[0] ?? null);
+        setAnswered(words.length);
         setLoading(false);
       } catch (e) {
         if (cancelled) return;
@@ -155,7 +166,7 @@ export function PracticeClient({
     setUserInput("");
     setShowSpelling(true);
     setSpellingOpacity(1);
-    if (enablePronunciation) {
+    if (pronunciationMode === "both" || pronunciationMode === "flash") {
       playPronunciation(current.spelling);
     }
     const fadeTimer = setTimeout(() => setSpellingOpacity(0), flashMs);
@@ -164,7 +175,7 @@ export function PracticeClient({
       clearTimeout(fadeTimer);
       clearTimeout(hideTimer);
     };
-  }, [current, feedback, flashMs, enablePronunciation, accent]);
+  }, [current, feedback, flashMs, pronunciationMode, accent]);
 
   function playPronunciation(spelling: string) {
     try {
@@ -215,11 +226,11 @@ export function PracticeClient({
 
   // Play pronunciation a second time when answer submitted (correct or wrong).
   useEffect(() => {
-    if (feedback && current && enablePronunciation) {
+    if (feedback && current && (pronunciationMode === "both" || pronunciationMode === "feedback")) {
       const id = window.setTimeout(() => playPronunciation(current.spelling), 80);
       return () => window.clearTimeout(id);
     }
-  }, [feedback]);
+  }, [feedback, pronunciationMode]);
 
   async function postAttempt(word: Word, input: string, correct: boolean) {
     if (!sessionId) return;
@@ -245,20 +256,48 @@ export function PracticeClient({
   }
 
   function advance(word: Word, wasCorrect: boolean) {
-    const rest = queue.slice(1);
-    const newQueue = wasCorrect ? rest : [...rest, word];
     const newStats = {
       correct: stats.correct + (wasCorrect ? 1 : 0),
       wrong: stats.wrong + (wasCorrect ? 0 : 1),
     };
     setStats(newStats);
-    setQueue(newQueue);
-    setCurrent(newQueue[0] ?? null);
+    setQueue((prev) => {
+      const next = prev.slice(1);
+      if (!wasCorrect) next.push(word);
+      if (next.length > QUEUE_HARD_CAP) next.splice(0, next.length - QUEUE_HARD_CAP);
+      return next;
+    });
+    setAnswered((a) => a + 1);
     setUserInput("");
     setFeedback(null);
-    if (newQueue.length === 0) {
-      setFinished(true);
-      endSession(newStats);
+    refillQueue();
+    if (queue.length <= 1 && !wasCorrect) {
+      // queue is about to be empty after pop; more words incoming via refill
+    }
+  }
+
+  async function refillQueue() {
+    if (practiceWordIds) return;
+    if (refilling) return;
+    if (queue.length >= REFILL_THRESHOLD) return;
+    setRefilling(true);
+    try {
+      const res = await fetch(
+        `/api/words?wordbookId=${wordbookId}&random=true&limit=${QUEUE_BATCH}`,
+      );
+      if (!res.ok) return;
+      const { words }: { words: Word[] } = await res.json();
+      if (words.length === 0) {
+        setRefilling(false);
+        return;
+      }
+      setQueue((prev) => {
+        const merged = [...prev, ...words];
+        if (merged.length > QUEUE_HARD_CAP) merged.splice(0, merged.length - QUEUE_HARD_CAP);
+        return merged;
+      });
+    } finally {
+      setRefilling(false);
     }
   }
 
@@ -309,20 +348,31 @@ export function PracticeClient({
     setUserInput(clean);
   }
 
-  async function handleEndSession() {
-    if (!sessionId) return;
-    if (!confirm("确定要结束当前会话吗？进度将保留。")) return;
-    await fetch(`/api/sessions/${sessionId}/end`, { method: "DELETE" });
-    await fetch(`/api/sessions/${sessionId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        endedAt: new Date().toISOString(),
-        totalWords: stats.correct + stats.wrong,
-        correctCount: stats.correct,
-      }),
-    });
-    setFinished(true);
+  async function handleEndSessionFinal() {
+    if (!sessionId || endingRef.current) return;
+    endingRef.current = true;
+    try {
+      await fetch(`/api/sessions/${sessionId}/end`, { method: "DELETE" });
+      await fetch(`/api/sessions/${sessionId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          endedAt: new Date().toISOString(),
+          totalWords: stats.correct + stats.wrong,
+          correctCount: stats.correct,
+        }),
+      });
+      setFinished(true);
+      setShowEndDialog(false);
+      router.push("/");
+    } finally {
+      endingRef.current = false;
+    }
+  }
+
+  async function handleSaveProgress() {
+    setShowEndDialog(false);
+    router.push("/");
   }
 
   if (loading) {
@@ -382,12 +432,50 @@ export function PracticeClient({
           ← 返回主页
         </Link>
         <button
-          onClick={handleEndSession}
+          onClick={() => setShowEndDialog(true)}
           className="text-muted-foreground hover:text-error transition"
         >
-          结束会话
+          结束训练
         </button>
       </div>
+
+      {showEndDialog && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowEndDialog(false);
+          }}
+        >
+          <div className="bg-surface border border-border rounded-xl shadow-soft-lg p-6 max-w-sm w-full space-y-4">
+            <h3 className="text-lg font-bold">结束本次会话？</h3>
+            <p className="text-sm text-muted-foreground">
+              本会话已练 <span className="font-semibold text-foreground">{answered}</span> 词，
+              答对 <span className="font-semibold text-success">{stats.correct}</span>，
+              答错 <span className="font-semibold text-error">{stats.wrong}</span>。
+            </p>
+            <div className="space-y-2">
+              <button
+                onClick={handleSaveProgress}
+                className="w-full px-4 py-2.5 bg-accent text-accent-fg rounded-md font-medium hover:bg-accent-hover transition"
+              >
+                保存进度（稍后继续）
+              </button>
+              <button
+                onClick={handleEndSessionFinal}
+                className="w-full px-4 py-2.5 border border-error text-error rounded-md font-medium hover:bg-error/5 transition"
+              >
+                结束会话（不再继续）
+              </button>
+              <button
+                onClick={() => setShowEndDialog(false)}
+                className="w-full px-4 py-2 text-muted-foreground hover:text-foreground transition"
+              >
+                取消，继续学习
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {resumedSession && resumedSession.totalWords > 0 && (
         <p className="text-xs text-center text-accent bg-accent-soft/60 rounded-full py-1.5 px-3 inline-block mx-auto block w-fit">

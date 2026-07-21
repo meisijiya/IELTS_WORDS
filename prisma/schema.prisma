@@ -93,6 +93,9 @@ model UserSettings {
   dailyWordCount        Int      @default(20)
   flashMs               Int      @default(800)
   fadeMs                Int      @default(300)
+  // "both" | "flash" | "feedback" | "off" — pronounces on flash-phase and/or feedback-phase
+  pronunciationMode     String   @default("both")
+  // @deprecated — superseded by pronunciationMode. Kept for back-compat reads.
   enablePronunciation   Boolean  @default(true)
   accent                String   @default("us") // "us" | "uk"
   updatedAt             DateTime @updatedAt

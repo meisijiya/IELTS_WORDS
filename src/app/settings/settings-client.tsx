@@ -3,13 +3,23 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+type PronMode = "both" | "flash" | "feedback" | "off";
+
 interface Settings {
   dailyWordCount: number;
   flashMs: number;
   fadeMs: number;
+  pronunciationMode: PronMode;
   enablePronunciation: boolean;
   accent: "us" | "uk";
 }
+
+const PRON_OPTIONS: { value: PronMode; label: string; hint: string }[] = [
+  { value: "both", label: "都开", hint: "闪现阶段 + 反馈时各播一次（推荐）" },
+  { value: "flash", label: "仅闪现", hint: "只在单词闪现阶段播发音" },
+  { value: "feedback", label: "仅反馈", hint: "只在答对/答错反馈时播发音" },
+  { value: "off", label: "静音", hint: "完全不播放发音" },
+];
 
 export function SettingsClient() {
   const [settings, setSettings] = useState<Settings | null>(null);
@@ -109,34 +119,39 @@ export function SettingsClient() {
       <section className="space-y-3">
         <h2 className="text-lg font-semibold">单词发音</h2>
         <p className="text-sm text-muted-foreground">
-          开启后，单词闪现阶段会同时播放真人发音（雅思听力训练）
+          选择在哪个阶段播放真人发音（雅思听力训练）
         </p>
 
-        <div className="flex items-center justify-between p-4 bg-background border border-border rounded-lg">
-          <div>
-            <p className="font-medium">自动播放发音</p>
-            <p className="text-xs text-muted-foreground mt-1">
-              关闭则完全不下载音频文件，节省流量
-            </p>
+        <div className="space-y-2">
+          <p className="text-sm font-medium">播放时机</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {PRON_OPTIONS.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() =>
+                  setSettings({
+                    ...settings,
+                    pronunciationMode: opt.value,
+                    enablePronunciation: opt.value !== "off",
+                  })
+                }
+                title={opt.hint}
+                className={`px-3 py-2 rounded-md border text-sm font-medium transition ${
+                  settings.pronunciationMode === opt.value
+                    ? "bg-accent text-accent-fg border-accent"
+                    : "border-border hover:border-accent/50"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
           </div>
-          <button
-            onClick={() =>
-              setSettings({ ...settings, enablePronunciation: !settings.enablePronunciation })
-            }
-            className={`relative w-12 h-6 rounded-full transition ${
-              settings.enablePronunciation ? "bg-accent" : "bg-muted"
-            }`}
-            aria-label="toggle pronunciation"
-          >
-            <span
-              className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${
-                settings.enablePronunciation ? "left-6" : "left-0.5"
-              }`}
-            />
-          </button>
+          <p className="text-xs text-muted-foreground">
+            {PRON_OPTIONS.find((o) => o.value === settings.pronunciationMode)?.hint}
+          </p>
         </div>
 
-        {settings.enablePronunciation && (
+        {settings.pronunciationMode !== "off" && (
           <div className="space-y-2">
             <p className="text-sm font-medium">口音</p>
             <div className="flex gap-2">
