@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { CollectionWord } from "@/lib/word-collections";
 import type { DailyStat } from "@/lib/word-history";
 import { WrongWordSparkline } from "@/components/wrong-word-sparkline";
+import { CollectionTabs } from "@/components/collection-tabs";
 
 const RANGE_TABS: { value: string; label: string }[] = [
   { value: "today", label: "今天" },
@@ -71,6 +72,8 @@ export function LearningClient({
             : `共 ${words.length} 个词在持续练习中（未掌握且无错误）`}
         </p>
       </header>
+
+      <CollectionTabs wordbookSlug={wordbook.slug} current="learning" range={range} />
 
       <div className="flex flex-wrap gap-2 items-center justify-between">
         <div className="flex gap-1">

@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import type { DailyStat } from "@/lib/word-history";
 import { WrongWordSparkline } from "@/components/wrong-word-sparkline";
+import { CollectionTabs } from "@/components/collection-tabs";
 
 interface Mistake {
   wordId: number;
@@ -120,6 +121,8 @@ export function WrongWordsClient({
             : `共 ${mistakes.length} 个错词，按错误次数排序`}
         </p>
       </header>
+
+      <CollectionTabs wordbookSlug={wordbook.slug} current="wrong" range={range} />
 
       <div className="flex flex-wrap gap-2 items-center justify-between">
         <div className="flex gap-1">

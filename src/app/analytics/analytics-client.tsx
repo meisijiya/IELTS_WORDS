@@ -179,37 +179,15 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
 
           <section className="space-y-3">
             <div className="flex items-baseline justify-between gap-2 flex-wrap">
-              <h2 className="text-lg font-semibold">错词榜 · Top {data.topMissed.length}</h2>
+              <h2 className="text-lg font-semibold">错词榜 · {data.topMissed.length}</h2>
               {data.topMissed.length > 0 && wordbook && (
-                <div className="flex gap-3 text-sm">
-                  <Link
-                    href={`/wrong-words/${wordbook.slug}?range=${range}`}
-                    className="text-muted-fg hover:text-accent transition"
-                  >
-                    查看全部 →
-                  </Link>
-                </div>
+                <Link
+                  href={`/wrong-words/${wordbook.slug}?range=${range}`}
+                  className="text-sm text-muted-fg hover:text-accent transition"
+                >
+                  查看全部 →
+                </Link>
               )}
-            </div>
-            <div className="flex flex-wrap gap-2 text-sm">
-              <Link
-                href={`/wrong-words/${wordbook?.slug ?? "concise"}`}
-                className="px-3 py-1.5 rounded-md border border-border text-muted-fg hover:border-error/60 hover:text-error transition"
-              >
-                错词榜
-              </Link>
-              <Link
-                href={`/learning/${wordbook?.slug ?? "concise"}`}
-                className="px-3 py-1.5 rounded-md border border-border text-muted-fg hover:border-accent/60 hover:text-accent transition"
-              >
-                学习中
-              </Link>
-              <Link
-                href={`/mastered/${wordbook?.slug ?? "concise"}`}
-                className="px-3 py-1.5 rounded-md border border-border text-muted-fg hover:border-success/60 hover:text-success transition"
-              >
-                已掌握
-              </Link>
             </div>
             {data.topMissed.length === 0 ? (
               <p className="text-muted-fg text-sm">暂无错词记录</p>
