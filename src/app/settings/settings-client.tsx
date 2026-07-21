@@ -215,22 +215,30 @@ export function SettingsClient() {
 }
 
 function ResetButton() {
+  const CONFIRM_PHRASE = "RESET PROGRESS";
   const [confirming, setConfirming] = useState(false);
+  const [phrase, setPhrase] = useState("");
   const [working, setWorking] = useState(false);
   const [done, setDone] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function doReset() {
     setWorking(true);
+    setError(null);
     try {
       const res = await fetch("/api/admin/reset", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ scope: "progress" }),
+        body: JSON.stringify({ scope: "progress", confirm: CONFIRM_PHRASE }),
       });
-      if (!res.ok) throw new Error("重置失败");
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.message ?? data?.error ?? "重置失败");
+      }
       setDone(true);
-      setTimeout(() => location.reload(), 1000);
-    } catch {
+      setTimeout(() => location.reload(), 1500);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "重置失败");
       setWorking(false);
     }
   }
@@ -249,22 +257,37 @@ function ResetButton() {
   }
 
   return (
-    <div className="flex items-center gap-3">
-      <span className="text-sm">确定要清空所有学习记录吗？</span>
-      <button
-        onClick={doReset}
-        disabled={working}
-        className="px-4 py-2 bg-error text-white rounded font-medium disabled:opacity-50"
-      >
-        {working ? "重置中…" : "确认重置"}
-      </button>
-      <button
-        onClick={() => setConfirming(false)}
-        disabled={working}
-        className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded"
-      >
-        取消
-      </button>
+    <div className="space-y-3">
+      <p className="text-sm">
+        将清除所有 sessions / attempts / 单词进度（词汇本身保留）。
+      </p>
+      <div className="flex items-center gap-2">
+        <span className="text-sm font-mono">输入 <code>{CONFIRM_PHRASE}</code>：</span>
+        <input
+          type="text"
+          value={phrase}
+          onChange={(e) => setPhrase(e.target.value)}
+          className="border border-border rounded px-2 py-1 font-mono text-sm bg-background"
+          placeholder={CONFIRM_PHRASE}
+        />
+      </div>
+      <div className="flex items-center gap-2">
+        <button
+          onClick={doReset}
+          disabled={working || phrase !== CONFIRM_PHRASE}
+          className="px-4 py-2 bg-error text-white rounded font-medium disabled:opacity-50"
+        >
+          {working ? "重置中…" : "确认重置"}
+        </button>
+        <button
+          onClick={() => { setConfirming(false); setPhrase(""); setError(null); }}
+          disabled={working}
+          className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded"
+        >
+          取消
+        </button>
+      </div>
+      {error && <p className="text-sm text-error">{error}</p>}
     </div>
   );
 }
