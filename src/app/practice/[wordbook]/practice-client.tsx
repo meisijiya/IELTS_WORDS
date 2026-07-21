@@ -126,7 +126,36 @@ export function PracticeClient({
         setAccent(settings.accent);
 
         let sid: string;
-        if (active.session) {
+        if (practiceWordIds) {
+          // Targeted review: always POST /api/sessions (server finds same-id
+          // session to reuse or creates new). Must NOT short-circuit on an
+          // active drill session — review attempts would inherit mode='drill'
+          // and the SM-2 branch in /api/attempts would mutate Word state.
+          const created = await fetch("/api/sessions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              wordbookId,
+              wordIds: practiceWordIds,
+              mode: "review",
+            }),
+          });
+          if (!created.ok) throw new Error("创建错题练习会话失败");
+          const session = await created.json();
+          sid = session.id;
+          if (session.resumed) {
+            const detail = await fetch(`/api/sessions/active?wordbookId=${wordbookId}`);
+            if (detail.ok) {
+              const d: ActiveSessionResponse = await detail.json();
+              if (d.session) {
+                setResumedSession({
+                  correctCount: d.session.correctCount,
+                  totalWords: d.session.totalWords,
+                });
+              }
+            }
+          }
+        } else if (active.session) {
           sid = active.session.id;
           setResumedSession({
             correctCount: active.session.correctCount,
@@ -136,11 +165,7 @@ export function PracticeClient({
           const created = await fetch("/api/sessions", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              wordbookId,
-              wordIds: practiceWordIds ?? undefined,
-              mode: practiceWordIds ? "review" : "drill",
-            }),
+            body: JSON.stringify({ wordbookId, mode: "drill" }),
           });
           if (created.status === 409) {
             const data = await created.json();
