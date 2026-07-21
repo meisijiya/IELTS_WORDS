@@ -92,6 +92,25 @@ model Attempt {
   @@index([wordId])
 }
 
+model Checkin {
+  // Daily checkin snapshot — preserved across reset so users don't lose history.
+  // Created lazily on first /checkin/[date] visit, or eagerly by /api/admin/reset.
+  id                    Int      @id @default(autoincrement())
+  date                  String   @unique // "YYYY-MM-DD"
+  totalAttempts         Int      @default(0)
+  correctCount          Int      @default(0)
+  accuracy              Float    @default(0)
+  newMasteredCount      Int      @default(0)
+  wordsAttempted        Int      @default(0)
+  sessionsCount         Int      @default(0)
+  cumulativeMastered    Int      @default(0)
+  topMissedJson         String   @default("[]") // JSON: Mistake[]
+  wordbookBreakdownJson String   @default("{}") // JSON: Record<wordbookId, WordbookStat>
+  createdAt             DateTime @default(now())
+
+  @@index([date])
+}
+
 model UserSettings {
   id                    Int      @id @default(autoincrement())
   flashMs               Int      @default(800)

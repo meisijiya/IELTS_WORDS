@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { isAuthenticated } from "@/lib/auth";
+import { snapshotAllDatesWithAttempts } from "@/lib/checkin-snapshot";
 
 type Scope = "all" | "progress" | "attempts" | "sessions";
 
@@ -39,16 +40,20 @@ export async function POST(request: Request) {
   }
 
   if (scope === "attempts") {
+    await snapshotAllDatesWithAttempts();
     await prisma.attempt.deleteMany({});
     return NextResponse.json({ ok: true, scope });
   }
 
   if (scope === "sessions") {
+    await snapshotAllDatesWithAttempts();
     await prisma.session.deleteMany({});
+    await prisma.attempt.deleteMany({});
     return NextResponse.json({ ok: true, scope });
   }
 
   if (scope === "all") {
+    await snapshotAllDatesWithAttempts();
     await prisma.attempt.deleteMany({});
     await prisma.session.deleteMany({});
     await prisma.word.updateMany({
@@ -58,6 +63,7 @@ export async function POST(request: Request) {
   }
 
   // scope === "progress" — same effect as before but gated by phrase.
+  await snapshotAllDatesWithAttempts();
   await prisma.attempt.deleteMany({});
   await prisma.session.deleteMany({});
   await prisma.word.updateMany({
