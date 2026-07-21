@@ -36,6 +36,8 @@ jobs:
         with:
           context: .
           push: true
+          build-args: |
+            AUDIO_BUNDLE_URL=https://github.com/meisijiya/IELTS_WORDS/releases/download/audio-2026-07-21/audio.tgz
           tags: |
             ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:latest
             ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:${{ steps.meta.outputs.short_sha }}
