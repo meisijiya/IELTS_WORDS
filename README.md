@@ -10,52 +10,89 @@
 
 ## ✨ 特性
 
+### 训练核心
 - **Flash-then-Spell 模式** — 显示中英文 → 英文渐变消失 → 键盘拼写，贴合真实机考节奏
-- **自适应渐进提示** — 新词给 2 个字母提示，复习词给 1 个，已掌握不提示
-- **自动 SM-2 升级** — 答对 +1 / 答错 -1，跨 session 累积到 level=5 自动掌握
-- **错词本会话 FIFO 重出** — 错的词反复出现直到答对
-- **10,686 词双库** — 雅思词汇真经（3,611）+ IELTS（7,075）
-- **真人发音 + 双口音** — 闪现阶段播放 + 反馈时再播一次，每个 word 听 2 次（默认 US，可在 settings 切换 UK）
-- **音效反馈** — 答对双音 ding / 答错双音 buzz（Web Audio API 合成，零资源）
-- **动效反馈** — 答错时拼写 div 抖动（shake）+ 红色 / 答对时弹入（pop-in）+ 绿色
-- **单日打卡记录** — 一键导出 PNG 发给老师
-- **3 状态进度可视化** — 新词 / 学习中 / 已掌握
-- **错词榜 Top N** — 可重新练习 / 标记已熟
-- **未完成会话恢复** — 强制 1 个 active session per wordbook
-- **本地优先 + 云部署就绪** — 一键 Docker 部署到国内云服务器；可选 audio bundle 烤进 image
+- **无限副本模式** — 用户主导无限学习，不需要"每日单词量"，用户手动结束会话。Word 进入学习队列后会在后续 5 倍次出现以巩固。
+- **自适应渐进提示** — 新词 2 字母 / 复习词 1 字母 / 已熟练不提示
+- **SM-2 简化算法** — 答对 +1，答错 −1，连对 5 次升 level=5（已熟练）。已熟练答错 → 重置为 level=0 重学。
+- **错题 FIFO 重出** — 错的词反复出现直到答对
+- **实时统计** — ✓ 正确 / ✗ 错误 / 剩余 / 已练 / 连击中
+
+### 音频系统
+- **真人发音（双口音）** — 雅思词频真人发音，US + UK 双口音。闪现阶段 + 反馈时各播一次（合计每词 2 次），强化听感。
+- **点击单词重播** — 答题停留时点击单词文字可随时重播该次发音（鼠标 hover 显示 🔊 图标提示）
+- **accent 自动 fallback** — 用户选择 US 时，若该词只有 UK 音频，自动用 UK 顶上。零 404。
+- **发音 4 态** — 都开（闪+反馈）/ 仅闪现 / 仅反馈 / 静音
+- **浏览器缓存** — Next.js 静态资源自动带 ETag，重复请求返回 304，500 GB/月流量够用
+- **Docker audio bake-in** — 镜像构建时通过 `AUDIO_BUNDLE_URL` 把 130 MB 音频烤进 image，免运行时下载
+
+### 错题系统
+- **错题 Session** — 独立练习入口，答对/答错**都不改** word 的持久化 state（attempts / level / masteredAt 不变），仅插入 Attempt 行作为"出现"记录
+- **错题榜** — 按错误次数排序，可按时间筛选（今天 / 近一周 / 近一月 / 全部）；进入展开页有 Top-N（5/10/20/全部）切换
+- **今日已复习** — 基于 Attempt 表的 createdAt 推断，每天午夜自动重置；错题行带 `✓ 今日已复习` 绿徽
+- **两个批量入口** — 全量复习（包括今日已复习）/ 仅剩余（跳过今日已复习的）
+- **单词行可展开** — 显示释义 + 单练按钮 + "标记已熟"按钮
+- **已掌握自动消失** — 已熟练（level=5）的单词不会出现在错题榜
+
+### 拉取机制
+- **加权拉取** — 一批 20 词按比例分配：
+  - **review 优先（默认）**: 4 新 + 8 学过 + 8 已熟练
+  - **balanced**: 14 新 + 5 学过 + 1 已熟练
+  - **new 优先**: 18 新 + 2 学过 + 0 已熟练
+- **session 可并行** — 同 wordbook 下允许 random + targeted 多会话共存；同一 IDs 集合（包括乱序）自动复用
+- **页式补仓** — `refillQueue` 在队列 < 5 时静默 fetch 下一页，单 batch < 100 KB
+
+### 视听反馈
+- **音效反馈** — 答对：`Web Audio API` 双音 ding；答错：双音 buzz（0 资源，浏览器合成）
+- **Streak 连击音效** — 3 / 6 / 9 / 12 / 15 milestones 升级：双音 → bell 上行 → sparkle 瀑布 → swell + 合弦
+- **Streak 屏幕震动** — 微妙 1-4 px 位移，≤ 120 ms，不干扰学习
+- **banner pulse** — milestone 触发 streak banner 刷新动画（force reflow + key restart）
+
+### 安全与运维
+- **重置防呆** — `/api/admin/reset` 强制要求确认短语（`RESET PROGRESS` / `DELETE ATTEMPTS` / `DELETE SESSIONS` / `RESET EVERYTHING`），避免误触
+- **HMAC Cookie 认证** — Edge Runtime safe
+- **CI/CD** — GitHub Actions 自动 lint / typecheck / build + 阿里云容器镜像推 + SSH 部署
 
 ## 🖼️ 预览
 
 ```
-┌─ 主页 ──────────────────────────────────────┐   ┌─ 练习界面 ──────────────────────┐
-│  Yasi Words                                  │   │                                 │
-│  📅 打卡  📊 分析  ⚙️ 设置                   │   │       v. 监督                   │
-│                                              │   │                                 │
-│  ┌─────────────────────────────────────┐  │   │    a t t _ t _ _ _ _             │
-│  │ 雅思词汇真经（精简版）   [常规]      │  │   │                                 │
-│  │ 开始于 14:23  已练 12 词（9 正确）  │  │   │  ┌──────────────────────────┐  │
-│  │ [继续] [结束]                        │  │   │  │ attitide_                │  │
-│  └─────────────────────────────────────┘  │   │  └──────────────────────────┘  │
-│                                              │   │                                 │
-│  ┌──────────────┐    ┌──────────────┐      │   │  ┌──────────┐  ┌──────────────┐ │
-│  │ 雅思词汇真经 │    │  IELTS       │      │   │  │ 提交 Enter│  │  下一个 →   │ │
-│  │  3,611 词    │    │  7,075 词   │      │   │  └──────────┘  └──────────────┘ │
-│  └──────────────┘    └──────────────┘      │   │                                 │
-└──────────────────────────────────────────────┘   └─────────────────────────────────┘
+┌─ 主页 ──────────────────────────┐  ┌─ 练习界面（无限副本）──────────────────┐
+│ Yasi Words                       │  │                                       │
+│ 📅 打卡  📊 分析  ⚙️ 设置       │  │          v. 监督                      │
+│                                 │  │                                       │
+│ ┌──────────────────────────┐  │  │   a t t _ t _ t _ _ _                  │
+│ │雅思词汇真经（精简版）常规│  │  │                                       │
+│ │开始 14:23  已练 12 (9✓)  │  │  │   ┌──────────────────────────┐      │
+│ │[继续]  [结束]              │  │  │   │ attitide_               │      │
+│ └──────────────────────────┘  │  │   └──────────────────────────┘      │
+│                                 │  │   adj. 监督; 监理                    │
+│ ┌──────────┐  ┌──────────┐     │  │   [L1/5 · 已答对1 · 总尝试1] 🔥 1连击中│
+│ │ 精简  3.6K│  │ 完整  7.0K│    │  │                                       │
+│ └──────────┘  └──────────┘     │  │   🔊 点击单词重播                        │
+│                                 │  │                                       │
+│ 雅思词汇真经 (active session)  │  │   ╭─────── 答完停留 ──────╮           │
+│ ┌──────────────────────────┐  │  │   │ ✓ 拼对了 attitide   │           │
+│ │昨天 19:00 已练 30 (25✓)  │  │  │   │  [下一题]            │           │
+│ │[继续]  [结束]              │  │  │   ╰─────────────────────╯           │
+│ └──────────────────────────┘  │  │                                       │
+└─────────────────────────────┘  └─────────────────────────────────────┘
 
-┌─ 学习分析 ──────────────────────────────┐    ┌─ 单日打卡（可截图） ─────────────┐
-│  掌握进度 1,234 / 10,686 (12%)         │    │   2026-07-20  周一 [TODAY]      │
-│  ████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ │    │                                 │
-│  ■ 已掌握  ■ 学习中  ■ 新词           │    │   今日学习        今日掌握      │
-│                                        │    │   ┌────────┐      ┌────────┐   │
-│  累计尝试 5,678   正确率 78%         │    │   │   45   │      │   12   │   │
-│                                        │    │   └────────┘      └────────┘   │
-│  错词 Top 5                            │    │                                 │
-│  1. atmosphere  ✗ 4 ✓ 1               │    │   准确率 78%  正确 39  错误 11  │
-│  2. perspective ✗ 3 ✓ 0               │    │                                 │
-│  3. undertake    ✗ 2 ✓ 1               │    │   [📷 下载打卡图 PNG]            │
-│  ...                                   │    │                                 │
-└────────────────────────────────────────┘    └──────────────────────────────────┘
+┌─ 错题榜（展开页 /wrong-words/[wordbook]）─────────┐
+│ 错词榜 · 雅思词汇真经（精简版） · 近一周 [今日][一周][一月][全部]│
+│  Top-N [5][10][20][全部]                          │
+│                                                  │
+│  ┌──────────────────────────────────────────┐  │
+│  │ 🎯 批量复习模式：全量 18 · 已复习 6 · 剩余 12 │  │
+│  │ [全量复习 18词]  [仅剩余 12词]            │  │
+│  └──────────────────────────────────────────┘  │
+│                                                  │
+│  1. atmosphere  n.大气层          ✗ 4 ✓ 1  [✓今日已复习]│
+│  2. perspective n./v. 看法        ✗ 3 ✓ 0            │
+│  3. undertake   v.承担            ✗ 2 ✓ 1            │
+│  ...                                              │
+│                                                  │
+│  展开 → 释义 · [单练] [标记已熟]                │
+└──────────────────────────────────────────────────┘
 ```
 
 ## 🚀 快速开始
@@ -66,19 +103,19 @@
 git clone https://github.com/meisijiya/IELTS_WORDS.git yasi-words
 cd yasi-words
 cp .env.docker.example .env
-nano .env  # 改密码
+nano .env  # 改 ADMIN_PASSWORD / (可选) AUDIO_BUNDLE_URL 烤入发音
 docker compose up -d --build
 open http://localhost:3000
 ```
 
+> **国内访问加速**：镜像源全用阿里云（registry.cn-hangzhou.aliyuncs.com）和淘宝（registry.npmmirror.com），中国大陆服务器无需特殊网络配置。
+
 ### 方式 B · 本地开发
 
 ```bash
-# 前置要求：Node.js 22+, Python 3.10+（仅 PDF 提取用）
+# 前置：Node.js 22+，可选 Python 3.10+（仅 PDF 提取 / 音频下载脚本用）
 
 npm install
-pip install -r tools/requirements.txt
-
 npx prisma db push
 npx tsx prisma/seed.ts
 
@@ -87,18 +124,30 @@ cp .env.example .env
 
 npm run dev
 open http://localhost:3000
+
+# 可选：下载真人发音（一次性 ~30 min，从有道字典）
+python3 tools/fetch_pronunciations.py
 ```
 
 ## 🧰 常用命令
 
 ```bash
+# 开发 / 构建
 npm run dev          # 开发模式
 npm run build        # 生产构建
-npm start            # 生产服务器（需先 build）
+npm start            # 生产服务器
 npm run typecheck    # TypeScript 类型检查
 npm run lint         # ESLint
-npm run test:parser  # Python parser 测试（18 tests）
-npm run gate         # 数据准确率验证
+
+# 数据 / 测试
+npm run test:parser  # PDF parser (pytest, 18 tests)
+npm run gate         # 数据准确率验证 (audit gate)
+
+# 音频管理
+python3 tools/fetch_pronunciations.py            # 多并发下载 10K 词双口音
+python3 tools/check_audio.py                     # DB vs filesystem 核对 (输出缺失列表)
+python3 tools/retry_missing_audio.py             # throttled 重试缺失
+python3 tools/release-audio.py --tag v1.0.0      # 上传到 GitHub Release
 
 # Docker
 docker compose up -d --build
@@ -108,49 +157,69 @@ docker compose down
 
 ## 📚 文档
 
-- 📦 [腾讯云轻量级部署](docs/deploy-tencent-cloud.md) — 裸机部署
-- 🐳 [Docker 一键部署](docs/deploy-docker.md) — 国内镜像源优化
+- 📦 [腾讯云轻量级部署](docs/deploy-tencent-cloud.md) — 裸机部署 + 阿里云 ACR
+- 🐳 [Docker 一键部署](docs/deploy-docker.md) — 国内镜像源优化 + audio bundle 烤入
 - 📄 [PDF 提取规则](docs/grammar.md) — 数据准确率 100% 的来由
-- 🤖 [GitHub Actions CI/CD](#-cicd) — 自动化测试 + 部署
+- 🤖 [GitHub Actions CI/CD](#-cicd) — lint + 类型 + 数据 gate + 部署
 
 ## 🏗️ 技术栈
 
 | 层 | 选型 |
 |---|---|
-| **框架** | Next.js 15 (App Router) + TypeScript 5 |
+| **框架** | Next.js 15 (App Router) + TypeScript 5 + React 19 |
 | **ORM** | Prisma 6 + SQLite (dev) / PostgreSQL (prod) |
-| **UI** | React 19 + Tailwind CSS 3 + 自定义"冬天旭日"主题 |
+| **UI** | Tailwind CSS 3 + 自定义"冬天旭日"主题 |
 | **认证** | Web Crypto HMAC-signed cookie (Edge-safe) |
-| **图表** | Recharts（分析页） + html2canvas（打卡图导出） |
+| **音频** | Web Audio API（合成 chime / buzz / streak 音效）+ Next.js 静态文件提供 MP3 |
+| **图表** | Recharts（分析页）+ html2canvas（打卡图导出） |
+| **音频下载** | Youdao OpenDict API，13500 词 ~ 30 分钟，stdlib urllib + threading |
 | **测试** | Vitest (TS) + pytest (Python parser) |
-| **部署** | Docker Compose + 阿里云容器镜像 + 腾讯云服务器 |
+| **部署** | Docker Compose + 阿里云容器镜像 ACR + 腾讯云服务器 |
 
 ## 📂 项目结构
 
 ```
 .
 ├── src/
-│   ├── app/                # Next.js App Router
-│   │   ├── page.tsx        # 主页（词库选择 + 未完成会话 + 今日打卡入口）
-│   │   ├── login/          # 登录页
-│   │   ├── practice/[wordbook]/  # 练习页 + PracticeClient
-│   │   ├── analytics/      # 学习分析仪表盘
-│   │   ├── checkin/[date]/ # 单日打卡记录
-│   │   ├── settings/       # 设置页（每日单词量 + 闪现时长 + 重置）
-│   │   └── api/            # API routes
-│   ├── lib/                # 工具库（auth / db）
-│   └── components/         # 共享组件
+│   ├── app/                       # Next.js App Router
+│   │   ├── page.tsx               # 主页（词库选择 + 未完成会话卡）
+│   │   ├── login/                 # 登录
+│   │   ├── practice/[wordbook]/   # 练习页面 + PracticeClient
+│   │   ├── analytics/             # 学习分析仪表盘 + analytics-client
+│   │   ├── checkin/[date]/        # 单日打卡页 + html2canvas 导出 PNG
+│   │   ├── wrong-words/[wordbook]/# 错题榜展开页 + 今日已复习标
+│   │   ├── settings/              # 设置页（含拉取优先级 + 重置防呆）
+│   │   └── api/
+│   │       ├── sessions/          # POST 创建 / GET active / DELETE 结束
+│   │       ├── attempts/          # POST 答对/错；支持 drill / review 模式
+│   │       ├── words/             # GET random+weighted list / mark-mastered
+│   │       ├── analytics/         # GET 进度 + 错题榜 + 错误位置分析
+│   │       ├── settings/          # GET/PUT pronunciationMode + pullPriority + accent
+│   │       └── admin/reset/       # POST 清空 + 强制 confirm phrase
+│   ├── lib/                       # 工具库 (auth HMAC / db 单例)
+│   └── components/                # 共享组件
 ├── prisma/
-│   ├── schema.prisma       # Wordbook / Word / Session / Attempt / UserSettings
-│   └── seed.ts             # 从 seed JSON 导入
-├── seed/                   # 10,686 词 JSON（精简 3,611 + 完整 7,075）
-├── tools/                  # PDF 提取 + 解析 + 校验（Python）
+│   ├── schema.prisma              # Wordbook / Word / Session / Attempt / UserSettings
+│   │                              # Word.masteredAt · Session.mode (drill|review)
+│   └── seed.ts                    # 从 seed JSON 导入
+├── seed/                          # 10,686 词 JSON（精简 3,611 + 完整 7,075）
+├── tools/                         # PDF 提取 + 解析 + 校验 + 音频管理
+│   ├── fetch_pronunciations.py    # 多并发下载 US+UK 真人发音
+│   ├── check_audio.py             # DB vs filesystem 核对
+│   ├── retry_missing_audio.py     # throttled 重试缺失
+│   ├── release-audio.py           # 上传到 GitHub Release
+│   └── audit.py                   # 生成全量 TSV + 抽样对比
+├── release/                       # gitignored 预打包音频 tarball
+├── public/audio/                  # gitignored 运行时下载音频
 ├── docker/
-│   └── entrypoint.sh       # 自动等 DB + migrate + seed
-├── docs/                   # 部署 / 提取规则文档
+│   └── entrypoint.sh              # 等 DB + migrate + (可选) seed
+├── docs/
+│   ├── deploy-tencent-cloud.md
+│   ├── deploy-docker.md
+│   └── grammar.md
 ├── Dockerfile
 ├── docker-compose.yml
-└── .github/workflows/     # CI / CD
+└── .github/workflows/             # ci.yml + deploy.yml
 ```
 
 ## 🔍 数据来源与准确率
@@ -162,17 +231,91 @@ docker compose down
 
 ## 🚢 部署
 
-### 国内云服务器（推荐）
+详见 [docs/deploy-docker.md](docs/deploy-docker.md) 与 [docs/deploy-tencent-cloud.md](docs/deploy-tencent-cloud.md)。要点：
 
-详见 [docs/deploy-docker.md](docs/deploy-docker.md)。所有镜像源已配置阿里云镜像：
-- Docker 镜像：`registry.cn-hangzhou.aliyuncs.com`
-- Alpine apk：`mirrors.aliyun.com`
-- npm：`registry.npmmirror.com`
-- GitHub：`ghproxy.com`
+### 国内云服务器加速镜像（已配置）
+| 用途 | 镜像源 |
+|---|---|
+| Docker 基础镜像 | `registry.cn-hangzhou.aliyuncs.com/library/` |
+| Alpine apk | `mirrors.aliyun.com/alpine/...` |
+| npm | `registry.npmmirror.com` |
+| GitHub | `ghproxy.com` |
 
-### CI/CD（自动化部署）
+### audio bundle 烤进 image
 
-详见下方 [🤖 CI/CD](#-cicd) 章节。
+```bash
+# 1. 在能访问国际网的环境下载 audio（一次性 ~30 min）
+git clone https://github.com/meisijiya/IELTS_WORDS.git
+cd IELTS_WORDS
+python3 tools/fetch_pronunciations.py
+
+# 2. 上传到 GitHub Release（或 OSS 等）
+python3 tools/release-audio.py --tag v1.0.0
+
+# 3. 服务器 .env 配置镜像（含 ~130 MB 音频）
+echo "AUDIO_BUNDLE_URL=https://ghproxy.com/https://github.com/meisijiya/IELTS_WORDS/releases/download/v1.0.0/audio.tgz" >> .env
+
+# 4. docker compose build（构建时下载并解压到 public/audio/）
+docker compose up -d --build
+```
+
+镜像构建时一次性下载音频烤入，运行时无需联网下载。
+
+## 🎯 算法概览
+
+### Word Level（SM-2 简化版）
+
+```
+初始:     level = 0
+答对:     level = min(5, level + 1),  level 首次到 5 → masteredAt = now()
+答错:     若 level >= 5 (已熟练) → level = 0, masteredAt = null  (de-master 重学)
+         否则: level = max(0, level - 1)
+```
+
+### Session Mode
+
+- **drill（默认）**: 答对/答错都更新 Word 的 level / attempts / correct / masteredAt。
+- **review（错题 Session）**: 只插入 Attempt 行作为"出现"记录，**不修改 Word 任何字段**。错题榜的"今日已复习"由 Attempt.createdAt 推断。
+
+### 错题 Session 流程
+
+```
+[Analytics 错题榜] → "仅剩余" 按钮 (筛掉今日已复习的)
+   ↓ GET /practice/concise?ids=10,20,30
+   ↓ POST /api/sessions (wordIds=[10,20,30], mode='review')
+   ↓ 答完 3 个单词，每次插入 Attempt（不污染 word 状态）
+   ↓ 显示 "本轮完成 🎉" 页
+   ↓
+   ✦ 错题榜 word 10, 20, 30 现在带 "今日已复习" badge
+   ✦ "仅剩余" 自动排除它们
+```
+
+### 拉取加权算法
+
+```
+N = 20 (单 batch 上限)
+priority = 'review' | 'balanced' | 'new'
+
+PULL_CONFIG[priority] = {
+  ratio:    [新, 学过, 已熟练],
+  fallback: [出错时优先填哪个池]
+}
+
+review:    { ratio: [4, 8, 8], fallback: [mastered, learned, new] }   # 复习密集
+balanced:  { ratio: [14, 5, 1], fallback: [new, learned, mastered] }  # 默认
+new:       { ratio: [18, 2, 0], fallback: [new, learned, mastered] } # 扩张密集
+```
+
+边界情况：
+- 所有词都已尝试 → fallback 到 learned 池，仍能拉 20
+- 所有词已熟练 → fallback 到 mastered 池，答错触发 de-master 后再次出现
+- 全部 masteredAt 过滤完了 → API 返回空数组 `{"words": []}`，前端显示"已掌握所有"
+
+## 🤝 贡献 / 自定义
+
+- 加新词库：编辑 `seed/*.json` + `prisma/seed.ts` 的映射，跑 `npx tsx prisma/seed.ts`
+- 调整拉取比例：编辑 `src/app/api/words/route.ts` 的 `PULL_CONFIG`
+- 改 streak milestone 倍率：编辑 `src/app/practice/[wordbook]/practice-client.tsx` 的 `playStreakChime` 里 `tier` 判定
 
 ## 📜 License
 
