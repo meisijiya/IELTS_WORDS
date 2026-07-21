@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { PartyPopper, Sprout, Check } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import type { CollectionWord } from "@/lib/word-collections";
@@ -76,7 +77,7 @@ export function MasteredClient({
         </h1>
         <p className="text-sm text-muted-fg">
           {words.length === 0
-            ? "🎉 当前还没有掌握的词"
+            ? <span className="inline-flex items-center gap-1.5"><PartyPopper className="h-4 w-4" /> 当前还没有掌握的词</span>
             : `共 ${words.length} 个词已掌握（Level 5）`}
         </p>
       </header>
@@ -117,7 +118,7 @@ export function MasteredClient({
       </div>
 
       {visibleWords.length === 0 ? (
-        <p className="text-center text-muted-fg py-12">当前范围没有已掌握词 🌱</p>
+        <p className="text-center text-muted-fg py-12 inline-flex items-center gap-1.5"><Sprout className="h-4 w-4" /> 当前范围没有已掌握词</p>
       ) : (
         <ol className="space-y-2">
           {visibleWords.map((w, idx) => {
@@ -137,8 +138,8 @@ export function MasteredClient({
                     {w.pos && (
                       <span className="text-xs font-mono text-muted-fg shrink-0">{w.pos}</span>
                     )}
-                    <span className="text-xs px-2 py-0.5 bg-success/15 text-success rounded-full font-medium shrink-0">
-                      ✓ 已掌握
+                    <span className="text-xs px-2 py-0.5 bg-success/15 text-success rounded-full font-medium shrink-0 inline-flex items-center gap-1">
+                      <Check className="h-3 w-3" /> 已掌握
                     </span>
                   </span>
                   <span className="text-xs text-muted-fg shrink-0">

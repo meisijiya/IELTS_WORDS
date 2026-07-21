@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { PartyPopper, Dumbbell, Check } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import type { CollectionWord } from "@/lib/word-collections";
@@ -68,7 +69,7 @@ export function LearningClient({
         </h1>
         <p className="text-sm text-muted-fg">
           {words.length === 0
-            ? "🎉 当前没有正在学习的词"
+            ? <span className="inline-flex items-center gap-1.5"><PartyPopper className="h-4 w-4" /> 当前没有正在学习的词</span>
             : `共 ${words.length} 个词在持续练习中（未掌握且无错误）`}
         </p>
       </header>
@@ -109,7 +110,7 @@ export function LearningClient({
       </div>
 
       {visibleWords.length === 0 ? (
-        <p className="text-center text-muted-fg py-12">当前范围没有学习中词 💪</p>
+        <p className="text-center text-muted-fg py-12 inline-flex items-center gap-1.5"><Dumbbell className="h-4 w-4" /> 当前范围没有学习中词</p>
       ) : (
         <ol className="space-y-2">
           {visibleWords.map((w, idx) => {
@@ -136,7 +137,7 @@ export function LearningClient({
                   <span className="text-xs text-muted-fg shrink-0">
                     <span className="font-semibold">{w.attempts}</span> 次尝试
                     <span className="mx-1">·</span>
-                    <span className="text-success">{w.correct} ✓</span>
+                    <span className="text-success inline-flex items-center gap-0.5">{w.correct} <Check className="h-3 w-3" /></span>
                   </span>
                 </button>
                 {isExpanded && (

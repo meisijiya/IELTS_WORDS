@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { PartyPopper, Volume2, Pin, Flame, Check, X, Sparkles, ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -189,7 +190,7 @@ export function PracticeClient({
         if (cancelled) return;
 
         if (words.length === 0) {
-          setError("🎉 已无可练单词（全部 level=5 已掌握）");
+          setError("已无可练单词（全部 level=5 已掌握）");
           setLoading(false);
           return;
         }
@@ -573,11 +574,17 @@ export function PracticeClient({
   if (finished) {
     return (
       <div className="text-center space-y-6 py-8 animate-fade-in">
-        <h2 className="text-3xl font-bold tracking-tight">本轮完成 🎉</h2>
+        <h2 className="text-3xl font-bold tracking-tight inline-flex items-center gap-2">
+          <PartyPopper className="h-7 w-7" /> 本轮完成
+        </h2>
         <p className="text-lg text-muted-foreground">
-          ✓ {stats.correct}　·　✗ {stats.wrong}　·　共 {originalSize} 词
+          <span className="inline-flex items-center gap-0.5"><Check className="h-4 w-4" /> {stats.correct}</span>
+          <span className="mx-2">·</span>
+          <span className="inline-flex items-center gap-0.5"><X className="h-4 w-4" /> {stats.wrong}</span>
+          <span className="mx-2">·</span>
+          共 {originalSize} 词
           {stats.streak > 1 && (
-            <span className="ml-3 text-accent">🔥 {stats.streak} 连击中</span>
+            <span className="ml-3 text-accent inline-flex items-center gap-1"><Flame className="h-4 w-4" /> {stats.streak} 连击中</span>
           )}
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -614,9 +621,15 @@ export function PracticeClient({
     // Empty queue but user has answered — show summary so they can leave.
     return (
       <div className="max-w-md mx-auto px-4 py-12 text-center space-y-6 animate-fade-in">
-        <h2 className="text-3xl font-bold tracking-tight">🎉 本轮完成</h2>
+        <h2 className="text-3xl font-bold tracking-tight inline-flex items-center gap-2">
+          <PartyPopper className="h-7 w-7" /> 本轮完成
+        </h2>
         <p className="text-lg text-muted-foreground">
-          ✓ {stats.correct}　·　✗ {stats.wrong}　·　共 {answered} 词
+          <span className="inline-flex items-center gap-0.5"><Check className="h-4 w-4" /> {stats.correct}</span>
+          <span className="mx-2">·</span>
+          <span className="inline-flex items-center gap-0.5"><X className="h-4 w-4" /> {stats.wrong}</span>
+          <span className="mx-2">·</span>
+          共 {answered} 词
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
@@ -696,7 +709,7 @@ export function PracticeClient({
 
       {resumedSession && resumedSession.totalWords > 0 && (
         <p className="text-xs text-center text-accent bg-accent-soft/60 rounded-full py-1.5 px-3 inline-block mx-auto block w-fit">
-          📌 继续未完成会话 · 已练 {resumedSession.totalWords} 词
+          <span className="inline-flex items-center gap-1.5"><Pin className="h-3.5 w-3.5" /> 继续未完成会话 · 已练 {resumedSession.totalWords} 词</span>
           {resumedSession.correctCount > 0 && `（${resumedSession.correctCount} 正确）`}
         </p>
       )}
@@ -711,8 +724,8 @@ export function PracticeClient({
             title="点击重播发音"
           >
             {current.spelling}
-            <span className="absolute -right-7 top-1/2 -translate-y-1/2 text-base opacity-0 group-hover:opacity-100 transition-opacity select-none" aria-hidden>
-              🔊
+            <span className="absolute -right-7 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity select-none" aria-hidden>
+              <Volume2 className="h-4 w-4" />
             </span>
           </button>
         ) : null}
@@ -725,8 +738,8 @@ export function PracticeClient({
             title="点击重播发音"
           >
             {current.spelling}
-            <span className="absolute -right-7 top-1/2 -translate-y-1/2 text-base opacity-50 group-hover:opacity-100 transition-opacity select-none" aria-hidden>
-              🔊
+            <span className="absolute -right-7 top-1/2 -translate-y-1/2 opacity-50 group-hover:opacity-100 transition-opacity select-none" aria-hidden>
+              <Volume2 className="h-4 w-4" />
             </span>
           </button>
         )}
@@ -739,8 +752,8 @@ export function PracticeClient({
             title="点击重播发音"
           >
             {current.spelling}
-            <span className="absolute -right-7 top-1/2 -translate-y-1/2 text-base opacity-50 group-hover:opacity-100 transition-opacity select-none" aria-hidden>
-              🔊
+            <span className="absolute -right-7 top-1/2 -translate-y-1/2 opacity-50 group-hover:opacity-100 transition-opacity select-none" aria-hidden>
+              <Volume2 className="h-4 w-4" />
             </span>
           </button>
         )}
@@ -754,7 +767,7 @@ export function PracticeClient({
       <div className="flex items-center justify-center gap-3 text-xs flex-wrap">
         {current.masteredAt ? (
           <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-success/15 text-success rounded-full font-medium">
-            ✦ 已熟练
+            <Sparkles className="h-3.5 w-3.5" /> 已熟练
             <span className="text-success/70">· 第 {current.attempts} 次（答对 {current.correct} 次）</span>
             <span className="text-success/70">· 复习中</span>
           </span>
@@ -769,7 +782,7 @@ export function PracticeClient({
           </>
         ) : (
           <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-muted text-muted-foreground rounded-full">
-            ✧ 新词
+            <Sparkles className="h-3.5 w-3.5" /> 新词
           </span>
         )}
       </div>
@@ -804,7 +817,7 @@ export function PracticeClient({
               onClick={() => advance(current!, feedback.correct)}
               className="w-full md:w-auto px-8 py-3 text-lg bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent-hover active:scale-[0.98] transition"
             >
-              下一个 →
+              下一个 <ArrowRight className="inline h-5 w-5" />
             </button>
           ) : (
             <button
@@ -821,7 +834,7 @@ export function PracticeClient({
         <p className="text-xs text-muted-foreground text-center">
           {feedback
             ? feedback.correct
-              ? "✓ 正确 · 点击按钮或按 Enter 进入下一个"
+              ? <><Check className="inline h-3.5 w-3.5" /> 正确 · 点击按钮或按 Enter 进入下一个</>
               : "对比上方字母 · 点击按钮或按 Enter 进入下一个"
             : `点击提交或按 Enter · Esc 重置 · 提示字母：${hintPositions.size} 个`}
         </p>
@@ -833,8 +846,8 @@ export function PracticeClient({
           stats.streak > 0 ? "text-foreground" : "text-muted-foreground"
         }`}
       >
-        <span className="text-success font-medium tabular-nums">✓ {stats.correct}</span>
-        <span className="text-error font-medium tabular-nums">✗ {stats.wrong}</span>
+        <span className="text-success font-medium tabular-nums inline-flex items-center gap-1"><Check className="h-4 w-4" /> {stats.correct}</span>
+        <span className="text-error font-medium tabular-nums inline-flex items-center gap-1"><X className="h-4 w-4" /> {stats.wrong}</span>
         <span className="text-muted-foreground tabular-nums">剩余 {queue.length}</span>
         {stats.streak >= 3 && (
           <span
@@ -842,7 +855,7 @@ export function PracticeClient({
               stats.streak >= 12 ? "text-success" : stats.streak >= 6 ? "text-warning" : "text-accent"
             }`}
           >
-            🔥 {stats.streak} 连击中
+            <span className="inline-flex items-center gap-1"><Flame className="h-4 w-4" /> {stats.streak} 连击中</span>
           </span>
         )}
       </div>

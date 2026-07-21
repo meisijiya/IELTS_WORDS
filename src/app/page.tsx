@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
+import { CalendarDays, BarChart3, Settings, Pin, ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { ActiveSessionCard } from "./active-session-card";
 
@@ -89,29 +90,29 @@ export default async function HomePage() {
         <div className="flex gap-4 text-sm">
           <Link
             href={`/checkin/${today}`}
-            className="text-accent hover:text-accent-hover transition"
+            className="text-accent hover:text-accent-hover transition inline-flex items-center gap-1.5"
           >
-            📅 打卡
+            <CalendarDays className="h-4 w-4" /> 打卡
           </Link>
           <Link
             href="/analytics"
-            className="text-accent hover:text-accent-hover transition"
+            className="text-accent hover:text-accent-hover transition inline-flex items-center gap-1.5"
           >
-            📊 分析
+            <BarChart3 className="h-4 w-4" /> 分析
           </Link>
           <Link
             href="/settings"
-            className="text-accent hover:text-accent-hover transition"
+            className="text-accent hover:text-accent-hover transition inline-flex items-center gap-1.5"
           >
-            ⚙️ 设置
+            <Settings className="h-4 w-4" /> 设置
           </Link>
         </div>
       </header>
 
       {activeSessions.length > 0 && (
         <section className="mb-8 p-5 bg-accent-soft/50 border border-accent/30 rounded-xl">
-          <h2 className="text-sm font-semibold text-accent mb-1">
-            📌 未完成会话 · {activeSessions.length} 个
+          <h2 className="text-sm font-semibold text-accent mb-1 inline-flex items-center gap-1.5">
+            <Pin className="h-4 w-4" /> 未完成会话 · {activeSessions.length} 个
           </h2>
           <p className="text-xs text-muted-foreground mb-3">
             点击「继续」会恢复当前会话。点击「结束」会放弃该会话（数据保留为「已完成」状态）。
@@ -138,8 +139,8 @@ export default async function HomePage() {
                 {today}
               </p>
             </div>
-            <span className="text-accent group-hover:translate-x-1 transition">
-              →
+            <span className="text-accent group-hover:translate-x-1 transition inline-flex items-center">
+              <ArrowRight className="h-5 w-5" />
             </span>
           </div>
         </Link>

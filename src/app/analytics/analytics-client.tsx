@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { X, Check } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 interface Wordbook {
@@ -209,9 +210,9 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
                           )}
                         </span>
                         <span className="text-sm flex items-center gap-3">
-                          <span className="text-error font-mono">✗ {w.mistakes}</span>
+                          <span className="text-error font-mono inline-flex items-center gap-0.5"><X className="h-3.5 w-3.5" /> {w.mistakes}</span>
                           <span className="text-muted-fg">·</span>
-                          <span className="text-success font-mono">✓ {w.correct}</span>
+                          <span className="text-success font-mono inline-flex items-center gap-0.5"><Check className="h-3.5 w-3.5" /> {w.correct}</span>
                           <span className="text-muted-fg">{expanded ? "▲" : "▼"}</span>
                         </span>
                       </button>
@@ -242,7 +243,7 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
                               disabled={markedIds.has(w.wordId)}
                               className="px-3 py-1 text-sm border border-success text-success rounded hover:bg-success hover:text-white transition disabled:opacity-50"
                             >
-                              {markedIds.has(w.wordId) ? "✓ 已标记" : "标记为已熟"}
+                              {markedIds.has(w.wordId) ? <><Check className="inline h-3.5 w-3.5" /> 已标记</> : "标记为已熟"}
                             </button>
                           </div>
                         </div>

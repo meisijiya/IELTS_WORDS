@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Camera, Printer } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 
@@ -293,14 +294,14 @@ export function CheckinClient({ date }: { date: string }) {
           disabled={downloading || !hasActivity}
           className="flex-1 px-5 py-3 bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent-hover active:scale-[0.98] transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {downloading ? "生成中…" : "📷 下载打卡图（PNG）"}
+          {downloading ? "生成中…" : <span className="inline-flex items-center gap-1.5"><Camera className="h-4 w-4" /> 下载打卡图（PNG）</span>}
         </button>
         <button
           onClick={() => window.print()}
           disabled={!hasActivity}
           className="px-5 py-3 border border-border rounded-md font-medium hover:border-accent hover:text-accent transition disabled:opacity-50"
         >
-          🖨️ 打印 / 手动截图
+          <span className="inline-flex items-center gap-1.5"><Printer className="h-4 w-4" /> 打印 / 手动截图</span>
         </button>
       </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Check } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type PronMode = "both" | "flash" | "feedback" | "off";
@@ -150,7 +151,7 @@ export function SettingsClient() {
                       : "border-gray-300 dark:border-gray-700 hover:border-accent"
                   }`}
                 >
-                  {a === "us" ? "美音 🇺🇸" : "英音 🇬🇧"}
+                  {a === "us" ? "美音" : "英音"}
                 </button>
               ))}
             </div>
@@ -197,7 +198,7 @@ export function SettingsClient() {
         >
           {saving ? "保存中…" : "保存设置"}
         </button>
-        {saved && <span className="text-sm text-success">✓ 已保存</span>}
+        {saved && <span className="text-sm text-success inline-flex items-center gap-1"><Check className="h-4 w-4" /> 已保存</span>}
         {error && <span className="text-sm text-error">{error}</span>}
       </div>
 
@@ -243,7 +244,7 @@ function ResetButton() {
     }
   }
 
-  if (done) return <p className="text-success text-sm">✓ 重置完成，页面即将刷新</p>;
+  if (done) return <p className="text-success text-sm inline-flex items-center gap-1"><Check className="h-4 w-4" /> 重置完成，页面即将刷新</p>;
 
   if (!confirming) {
     return (
