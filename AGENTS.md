@@ -61,6 +61,7 @@ Next.js 的 route/page 入口不会完整显示在普通 import 图中；API 与
 - `book_a`/`book_b` 是 PDF 管线内部名，不等于用户面 slug `concise`/`full`；CET-6 走独立 DOCX parser。
 - ETL 顺序：`extract_full` → `parse_full` → `cross_validate` → `seed_export`；`raw/parsed/diff` 都是可重建中间产物。
 - 开发 schema 是 SQLite；Docker 入口在 PostgreSQL 环境下临时改 provider，启动后恢复文件。没有常规 Prisma migrations，主要使用 `prisma db push`。
+- 修改 `prisma/schema.prisma` 后**必须**跑 `npx prisma db push` 才能让本地 `prisma/dev.db` 跟上。`prisma generate` 只重生成 client 类型，不动数据库文件；docker entrypoint 在容器启动时自动 `db push`，但本地 dev server 不会。漏跑会让所有访问新字段的 API 抛 P2022（column does not exist）。
 
 ## ANTI-PATTERNS
 - 不要裸跑无 `where` 的 `updateMany({})` / `deleteMany({})`，也不要直接执行全表 `psql DELETE`；测试清理必须限定具体 ID。正式重置必须走 `/api/admin/reset`。
