@@ -21,6 +21,10 @@ RUN npm ci
 # Copy source (public/audio/ gitignored — empty here; baked below if AUDIO_BUNDLE_URL set)
 COPY . .
 
+# Ensure /app/public exists even when git clone skipped the empty dir.
+# runner stage's COPY --from=builder below needs this directory to exist.
+RUN mkdir -p /app/public
+
 # Bake pronunciation audio into the image at build time.
 # ghproxy.com prefix works for GitHub releases inside mainland China.
 # Default empty → image ships without pre-baked audio (still functions, just silent).
@@ -63,7 +67,7 @@ COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/seed ./seed
 COPY --from=builder /app/src ./src
 COPY --from=builder /app/tools ./tools
-COPY --from=builder /app/public ./public 2>/dev/null || true
+COPY --from=builder /app/public/ ./public/
 
 # Entrypoint + healthcheck
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
