@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { CalendarDays, BarChart3, Settings, Pin, ArrowRight } from "lucide-react";
+import { CalendarDays, BarChart3, Settings, Pin } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { ActiveSessionCard } from "./active-session-card";
+import { CheckinCalendarCard } from "./checkin-calendar-card";
 
 export const dynamic = "force-dynamic";
 
@@ -128,26 +129,7 @@ export default async function HomePage() {
         </section>
       )}
 
-      <section className="mb-10">
-        <Link
-          href={`/checkin/${today}`}
-          className="block p-6 bg-surface border border-border rounded-xl shadow-soft-sm hover:shadow-soft-md hover:border-accent/40 transition group"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
-                今日打卡
-              </p>
-              <p className="mt-1 text-2xl font-bold">
-                {today}
-              </p>
-            </div>
-            <span className="text-accent group-hover:translate-x-1 transition inline-flex items-center">
-              <ArrowRight className="h-5 w-5" />
-            </span>
-          </div>
-        </Link>
-      </section>
+      <CheckinCalendarCard today={today} />
 
       <section>
         <h2 className="text-xs uppercase tracking-wider text-muted-foreground font-medium mb-3">
