@@ -65,13 +65,17 @@ export function aggregateWordsByWord(
 
 /**
  * Mutually exclusive partition into the three learning states.
- *   mastered: level >= 5 (regardless of mistakes — once mastered, the
- *     word lives in the "done" set even if old mistake history exists)
- *   wrong: mistakes > 0 AND level < 5
- *   learning: attempts > 0 AND mistakes == 0 AND level < 5
+ *   mastered: level >= masteryThreshold OR masteredAt !== null
+ *     (either condition qualifies — covers both "level 5 under old threshold"
+ *     and "promoted by settings PUT lowering the threshold")
+ *   wrong: mistakes > 0 AND level < masteryThreshold AND masteredAt === null
+ *   learning: attempts > 0 AND mistakes == 0 AND level < masteryThreshold AND masteredAt === null
  * Words with attempts == 0 are dropped (never touched).
  */
-export function partitionWords(words: CollectionWord[]): {
+export function partitionWords(
+  words: CollectionWord[],
+  masteryThreshold: number = 5,
+): {
   wrong: CollectionWord[];
   learning: CollectionWord[];
   mastered: CollectionWord[];
@@ -80,9 +84,13 @@ export function partitionWords(words: CollectionWord[]): {
   const learning: CollectionWord[] = [];
   const mastered: CollectionWord[] = [];
   for (const w of words) {
-    if (w.level >= 5) mastered.push(w);
-    else if (w.mistakes > 0) wrong.push(w);
-    else if (w.attempts > 0) learning.push(w);
+    if (w.masteredAt !== null || w.level >= masteryThreshold) {
+      mastered.push(w);
+    } else if (w.mistakes > 0) {
+      wrong.push(w);
+    } else if (w.attempts > 0) {
+      learning.push(w);
+    }
     // else: never touched — skip
   }
   return { wrong, learning, mastered };

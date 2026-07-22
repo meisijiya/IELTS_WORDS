@@ -124,5 +124,17 @@ model UserSettings {
   // Snapshot invariant ("cross-reset preservation") still holds: /api/admin/reset snapshots today
   // before wiping attempts; retention only caps how far back snapshots may accumulate.
   checkinRetentionDays  Int?
+  // Consecutive-correct count that promotes a word to "mastered". Range [2, 20].
+  // Backed by Word.level reaching the threshold; /api/settings PUT that lowers this value
+  // runs an eager promotion (UPDATE word SET masteredAt = now() WHERE level >= new AND
+  // masteredAt IS NULL) in the same $transaction as the settings write. The canonical
+  // "is mastered" signal stays Word.masteredAt != null — promotion is what makes that
+  // invariant hold for the new threshold.
+  masteryThreshold      Int      @default(5)
+  // Optional: words at or above this level skip the visual flash phase (text hidden)
+  // but pronunciation still plays during the (silent) flash window. null = disabled.
+  // Range [1, 100]; meaningless if >= masteryThreshold (mastered words are not
+  // surfaced in practice queues). Independent of masteryThreshold (no auto-derive).
+  flashSkipMinLevel     Int?
   updatedAt             DateTime @updatedAt
 }

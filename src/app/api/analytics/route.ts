@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { isAuthenticated } from "@/lib/auth";
 
+const MASTERY_THRESHOLD_FALLBACK = 5;
+const SETTINGS_SINGLETON_ID = 1;
+
 interface Mistake {
   wordId: number;
   spelling: string;
@@ -43,13 +46,32 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "wordbookId required" }, { status: 400 });
   }
 
+  const settings = await prisma.userSettings.findUnique({
+    where: { id: SETTINGS_SINGLETON_ID },
+    select: { masteryThreshold: true },
+  });
+  const masteryThreshold = settings?.masteryThreshold ?? MASTERY_THRESHOLD_FALLBACK;
+
   const [totalWords, newWords, learningWords, masteredWords, allAttempts, recentSessions] = await Promise.all([
     prisma.word.count({ where: { wordbookId } }),
     prisma.word.count({ where: { wordbookId, attempts: 0 } }),
     prisma.word.count({
-      where: { wordbookId, attempts: { gt: 0 }, level: { lt: 5 } },
+      where: {
+        wordbookId,
+        attempts: { gt: 0 },
+        level: { lt: masteryThreshold },
+        masteredAt: null,
+      },
     }),
-    prisma.word.count({ where: { wordbookId, level: { gte: 5 } } }),
+    prisma.word.count({
+      where: {
+        wordbookId,
+        OR: [
+          { masteredAt: { not: null } },
+          { level: { gte: masteryThreshold } },
+        ],
+      },
+    }),
     prisma.attempt.findMany({
       where: {
         session: { wordbookId },
@@ -109,7 +131,7 @@ export async function GET(request: Request) {
   }
 
   const topMissed = [...mistakeMap.values()]
-    .filter((x) => x.mistakes > 0 && x.level < 5)
+    .filter((x) => x.mistakes > 0 && x.level < masteryThreshold)
     .sort((a, b) => b.mistakes - a.mistakes || a.correct - b.correct)
     .slice(0, 50)
     .map(({ level: _level, ...rest }) => rest);

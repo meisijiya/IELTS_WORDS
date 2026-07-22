@@ -4,6 +4,8 @@ import { isAuthenticated } from "@/lib/auth";
 
 const MAX_LIMIT = 200;
 const RANDOM_HARD_CAP = 20;
+const MASTERY_THRESHOLD_FALLBACK = 5;
+const SETTINGS_SINGLETON_ID = 1;
 
 interface WordDto {
   id: number;
@@ -99,6 +101,12 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "wordbookId required" }, { status: 400 });
   }
 
+  const settings = await prisma.userSettings.findUnique({
+    where: { id: SETTINGS_SINGLETON_ID },
+    select: { masteryThreshold: true },
+  });
+  const masteryThreshold = settings?.masteryThreshold ?? MASTERY_THRESHOLD_FALLBACK;
+
   let words: WordDto[] = [];
 
   if (idsParam) {
@@ -115,11 +123,16 @@ export async function GET(request: Request) {
     const N = Math.min(limit, RANDOM_HARD_CAP);
     const [newSet, learnedSet, masteredSet] = await Promise.all([
       prisma.word.findMany({
-        where: { wordbookId, level: { lt: 5 }, attempts: 0 },
+        where: { wordbookId, level: { lt: masteryThreshold }, attempts: 0 },
         select: { id: true },
       }),
       prisma.word.findMany({
-        where: { wordbookId, level: { lt: 5 }, attempts: { gt: 0 }, masteredAt: null },
+        where: {
+          wordbookId,
+          level: { lt: masteryThreshold },
+          attempts: { gt: 0 },
+          masteredAt: null,
+        },
         select: { id: true },
       }),
       prisma.word.findMany({
@@ -176,7 +189,9 @@ export async function GET(request: Request) {
     words = ids.map((id) => byId.get(id)).filter((w): w is NonNullable<typeof w> => !!w).map(rowToDto);
   } else if (random) {
     // Pure random fallback (weighted=false)
-    const count = await prisma.word.count({ where: { wordbookId, level: { lt: 5 } } });
+    const count = await prisma.word.count({
+      where: { wordbookId, level: { lt: masteryThreshold } },
+    });
     const take = Math.min(limit, count);
     if (take > 0) {
       const rows = await prisma.$queryRawUnsafe<
@@ -186,10 +201,11 @@ export async function GET(request: Request) {
         }>
       >(
         `SELECT id, spelling, pos, glosses, level, attempts, correct, masteredAt FROM Word
-         WHERE wordbookId = ? AND level < 5
+         WHERE wordbookId = ? AND level < ?
          ORDER BY RANDOM()
          LIMIT ?`,
         wordbookId,
+        masteryThreshold,
         take
       );
       words = (rows as unknown as Parameters<typeof rowToDto>[0][]).map(rowToDto);

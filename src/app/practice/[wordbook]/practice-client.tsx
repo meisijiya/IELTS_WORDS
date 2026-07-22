@@ -21,7 +21,7 @@ const FEEDBACK_CORRECT_MS = 700;
 const QUEUE_BATCH = 20;
 const REFILL_THRESHOLD = 5;
 const QUEUE_HARD_CAP = 60;
-const MAX_LEVEL = 5;
+const MASTERY_THRESHOLD_FALLBACK = 5;
 
 function normalizeSpelling(spelling: string): string {
   return spelling
@@ -42,6 +42,19 @@ export function cleanInput(raw: string, maxLen: number): string {
     .replace(/[^a-zA-Z ]/g, "")
     .replace(/^\s+/g, "")
     .slice(0, maxLen);
+}
+
+/**
+ * Decide whether the visual flash phase should be skipped for a word.
+ * When the user opts in to skip (flashSkipMinLevel set) and the word
+ * is at or above the configured rung, the spelling text stays hidden
+ * but pronunciation (if enabled) still plays. Exported for unit testing.
+ */
+export function shouldSkipFlash(
+  flashSkipMinLevel: number | null,
+  currentLevel: number,
+): boolean {
+  return flashSkipMinLevel !== null && currentLevel >= flashSkipMinLevel;
 }
 
 function computeHintPositions(spelling: string, level: number): Set<number> {
@@ -101,6 +114,8 @@ export function PracticeClient({
   const [pronunciationMode, setPronunciationMode] = useState<"both" | "flash" | "feedback" | "off">("both");
   const [pullPriority, setPullPriority] = useState<"review" | "balanced" | "new">("review");
   const [accent, setAccent] = useState<"us" | "uk">("us");
+  const [masteryThreshold, setMasteryThreshold] = useState(MASTERY_THRESHOLD_FALLBACK);
+  const [flashSkipMinLevel, setFlashSkipMinLevel] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -118,6 +133,8 @@ export function PracticeClient({
           pronunciationMode: "both" | "flash" | "feedback" | "off";
           pullPriority: "review" | "balanced" | "new";
           accent: "us" | "uk";
+          masteryThreshold: number;
+          flashSkipMinLevel: number | null;
         } = await settingsRes.json();
         const active: ActiveSessionResponse = await activeRes.json();
         if (cancelled) return;
@@ -125,6 +142,8 @@ export function PracticeClient({
         setPronunciationMode(settings.pronunciationMode);
         setPullPriority(settings.pullPriority);
         setAccent(settings.accent);
+        setMasteryThreshold(settings.masteryThreshold ?? MASTERY_THRESHOLD_FALLBACK);
+        setFlashSkipMinLevel(settings.flashSkipMinLevel ?? null);
 
         let sid: string;
         if (practiceWordIds) {
@@ -212,18 +231,25 @@ export function PracticeClient({
     if (!current || feedback) return;
     setHintPositions(computeHintPositions(current.spelling, current.level));
     setUserInput("");
-    setShowSpelling(true);
-    setSpellingOpacity(1);
+    const skipFlash = shouldSkipFlash(flashSkipMinLevel, current.level);
+    if (skipFlash) {
+      setShowSpelling(false);
+      setSpellingOpacity(0);
+    } else {
+      setShowSpelling(true);
+      setSpellingOpacity(1);
+    }
     if (pronunciationMode === "both" || pronunciationMode === "flash") {
       playPronunciation(current.spelling);
     }
+    if (skipFlash) return;
     const fadeTimer = setTimeout(() => setSpellingOpacity(0), flashMs);
     const hideTimer = setTimeout(() => setShowSpelling(false), flashMs + FADE_MS);
     return () => {
       clearTimeout(fadeTimer);
       clearTimeout(hideTimer);
     };
-  }, [current, feedback, flashMs, pronunciationMode, accent]);
+  }, [current, feedback, flashMs, pronunciationMode, accent, flashSkipMinLevel]);
 
   function playPronunciation(spelling: string) {
     playAudioWithFallback(`/audio/${normalizeSpelling(spelling)}.${accent}.mp3`);
@@ -496,7 +522,7 @@ export function PracticeClient({
           : {
               ...w,
               level: isCorrect
-                ? Math.min(MAX_LEVEL, w.level + 1)
+                ? Math.min(masteryThreshold, w.level + 1)
                 : Math.max(0, w.level - 1),
               attempts: w.attempts + 1,
               correct: w.correct + (isCorrect ? 1 : 0),
@@ -774,7 +800,7 @@ export function PracticeClient({
         ) : current.attempts > 0 ? (
           <>
             <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-accent-soft text-accent rounded-full font-medium">
-              等级 {current.level} / 5
+              等级 {current.level} / {masteryThreshold}
             </span>
             <span className="text-muted-foreground">
               已答对 {current.correct} 次 · 总尝试 {current.attempts}

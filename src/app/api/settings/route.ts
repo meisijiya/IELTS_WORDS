@@ -10,6 +10,8 @@ const DEFAULTS = {
   enablePronunciation: true,
   accent: "us",
   checkinRetentionDays: null as number | null,
+  masteryThreshold: 5,
+  flashSkipMinLevel: null as number | null,
 };
 const SINGLETON_ID = 1;
 
@@ -18,6 +20,13 @@ const PULL_MODES = new Set(["review", "balanced", "new"]);
 // Hard upper bound — accidental 1_000_000-day inputs would silently do nothing
 // (cutoff lands in the past), but a sane ceiling documents intent.
 const RETENTION_MAX_DAYS = 3650;
+// masteryThreshold: 2 is the floor (need room for a wrong to de-master from one rung above);
+// 20 is a sane ceiling beyond which the SM-2 ladder stops being useful.
+const MASTERY_THRESHOLD_MIN = 2;
+const MASTERY_THRESHOLD_MAX = 20;
+// flashSkipMinLevel: 1 is the floor; 100 is the ceiling (way past any reasonable ladder).
+const FLASH_SKIP_MIN_LEVEL_MIN = 1;
+const FLASH_SKIP_MIN_LEVEL_MAX = 100;
 
 function normalizePronMode(value: unknown): typeof DEFAULTS.pronunciationMode {
   return typeof value === "string" && PRON_MODES.has(value)
@@ -36,6 +45,16 @@ function normalizeRetention(value: unknown): number | null {
   const n = Number(value);
   if (!Number.isFinite(n) || n < 1) return null;
   return Math.min(RETENTION_MAX_DAYS, Math.floor(n));
+}
+
+function clampInt(value: unknown, min: number, max: number, fallback: number): number {
+  if (value === null || value === undefined) return fallback;
+  const n = Number(value);
+  if (!Number.isFinite(n)) return fallback;
+  const floored = Math.floor(n);
+  if (floored < min) return min;
+  if (floored > max) return max;
+  return floored;
 }
 
 async function ensureSingleton() {
@@ -66,6 +85,8 @@ export async function GET() {
     enablePronunciation: settings.enablePronunciation,
     accent: settings.accent,
     checkinRetentionDays: settings.checkinRetentionDays ?? null,
+    masteryThreshold: settings.masteryThreshold,
+    flashSkipMinLevel: settings.flashSkipMinLevel ?? null,
   });
 }
 
@@ -94,19 +115,51 @@ export async function PUT(request: Request) {
   const pullPriority = normalizePullPriority(body.pullPriority);
   const accent = body.accent === "uk" ? "uk" : "us";
   const checkinRetentionDays = normalizeRetention(body.checkinRetentionDays);
+  const masteryThreshold = clampInt(
+    body.masteryThreshold,
+    MASTERY_THRESHOLD_MIN,
+    MASTERY_THRESHOLD_MAX,
+    DEFAULTS.masteryThreshold,
+  );
+  const flashSkipMinLevel = body.flashSkipMinLevel === null || body.flashSkipMinLevel === undefined
+    ? null
+    : clampInt(
+      body.flashSkipMinLevel,
+      FLASH_SKIP_MIN_LEVEL_MIN,
+      FLASH_SKIP_MIN_LEVEL_MAX,
+      FLASH_SKIP_MIN_LEVEL_MIN,
+    );
 
-  await ensureSingleton();
-  const updated = await prisma.userSettings.update({
-    where: { id: SINGLETON_ID },
-    data: {
-      flashMs,
-      fadeMs,
-      pronunciationMode,
-      enablePronunciation,
-      pullPriority,
-      accent,
-      checkinRetentionDays,
-    },
+  const current = await ensureSingleton();
+  // Lowering the threshold retroactively marks already-qualified words as
+  // mastered. Raising or holding the value is a no-op (mastery is sticky).
+  const lowered = masteryThreshold < current.masteryThreshold;
+  const updateData = {
+    flashMs,
+    fadeMs,
+    pronunciationMode,
+    enablePronunciation,
+    pullPriority,
+    accent,
+    checkinRetentionDays,
+    masteryThreshold,
+    flashSkipMinLevel,
+  };
+
+  let promotedCount = 0;
+  const updated = await prisma.$transaction(async (tx) => {
+    const u = await tx.userSettings.update({
+      where: { id: SINGLETON_ID },
+      data: updateData,
+    });
+    if (lowered) {
+      const res = await tx.word.updateMany({
+        where: { level: { gte: masteryThreshold }, masteredAt: null },
+        data: { masteredAt: new Date() },
+      });
+      promotedCount = res.count;
+    }
+    return u;
   });
 
   return NextResponse.json({
@@ -117,5 +170,8 @@ export async function PUT(request: Request) {
     enablePronunciation: updated.enablePronunciation,
     accent: updated.accent,
     checkinRetentionDays: updated.checkinRetentionDays ?? null,
+    masteryThreshold: updated.masteryThreshold,
+    flashSkipMinLevel: updated.flashSkipMinLevel ?? null,
+    ...(lowered ? { promotedCount } : {}),
   });
 }

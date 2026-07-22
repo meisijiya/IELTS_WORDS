@@ -15,6 +15,8 @@ interface Settings {
   enablePronunciation: boolean;
   accent: "us" | "uk";
   checkinRetentionDays: number | null;
+  masteryThreshold: number;
+  flashSkipMinLevel: number | null;
 }
 
 const PRON_OPTIONS: { value: PronMode; label: string; hint: string }[] = [
@@ -36,6 +38,29 @@ const RETENTION_PRESETS: { value: number | null; label: string }[] = [
   { value: 30,     label: "30 天" },
   { value: 90,     label: "90 天" },
   { value: 365,    label: "1 年" },
+];
+
+const MASTERY_THRESHOLD_OPTIONS: { value: number; label: string }[] = [
+  { value: 2, label: "2" },
+  { value: 3, label: "3" },
+  { value: 4, label: "4" },
+  { value: 5, label: "5" },
+  { value: 6, label: "6" },
+  { value: 7, label: "7" },
+  { value: 8, label: "8" },
+  { value: 10, label: "10" },
+  { value: 15, label: "15" },
+  { value: 20, label: "20" },
+];
+
+const FLASH_SKIP_OPTIONS: { value: number | null; label: string }[] = [
+  { value: null, label: "关" },
+  { value: 1, label: "1" },
+  { value: 2, label: "2" },
+  { value: 3, label: "3" },
+  { value: 4, label: "4" },
+  { value: 5, label: "5" },
+  { value: 10, label: "10" },
 ];
 
 export function SettingsClient() {
@@ -196,6 +221,55 @@ export function SettingsClient() {
               </span>
             </button>
           ))}
+        </div>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold">熟练阈值</h2>
+        <p className="text-sm text-muted-foreground">
+          答对多少题算「已熟练」。默认 5。降低时会立即把已积累到该连对数的词标记为熟练
+          （不影响其他词；不影响已熟练词）。
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {MASTERY_THRESHOLD_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => setSettings({ ...settings, masteryThreshold: opt.value })}
+              className={`w-12 py-2 rounded border text-sm font-medium transition ${
+                settings.masteryThreshold === opt.value
+                  ? "bg-accent text-accent-fg border-accent"
+                  : "border-gray-300 dark:border-gray-700 hover:border-accent"
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold">跳过闪现</h2>
+        <p className="text-sm text-muted-foreground">
+          达到该连对数的词将不显示单词文字（仍播放发音），靠听写而非看写。
+          设为「关」则所有词都正常闪现。建议设小于「熟练阈值」。
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {FLASH_SKIP_OPTIONS.map((opt) => {
+            const selected = settings.flashSkipMinLevel === opt.value;
+            return (
+              <button
+                key={opt.label}
+                onClick={() => setSettings({ ...settings, flashSkipMinLevel: opt.value })}
+                className={`w-12 py-2 rounded border text-sm font-medium transition ${
+                  selected
+                    ? "bg-accent text-accent-fg border-accent"
+                    : "border-gray-300 dark:border-gray-700 hover:border-accent"
+                }`}
+              >
+                {opt.label}
+              </button>
+            );
+          })}
         </div>
       </section>
 

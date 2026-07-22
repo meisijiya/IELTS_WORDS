@@ -43,6 +43,12 @@ export default async function MasteredPage({ params, searchParams }: PageProps) 
   const thirtyDaysAgo = new Date(now);
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
+  const settings = await prisma.userSettings.findUnique({
+    where: { id: 1 },
+    select: { masteryThreshold: true },
+  });
+  const masteryThreshold = settings?.masteryThreshold ?? 5;
+
   const [attempts, historyAttempts] = await Promise.all([
     prisma.attempt.findMany({
       where: {
@@ -64,7 +70,7 @@ export default async function MasteredPage({ params, searchParams }: PageProps) 
   ]);
 
   const words = aggregateWordsByWord(attempts);
-  const { mastered } = partitionWords(words);
+  const { mastered } = partitionWords(words, masteryThreshold);
   const sorted = sortByMasteredAt(mastered);
   const wordHistories = aggregateWordHistories(historyAttempts, now);
 

@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { isAuthenticated } from "@/lib/auth";
 
-const MAX_LEVEL = 5;
+const MASTERY_THRESHOLD_FALLBACK = 5;
+const SETTINGS_SINGLETON_ID = 1;
 
 export async function POST(request: Request) {
   if (!(await isAuthenticated())) {
@@ -34,7 +35,7 @@ export async function POST(request: Request) {
   }
 
   try {
-  const [attempt, updatedWord, deMastered, newlyMastered] = await prisma.$transaction(async (tx) => {
+  const [attempt, updatedWord, deMastered, newlyMastered, masteryThreshold] = await prisma.$transaction(async (tx) => {
     const session = await tx.session.findUnique({
       where: { id: sessionId },
       select: { mode: true },
@@ -46,6 +47,12 @@ export async function POST(request: Request) {
       select: { level: true, masteredAt: true, attempts: true, correct: true },
     });
     if (!word) throw new ApiError(404, "WORD_NOT_FOUND", "Word 不存在");
+
+    const settings = await tx.userSettings.findUnique({
+      where: { id: SETTINGS_SINGLETON_ID },
+      select: { masteryThreshold: true },
+    });
+    const masteryThreshold = settings?.masteryThreshold ?? MASTERY_THRESHOLD_FALLBACK;
 
     // Review mode (错题批量练习): only log the attempt, never mutate Word state.
     // Drill mode (默认): full SM-2 ladder / mastery promotion logic.
@@ -60,7 +67,7 @@ export async function POST(request: Request) {
           errorType: body.errorType ?? null,
         },
       });
-      return [a, word, false, false] as const;
+      return [a, word, false, false, masteryThreshold] as const;
     }
 
     let newLevel: number;
@@ -70,13 +77,13 @@ export async function POST(request: Request) {
     let newlyMastered = false;
 
     if (correct) {
-      newLevel = Math.min(MAX_LEVEL, word.level + 1);
-      if (newLevel === MAX_LEVEL && !word.masteredAt) {
+      newLevel = Math.min(masteryThreshold, word.level + 1);
+      if (newLevel === masteryThreshold && !word.masteredAt) {
         masteredAtChange = new Date();
         newlyMastered = true;
       }
-    } else if (word.level >= MAX_LEVEL) {
-      // Wrong on a mastered word → de-master, reset to level 0
+    } else if (word.level >= masteryThreshold) {
+      // Wrong on a word at or above the mastery rung → de-master, reset to 0.
       newLevel = 0;
       masteredAtChange = null;
       deMastered = true;
@@ -107,14 +114,14 @@ export async function POST(request: Request) {
         data: wordData as never,
       }),
     ]);
-    return [a, w, deMastered, newlyMastered] as const;
+    return [a, w, deMastered, newlyMastered, masteryThreshold] as const;
   });
 
   return NextResponse.json({
     id: attempt.id,
     wordLevel: updatedWord.level,
     leveledUp: correct,
-    mastered: updatedWord.level === MAX_LEVEL,
+    mastered: updatedWord.level >= masteryThreshold,
     newlyMastered,
     deMastered,
     masteredAt: updatedWord.masteredAt,

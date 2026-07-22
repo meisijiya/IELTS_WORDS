@@ -17,7 +17,7 @@ Single source of truth for schema, seed, and provider switching. Two source file
 | `Session` | UUID id, `mode` (`drill` \| `review`), `wordIds` list, totals |
 | `Attempt` | per-answer row (typed, correct, retries, `errorType`: `spelling` \| `skip` \| null) |
 | `Checkin` | daily snapshot, preserved across reset |
-| `UserSettings` | flashMs, fadeMs, pronunciationMode, pullPriority, accent, checkinRetentionDays |
+| `UserSettings` | flashMs, fadeMs, pronunciationMode, pullPriority, accent, checkinRetentionDays, masteryThreshold, flashSkipMinLevel |
 
 All enums are `String` since SQLite has no native enum. `Word.glosses`, `Word.flags`, `Session.wordIds`, `Checkin.topMissedJson`, and `Checkin.wordbookBreakdownJson` are stored as JSON **strings**, not `Json` columns. This keeps the Prisma client identical between the two providers: SQLite reads/writes text, PostgreSQL reads/writes the same text and the app parses on read.
 
@@ -52,6 +52,14 @@ Both `Wordbook` (by `slug`) and `Word` (by compound `wordbookId_spelling` unique
 `UserSettings.checkinRetentionDays Int?` (null = 无限). Pairs with `/api/admin/checkin/cleanup` (POST `{days, confirm: "CLEAN N DAYS"}`). Cap of 3650 days in the API layer (`normalizeRetention` in `/home/ljh2923/opencode-project/English_YASI/src/app/api/settings/route.ts`).
 
 The reset invariant ("打卡跨重置保留") still holds: `/api/admin/reset` eagerly snapshots today before wiping attempts; retention only caps how far back snapshots may accumulate. Cleanup is a user-triggered, idempotent `deleteMany` gated by an exact-match confirm phrase — typos fail with `400 CONFIRM_REQUIRED`.
+
+## masteryThreshold + flashSkipMinLevel
+
+Two new `UserSettings` knobs for the SM-2 ladder. `masteryThreshold` (default 5, range 2-20) replaces the hardcoded `MAX_LEVEL = 5`; `flashSkipMinLevel` (default null, range 1-100) is an opt-in "skip the visual flash for high-rung words" toggle (audio still plays).
+
+**Invariant — `Word.masteredAt != null ↔ isMastered`**:
+
+`masteredAt` is the canonical "is this word mastered" signal. SM-2 sets it when `level` reaches `masteryThreshold`; PUT to `/api/settings` that **lowers** the threshold runs an eager promotion (`UPDATE word SET masteredAt = now() WHERE level >= new AND masteredAt IS NULL`) in the same `$transaction` as the settings write. Re-PUTing the same value is idempotent (the `masteredAt IS NULL` filter excludes already-promoted rows). Raising the threshold is a no-op (mastery is sticky). The flash-skip setting has no eager semantics — it only affects practice UI, not Word state.
 
 ## dev.db boundary
 

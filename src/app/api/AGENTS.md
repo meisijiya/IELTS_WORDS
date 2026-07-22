@@ -38,3 +38,4 @@
 - 不要把 `await isAuthenticated()` 放到 try/catch 外面或异步并发调用,顺序执行以保证错误传播。
 - 不要在 API route handler 内 `Response.json(new PrismaClient...)`;序列化只能传可序列化字段。
 - 不要把 `/api/admin/reset` 当普通更新接口;必须 confirm phrase 防呆(根 AGENTS.md ANTI-PATTERNS 已记录)。
+- 不要在 route handler 内硬编码 `level >= 5` 当作「已熟练」判定。`/api/attempts` 的 SM-2、`/api/words` 的 PULL_CONFIG、`/api/analytics` 的计数都依赖 `settings.masteryThreshold` (默认 5,见 `prisma/AGENTS.md`)。`/api/settings` PUT 改阈值时已经做了 eager promotion,所以读点只需依赖 `masteredAt` 与 `level` 这两个 Word 字段,不需要重读 settings。

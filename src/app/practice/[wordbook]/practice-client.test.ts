@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { cleanInput } from "./practice-client";
+import { cleanInput, shouldSkipFlash } from "./practice-client";
 
 describe("cleanInput", () => {
   it("strips punctuation, digits, and symbols (keeps letters + spaces)", () => {
@@ -30,5 +30,28 @@ describe("cleanInput", () => {
 
   it("handles empty input", () => {
     expect(cleanInput("", 5)).toBe("");
+  });
+});
+
+describe("shouldSkipFlash (AC13)", () => {
+  it("returns false when flashSkipMinLevel is null (off)", () => {
+    expect(shouldSkipFlash(null, 0)).toBe(false);
+    expect(shouldSkipFlash(null, 4)).toBe(false);
+  });
+
+  it("returns true when current level >= threshold", () => {
+    expect(shouldSkipFlash(3, 3)).toBe(true);
+    expect(shouldSkipFlash(3, 4)).toBe(true);
+  });
+
+  it("returns false when current level < threshold", () => {
+    expect(shouldSkipFlash(3, 0)).toBe(false);
+    expect(shouldSkipFlash(3, 2)).toBe(false);
+  });
+
+  it("threshold=1 always skips (except level 0)", () => {
+    expect(shouldSkipFlash(1, 0)).toBe(false);
+    expect(shouldSkipFlash(1, 1)).toBe(true);
+    expect(shouldSkipFlash(1, 5)).toBe(true);
   });
 });

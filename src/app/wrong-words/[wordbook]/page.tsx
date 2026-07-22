@@ -40,6 +40,12 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
   const thirtyDaysAgo = new Date(now);
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
+  const settings = await prisma.userSettings.findUnique({
+    where: { id: 1 },
+    select: { masteryThreshold: true },
+  });
+  const masteryThreshold = settings?.masteryThreshold ?? 5;
+
   const [attempts, todayAttempts, historyAttempts] = await Promise.all([
     prisma.attempt.findMany({
       where: {
@@ -91,7 +97,7 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
   // today's reviewed ones got filtered out). Batch card "仅剩余" stays,
   // computed dynamically from reviewedTodayIds.
   const mistakes = [...map.values()]
-    .filter((m) => m.mistakes > 0 && m.level < 5)
+    .filter((m) => m.mistakes > 0 && m.level < masteryThreshold)
     .sort((a, b) => b.mistakes - a.mistakes || a.correct - b.correct);
 
   const reviewedCount = mistakes.filter((m) => reviewedToday.has(m.wordId)).length;
