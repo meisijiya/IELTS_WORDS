@@ -3,7 +3,7 @@
 
 services:
   postgres:
-    image: registry.cn-hangzhou.aliyuncs.com/library/postgres:16-alpine
+    image: postgres:16-alpine
     container_name: yasi-postgres
     restart: unless-stopped
     environment:
@@ -29,7 +29,7 @@ services:
         # Optional: bake pronunciation audio into the image at build time.
         # Pre-baked audio avoids runtime download; see docs/deploy-docker.md.
         # ghproxy.com prefix works for GitHub releases inside mainland China.
-        # AUDIO_BUNDLE_URL: ${AUDIO_BUNDLE_URL:-}
+        AUDIO_BUNDLE_URL: ${AUDIO_BUNDLE_URL:-}
     container_name: yasi-app
     restart: unless-stopped
     depends_on:

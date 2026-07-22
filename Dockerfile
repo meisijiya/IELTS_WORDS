@@ -1,7 +1,7 @@
 # ─── Build stage ─────────────────────────────────────────────
 # Domestic mirrors: registry.cn-hangzhou.aliyuncs.com (Aliyun, most reliable)
 # Fallback options documented in docs/deploy-docker.md
-FROM registry.cn-hangzhou.aliyuncs.com/library/node:22-alpine AS builder
+FROM node:22-alpine AS builder
 
 # Replace Alpine apk mirrors with Aliyun
 RUN sed -i 's|dl-cdn.alpinelinux.org|mirrors.aliyun.com|g' /etc/apk/repositories
@@ -41,7 +41,7 @@ RUN npx prisma generate
 RUN npm run build
 
 # ─── Runtime stage ──────────────────────────────────────────
-FROM registry.cn-hangzhou.aliyuncs.com/library/node:22-alpine AS runner
+FROM node:22-alpine AS runner
 
 # Replace Alpine apk mirrors with Aliyun
 RUN sed -i 's|dl-cdn.alpinelinux.org|mirrors.aliyun.com|g' /etc/apk/repositories
