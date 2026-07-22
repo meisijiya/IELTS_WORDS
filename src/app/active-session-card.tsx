@@ -10,6 +10,7 @@ interface ActiveSession {
   wordbookSlug: string;
   wordbookName: string;
   wordIds: number[] | null;
+  mode: string;
   totalWords: number;
   correctCount: number;
   startedAt: string;
@@ -19,6 +20,7 @@ export function ActiveSessionCard({ session }: { session: ActiveSession }) {
   const router = useRouter();
   const [ending, setEnding] = useState(false);
   const isTargeted = session.wordIds !== null;
+  const isReview = session.mode === "review";
 
   async function handleEnd() {
     if (!confirm(`结束"${session.wordbookName}"的未完成会话？\n进度会保留为已完成状态。`)) return;
@@ -55,6 +57,11 @@ export function ActiveSessionCard({ session }: { session: ActiveSession }) {
           >
             {isTargeted ? `精选 ${session.wordIds!.length} 词` : "常规"}
           </span>
+          {isReview && (
+            <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-success/15 text-success">
+              错题复习
+            </span>
+          )}
         </div>
         <div className="text-xs text-muted-foreground mt-1">
           开始于 {new Date(session.startedAt).toLocaleString("zh-CN")}

@@ -12,6 +12,7 @@ interface ActiveSession {
   wordbookSlug: string;
   wordbookName: string;
   wordIds: number[] | null;
+  mode: string;
   totalWords: number;
   correctCount: number;
   startedAt: string;
@@ -25,6 +26,7 @@ async function getActiveSessions(): Promise<ActiveSession[]> {
       id: true,
       wordbookId: true,
       wordIds: true,
+      mode: true,
       startedAt: true,
       totalWords: true,
       correctCount: true,
@@ -56,6 +58,7 @@ async function getActiveSessions(): Promise<ActiveSession[]> {
       wordbookSlug: r.wordbook.slug,
       wordbookName: r.wordbook.name,
       wordIds: r.wordIds ? JSON.parse(r.wordIds) : null,
+      mode: r.mode,
       totalWords: live ? live.total : r.totalWords,
       correctCount: live ? live.correct : r.correctCount,
       startedAt: r.startedAt.toISOString(),
