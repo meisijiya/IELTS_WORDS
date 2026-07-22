@@ -14,6 +14,7 @@ interface Settings {
   pullPriority: PullMode;
   enablePronunciation: boolean;
   accent: "us" | "uk";
+  checkinRetentionDays: number | null;
 }
 
 const PRON_OPTIONS: { value: PronMode; label: string; hint: string }[] = [
@@ -27,6 +28,14 @@ const PULL_OPTIONS: { value: PullMode; label: string; ratio: string }[] = [
   { value: "review",   label: "复习优先", ratio: "4 新 + 8 学过 + 8 已熟练" },
   { value: "balanced", label: "均衡",    ratio: "14 新 + 5 学过 + 1 已熟练" },
   { value: "new",      label: "新词优先", ratio: "18 新 + 2 学过 + 0 已熟练" },
+];
+
+const RETENTION_PRESETS: { value: number | null; label: string }[] = [
+  { value: null,   label: "无限" },
+  { value: 7,      label: "7 天" },
+  { value: 30,     label: "30 天" },
+  { value: 90,     label: "90 天" },
+  { value: 365,    label: "1 年" },
 ];
 
 export function SettingsClient() {
@@ -190,6 +199,33 @@ export function SettingsClient() {
         </div>
       </section>
 
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold">打卡保留</h2>
+        <p className="text-sm text-muted-fg">
+          限制「今日打卡」历史最多保留多少天。「无限」会保留所有 Checkin 快照。
+          重置 attempts 仍会保留当天快照（不变量），此设置只决定上限。
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {RETENTION_PRESETS.map((opt) => {
+            const selected = settings.checkinRetentionDays === opt.value;
+            return (
+              <button
+                key={opt.label}
+                onClick={() => setSettings({ ...settings, checkinRetentionDays: opt.value })}
+                className={`px-4 py-2 rounded border ${
+                  selected
+                    ? "bg-accent text-accent-fg border-accent"
+                    : "border-gray-300 dark:border-gray-700 hover:border-accent"
+                }`}
+              >
+                {opt.label}
+              </button>
+            );
+          })}
+        </div>
+        <CheckinCleanupButton currentRetention={settings.checkinRetentionDays} />
+      </section>
+
       <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-800">
         <button
           onClick={save}
@@ -279,6 +315,113 @@ function ResetButton() {
           className="px-4 py-2 bg-error text-white rounded font-medium disabled:opacity-50"
         >
           {working ? "重置中…" : "确认重置"}
+        </button>
+        <button
+          onClick={() => { setConfirming(false); setPhrase(""); setError(null); }}
+          disabled={working}
+          className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded"
+        >
+          取消
+        </button>
+      </div>
+      {error && <p className="text-sm text-error">{error}</p>}
+    </div>
+  );
+}
+
+function CheckinCleanupButton({ currentRetention }: { currentRetention: number | null }) {
+  const [confirming, setConfirming] = useState(false);
+  const [days, setDays] = useState<number>(currentRetention ?? 30);
+  const [phrase, setPhrase] = useState("");
+  const [working, setWorking] = useState(false);
+  const [done, setDone] = useState<{ days: number; deleted: number } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const effectiveDays = currentRetention ?? days;
+
+  async function doCleanup() {
+    setWorking(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/admin/checkin/cleanup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ days: effectiveDays, confirm: `CLEAN ${effectiveDays} DAYS` }),
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok) {
+        throw new Error(data?.message ?? data?.error ?? "清理失败");
+      }
+      setDone({ days: effectiveDays, deleted: data.deleted });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "清理失败");
+    } finally {
+      setWorking(false);
+    }
+  }
+
+  if (done) {
+    return (
+      <p className="text-sm text-success inline-flex items-center gap-1">
+        <Check className="h-4 w-4" /> 已清理 {done.deleted} 条 {done.days} 天前的打卡
+      </p>
+    );
+  }
+
+  if (!confirming) {
+    if (currentRetention === null) {
+      return (
+        <p className="text-xs text-muted-foreground">
+          当前保留「无限」，无需清理按钮。如需限制，先在上方选择天数。
+        </p>
+      );
+    }
+    return (
+      <button
+        onClick={() => { setConfirming(true); setDays(currentRetention); setPhrase(""); }}
+        className="px-4 py-2 border border-warning text-warning rounded hover:bg-warning hover:text-white transition"
+      >
+        立即清理 {currentRetention} 天前的打卡
+      </button>
+    );
+  }
+
+  return (
+    <div className="space-y-3 p-3 border border-warning/40 rounded bg-warning/5">
+      <p className="text-sm">
+        将删除 {effectiveDays} 天前（含）的所有 Checkin 快照。今天及近 {effectiveDays} 天的数据保留。
+      </p>
+      <div className="flex items-center gap-2">
+        <label className="text-sm font-mono">清理天数（1–3650）：</label>
+        <input
+          type="number"
+          min={1}
+          max={3650}
+          value={days}
+          onChange={(e) => setDays(Math.max(1, Math.min(3650, Number(e.target.value) || 1)))}
+          className="w-24 border border-border rounded px-2 py-1 font-mono text-sm bg-background"
+        />
+        <span className="text-xs text-muted-foreground">
+          会用「{`CLEAN ${days} DAYS`}」
+        </span>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="text-sm font-mono">输入 <code>{`CLEAN ${days} DAYS`}</code>：</span>
+        <input
+          type="text"
+          value={phrase}
+          onChange={(e) => setPhrase(e.target.value)}
+          className="border border-border rounded px-2 py-1 font-mono text-sm bg-background"
+          placeholder={`CLEAN ${days} DAYS`}
+        />
+      </div>
+      <div className="flex items-center gap-2">
+        <button
+          onClick={doCleanup}
+          disabled={working || phrase !== `CLEAN ${days} DAYS`}
+          className="px-4 py-2 bg-warning text-white rounded font-medium disabled:opacity-50"
+        >
+          {working ? "清理中…" : "确认清理"}
         </button>
         <button
           onClick={() => { setConfirming(false); setPhrase(""); setError(null); }}

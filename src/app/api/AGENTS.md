@@ -8,6 +8,7 @@
 - 动作型端点用动词子路径,仅暴露 `POST`:
   - `/api/words/mark-mastered` — 手动标记 `level=5`
   - `/api/sessions/[id]/end` — 提前结束会话
+  - `/api/admin/checkin/cleanup` — 删除 N 天前的 Checkin 快照(由用户在 Settings 触发,confirm phrase = `CLEAN N DAYS`)
 - 新增路由时若命名属于"动词 + 资源",按动作型处理;否则按资源型。两种风格在同一项目共存,不要把动作型改造成 PATCH/PUT 形式。
 
 ## 鉴权调用顺序

@@ -9,11 +9,15 @@ const DEFAULTS = {
   pullPriority: "review" as "review" | "balanced" | "new",
   enablePronunciation: true,
   accent: "us",
+  checkinRetentionDays: null as number | null,
 };
 const SINGLETON_ID = 1;
 
 const PRON_MODES = new Set(["both", "flash", "feedback", "off"]);
 const PULL_MODES = new Set(["review", "balanced", "new"]);
+// Hard upper bound — accidental 1_000_000-day inputs would silently do nothing
+// (cutoff lands in the past), but a sane ceiling documents intent.
+const RETENTION_MAX_DAYS = 3650;
 
 function normalizePronMode(value: unknown): typeof DEFAULTS.pronunciationMode {
   return typeof value === "string" && PRON_MODES.has(value)
@@ -25,6 +29,13 @@ function normalizePullPriority(value: unknown): typeof DEFAULTS.pullPriority {
   return typeof value === "string" && PULL_MODES.has(value)
     ? (value as typeof DEFAULTS.pullPriority)
     : DEFAULTS.pullPriority;
+}
+
+function normalizeRetention(value: unknown): number | null {
+  if (value === null || value === undefined) return null;
+  const n = Number(value);
+  if (!Number.isFinite(n) || n < 1) return null;
+  return Math.min(RETENTION_MAX_DAYS, Math.floor(n));
 }
 
 async function ensureSingleton() {
@@ -54,6 +65,7 @@ export async function GET() {
     pullPriority,
     enablePronunciation: settings.enablePronunciation,
     accent: settings.accent,
+    checkinRetentionDays: settings.checkinRetentionDays ?? null,
   });
 }
 
@@ -81,11 +93,20 @@ export async function PUT(request: Request) {
   const enablePronunciation = pronunciationMode !== "off";
   const pullPriority = normalizePullPriority(body.pullPriority);
   const accent = body.accent === "uk" ? "uk" : "us";
+  const checkinRetentionDays = normalizeRetention(body.checkinRetentionDays);
 
   await ensureSingleton();
   const updated = await prisma.userSettings.update({
     where: { id: SINGLETON_ID },
-    data: { flashMs, fadeMs, pronunciationMode, enablePronunciation, pullPriority, accent },
+    data: {
+      flashMs,
+      fadeMs,
+      pronunciationMode,
+      enablePronunciation,
+      pullPriority,
+      accent,
+      checkinRetentionDays,
+    },
   });
 
   return NextResponse.json({
@@ -95,5 +116,6 @@ export async function PUT(request: Request) {
     pullPriority,
     enablePronunciation: updated.enablePronunciation,
     accent: updated.accent,
+    checkinRetentionDays: updated.checkinRetentionDays ?? null,
   });
 }

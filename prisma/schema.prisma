@@ -120,5 +120,9 @@ model UserSettings {
   // @deprecated — superseded by pronunciationMode. Kept for back-compat reads.
   enablePronunciation   Boolean  @default(true)
   accent                String   @default("us") // "us" | "uk"
+  // null = infinite (keep all Checkin snapshots). N > 0 = upper bound enforced by /api/admin/checkin/cleanup.
+  // Snapshot invariant ("cross-reset preservation") still holds: /api/admin/reset snapshots today
+  // before wiping attempts; retention only caps how far back snapshots may accumulate.
+  checkinRetentionDays  Int?
   updatedAt             DateTime @updatedAt
 }

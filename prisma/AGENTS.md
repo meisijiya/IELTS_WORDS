@@ -17,7 +17,7 @@ Single source of truth for schema, seed, and provider switching. Two source file
 | `Session` | UUID id, `mode` (`drill` \| `review`), `wordIds` list, totals |
 | `Attempt` | per-answer row (typed, correct, retries, `errorType`: `spelling` \| `skip` \| null) |
 | `Checkin` | daily snapshot, preserved across reset |
-| `UserSettings` | flashMs, fadeMs, pronunciationMode, pullPriority, accent |
+| `UserSettings` | flashMs, fadeMs, pronunciationMode, pullPriority, accent, checkinRetentionDays |
 
 All enums are `String` since SQLite has no native enum. `Word.glosses`, `Word.flags`, `Session.wordIds`, `Checkin.topMissedJson`, and `Checkin.wordbookBreakdownJson` are stored as JSON **strings**, not `Json` columns. This keeps the Prisma client identical between the two providers: SQLite reads/writes text, PostgreSQL reads/writes the same text and the app parses on read.
 
@@ -46,6 +46,12 @@ Both `Wordbook` (by `slug`) and `Word` (by compound `wordbookId_spelling` unique
 ## Deprecated fields
 
 `UserSettings.enablePronunciation` is superseded by `pronunciationMode` (`both` / `flash` / `feedback` / `off`). Kept for back-compat reads only; do not write to it.
+
+## checkinRetentionDays
+
+`UserSettings.checkinRetentionDays Int?` (null = 无限). Pairs with `/api/admin/checkin/cleanup` (POST `{days, confirm: "CLEAN N DAYS"}`). Cap of 3650 days in the API layer (`normalizeRetention` in `/home/ljh2923/opencode-project/English_YASI/src/app/api/settings/route.ts`).
+
+The reset invariant ("打卡跨重置保留") still holds: `/api/admin/reset` eagerly snapshots today before wiping attempts; retention only caps how far back snapshots may accumulate. Cleanup is a user-triggered, idempotent `deleteMany` gated by an exact-match confirm phrase — typos fail with `400 CONFIRM_REQUIRED`.
 
 ## dev.db boundary
 
