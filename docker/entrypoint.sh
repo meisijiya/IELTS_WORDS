@@ -33,18 +33,21 @@ if [ "$i" -ge 30 ]; then
   exit 1
 fi
 
-# Apply schema (idempotent)
 echo "[entrypoint] applying schema..."
-npx prisma db push --skip-generate --accept-data-loss 2>&1 | tail -5 || true
+if ! npx prisma db push --skip-generate --accept-data-loss 2>&1 | tail -5; then
+  echo "[entrypoint] ERROR: prisma db push failed"
+  exit 1
+fi
 
-# Always run seed: WORDBOOKS uses upsert so this is idempotent — existing
-# wordbooks are no-ops, any newly added wordbooks in code get registered.
 WORD_COUNT=$(node -e "const {PrismaClient} = require('@prisma/client'); const p = new PrismaClient(); p.word.count().then(n => { console.log(n); p.\$disconnect(); })" 2>/dev/null || echo 0)
 echo "[entrypoint] current word count: $WORD_COUNT"
 
 if [ -d "seed" ]; then
   echo "[entrypoint] running seed (idempotent upsert)..."
-  npx tsx prisma/seed.ts 2>&1 | tail -30
+  if ! npx tsx prisma/seed.ts 2>&1 | tail -30; then
+    echo "[entrypoint] ERROR: seed failed"
+    exit 1
+  fi
 fi
 
 # Audio: prefer baked-in (from Dockerfile), fall back to runtime fetch if missing.

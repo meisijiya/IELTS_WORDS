@@ -31,7 +31,15 @@ export async function POST(request: Request) {
   }
 
   const user = await prisma.user.findUnique({ where: { username } });
-  if (!user || !(await verifyPassword(password, user.passwordHash))) {
+  if (!user) {
+    recordFail(ip);
+    return NextResponse.json({ error: "用户名或密码错误" }, { status: 401 });
+  }
+  if (!user.passwordHash) {
+    console.error(`[auth/login] user '${username}' (id=${user.id}) has null passwordHash — schema out of sync`);
+    return NextResponse.json({ error: "账号数据异常，请联系管理员" }, { status: 500 });
+  }
+  if (!(await verifyPassword(password, user.passwordHash))) {
     recordFail(ip);
     return NextResponse.json({ error: "用户名或密码错误" }, { status: 401 });
   }

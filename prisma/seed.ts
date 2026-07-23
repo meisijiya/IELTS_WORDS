@@ -47,6 +47,14 @@ async function ensureAdmin() {
     } else {
       console.log(`[seed] admin '${username}' already exists (id=${byRole.id})`);
     }
+    if (!byRole.passwordHash) {
+      console.warn(`[seed] admin '${byRole.username}' has empty passwordHash — re-hashing from ADMIN_PASSWORD`);
+      const passwordHash = await hashPassword(password);
+      await prisma.user.update({
+        where: { id: byRole.id },
+        data: { passwordHash },
+      });
+    }
     await prisma.userSettings.upsert({
       where: { userId: byRole.id },
       create: { userId: byRole.id },
