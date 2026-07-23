@@ -259,17 +259,21 @@ export function PracticeClient({
     try {
       const audio = new Audio(primaryUrl);
       audio.volume = 0.8;
+      // Guard fallback chain: previously play().catch(() => dispatchEvent('error'))
+      // caused a synthetic error → fallback Audio() → second play(), so one
+      // primary URL could trigger 2–3 network requests.
+      let tried = false;
+      const other = primaryUrl.replace(/\.(us|uk)\.mp3$/, (_, a) => (a === "us" ? ".uk.mp3" : ".us.mp3"));
       audio.onerror = () => {
-        // Fall back to the other accent if the primary isn't on disk.
-        const other = primaryUrl.replace(/\.(us|uk)\.mp3$/, (_, a) => (a === "us" ? ".uk.mp3" : ".us.mp3"));
-        if (other === primaryUrl) return;
+        if (tried || other === primaryUrl) return;
+        tried = true;
         const fb = new Audio(other);
         fb.volume = 0.8;
         fb.play().catch(() => {});
       };
-      audio.play().catch(() => {
-        audio.dispatchEvent(new Event("error"));
-      });
+      // Swallow autoplay rejections — they're a browser policy, not a 404,
+      // and the `error` listener above already handles missing files.
+      audio.play().catch(() => {});
     } catch {
       // ignore
     }
