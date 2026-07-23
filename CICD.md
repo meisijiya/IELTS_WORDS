@@ -403,6 +403,85 @@ docker compose up -d --force-recreate app
 **症状**：浏览器 console noise，无功能影响。
 **修**：`src/app/icon.png` 放 32×32 PNG，Next.js 自动作为 favicon。
 
+### 坑 13 — `prisma db push` 在已有数据的表上加 NOT NULL 列失败 → **整个 push rollback**
+
+**症状**：上线多用户系统后，生产 admin 登录报 500。`docker logs yasi-app` 显示 `PrismaClientKnownRequestError: The table 'public.User' does not exist in the current database.`
+
+**根本原因**：Prisma 在 PostgreSQL 上的 `db push` 是**单一事务**。当 schema 改动包含：
+- 给旧表（`Session` / `Attempt` / `Checkin` / `UserSettings`）加 `userId Int NOT NULL` 列
+- + 同时创建新表（`User` / `Invitation` / `UserWord`）
+
+PostgreSQL 拒绝给已有数据的表加 NOT NULL 列无 default value → 中间步骤失败 → **整个事务 rollback** → 新表也回滚 → 整个 push 0 效果。
+
+entrypoint 的 `|| true` 把这个错误吞掉了 → admin bootstrap 静默失败 → 用户看到 500。
+
+**为什么"看起来"数据被删了**：实际上**数据没动**，但 `public.User` 表**根本就没创建成功**。运维直觉会误以为数据丢了，其实是 schema 整个未应用。
+
+**修**：
+
+1. **首次 schema 加 userId 列必须带 default value**（schema 应写成 `userId Int @default(0)` 然后迁移脚本改成真值），或者用一次性 backfill 脚本预先填 `userId = 0`。
+2. **entrypoint 失败时 loud-exit**（去掉 `|| true`），让 push 错误直接 fail container，CI/CD health check 自然 catch。
+3. **建立 production schema recovery 脚本**（`scripts/fix-prod-schema.sql`）—— idempotent CREATE + ALTER，可用 `Fix-Prod-Schema` workflow 手动触发。
+4. **建立事后 reset 流程**（`Reset-Admin-Password` workflow）—— 在 app container 内跑 PBKDF2 hash + Prisma update，绕过 entrypoint 直接修 admin 密码。
+
+**新 workflow（2026-07-23 增加）**：
+- `Diagnose` —— SSH 跑任意 shell 命令看 server 状态
+- `Free-Disk` —— 删旧 docker image 释放磁盘
+- `Fix-Prod-Schema` —— `git pull` + `docker exec psql < scripts/fix-prod-schema.sql`（注意 **stdin 而非 `-f /host/path`**，见坑 14）
+- `Read-Admin-Password` —— 看 `.admin_password` / `.env`（脱敏）
+- `Reset-Admin-Password` —— PBKDF2 重置 admin 密码
+
+### 坑 14 — `docker exec psql -f /host/path` 找不到文件
+
+**症状**：`psql: error: /opt/yasi-words/scripts/fix-prod-schema.sql: No such file or directory`，但 `ls -la` 显示文件就在 server host 上。
+
+**根本原因**：`docker exec` 在 container **内部** 执行 psql。`-f /opt/yasi-words/...` 是 host 路径，但 psql 在 container 里只能看到自己的文件系统。
+
+**修**：用 stdin 重定向把 host 文件喂进 container：
+
+```sh
+# 错 — psql 在 container 里看不到 host 路径
+docker exec -i yasi-postgres psql ... -f /opt/yasi-words/scripts/fix.sql
+
+# 对 — stdin 把文件内容 pipe 进去
+docker exec -i yasi-postgres psql ... < /opt/yasi-words/scripts/fix.sql
+```
+
+### 坑 15 — `docker exec -e` 不继承宿主 env，必须显式传
+
+**症状**：`Reset-Admin-Password` workflow 报 `password too short`，但 input 明明传了 8 位密码。
+
+**根本原因**：bash 脚本里的 `NEW_PW="$X"` 是宿主 shell 变量，不会自动传入 `docker exec` 启动的 container。`docker exec -e NEW_PW=...` 必须显式写。
+
+**修**：所有要传给 container 的 env 必须出现在 `docker exec -e` 后：
+
+```sh
+# 错 — NEW_PW 是宿主变量，container 看不到
+NEW_PW="Admin@2026" docker exec -i yasi-app node -e "..."
+
+# 对
+docker exec -i -e NEW_PW="Admin@2026" yasi-app node -e "..."
+```
+
+### 坑 16 — Server 磁盘被旧 docker image 填满，git pull 失败
+
+**症状**：deploy 看起来成功，但 `fix-prod-schema.yml` 第一步 `git fetch` 报 `fatal: write error: No space left on device`。
+
+**根本原因**：每次 deploy GH Actions push 3 个 tag (`latest` + `short_sha` + `timestamp`)，旧的 `timestamp` tag 永远占着不释放。50GB 磁盘满后连 git 都写不了。
+
+**修**：
+
+1. **`Free-Disk` workflow** —— 手动保留当前 running image，删其他全部 `yasi-words:*` image + dangling + build cache（28GB 释放）。
+2. **未来改进**：deploy.yml 加 `docker image prune -f --filter "label=stage=built"` 清理 7 天前的同 repo image。
+
+### 坑 17 — deploy.yml `cd /opt/yasi-words` 但 server 上 `scripts/` 不会自动更新
+
+**症状**：`Fix-Prod-Schema` workflow 报 `scripts/fix-prod-schema.sql: No such file or directory`，即使文件已经 commit 到 main。
+
+**根本原因**：deploy.yml 只 `docker pull` 新 image + `up -d`，**不**更新 server host 上的 `/opt/yasi-words/scripts/` 目录（这是初始 `git clone` 创建的工作树，不是 image 内容）。
+
+**修**：所有需要 server-side host 文件的 workflow 第一步必须 `git fetch + git reset --hard origin/main`。
+
 ---
 
 ## 5 · 故障排查速查

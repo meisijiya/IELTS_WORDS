@@ -98,8 +98,13 @@ ssh <host> 'docker compose exec -T app find /app/public/audio -name "*.mp3" | wc
 4. **audio bundle > 100 MB 必须 web UI 上传** — GitHub Release Asset API 单文件上限。
 5. **Postgres volume 不同步 `.env` 密码** — 手动 `docker compose exec postgres env PGPASSWORD=<old> psql -U yasi -d yasi_db -c "ALTER USER yasi WITH PASSWORD '<new>';"`。
 6. **Secure cookie `secure: true` 在 HTTP 部署被浏览器 drop** → login 后 `URL 仍 /login?next=/`（静默失败）。修法：`secure: process.env.AUTH_COOKIE_SECURE === "true"`，HTTP 默认 off。
+7. **`prisma db push` 加 NOT NULL 列到已有数据的表失败 → 整个 push rollback**（schema 改动包含同时加 userId 列 + 创建新表时）。`docker/entrypoint.sh` 必须 loud-exit；生产恢复用 `Fix-Prod-Schema` workflow。详细见 `CICD.md` 坑 13。
+8. **`docker exec psql -f /host/path` 看不到 host 文件** —— container 内 psql 看不到 host FS。用 stdin `< /host/path` 而不是 `-f /host/path`。详细见 `CICD.md` 坑 14。
+9. **`docker exec -e VAR=value`** 必须显式传 env，宿主 shell 变量不继承。详细见 `CICD.md` 坑 15。
+10. **server 磁盘被旧 docker image 填满** —— 50GB 满后 `git pull` 报 `No space left on device`。用 `Free-Disk` workflow 清理。详细见 `CICD.md` 坑 16。
+11. **`deploy.yml` 不更新 host `/opt/yasi-words/scripts/`** —— 需要 server-side host 文件的 workflow 第一步必须 `git fetch + git reset --hard origin/main`。详细见 `CICD.md` 坑 17。
 
-**新 session 在以下动作前先读 pitfalls**：升级 `deploy.yml` / 改 `AUDIO_BUNDLE_URL` / 改数据库或 admin 密码 / 改 cookie secure / 新建 GitHub Release。
+**新 session 在以下动作前先读 pitfalls**：升级 `deploy.yml` / 改 `AUDIO_BUNDLE_URL` / 改数据库或 admin 密码 / 改 cookie secure / 新建 GitHub Release / **改 `prisma/schema.prisma` 加列或新表** / **生产事故 triage**。
 
 ## ANTI-PATTERNS
 
