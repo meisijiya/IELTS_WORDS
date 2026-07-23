@@ -7,29 +7,30 @@ jobs:
   free:
     runs-on: ubuntu-latest
     steps:
-      - name: Free disk + verify
+      - name: Aggressive docker prune
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_SSH_USER || 'root' }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
-            set -e
-            echo "=== disk before ==="
+            echo "=== before ==="
             df -h /
-            echo "=== docker df ==="
-            docker system df 2>&1 | head -10
-            echo "=== docker images (largest 10) ==="
-            docker images --format "{{.Size}}\t{{.Repository}}:{{.Tag}}\t{{.CreatedSince}}" | sort -h | tail -10
-            echo "=== docker volumes ==="
-            docker volume ls --format "{{.Name}} {{.Size}}" 2>&1 | head -10 || true
-            echo "=== docker system prune -a (removes all unused images, networks, build cache) ==="
-            docker system prune -a -f --filter "until=24h" 2>&1 | tail -10 || true
-            echo "=== disk after ==="
+            docker system df 2>&1 | head -6
+            echo "=== list all yasi images (oldest first) ==="
+            docker images --format "{{.ID}} {{.Size}} {{.CreatedSince}} {{.Repository}}:{{.Tag}}" | grep yasi-words | sort -k3
+            echo "=== remove ALL yasi-words images except the currently running one ==="
+            CURRENT_ID=$(docker ps --filter "name=yasi-app" --format "{{.Image}}")
+            echo "current yasi-app image: $CURRENT_ID"
+            docker images --format "{{.ID}} {{.Repository}}:{{.Tag}}" | grep "yasi-words" | while read id tag; do
+              if [ "$id" != "$CURRENT_ID" ]; then
+                echo "removing $id ($tag)"
+                docker rmi -f "$id" 2>&1 | tail -2 || true
+              fi
+            done
+            echo "=== prune dangling + build cache ==="
+            docker image prune -f 2>&1 | tail -3
+            docker builder prune -f 2>&1 | tail -3 || true
+            echo "=== after ==="
             df -h /
-            echo "=== top dir /var/lib/docker ==="
-            du -sh /var/lib/docker 2>/dev/null
-            du -sh /var/lib/docker/* 2>/dev/null | sort -hr | head -10
-            echo "=== apt/journal ==="
-            du -sh /var/log/journal 2>/dev/null || true
-            journalctl --vacuum-time=1d 2>&1 | tail -3 || true
+            docker system df 2>&1 | head -6
