@@ -7,7 +7,7 @@ jobs:
   fix:
     runs-on: ubuntu-latest
     steps:
-      - name: Pull latest + apply schema + restart + verify
+      - name: Free disk + git pull + apply schema + restart + verify
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.DEPLOY_HOST }}
@@ -16,9 +16,17 @@ jobs:
           script: |
             set -e
             cd /opt/yasi-words
-            echo "=== git pull (deploy.yml never pulls the working tree) ==="
-            git fetch origin main
-            git reset --hard origin/main
+            echo "=== disk before ==="
+            df -h /opt
+            du -sh /opt/yasi-words 2>/dev/null | tail -3
+            echo "=== prune docker dangling + old images ==="
+            docker image prune -f --filter "until=72h" 2>&1 | tail -5
+            docker builder prune -f --filter "until=72h" 2>&1 | tail -5 || true
+            echo "=== disk after prune ==="
+            df -h /opt
+            echo "=== git pull ==="
+            git fetch origin main 2>&1 | tail -3
+            git reset --hard origin/main 2>&1 | tail -3
             ls -la scripts/fix-prod-schema.sql
             echo "=== applying fix-prod-schema.sql ==="
             docker exec -i yasi-postgres psql -U yasi -d yasi_db -v ON_ERROR_STOP=1 -f /opt/yasi-words/scripts/fix-prod-schema.sql 2>&1 | tail -30
@@ -31,3 +39,5 @@ jobs:
             docker logs --tail 80 yasi-app 2>&1 | tail -50
             echo "=== User rows ==="
             docker exec -i yasi-postgres psql -U yasi -d yasi_db -c 'SELECT id, username, role, length("passwordHash") AS hash_len FROM "User";'
+            echo "=== disk final ==="
+            df -h /opt
