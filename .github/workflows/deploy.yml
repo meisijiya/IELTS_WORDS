@@ -37,7 +37,10 @@ jobs:
           context: .
           push: true
           build-args: |
-            AUDIO_BUNDLE_URL=https://github.com/meisijiya/IELTS_WORDS/releases/download/audio-2026-07-21/audio.tgz
+            # Full audio bundle (20194 mp3 files, 238 MB). Manually uploaded to the
+            # release page since GH Release Assets API caps uploads at 100 MB per
+            # file. Tag the new release when re-fetching is needed.
+            AUDIO_BUNDLE_URL=https://github.com/meisijiya/IELTS_WORDS/releases/download/audio-full-2026-07-23/audio_full.tgz
           tags: |
             ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:latest
             ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:${{ steps.meta.outputs.short_sha }}
