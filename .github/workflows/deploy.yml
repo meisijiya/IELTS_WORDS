@@ -44,7 +44,7 @@ jobs:
             ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:${{ steps.meta.outputs.timestamp }}
           cache-from: |
             type=registry,ref=${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:buildcache
-          cache-to: type=registry,ref=${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:buildcache,mode=max
+          cache-to: type=inline
 
   deploy:
     name: Deploy to server
