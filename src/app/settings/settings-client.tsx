@@ -137,6 +137,14 @@ export function SettingsClient({
       </section>
 
       <section className="space-y-3">
+        <h2 className="text-lg font-semibold">修改密码</h2>
+        <p className="text-sm text-muted-foreground">
+          需要当前密码确认，新密码至少 6 位。修改后其他设备的 session 不会被踢出。
+        </p>
+        <ChangePasswordForm />
+      </section>
+
+      <section className="space-y-3">
         <h2 className="text-lg font-semibold">闪现时长（毫秒）</h2>
         <p className="text-sm text-muted-fg">
           单词完全显示的时间，之后开始渐变消失
@@ -379,6 +387,109 @@ export function SettingsClient({
         </p>
         <ResetButton />
       </section>
+    </div>
+  );
+}
+
+function ChangePasswordForm() {
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [done, setDone] = useState(false);
+
+  async function submit() {
+    setError(null);
+    if (newPassword.length < 6) {
+      setError("新密码至少 6 位");
+      return;
+    }
+    if (newPassword !== confirm) {
+      setError("两次输入的新密码不一致");
+      return;
+    }
+    if (!currentPassword) {
+      setError("请输入当前密码");
+      return;
+    }
+    setSaving(true);
+    try {
+      const res = await fetch("/api/users/me", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: currentPassword, newPassword }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || "修改失败");
+        return;
+      }
+      setDone(true);
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirm("");
+      setTimeout(() => setDone(false), 3000);
+    } catch {
+      setError("网络错误");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  if (done) {
+    return (
+      <p className="text-sm text-success inline-flex items-center gap-1 p-3 border border-success/40 rounded-md bg-success/5">
+        <Check className="h-4 w-4" /> 密码已更新，下次登录请用新密码
+      </p>
+    );
+  }
+
+  return (
+    <div className="space-y-3 p-3 border border-border rounded-md bg-background">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label className="block text-xs font-medium mb-1">当前密码</label>
+          <input
+            type="password"
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
+            autoComplete="current-password"
+            className="w-full px-3 py-2 border border-border rounded text-sm bg-surface"
+          />
+        </div>
+        <div />
+        <div>
+          <label className="block text-xs font-medium mb-1">新密码（≥ 6 位）</label>
+          <input
+            type="password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            autoComplete="new-password"
+            minLength={6}
+            className="w-full px-3 py-2 border border-border rounded text-sm bg-surface"
+          />
+        </div>
+        <div>
+          <label className="block text-xs font-medium mb-1">确认新密码</label>
+          <input
+            type="password"
+            value={confirm}
+            onChange={(e) => setConfirm(e.target.value)}
+            autoComplete="new-password"
+            className="w-full px-3 py-2 border border-border rounded text-sm bg-surface"
+          />
+        </div>
+      </div>
+      {error && <p className="text-xs text-error">{error}</p>}
+      <button
+        type="button"
+        onClick={submit}
+        disabled={saving || !currentPassword || !newPassword || !confirm}
+        className="px-4 py-2 bg-accent text-accent-foreground rounded text-sm font-medium hover:bg-accent-hover transition disabled:opacity-50"
+      >
+        {saving ? "修改中…" : "修改密码"}
+      </button>
     </div>
   );
 }
