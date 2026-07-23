@@ -47,9 +47,20 @@ if [ -d "seed" ]; then
   npx tsx prisma/seed.ts 2>&1 | tail -30
 fi
 
-# Audio is baked into the image via Dockerfile AUDIO_BUNDLE_URL; report count only.
+# Audio: prefer baked-in (from Dockerfile), fall back to runtime fetch if missing.
+# Build-time curl is unreliable for non-Heroku blobs; persist via audio_data volume.
 AUDIO_COUNT=$(find public/audio -type f -name "*.mp3" 2>/dev/null | wc -l)
-echo "[entrypoint] audio files (baked in): $AUDIO_COUNT"
+if [ "$AUDIO_COUNT" -eq 0 ] && [ -n "$AUDIO_BUNDLE_URL" ]; then
+  echo "[entrypoint] audio missing, fetching at runtime from $AUDIO_BUNDLE_URL"
+  mkdir -p public/audio
+  if curl -fsSL --retry 3 --retry-delay 5 --max-time 600 "$AUDIO_BUNDLE_URL" | tar xz -C public/audio/; then
+    AUDIO_COUNT=$(find public/audio -type f -name "*.mp3" | wc -l)
+    echo "[entrypoint] audio fetched at runtime: $AUDIO_COUNT files"
+  else
+    echo "[entrypoint] WARN: audio runtime fetch failed; continuing without audio"
+  fi
+fi
+echo "[entrypoint] audio files: $AUDIO_COUNT"
 
 # Restore Prisma schema if we patched it
 if [ "${NEED_RESTORE:-0}" = "1" ]; then

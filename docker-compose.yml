@@ -49,12 +49,14 @@ services:
       - "${APP_PORT:-3000}:3000"
     volumes:
       - app_logs:/app/logs
+      - audio_data:/app/public/audio  # persist fetched audio across container restarts
     networks:
       - yasi-net
 
 volumes:
   pgdata:
   app_logs:
+  audio_data:
 
 networks:
   yasi-net:
