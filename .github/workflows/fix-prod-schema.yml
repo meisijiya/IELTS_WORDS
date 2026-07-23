@@ -29,7 +29,7 @@ jobs:
             git reset --hard origin/main 2>&1 | tail -3
             ls -la scripts/fix-prod-schema.sql
             echo "=== applying fix-prod-schema.sql ==="
-            docker exec -i yasi-postgres psql -U yasi -d yasi_db -v ON_ERROR_STOP=1 -f /opt/yasi-words/scripts/fix-prod-schema.sql 2>&1 | tail -30
+            docker exec -i yasi-postgres psql -U yasi -d yasi_db -v ON_ERROR_STOP=1 < /opt/yasi-words/scripts/fix-prod-schema.sql 2>&1 | tail -30
             echo "=== tables now ==="
             docker exec -i yasi-postgres psql -U yasi -d yasi_db -tAc "SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename;"
             echo "=== restart app so entrypoint can run ensureAdmin ==="
