@@ -1,8 +1,6 @@
 name: Migrate-Legacy-UserData
-
 on:
   workflow_dispatch:
-
 jobs:
   migrate:
     runs-on: ubuntu-latest
@@ -16,7 +14,6 @@ jobs:
           script: |
             set -e
             cd /opt/yasi-words
-            echo "=== git pull ==="
             git fetch origin main 2>&1 | tail -2
             git reset --hard origin/main 2>&1 | tail -2
             echo "=== before ==="
@@ -26,17 +23,15 @@ jobs:
             echo "=== after ==="
             docker exec -i yasi-postgres psql -U yasi -d yasi_db -c 'SELECT "userId", COUNT(*) FROM "Attempt" GROUP BY "userId" ORDER BY "userId";'
             docker exec -i yasi-postgres psql -U yasi -d yasi_db -c 'SELECT MIN("createdAt"), MAX("createdAt"), COUNT(*) FROM "Attempt";'
-            echo "=== restart app so Prisma re-reads ==="
+            echo "=== restart app ==="
             docker restart yasi-app
             sleep 10
-            echo "=== admin login + dashboard check ==="
+            echo "=== admin dashboard check ==="
             COOKIE=$(curl -s -i -X POST http://localhost:3000/api/auth/login -H "Content-Type: application/json" -d '{"username":"admin","password":"Admin@2026"}' | grep -i "^set-cookie:" | head -1 | sed 's/.*: //; s/;.*//')
-            echo "got cookie: ${COOKIE:0:40}..."
             curl -s "http://localhost:3000/api/analytics?wordbookId=1&range=all" -H "Cookie: $COOKIE" | python3 -c "
 import sys, json
 d = json.load(sys.stdin)
-br = d['byRange']['today']
-print('today attempts:', br['totalAttempted'])
+print('today attempts:', d['byRange']['today']['totalAttempted'])
 print('total attempts ever:', d['recent']['totalAttempts'])
 print('mastered words:', d['progress']['masteredWords'])
 "
