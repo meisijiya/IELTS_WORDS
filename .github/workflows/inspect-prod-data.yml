@@ -1,0 +1,30 @@
+name: Inspect-Prod-Data
+
+on:
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect legacy data
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_SSH_USER || 'root' }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            echo "=== users ==="
+            docker exec -i yasi-postgres psql -U yasi -d yasi_db -c 'SELECT id, username, role, length("passwordHash") AS hash_len FROM "User" ORDER BY id;'
+            echo "=== attempts by userId (legacy placeholder = 0) ==="
+            docker exec -i yasi-postgres psql -U yasi -d yasi_db -c 'SELECT "userId", COUNT(*) AS rows, MIN("createdAt") AS oldest, MAX("createdAt") AS newest FROM "Attempt" GROUP BY "userId" ORDER BY "userId";'
+            echo "=== sessions by userId ==="
+            docker exec -i yasi-postgres psql -U yasi -d yasi_db -c 'SELECT "userId", COUNT(*) AS rows FROM "Session" GROUP BY "userId" ORDER BY "userId";'
+            echo "=== checkins by userId ==="
+            docker exec -i yasi-postgres psql -U yasi -d yasi_db -c 'SELECT "userId", COUNT(*) AS rows FROM "Checkin" GROUP BY "userId" ORDER BY "userId";'
+            echo "=== userSettings by userId ==="
+            docker exec -i yasi-postgres psql -U yasi -d yasi_db -c 'SELECT "userId", COUNT(*) AS rows FROM "UserSettings" GROUP BY "userId" ORDER BY "userId";'
+            echo "=== attempt dates range ==="
+            docker exec -i yasi-postgres psql -U yasi -d yasi_db -c 'SELECT MIN("createdAt") AS first_attempt, MAX("createdAt") AS last_attempt, COUNT(DISTINCT date("createdAt")) AS distinct_days FROM "Attempt";'
+            echo "=== sample attempts ==="
+            docker exec -i yasi-postgres psql -U yasi -d yasi_db -c 'SELECT id, "userId", "wordId", correct, "createdAt" FROM "Attempt" ORDER BY "createdAt" LIMIT 5;'
