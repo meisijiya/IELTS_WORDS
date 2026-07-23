@@ -53,7 +53,8 @@ AUDIO_COUNT=$(find public/audio -type f -name "*.mp3" 2>/dev/null | wc -l)
 if [ "$AUDIO_COUNT" -eq 0 ] && [ -n "$AUDIO_BUNDLE_URL" ]; then
   echo "[entrypoint] audio missing, fetching at runtime from $AUDIO_BUNDLE_URL"
   mkdir -p public/audio
-  if curl -fsSL --retry 3 --retry-delay 5 --max-time 600 "$AUDIO_BUNDLE_URL" | tar xz -C public/audio/; then
+  if curl -fsSL --retry 3 --retry-delay 5 --max-time 600 "$AUDIO_BUNDLE_URL" \
+        | tar xz --strip-components=1 -C public/audio/; then
     AUDIO_COUNT=$(find public/audio -type f -name "*.mp3" | wc -l)
     echo "[entrypoint] audio fetched at runtime: $AUDIO_COUNT files"
   else

@@ -32,7 +32,9 @@ ARG AUDIO_BUNDLE_URL=""
 RUN if [ -n "$AUDIO_BUNDLE_URL" ]; then \
       echo "Baking audio from $AUDIO_BUNDLE_URL"; \
       mkdir -p public/audio; \
-      curl -fsSL --max-time 300 "$AUDIO_BUNDLE_URL" | tar xz -C public/audio/ \
+      # Strip tgz's leading "public/" so files land at public/audio/*.mp3
+      # (without this they nest at public/audio/public/audio/).
+      curl -fsSL --max-time 600 "$AUDIO_BUNDLE_URL" | tar xz --strip-components=1 -C public/audio/ \
         || echo "WARN: audio bundle fetch failed; continuing without audio"; \
     else \
       echo "AUDIO_BUNDLE_URL not set — image ships without pre-baked audio"; \
