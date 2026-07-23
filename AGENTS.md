@@ -106,6 +106,44 @@ ssh <host> 'docker compose exec -T app find /app/public/audio -name "*.mp3" | wc
 
 **新 session 在以下动作前先读 pitfalls**：升级 `deploy.yml` / 改 `AUDIO_BUNDLE_URL` / 改数据库或 admin 密码 / 改 cookie secure / 新建 GitHub Release / **改 `prisma/schema.prisma` 加列或新表** / **生产事故 triage**。
 
+## Schema 升级规范（expand-and-contract）
+
+**核心原则**：**永远不要**在同一次 `prisma db push` 里同时给已有数据的表加 `NOT NULL` 列 + 创建依赖列。Prisma 在 PostgreSQL 上的 `db push` 是单一事务，中间任何 ALTER 失败 → 整个 push rollback → 新表也回滚 → 数据看似"被删"。
+
+**正确流程（三步）**：
+
+1. **Expand**：先加列但 nullable 或带 default：
+   ```prisma
+   model Session {
+     userId Int? @default(0)  // 先 default 0
+   }
+   ```
+   部署 → push 成功（PG 接受 default 0）。
+
+2. **Backfill**：写迁移脚本把所有旧行填真实值：
+   ```sql
+   UPDATE "Session" SET "userId" = (SELECT id FROM "User" WHERE role='admin') WHERE "userId" = 0;
+   ```
+   部署 + 跑脚本。
+
+3. **Contract**：再切到 NOT NULL：
+   ```prisma
+   model Session {
+     userId Int  // 去掉 default + ?
+   }
+   ```
+   部署 → push 成功（所有行已有真实 userId）。
+
+**生产 schema 改动 checklist**（改 `prisma/schema.prisma` 加列或新表前必读）：
+- [ ] 备份当前 DB（手动跑 `Backup-Database` workflow 或 `pg_dump`）
+- [ ] 用 `Migrate-Legacy-UserData` workflow 处理历史行（如果加 userId 之类的归属列）
+- [ ] deploy 后用 `Inspect-Prod-Data` workflow 验证行数与 sample
+- [ ] 出现 500 时看 server `docker logs yasi-app | grep -i error`
+
+**自动备份**：`Backup-Database` workflow 每天 03:00 Asia/Shanghai 跑 `pg_dump` 到 `/opt/yasi-words/backups/`，保留 14 天。`workflow_dispatch` 可手动触发事故前快照。
+
+**回滚**：deploy.yml 自动保留当前 + 上一个 yasi-words image 作为 rollback buffer；`docker compose up -d app <previous_tag>` 即可回滚。
+
 ## ANTI-PATTERNS
 
 - 不要裸跑无 `where` 的 `updateMany({})` / `deleteMany({})`，也不要全表 `psql DELETE`；测试清理必须限定 ID。重置走 `/api/admin/reset`。
