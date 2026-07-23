@@ -74,8 +74,11 @@ jobs:
               -u '${{ secrets.ALIYUN_REGISTRY_USERNAME }}' \
               --password-stdin \
               ${{ secrets.ALIYUN_REGISTRY }}
-            # Update image tag in docker-compose env (or use compose pull)
-            docker compose pull app || true
+            # Pull the freshly pushed image tag (no fallback rebuild — CI/CD exists
+            # for a reason). docker-compose.yml's image: ${APP_IMAGE:-} picks it up.
+            export APP_IMAGE='${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:latest'
+            docker pull "$APP_IMAGE"
+            docker compose pull app
             docker compose up -d --force-recreate app
             # Prune old images
             docker image prune -f --filter "until=24h"
