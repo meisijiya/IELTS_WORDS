@@ -30,7 +30,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "用户名和密码均不能为空" }, { status: 400 });
   }
 
-  const user = await prisma.user.findUnique({ where: { username } });
+  let user;
+  try {
+    user = await prisma.user.findUnique({ where: { username } });
+  } catch (e) {
+    console.error(`[auth/login] DB lookup failed for '${username}':`, e);
+    return NextResponse.json({ error: "服务暂时不可用" }, { status: 500 });
+  }
   if (!user) {
     recordFail(ip);
     return NextResponse.json({ error: "用户名或密码错误" }, { status: 401 });
@@ -39,13 +45,24 @@ export async function POST(request: Request) {
     console.error(`[auth/login] user '${username}' (id=${user.id}) has null passwordHash — schema out of sync`);
     return NextResponse.json({ error: "账号数据异常，请联系管理员" }, { status: 500 });
   }
-  if (!(await verifyPassword(password, user.passwordHash))) {
+  const passwordOk = await verifyPassword(password, user.passwordHash).catch((e) => {
+    console.error(`[auth/login] verifyPassword threw for '${username}':`, e);
+    return false;
+  });
+  if (!passwordOk) {
     recordFail(ip);
     return NextResponse.json({ error: "用户名或密码错误" }, { status: 401 });
   }
 
+  let cookieValue: string;
+  try {
+    cookieValue = await createSessionCookie(user.id, user.role);
+  } catch (e) {
+    console.error(`[auth/login] createSessionCookie failed for '${username}' (role='${user.role}'):`, e);
+    return NextResponse.json({ error: "会话创建失败" }, { status: 500 });
+  }
+
   resetBucket(ip);
-  const cookieValue = await createSessionCookie(user.id, user.role);
   const response = NextResponse.json({
     ok: true,
     user: { id: user.id, username: user.username, role: user.role },
