@@ -2,9 +2,11 @@
 
 [![CI Status](https://img.shields.io/github/actions/workflow/status/meisijiya/IELTS_WORDS/ci.yml?branch=main&style=flat-square&logo=github&label=CI)](https://github.com/meisijiya/IELTS_WORDS/actions/workflows/ci.yml)
 [![Docker Image](https://img.shields.io/badge/docker-阿里云镜像-blue?style=flat-square&logo=docker)](https://github.com/meisijiya/IELTS_WORDS/pkgs/container/ielts_words)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
+[![License: MIT](https://img.shields.io/github/license/meisijiya/IELTS_WORDS-green?style=flat-square)](LICENSE)
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org)
+
+> 📦 **部署到生产环境？** 看 [CICD.md](CICD.md) — 完整的 GitHub Actions + 阿里云容器镜像服务 (ACR) + 云服务器配置指南，从首次配置到踩过的 12 个坑。
 
 > 为雅思机考的键盘操作习惯设计的本地优先单词训练工具。
 
