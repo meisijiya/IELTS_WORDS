@@ -25,8 +25,9 @@
 - **点击单词重播** — 答题停留时点击单词文字可随时重播该次发音（鼠标 hover 显示音量图标提示）
 - **accent 自动 fallback** — 用户选择 US 时，若该词只有 UK 音频，自动用 UK 顶上。零 404。
 - **发音 4 态** — 都开（闪+反馈）/ 仅闪现 / 仅反馈 / 静音
-- **浏览器缓存** — Next.js 静态资源自动带 ETag，重复请求返回 304，500 GB/月流量够用
-- **Docker audio bake-in** — 镜像构建时通过 `AUDIO_BUNDLE_URL` 把 130 MB 音频烤进 image，免运行时下载
+- **浏览器缓存** — Next.js 静态资源 1 年 immutable（`/audio/*`）；同一 URL 浏览器永久缓存命中，零重复请求
+- **Docker audio bake-in** — 镜像构建时通过 `AUDIO_BUNDLE_URL` 把 238 MB / 20194 个 mp3 烤入 image，构建一次即永久生效
+- **Runtime fetch fallback** — 若 baked layer 缺失或损坏，`entrypoint.sh` 会在容器启动时 runtime 拉同 bundle 到 `audio_data` named volume（不需 reload image）
 
 ### 错题系统
 - **错题 Session** — 独立练习入口，答对/答错**都不改** word 的持久化 state（attempts / level / masteredAt 不变），仅插入 Attempt 行作为"出现"记录
@@ -255,32 +256,33 @@ docker compose down
 详见 [docs/deploy-docker.md](docs/deploy-docker.md) 与 [docs/deploy-tencent-cloud.md](docs/deploy-tencent-cloud.md)。要点：
 
 ### 国内云服务器加速镜像（已配置）
-| 用途 | 镜像源 |
-|---|---|
-| Docker 基础镜像 | `registry.cn-hangzhou.aliyuncs.com/library/` |
-| Alpine apk | `mirrors.aliyun.com/alpine/...` |
-| npm | `registry.npmmirror.com` |
-| GitHub | `ghproxy.com` |
+| 用途 | 镜像源 | 备注 |
+|---|---|---|
+| Docker 基础镜像 | `registry.cn-hangzhou.aliyuncs.com/library/` | Aliyun hub 直链 |
+| Alpine apk | `mirrors.aliyun.com/alpine/...` | |
+| npm | `registry.npmmirror.com` | |
+| GitHub | （**未额外加速**）| ghproxy 在腾讯云主机上**超时不可达**；GH Actions runner + 用户浏览器直连 GitHub OK |
 
 ### audio bundle 烤进 image
 
 ```bash
-# 1. 在能访问国际网的环境下载 audio（一次性 ~30 min）
-git clone https://github.com/meisijiya/IELTS_WORDS.git
-cd IELTS_WORDS
-python3 tools/fetch_pronunciations.py
+# 1. 本地打包（一次性 ~20 秒，gzip 压缩 ~50%）
+tar czf /tmp/audio_full.tgz -C public audio/
 
-# 2. 上传到 GitHub Release（或 OSS 等）
-python3 tools/release-audio.py --tag v1.0.0
+# 2. 在 GitHub Release 页面手动上传（API 单文件上限 100 MB；238 MB bundle 必须 web UI）
+#    URL: https://github.com/<owner>/<repo>/releases/new
+#    asset name: audio_full.tgz
+#    tag: e.g. audio-full-2026-07-23
 
-# 3. 服务器 .env 配置镜像（含 ~130 MB 音频）
-echo "AUDIO_BUNDLE_URL=https://ghproxy.com/https://github.com/meisijiya/IELTS_WORDS/releases/download/v1.0.0/audio.tgz" >> .env
+# 3. workflow file: deploy.yml 把 AUDIO_BUNDLE_URL 指向新 tag
+#    AUDIO_BUNDLE_URL=https://github.com/<owner>/<repo>/releases/download/<tag>/audio_full.tgz
 
-# 4. docker compose build（构建时下载并解压到 public/audio/）
-docker compose up -d --build
+# 4. 推 commit → GH Actions build (no BuildKit cache, 5–6 min) → server pull → up
 ```
 
-镜像构建时一次性下载音频烤入，运行时无需联网下载。
+镜像构建时一次性下载音频烤入（**BuildKit cache 故意关闭**，否则 stale layer 会复用旧 audio 内容）。
+
+`entrypoint.sh` 还会在容器启动时做一层兜底：若 baked audio 缺失（如 cache 复用 bug 时），runtime 从同 URL 拉到 `audio_data` named volume，`docker compose restart` 即可恢复。
 
 ## 🎯 算法概览
 
