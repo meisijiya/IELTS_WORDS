@@ -85,8 +85,21 @@ jobs:
             docker pull "$APP_IMAGE"
             docker compose pull app
             docker compose up -d --force-recreate app
-            # Prune old images
-            docker image prune -f --filter "until=24h"
+            echo "[deploy] pruning old yasi-words images (keep current + 1 rollback)..."
+            CURRENT_ID=$(docker ps --filter "name=yasi-app" --format "{{.Image}}" | head -1)
+            docker images --format "{{.ID}}|{{.CreatedAt}}|{{.Repository}}:{{.Tag}}" \
+              | grep "yasi-words" \
+              | sort -t'|' -k2 -r \
+              | awk -F'|' -v keep_id="$CURRENT_ID" '{
+                  if (seen == 2) { print $1; exit }
+                  if ($1 == keep_id) { next }
+                  seen++
+                }' \
+              | xargs -r docker rmi -f 2>&1 | tail -5 || true
+            docker image prune -f --filter "until=24h" 2>&1 | tail -3 || true
+            docker builder prune -f --filter "until=24h" 2>&1 | tail -3 || true
+            echo "[deploy] disk after prune:"
+            df -h / | tail -1
             echo "[deploy] complete."
 
       - name: Health check

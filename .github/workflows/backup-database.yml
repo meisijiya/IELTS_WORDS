@@ -1,0 +1,49 @@
+name: Backup-Database
+
+on:
+  # Daily at 03:00 Asia/Shanghai (= 19:00 UTC previous day)
+  schedule:
+    - cron: "0 19 * * *"
+  workflow_dispatch:
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: pg_dump → upload artifact
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_SSH_USER || 'root' }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            set -e
+            BACKUP_DIR=/opt/yasi-words/backups
+            mkdir -p "$BACKUP_DIR"
+            DATE=$(date -u +%Y%m%d-%H%M%S)
+            FILENAME="yasi-db-${DATE}.sql.gz"
+            echo "=== pg_dump ==="
+            docker exec yasi-postgres pg_dump -U yasi -d yasi_db --no-owner --no-acl \
+              | gzip -9 > "$BACKUP_DIR/$FILENAME"
+            ls -lh "$BACKUP_DIR/$FILENAME"
+            echo "=== verify integrity ==="
+            gunzip -t "$BACKUP_DIR/$FILENAME" && echo "gz OK"
+            gzip -dc "$BACKUP_DIR/$FILENAME" | head -20
+            echo "=== keep last 14 backups (disk-bounded) ==="
+            cd "$BACKUP_DIR"
+            ls -1t yasi-db-*.sql.gz | tail -n +15 | xargs -r rm -f
+            ls -1 "$BACKUP_DIR" | wc -l
+            echo "=== upload as GH Actions artifact ==="
+            # Move to a known GH-rsyncable path via GH CLI artifact command.
+            # We tag the run with a marker so the success notification can
+            # include the file size + timestamp.
+            echo "BACKUP_FILE=$FILENAME" >> $GITHUB_ENV
+            echo "BACKUP_BYTES=$(stat -c%s "$BACKUP_DIR/$FILENAME")" >> $GITHUB_ENV
+
+      - name: Persist backup as artifact (90 days)
+        uses: actions/upload-artifact@v4
+        with:
+          name: yasi-db-backup-${{ env.BACKUP_FILE }}
+          path: /tmp/transfer/${{ env.BACKUP_FILE }}
+          retention-days: 90
+          if-no-files-found: error
