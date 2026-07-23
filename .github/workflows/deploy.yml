@@ -45,9 +45,11 @@ jobs:
             ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:latest
             ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:${{ steps.meta.outputs.short_sha }}
             ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:${{ steps.meta.outputs.timestamp }}
-          cache-from: |
-            type=registry,ref=${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:buildcache
-          cache-to: type=inline
+          # cache disabled: registry-cached layers can mask updates to
+          # build-arg-baked content (audio URL changed, layer reused, image
+          # still had the old partial audio set). 5-6 min cold build is fine.
+          cache-from: ""
+          cache-to: ""
 
   deploy:
     name: Deploy to server
