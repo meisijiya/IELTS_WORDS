@@ -7,7 +7,7 @@ jobs:
   fix:
     runs-on: ubuntu-latest
     steps:
-      - name: Apply schema recovery + restart + verify
+      - name: Pull latest + apply schema + restart + verify
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.DEPLOY_HOST }}
@@ -16,14 +16,18 @@ jobs:
           script: |
             set -e
             cd /opt/yasi-words
+            echo "=== git pull (deploy.yml never pulls the working tree) ==="
+            git fetch origin main
+            git reset --hard origin/main
+            ls -la scripts/fix-prod-schema.sql
             echo "=== applying fix-prod-schema.sql ==="
-            docker exec -i yasi-postgres psql -U yasi -d yasi_db -v ON_ERROR_STOP=1 -f /opt/yasi-words/scripts/fix-prod-schema.sql 2>&1 | tail -20
+            docker exec -i yasi-postgres psql -U yasi -d yasi_db -v ON_ERROR_STOP=1 -f /opt/yasi-words/scripts/fix-prod-schema.sql 2>&1 | tail -30
             echo "=== tables now ==="
-            docker exec -i yasi-postgres psql -U yasi -d yasi_db -tAc "SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename;" | sort
+            docker exec -i yasi-postgres psql -U yasi -d yasi_db -tAc "SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename;"
             echo "=== restart app so entrypoint can run ensureAdmin ==="
             docker restart yasi-app
             sleep 15
             echo "=== app log tail ==="
-            docker logs --tail 60 yasi-app 2>&1 | tail -40
+            docker logs --tail 80 yasi-app 2>&1 | tail -50
             echo "=== User rows ==="
             docker exec -i yasi-postgres psql -U yasi -d yasi_db -c 'SELECT id, username, role, length("passwordHash") AS hash_len FROM "User";'
