@@ -31,7 +31,9 @@ export async function POST(request: Request) {
   response.cookies.set(SESSION_COOKIE_NAME, cookieValue, {
     httpOnly: true,
     sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+      // Secure cookies need HTTPS. Default off so plain-HTTP deploys work;
+      // set AUTH_COOKIE_SECURE=true when behind a TLS terminator.
+      secure: process.env.AUTH_COOKIE_SECURE === "true",
     path: "/",
     maxAge: SESSION_TTL_MS / 1000,
   });
