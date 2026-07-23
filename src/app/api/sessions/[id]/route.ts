@@ -1,13 +1,17 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { isAuthenticated } from "@/lib/auth";
+import { requireUser, authErrorResponse, ApiAuthError } from "@/lib/api";
 
 export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  if (!isAuthenticated()) {
-    return NextResponse.json({ error: "未授权" }, { status: 401 });
+  let user;
+  try {
+    user = await requireUser();
+  } catch (e) {
+    if (e instanceof ApiAuthError) return authErrorResponse();
+    throw e;
   }
 
   const { id } = await params;
@@ -16,6 +20,11 @@ export async function PATCH(
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "invalid JSON" }, { status: 400 });
+  }
+
+  const session = await prisma.session.findUnique({ where: { id }, select: { userId: true } });
+  if (!session || session.userId !== user.id) {
+    return NextResponse.json({ error: "session not found" }, { status: 404 });
   }
 
   await prisma.session.update({

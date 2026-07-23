@@ -1,31 +1,31 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-// Mocks must be registered before the module under test imports.
-const mockIsAuthenticated = vi.fn();
+const mockGetCurrentUser = vi.fn();
 const mockUserSettingsFindUnique = vi.fn();
-const mockUserSettingsCreate = vi.fn();
+const mockUserSettingsUpsert = vi.fn();
 const mockUserSettingsUpdate = vi.fn();
-const mockWordUpdateMany = vi.fn();
+const mockUserWordUpdateMany = vi.fn();
 
 vi.mock("@/lib/auth", () => ({
-  isAuthenticated: () => mockIsAuthenticated(),
+  getCurrentUser: () => mockGetCurrentUser(),
+  isAuthenticated: () => mockGetCurrentUser().then((u: unknown) => u !== null),
 }));
 vi.mock("@/lib/db", () => ({
   prisma: {
     userSettings: {
       findUnique: (...args: unknown[]) => mockUserSettingsFindUnique(...args),
-      create: (...args: unknown[]) => mockUserSettingsCreate(...args),
+      upsert: (...args: unknown[]) => mockUserSettingsUpsert(...args),
       update: (...args: unknown[]) => mockUserSettingsUpdate(...args),
     },
-    word: {
-      updateMany: (...args: unknown[]) => mockWordUpdateMany(...args),
+    userWord: {
+      updateMany: (...args: unknown[]) => mockUserWordUpdateMany(...args),
     },
     $transaction: (fn: (tx: unknown) => Promise<unknown>) => fn({
       userSettings: {
         update: (...args: unknown[]) => mockUserSettingsUpdate(...args),
       },
-      word: {
-        updateMany: (...args: unknown[]) => mockWordUpdateMany(...args),
+      userWord: {
+        updateMany: (...args: unknown[]) => mockUserWordUpdateMany(...args),
       },
     }),
   },
@@ -33,8 +33,9 @@ vi.mock("@/lib/db", () => ({
 
 import { GET, PUT } from "./route";
 
-const SINGLETON = {
+const SETTINGS = {
   id: 1,
+  userId: 1,
   flashMs: 800,
   fadeMs: 300,
   pronunciationMode: "both",
@@ -44,8 +45,11 @@ const SINGLETON = {
   checkinRetentionDays: null,
   masteryThreshold: 5,
   flashSkipMinLevel: null,
+  soundEnabled: true,
   updatedAt: new Date(),
 };
+
+const AUTH_USER = { id: 1, username: "admin", role: "admin" };
 
 function makeRequest(body: unknown): Request {
   return new Request("http://localhost/api/settings", {
@@ -57,8 +61,8 @@ function makeRequest(body: unknown): Request {
 
 describe("GET /api/settings", () => {
   beforeEach(() => {
-    mockIsAuthenticated.mockResolvedValue(true);
-    mockUserSettingsFindUnique.mockResolvedValue(SINGLETON);
+    mockGetCurrentUser.mockResolvedValue(AUTH_USER);
+    mockUserSettingsUpsert.mockResolvedValue(SETTINGS);
   });
   afterEach(() => vi.clearAllMocks());
 
@@ -75,13 +79,14 @@ describe("GET /api/settings", () => {
 
 describe("PUT /api/settings — masteryThreshold clamping (AC3/AC4)", () => {
   beforeEach(() => {
-    mockIsAuthenticated.mockResolvedValue(true);
-    mockUserSettingsFindUnique.mockResolvedValue(SINGLETON);
+    mockGetCurrentUser.mockResolvedValue(AUTH_USER);
+    mockUserSettingsFindUnique.mockResolvedValue(SETTINGS);
+    mockUserSettingsUpsert.mockResolvedValue(SETTINGS);
     mockUserSettingsUpdate.mockImplementation(async ({ data }) => ({
-      ...SINGLETON,
+      ...SETTINGS,
       ...data,
     }));
-    mockWordUpdateMany.mockResolvedValue({ count: 0 });
+    mockUserWordUpdateMany.mockResolvedValue({ count: 0 });
   });
   afterEach(() => vi.clearAllMocks());
 
@@ -119,13 +124,14 @@ describe("PUT /api/settings — masteryThreshold clamping (AC3/AC4)", () => {
 
 describe("PUT /api/settings — flashSkipMinLevel (AC3/AC4)", () => {
   beforeEach(() => {
-    mockIsAuthenticated.mockResolvedValue(true);
-    mockUserSettingsFindUnique.mockResolvedValue(SINGLETON);
+    mockGetCurrentUser.mockResolvedValue(AUTH_USER);
+    mockUserSettingsFindUnique.mockResolvedValue(SETTINGS);
+    mockUserSettingsUpsert.mockResolvedValue(SETTINGS);
     mockUserSettingsUpdate.mockImplementation(async ({ data }) => ({
-      ...SINGLETON,
+      ...SETTINGS,
       ...data,
     }));
-    mockWordUpdateMany.mockResolvedValue({ count: 0 });
+    mockUserWordUpdateMany.mockResolvedValue({ count: 0 });
   });
   afterEach(() => vi.clearAllMocks());
 
@@ -156,7 +162,7 @@ describe("PUT /api/settings — flashSkipMinLevel (AC3/AC4)", () => {
 
 describe("PUT /api/settings — auth", () => {
   beforeEach(() => {
-    mockIsAuthenticated.mockResolvedValue(false);
+    mockGetCurrentUser.mockResolvedValue(null);
   });
   afterEach(() => vi.clearAllMocks());
 
@@ -169,20 +175,17 @@ describe("PUT /api/settings — auth", () => {
 
 describe("PUT /api/settings — eager promotion (AC5/AC6)", () => {
   beforeEach(() => {
-    mockIsAuthenticated.mockResolvedValue(true);
+    mockGetCurrentUser.mockResolvedValue(AUTH_USER);
   });
   afterEach(() => vi.clearAllMocks());
 
   it("promotes words when threshold is lowered (5 → 3)", async () => {
-    mockUserSettingsFindUnique.mockResolvedValue({
-      ...SINGLETON,
-      masteryThreshold: 5,
-    });
+    mockUserSettingsFindUnique.mockResolvedValue({ ...SETTINGS, masteryThreshold: 5 });
     mockUserSettingsUpdate.mockImplementation(async ({ data }) => ({
-      ...SINGLETON,
+      ...SETTINGS,
       ...data,
     }));
-    mockWordUpdateMany.mockResolvedValue({ count: 17 });
+    mockUserWordUpdateMany.mockResolvedValue({ count: 17 });
 
     const res = await PUT(makeRequest({ masteryThreshold: 3 }));
     const json = await res.json();
@@ -190,20 +193,17 @@ describe("PUT /api/settings — eager promotion (AC5/AC6)", () => {
     expect(res.status).toBe(200);
     expect(json.masteryThreshold).toBe(3);
     expect(json.promotedCount).toBe(17);
-    expect(mockWordUpdateMany).toHaveBeenCalledTimes(1);
-    expect(mockWordUpdateMany).toHaveBeenCalledWith({
-      where: { level: { gte: 3 }, masteredAt: null },
+    expect(mockUserWordUpdateMany).toHaveBeenCalledTimes(1);
+    expect(mockUserWordUpdateMany).toHaveBeenCalledWith({
+      where: { userId: 1, level: { gte: 3 }, masteredAt: null },
       data: { masteredAt: expect.any(Date) },
     });
   });
 
   it("does NOT promote when threshold is held (5 → 5)", async () => {
-    mockUserSettingsFindUnique.mockResolvedValue({
-      ...SINGLETON,
-      masteryThreshold: 5,
-    });
+    mockUserSettingsFindUnique.mockResolvedValue({ ...SETTINGS, masteryThreshold: 5 });
     mockUserSettingsUpdate.mockImplementation(async ({ data }) => ({
-      ...SINGLETON,
+      ...SETTINGS,
       ...data,
     }));
 
@@ -213,16 +213,13 @@ describe("PUT /api/settings — eager promotion (AC5/AC6)", () => {
     expect(res.status).toBe(200);
     expect(json.masteryThreshold).toBe(5);
     expect(json.promotedCount).toBeUndefined();
-    expect(mockWordUpdateMany).not.toHaveBeenCalled();
+    expect(mockUserWordUpdateMany).not.toHaveBeenCalled();
   });
 
   it("does NOT promote when threshold is raised (5 → 8)", async () => {
-    mockUserSettingsFindUnique.mockResolvedValue({
-      ...SINGLETON,
-      masteryThreshold: 5,
-    });
+    mockUserSettingsFindUnique.mockResolvedValue({ ...SETTINGS, masteryThreshold: 5 });
     mockUserSettingsUpdate.mockImplementation(async ({ data }) => ({
-      ...SINGLETON,
+      ...SETTINGS,
       ...data,
     }));
 
@@ -232,19 +229,16 @@ describe("PUT /api/settings — eager promotion (AC5/AC6)", () => {
     expect(res.status).toBe(200);
     expect(json.masteryThreshold).toBe(8);
     expect(json.promotedCount).toBeUndefined();
-    expect(mockWordUpdateMany).not.toHaveBeenCalled();
+    expect(mockUserWordUpdateMany).not.toHaveBeenCalled();
   });
 
   it("lowered + no eligible words returns promotedCount=0", async () => {
-    mockUserSettingsFindUnique.mockResolvedValue({
-      ...SINGLETON,
-      masteryThreshold: 5,
-    });
+    mockUserSettingsFindUnique.mockResolvedValue({ ...SETTINGS, masteryThreshold: 5 });
     mockUserSettingsUpdate.mockImplementation(async ({ data }) => ({
-      ...SINGLETON,
+      ...SETTINGS,
       ...data,
     }));
-    mockWordUpdateMany.mockResolvedValue({ count: 0 });
+    mockUserWordUpdateMany.mockResolvedValue({ count: 0 });
 
     const res = await PUT(makeRequest({ masteryThreshold: 3 }));
     const json = await res.json();

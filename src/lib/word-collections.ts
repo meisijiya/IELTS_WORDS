@@ -29,6 +29,7 @@ export interface AttemptLike {
   };
 }
 
+
 /**
  * Aggregate raw Attempt rows into one CollectionWord per wordId.
  * Mirrors the per-word aggregation done in page.tsx but is pure

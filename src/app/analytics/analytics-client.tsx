@@ -36,6 +36,12 @@ interface Overview {
     masteredWords: number;
     progressPct: number;
   };
+  byRange: {
+    today: { totalAttempted: number; newWords: number; learningWords: number; masteredWords: number };
+    week:  { totalAttempted: number; newWords: number; learningWords: number; masteredWords: number };
+    month: { totalAttempted: number; newWords: number; learningWords: number; masteredWords: number };
+    all:   { totalAttempted: number; newWords: number; learningWords: number; masteredWords: number };
+  };
   recent: {
     totalAttempts: number;
     correctCount: number;
@@ -159,19 +165,46 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
 
       {data && (
         <>
-          <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Stat label="总词数" value={data.progress.totalWords} />
-            <Stat label="已掌握" value={data.progress.masteredWords} accent />
-            <Stat label="学习中" value={data.progress.learningWords} />
-            <Stat label="新词" value={data.progress.newWords} />
+          <section>
+            <div className="bg-surface border border-border rounded-lg p-5">
+              <div className="flex items-baseline justify-between mb-4">
+                <p className="text-sm font-medium">{RANGE_LABEL[data.range as Range]}内练过的词</p>
+                <span className="text-xs text-muted-foreground tabular-nums">
+                  总尝试 <span className="font-bold text-foreground">{data.recent.totalAttempts}</span> 次
+                  · 练过 <span className="font-bold text-foreground">{data.byRange[data.range as Range].totalAttempted}</span> 词
+                </span>
+              </div>
+              <div className="grid grid-cols-3 gap-3">
+                {(() => {
+                  const br = data.byRange[data.range as Range];
+                  return [
+                    { key: "new", label: "新词", value: br.newWords, color: "text-muted-foreground" },
+                    { key: "learning", label: "学习中", value: br.learningWords, color: "text-warning" },
+                    { key: "mastered", label: "已掌握", value: br.masteredWords, color: "text-success" },
+                  ].map((cat) => (
+                    <div key={cat.key} className="bg-background rounded-md p-4 text-center border border-border/40">
+                      <p className={`text-xs ${cat.color} mb-1`}>{cat.label}</p>
+                      <p className={`text-2xl font-bold tabular-nums ${cat.color}`}>{cat.value}</p>
+                    </div>
+                  ));
+                })()}
+              </div>
+              <p className="text-[10px] text-muted-foreground mt-3 text-right">
+                词库共 <span className="font-bold tabular-nums">{data.progress.totalWords}</span> 词
+                {data.byRange.all.totalAttempted < data.progress.totalWords && (
+                  <span className="ml-2">· 未练 {data.progress.totalWords - data.byRange.all.totalAttempted}</span>
+                )}
+                <span className="ml-3">
+                  <Link
+                    href={`/practice/${wordbook?.slug ?? ""}`}
+                    className="text-accent hover:text-accent-hover transition"
+                  >
+                    继续练习 →
+                  </Link>
+                </span>
+              </p>
+            </div>
           </section>
-
-          <ProgressBar
-            newWords={data.progress.newWords}
-            learningWords={data.progress.learningWords}
-            masteredWords={data.progress.masteredWords}
-            totalWords={data.progress.totalWords}
-          />
 
           <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Stat label={`累计尝试 (${RANGE_LABEL[data.range as Range]})`} value={data.recent.totalAttempts} big />

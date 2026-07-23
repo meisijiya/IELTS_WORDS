@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
-import { prisma } from "@/lib/db";
 import { redirect } from "next/navigation";
+import { prisma } from "@/lib/db";
+import { getCurrentUser } from "@/lib/auth";
 import { aggregateWordHistories } from "@/lib/word-history";
 import { WrongWordsClient } from "./wrong-words-client";
 
@@ -12,6 +13,9 @@ interface PageProps {
 }
 
 export default async function WrongWordsPage({ params, searchParams }: PageProps) {
+  const user = await getCurrentUser();
+  if (!user) redirect("/login");
+
   const { wordbook: slug } = await params;
   const { range = "all" } = await searchParams;
 
@@ -41,7 +45,7 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
   const settings = await prisma.userSettings.findUnique({
-    where: { id: 1 },
+    where: { userId: user.id },
     select: { masteryThreshold: true },
   });
   const masteryThreshold = settings?.masteryThreshold ?? 5;
@@ -49,6 +53,7 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
   const [attempts, todayAttempts, historyAttempts] = await Promise.all([
     prisma.attempt.findMany({
       where: {
+        userId: user.id,
         session: { wordbookId: wordbook.id },
         ...(since ? { createdAt: { gte: since } } : {}),
       },
@@ -58,6 +63,7 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
     }),
     prisma.attempt.findMany({
       where: {
+        userId: user.id,
         session: { wordbookId: wordbook.id, mode: "review" },
         createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
       },
@@ -66,6 +72,7 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
     }),
     prisma.attempt.findMany({
       where: {
+        userId: user.id,
         session: { wordbookId: wordbook.id },
         createdAt: { gte: thirtyDaysAgo },
       },
@@ -76,6 +83,17 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
 
   const reviewedToday = new Set(todayAttempts.map((a) => a.wordId));
 
+  // Pull per-user level for the words we touched so the "mastered" filter
+  // remains user-isolated.
+  const wordIds = [...new Set(attempts.map((a) => a.wordId))];
+  const userWordRows = wordIds.length
+    ? await prisma.userWord.findMany({
+        where: { userId: user.id, wordId: { in: wordIds } },
+        select: { wordId: true, level: true },
+      })
+    : [];
+  const levelByWord = new Map(userWordRows.map((uw) => [uw.wordId, uw.level]));
+
   const map = new Map<number, { wordId: number; spelling: string; pos: string | null; glosses: { pos: string; meaning: string }[]; mistakes: number; correct: number; level: number }>();
   for (const a of attempts) {
     const cur = map.get(a.wordId) ?? {
@@ -85,17 +103,13 @@ export default async function WrongWordsPage({ params, searchParams }: PageProps
       glosses: JSON.parse(a.word.glosses),
       mistakes: 0,
       correct: 0,
-      level: a.word.level,
+      level: levelByWord.get(a.wordId) ?? 0,
     };
     if (a.correct) cur.correct++;
     else cur.mistakes++;
     map.set(a.wordId, cur);
   }
 
-  // List always shows ALL wrong words; `reviewed` is no longer a list filter
-  // (was confusing — user clicks "全部" range and sees empty list because
-  // today's reviewed ones got filtered out). Batch card "仅剩余" stays,
-  // computed dynamically from reviewedTodayIds.
   const mistakes = [...map.values()]
     .filter((m) => m.mistakes > 0 && m.level < masteryThreshold)
     .sort((a, b) => b.mistakes - a.mistakes || a.correct - b.correct);

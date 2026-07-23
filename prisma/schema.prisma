@@ -23,9 +23,40 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  passwordHash String
+  role         String   @default("user") // "admin" | "user"
+  createdAt    DateTime @default(now())
+
+  settings            UserSettings?
+  sessions            Session[]
+  attempts            Attempt[]
+  checkins            Checkin[]
+  userWords           UserWord[]
+  invitationsSent     Invitation[] @relation("Inviter")
+  invitationsAccepted Invitation[] @relation("Invitee")
+}
+
+model Invitation {
+  id        String   @id // UUID
+  code      String   @unique
+  inviterId Int
+  inviter   User     @relation("Inviter", fields: [inviterId], references: [id], onDelete: Cascade)
+  inviteeId Int?
+  invitee   User?    @relation("Invitee", fields: [inviteeId], references: [id])
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([inviterId])
+  @@index([code])
+}
+
 model Wordbook {
   id          Int      @id @default(autoincrement())
-  slug        String   @unique // "concise" | "full"
+  slug        String   @unique // "concise" | "full" | "cet6"
   name        String
   description String?
   createdAt   DateTime @default(now())
@@ -44,29 +75,51 @@ model Word {
   glosses   String   // JSON: [{pos: "n.", meaning: "..."}]
   flags     String?  // JSON: ["cross_line_gloss"] or null
 
-  // Memory state (SM-2 simplified)
-  level      Int       @default(0)   // 0 = new, 1-5 = mastery ladder
-  easeFactor Float     @default(2.5)
-  interval   Int       @default(0)   // days until next review
-  dueAt      DateTime?               // next review timestamp
-  attempts   Int       @default(0)   // total attempts
-  correct    Int       @default(0)   // total correct
-  masteredAt DateTime?               // first time level reached 5; null on de-master
+  // Per-user memory state lives in UserWord. Word itself is shared and
+  // stateless across all users.
 
-  attemptsLog Attempt[]
+  userWords UserWord[]
+  attemptRecords Attempt[] @relation("WordAttempts")
 
   @@unique([wordbookId, spelling])
-  @@index([wordbookId, dueAt])
-  @@index([wordbookId, level])
+  @@index([wordbookId])
+}
+
+model UserWord {
+  userId Int
+  wordId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  word   Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  // SM-2 simplified state, per user
+  level      Int       @default(0)
+  easeFactor Float     @default(2.5)
+  interval   Int       @default(0)
+  dueAt      DateTime?
+  attempts   Int       @default(0)
+  correct    Int       @default(0)
+  masteredAt DateTime?
+  // First time the user attempted this word. Set when the UserWord row is
+  // first created (i.e. the user's first ever attempt on this word). Used to
+  // distinguish "new word today" from "stale word practiced today".
+  firstAttemptedAt DateTime?
+
+  @@id([userId, wordId])
+  @@index([userId, dueAt])
+  @@index([userId, level])
+  @@index([userId, masteredAt])
+  @@index([userId, firstAttemptedAt])
 }
 
 model Session {
   id           String   @id // UUID
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   wordbookId   Int
   wordbook     Wordbook @relation(fields: [wordbookId], references: [id], onDelete: Cascade)
   wordIds      String?  // JSON array of word IDs (null = random N from wordbook)
-  // "drill" — accumulates Word.level/correct on attempts (default);
-  // "review" — only records the Attempt row; Word state stays unchanged.
+  // "drill" — accumulates UserWord.level/correct on attempts (default);
+  // "review" — only records the Attempt row; UserWord state stays unchanged.
   mode         String   @default("drill")
   startedAt    DateTime @default(now())
   endedAt      DateTime?
@@ -74,14 +127,18 @@ model Session {
   correctCount Int      @default(0)
 
   attempts Attempt[]
+
+  @@index([userId, wordbookId, endedAt])
 }
 
 model Attempt {
   id        Int      @id @default(autoincrement())
   sessionId String
   session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   wordId    Int
-  word      Word     @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  word      Word     @relation("WordAttempts", fields: [wordId], references: [id], onDelete: Cascade)
   typed     String
   correct   Boolean
   retries   Int      @default(0)
@@ -89,28 +146,46 @@ model Attempt {
   createdAt DateTime @default(now())
 
   @@index([sessionId])
-  @@index([wordId])
+  @@index([userId, wordId])
+  @@index([userId, createdAt])
 }
 
 model Checkin {
   // Daily checkin snapshot — preserved across reset so users don't lose history.
   // Created lazily on first /checkin/[date] visit, or eagerly by /api/admin/reset.
   id                    Int      @id @default(autoincrement())
-  date                  String   @unique // "YYYY-MM-DD"
+  userId                Int
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date                  String   // "YYYY-MM-DD"
   totalAttempts         Int      @default(0)
   correctCount          Int      @default(0)
   accuracy              Float    @default(0)
-  newMasteredCount      Int      @default(0)
+  // Distinct words whose UserWord.masteredAt falls within [date 00:00, date+1 00:00).
+  // Reflects actual mastery promotion/de-master events; bounded by de-master
+  // semantics (a de-master on the same day clears masteredAt and may flip the
+  // count back to 0 until level climbs back to the threshold).
+  masteredTodayCount   Int      @default(0)
+  // Distinct words attempted today that are currently in the "learning" state:
+  // userWord row exists with attempts > 0 AND masteredAt IS NULL. A new word
+  // that has been attempted but still has no UserWord row yet is NOT counted
+  // here — it would show up on the next /checkin visit after the UserWord row
+  // is upserted.
+  learningCount         Int      @default(0)
   wordsAttempted        Int      @default(0)
   sessionsCount         Int      @default(0)
   cumulativeMastered    Int      @default(0)
   topMissedJson         String   @default("[]") // JSON: Mistake[]
   wordbookBreakdownJson String   @default("{}") // JSON: Record<wordbookId, WordbookStat>
   createdAt             DateTime @default(now())
+
+  @@unique([userId, date])
+  @@index([userId, date])
 }
 
 model UserSettings {
   id                    Int      @id @default(autoincrement())
+  userId                Int      @unique
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   flashMs               Int      @default(800)
   fadeMs                Int      @default(300)
   // "both" | "flash" | "feedback" | "off" — pronounces on flash-phase and/or feedback-phase
@@ -125,10 +200,10 @@ model UserSettings {
   // before wiping attempts; retention only caps how far back snapshots may accumulate.
   checkinRetentionDays  Int?
   // Consecutive-correct count that promotes a word to "mastered". Range [2, 20].
-  // Backed by Word.level reaching the threshold; /api/settings PUT that lowers this value
-  // runs an eager promotion (UPDATE word SET masteredAt = now() WHERE level >= new AND
+  // Backed by UserWord.level reaching the threshold; /api/settings PUT that lowers this value
+  // runs an eager promotion (UPDATE UserWord SET masteredAt = now() WHERE level >= new AND
   // masteredAt IS NULL) in the same $transaction as the settings write. The canonical
-  // "is mastered" signal stays Word.masteredAt != null — promotion is what makes that
+  // "is mastered" signal stays UserWord.masteredAt != null — promotion is what makes that
   // invariant hold for the new threshold.
   masteryThreshold      Int      @default(5)
   // Optional: words at or above this level skip the visual flash phase (text hidden)
@@ -136,5 +211,9 @@ model UserSettings {
   // Range [1, 100]; meaningless if >= masteryThreshold (mastered words are not
   // surfaced in practice queues). Independent of masteryThreshold (no auto-derive).
   flashSkipMinLevel     Int?
+  // Master mute for chime / buzz / streak SFX. Pronunciation playback is
+  // controlled separately by pronunciationMode; this only silences the
+  // Web Audio synth effects.
+  soundEnabled          Boolean  @default(true)
   updatedAt             DateTime @updatedAt
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { PartyPopper, Volume2, Pin, Flame, Check, X, Sparkles, ArrowRight } from "lucide-react";
+import { PartyPopper, Volume2, Pin, Flame, Check, X, Sparkles, ArrowRight, ArrowLeft } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -21,6 +21,7 @@ const FEEDBACK_CORRECT_MS = 700;
 const QUEUE_BATCH = 20;
 const REFILL_THRESHOLD = 5;
 const QUEUE_HARD_CAP = 60;
+const HISTORY_CAP = 20;
 const MASTERY_THRESHOLD_FALLBACK = 5;
 
 function normalizeSpelling(spelling: string): string {
@@ -31,15 +32,16 @@ function normalizeSpelling(spelling: string): string {
 }
 
 /**
- * Strip non-letter, non-space chars, trim leading whitespace only,
- * and cap to maxLen. Preserves internal + trailing spaces so compound
- * words like "heart attack" can be typed, and a trailing space is
- * visible to the user (instead of being silently dropped). Exported
- * for unit testing.
+ * Strip disallowed chars, trim leading whitespace only, and cap to maxLen.
+ * Allows letters, spaces, hyphens, and apostrophes so compound words like
+ * "heart attack" and hyphenated words like "eco-friendly" / "south-east"
+ * (or contractions like "it's") can be typed. Preserves internal + trailing
+ * spaces so a trailing space is visible to the user (instead of being
+ * silently dropped). Exported for unit testing.
  */
 export function cleanInput(raw: string, maxLen: number): string {
   return raw
-    .replace(/[^a-zA-Z ]/g, "")
+    .replace(/[^a-zA-Z '\-]/g, "")
     .replace(/^\s+/g, "")
     .slice(0, maxLen);
 }
@@ -81,6 +83,12 @@ interface ActiveSessionResponse {
   } | null;
 }
 
+interface HistoryEntry {
+  word: Word;
+  typed: string;
+  correct: boolean;
+}
+
 export function PracticeClient({
   wordbookId,
   wordbookSlug,
@@ -110,13 +118,17 @@ export function PracticeClient({
   const [finished, setFinished] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [wordHistory, setWordHistory] = useState<HistoryEntry[]>([]);
+  const [historyModal, setHistoryModal] = useState<HistoryEntry | null>(null);
   const [flashMs, setFlashMs] = useState(800);
   const [pronunciationMode, setPronunciationMode] = useState<"both" | "flash" | "feedback" | "off">("both");
   const [pullPriority, setPullPriority] = useState<"review" | "balanced" | "new">("review");
   const [accent, setAccent] = useState<"us" | "uk">("us");
   const [masteryThreshold, setMasteryThreshold] = useState(MASTERY_THRESHOLD_FALLBACK);
   const [flashSkipMinLevel, setFlashSkipMinLevel] = useState<number | null>(null);
+  const [soundEnabled, setSoundEnabled] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
+  const soundEnabledRef = useRef(true);
 
   useEffect(() => {
     let cancelled = false;
@@ -135,6 +147,7 @@ export function PracticeClient({
           accent: "us" | "uk";
           masteryThreshold: number;
           flashSkipMinLevel: number | null;
+          soundEnabled: boolean;
         } = await settingsRes.json();
         const active: ActiveSessionResponse = await activeRes.json();
         if (cancelled) return;
@@ -144,6 +157,8 @@ export function PracticeClient({
         setAccent(settings.accent);
         setMasteryThreshold(settings.masteryThreshold ?? MASTERY_THRESHOLD_FALLBACK);
         setFlashSkipMinLevel(settings.flashSkipMinLevel ?? null);
+        setSoundEnabled(settings.soundEnabled ?? true);
+        soundEnabledRef.current = settings.soundEnabled ?? true;
 
         let sid: string;
         if (practiceWordIds) {
@@ -280,6 +295,7 @@ export function PracticeClient({
   }
 
   function playTone(freq: number, ms: number, type: OscillatorType = "sine", vol = 0.18) {
+    if (!soundEnabledRef.current) return;
     try {
       const Ctx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       const ctx = new Ctx();
@@ -301,11 +317,13 @@ export function PracticeClient({
   }
 
   function playCorrectChime() {
+    if (!soundEnabledRef.current) return;
     playTone(1046, 110, "sine");
     window.setTimeout(() => playTone(1568, 140, "sine"), 90);
   }
 
   function playStreakChime(streak: number) {
+    if (!soundEnabledRef.current) return;
     const tier =
       streak >= 15 ? 4 :
       streak >= 12 ? 3 :
@@ -337,6 +355,7 @@ export function PracticeClient({
   }
 
   function triggerMilestoneFx(streak: number) {
+    if (!soundEnabledRef.current) return;
     if (typeof document === "undefined") return;
     const root = document.body;
     if (streak % 3 === 0 && streak > 0) {
@@ -363,7 +382,6 @@ export function PracticeClient({
       const el = document.getElementById("streak-banner");
       if (el) {
         el.classList.remove("streak-flash");
-        // force reflow so the keyframe restart on each milestone
         void el.offsetWidth;
         el.classList.add("streak-flash");
       }
@@ -371,6 +389,7 @@ export function PracticeClient({
   }
 
   function playWrongBuzz() {
+    if (!soundEnabledRef.current) return;
     playTone(440, 130, "sawtooth");
     window.setTimeout(() => playTone(330, 180, "sawtooth"), 100);
   }
@@ -448,6 +467,13 @@ export function PracticeClient({
   }
 
   function advance(word: Word, wasCorrect: boolean) {
+    const typed = userInput;
+    setWordHistory((prev) => {
+      const entry: HistoryEntry = { word: { ...word }, typed, correct: wasCorrect };
+      const next = [...prev, entry];
+      if (next.length > HISTORY_CAP) next.splice(0, next.length - HISTORY_CAP);
+      return next;
+    });
     setQueue((prev) => {
       const next = prev.slice(1);
       if (!wasCorrect) next.push(word);
@@ -840,18 +866,29 @@ export function PracticeClient({
           readOnly={!!feedback}
         />
 
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-2">
           {feedback ? (
-            <button
-              type="button"
-              onClick={() => advance(current!, feedback.correct)}
-              className="w-full md:w-auto px-8 py-3 text-lg bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent-hover active:scale-[0.98] transition"
-            >
-              下一个 <ArrowRight className="inline h-5 w-5" />
-            </button>
+            <>
+              <button
+                type="button"
+                onClick={() => setHistoryModal(wordHistory[wordHistory.length - 1] ?? null)}
+                disabled={wordHistory.length === 0}
+                title={wordHistory.length === 0 ? "还没有历史" : "查看上一个单词"}
+                className="px-5 py-3 text-base border border-border rounded-md font-medium hover:border-accent hover:text-accent transition disabled:opacity-40 disabled:cursor-not-allowed inline-flex items-center gap-1"
+              >
+                <ArrowLeft className="h-4 w-4" /> 上一个
+              </button>
+              <button
+                type="button"
+                onClick={() => advance(current!, feedback.correct)}
+                className="flex-1 md:flex-none md:w-auto px-8 py-3 text-lg bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent-hover active:scale-[0.98] transition"
+              >
+                下一个 <ArrowRight className="inline h-5 w-5" />
+              </button>
+            </>
           ) : (
             <button
-              type="button"
+              type="submit"
               onClick={submit}
               disabled={!userInput}
               className="w-full md:w-auto px-8 py-3 text-lg bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent-hover active:scale-[0.98] transition disabled:opacity-50 disabled:cursor-not-allowed"
@@ -889,6 +926,54 @@ export function PracticeClient({
           </span>
         )}
       </div>
+
+      {historyModal && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setHistoryModal(null);
+          }}
+        >
+          <div className="bg-surface border border-border rounded-xl shadow-soft-lg p-6 max-w-md w-full space-y-4">
+            <div className="flex items-baseline justify-between">
+              <h3 className="text-lg font-bold">上一个单词</h3>
+              <span className="text-xs text-muted-foreground">
+                {historyModal.correct ? "✓ 答对" : "✗ 答错"}
+              </span>
+            </div>
+            <div className="text-center py-3">
+              <button
+                type="button"
+                onClick={() => playPronunciation(historyModal.word.spelling)}
+                className="group relative text-3xl font-bold tracking-wider cursor-pointer hover:text-accent"
+                title="点击重播发音"
+              >
+                {historyModal.word.spelling}
+                <span className="absolute -right-7 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity select-none" aria-hidden>
+                  <Volume2 className="h-4 w-4" />
+                </span>
+              </button>
+            </div>
+            <div className="text-center text-sm text-muted-foreground">
+              {historyModal.word.pos && <span className="mr-2 font-mono">{historyModal.word.pos}</span>}
+              {historyModal.word.glosses.map((g) => g.meaning).join("; ")}
+            </div>
+            <div className="text-sm bg-muted/40 rounded-md p-3">
+              <div className="text-xs text-muted-foreground mb-1">你输入的</div>
+              <div className={`font-mono ${historyModal.correct ? "text-success" : "text-error line-through"}`}>
+                {historyModal.typed || <span className="text-muted-foreground/50">(空)</span>}
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setHistoryModal(null)}
+              className="w-full px-4 py-2 border border-border rounded-md text-sm hover:border-accent hover:text-accent transition"
+            >
+              关闭
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

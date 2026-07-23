@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { cookies } from "next/headers";
-import { CalendarDays, BarChart3, Settings, Pin } from "lucide-react";
+import { redirect } from "next/navigation";
+import { CalendarDays, BarChart3, Settings, Pin, Trophy, Users } from "lucide-react";
 import { prisma } from "@/lib/db";
+import { getCurrentUser } from "@/lib/auth";
 import { ActiveSessionCard } from "./active-session-card";
 import { CheckinCalendarCard } from "./checkin-calendar-card";
 
@@ -19,9 +20,9 @@ interface ActiveSession {
   startedAt: string;
 }
 
-async function getActiveSessions(): Promise<ActiveSession[]> {
+async function getActiveSessions(userId: number): Promise<ActiveSession[]> {
   const rows = await prisma.session.findMany({
-    where: { endedAt: null },
+    where: { userId, endedAt: null },
     orderBy: { startedAt: "desc" },
     select: {
       id: true,
@@ -39,7 +40,7 @@ async function getActiveSessions(): Promise<ActiveSession[]> {
   const liveCounts = activeIds.length
     ? await prisma.attempt.groupBy({
         by: ["sessionId", "correct"],
-        where: { sessionId: { in: activeIds } },
+        where: { userId, sessionId: { in: activeIds } },
         _count: { _all: true },
       })
     : [];
@@ -72,12 +73,15 @@ function fmtDate(d: Date): string {
 }
 
 export default async function HomePage() {
+  const user = await getCurrentUser();
+  if (!user) redirect("/login");
+
   const [wordbooks, activeSessions] = await Promise.all([
     prisma.wordbook.findMany({
       orderBy: { id: "asc" },
       include: { _count: { select: { words: true } } },
     }),
-    getActiveSessions(),
+    getActiveSessions(user.id),
   ]);
 
   const today = fmtDate(new Date());
@@ -90,8 +94,14 @@ export default async function HomePage() {
           <p className="text-sm text-muted-foreground">
             雅思单词拼写训练 · 选词库开始练习
           </p>
+          <p className="text-xs text-muted-foreground mt-1">
+            当前用户：<span className="font-medium">{user.username}</span>
+            {user.role === "admin" && (
+              <span className="ml-2 px-1.5 py-0.5 rounded bg-accent-soft text-accent text-[10px] font-semibold">ADMIN</span>
+            )}
+          </p>
         </div>
-        <div className="flex gap-4 text-sm">
+        <div className="flex gap-4 text-sm flex-wrap">
           <Link
             href={`/checkin/${today}`}
             className="text-accent hover:text-accent-hover transition inline-flex items-center gap-1.5"
@@ -104,6 +114,20 @@ export default async function HomePage() {
           >
             <BarChart3 className="h-4 w-4" /> 分析
           </Link>
+          <Link
+            href="/leaderboard"
+            className="text-accent hover:text-accent-hover transition inline-flex items-center gap-1.5"
+          >
+            <Trophy className="h-4 w-4" /> 排行榜
+          </Link>
+          {user.role === "admin" && (
+            <Link
+              href="/admin/invites"
+              className="text-accent hover:text-accent-hover transition inline-flex items-center gap-1.5"
+            >
+              <Users className="h-4 w-4" /> 管理
+            </Link>
+          )}
           <Link
             href="/settings"
             className="text-accent hover:text-accent-hover transition inline-flex items-center gap-1.5"

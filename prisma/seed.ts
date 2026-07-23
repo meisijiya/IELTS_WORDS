@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { readFileSync } from "fs";
 import { join } from "path";
+import { hashPassword } from "../src/lib/password";
 
 const prisma = new PrismaClient();
 
@@ -32,7 +33,62 @@ const WORDBOOKS = [
   },
 ];
 
+async function ensureAdmin() {
+  const username = process.env.ADMIN_USERNAME || "admin";
+  const password = process.env.ADMIN_PASSWORD;
+  if (!password) {
+    console.warn("[seed] ADMIN_PASSWORD not set, skipping admin bootstrap");
+    return;
+  }
+  const byRole = await prisma.user.findFirst({ where: { role: "admin" } });
+  if (byRole) {
+    if (byRole.username !== username) {
+      console.warn(`[seed] admin user '${byRole.username}' (id=${byRole.id}) already exists; ADMIN_USERNAME='${username}' ignored — rename via /settings instead`);
+    } else {
+      console.log(`[seed] admin '${username}' already exists (id=${byRole.id})`);
+    }
+    await prisma.userSettings.upsert({
+      where: { userId: byRole.id },
+      create: { userId: byRole.id },
+      update: {},
+    });
+    return;
+  }
+  const existingByName = await prisma.user.findUnique({ where: { username } });
+  if (existingByName) {
+    await prisma.user.update({
+      where: { id: existingByName.id },
+      data: { role: "admin" },
+    });
+    await prisma.userSettings.upsert({
+      where: { userId: existingByName.id },
+      create: { userId: existingByName.id },
+      update: {},
+    });
+    console.log(`[seed] reused existing user '${username}' (id=${existingByName.id}) as admin`);
+    return;
+  }
+  const passwordHash = await hashPassword(password);
+  const user = await prisma.user.create({
+    data: {
+      username,
+      passwordHash,
+      role: "admin",
+    },
+  });
+  // Make sure the admin has a UserSettings row so /api/settings doesn't
+  // 404 on first call.
+  await prisma.userSettings.upsert({
+    where: { userId: user.id },
+    create: { userId: user.id },
+    update: {},
+  });
+  console.log(`[seed] bootstrapped admin '${username}' (id=${user.id})`);
+}
+
 async function main() {
+  await ensureAdmin();
+
   const seedDir = join(process.cwd(), "seed");
 
   for (const wb of WORDBOOKS) {

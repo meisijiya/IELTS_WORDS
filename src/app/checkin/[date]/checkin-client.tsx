@@ -25,7 +25,8 @@ interface DailyReport {
   weekday: string;
   isToday: boolean;
   wordsAttempted: number;
-  newMasteredCount: number;
+  masteredTodayCount: number;
+  learningCount: number;
   totalAttempts: number;
   correctCount: number;
   accuracy: number;
@@ -179,22 +180,40 @@ export function CheckinClient({ date }: { date: string }) {
               <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium mb-3">
                 今日学习
               </p>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-background rounded-lg p-5 border border-border">
-                  <p className="text-sm text-muted-foreground">学词数</p>
+                  <p className="text-sm text-muted-foreground">尝试次数</p>
                   <p className="mt-1 text-4xl font-bold text-accent tabular-nums">
-                    {data.wordsAttempted}
+                    {data.totalAttempts}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-1">distinct words</p>
+                  <p className="text-xs text-muted-foreground mt-1">当日总尝试</p>
+                </div>
+                <div className="bg-background rounded-lg p-5 border border-border">
+                  <p className="text-sm text-muted-foreground">新词</p>
+                  <p className="mt-1 text-4xl font-bold tabular-nums text-muted-foreground">
+                    {data.wordsAttempted - data.learningCount - data.masteredTodayCount}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">首次遇到</p>
+                </div>
+                <div className="bg-background rounded-lg p-5 border border-border">
+                  <p className="text-sm text-muted-foreground">学习中的次数</p>
+                  <p className="mt-1 text-4xl font-bold text-warning tabular-nums">
+                    {data.learningCount}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">学而未熟</p>
                 </div>
                 <div className="bg-background rounded-lg p-5 border border-border">
                   <p className="text-sm text-muted-foreground">今日掌握</p>
                   <p className="mt-1 text-4xl font-bold text-success tabular-nums">
-                    {data.newMasteredCount}
+                    {data.masteredTodayCount}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-1">全部拼写正确</p>
+                  <p className="text-xs text-muted-foreground mt-1">当日熟练的词数</p>
                 </div>
               </div>
+              <p className="text-[10px] text-muted-foreground mt-2 text-right tabular-nums">
+                {(data.wordsAttempted - data.learningCount - data.masteredTodayCount) + data.learningCount + data.masteredTodayCount}
+                {" = "}练过 {data.wordsAttempted} 词
+              </p>
             </section>
 
             <section>

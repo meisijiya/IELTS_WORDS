@@ -1,19 +1,23 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { isAuthenticated } from "@/lib/auth";
+import { requireUser, authErrorResponse, ApiAuthError } from "@/lib/api";
 
 export async function DELETE(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  if (!(await isAuthenticated())) {
-    return NextResponse.json({ error: "未授权" }, { status: 401 });
+  let user;
+  try {
+    user = await requireUser();
+  } catch (e) {
+    if (e instanceof ApiAuthError) return authErrorResponse();
+    throw e;
   }
 
   const { id } = await params;
 
-  const session = await prisma.session.findUnique({ where: { id } });
-  if (!session) {
+  const session = await prisma.session.findUnique({ where: { id }, select: { userId: true, endedAt: true } });
+  if (!session || session.userId !== user.id) {
     return NextResponse.json({ error: "session not found" }, { status: 404 });
   }
 

@@ -12,12 +12,17 @@ Single source of truth for schema, seed, and provider switching. Two source file
 
 | Model | Role |
 |---|---|
+| `User` | username + passwordHash + role (`user` \| `admin`). Bootstrap admin in `seed.ts`. |
+| `Invitation` | one-time registration code (`code` `@unique`), 7-day expiry, `usedById` set on consumption |
 | `Wordbook` | `slug` (`concise` / `full` / `cet6`), name, description |
 | `Word` | spelling, POS, `glosses` / `flags` as JSON strings, SM-2 state (`level`, `easeFactor`, `interval`, `dueAt`, `attempts`, `correct`, `masteredAt`) |
-| `Session` | UUID id, `mode` (`drill` \| `review`), `wordIds` list, totals |
-| `Attempt` | per-answer row (typed, correct, retries, `errorType`: `spelling` \| `skip` \| null) |
+| `UserWord` | per-user word state, `@unique([userId, wordId])`. Includes `firstAttemptedAt` (backfilled from earliest Attempt on schema bump) for "new word" analytics |
+| `Session` | UUID id, `userId`, `mode` (`drill` \| `review`), `wordIds` list, totals |
+| `Attempt` | per-answer row (typed, correct, retries, `errorType`: `spelling` \| `skip` \| null); `userId` + `userWord` removed — derived through `userId` + `wordId` index |
 | `Checkin` | daily snapshot, preserved across reset |
-| `UserSettings` | flashMs, fadeMs, pronunciationMode, pullPriority, accent, checkinRetentionDays, masteryThreshold, flashSkipMinLevel |
+| `UserSettings` | `userId` `@unique`, flashMs, fadeMs, pronunciationMode, pullPriority, accent, checkinRetentionDays, masteryThreshold, flashSkipMinLevel, soundEnabled |
+
+All per-user data carries `userId`. `Session` / `Attempt` / `UserWord` / `Checkin` / `UserSettings` are queried via `where: { userId }` to enforce isolation.
 
 All enums are `String` since SQLite has no native enum. `Word.glosses`, `Word.flags`, `Session.wordIds`, `Checkin.topMissedJson`, and `Checkin.wordbookBreakdownJson` are stored as JSON **strings**, not `Json` columns. This keeps the Prisma client identical between the two providers: SQLite reads/writes text, PostgreSQL reads/writes the same text and the app parses on read.
 
@@ -42,6 +47,17 @@ The repo intentionally has no `prisma/migrations/`. Schema changes go through `n
 | `cet6` | 大学英语六级词汇 | 5518 |
 
 Both `Wordbook` (by `slug`) and `Word` (by compound `wordbookId_spelling` unique) use `prisma.upsert`, so re-running the seed is safe. Words are inserted in batches of 500 inside `$transaction`.
+
+Also bootstraps the admin user (`role="admin"`, username = `LiangJieHao`, password from `ADMIN_PASSWORD` env var via `lib/password`). Run once on first deploy; idempotent on re-run (upsert by username).
+
+## Migration helpers (`prisma/pre-migrate.ts`, `prisma/migrate-data.ts`)
+
+One-shot scripts for the multi-user migration:
+
+- `pre-migrate.ts` — runs BEFORE schema bump: snapshots the old `ADMIN_PASSWORD` env value, dumps a `migrate-backup.json` with every `Word` row's current `attempts` / `correct` / `masteredAt` for the single pre-existing user.
+- `migrate-data.ts` — runs AFTER `db push`: creates the admin user (using the snapshot password), creates one default user for all legacy `Attempt` / `Session` / `Checkin` / `UserSettings` rows, hydrates `UserWord` rows from `migrate-backup.json`, backfills `firstAttemptedAt` from the earliest `Attempt.createdAt` per `(userId, wordId)`.
+
+These scripts are committed for reproducibility — re-run only on a fresh dev DB.
 
 ## Deprecated fields
 

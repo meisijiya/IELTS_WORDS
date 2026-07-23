@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { isAuthenticated } from "@/lib/auth";
+import { requireUser, authErrorResponse, ApiAuthError } from "@/lib/api";
 
 const MAX_LIMIT = 200;
 const RANDOM_HARD_CAP = 20;
 const MASTERY_THRESHOLD_FALLBACK = 5;
-const SETTINGS_SINGLETON_ID = 1;
 
 interface WordDto {
   id: number;
@@ -16,20 +15,18 @@ interface WordDto {
   attempts: number;
   correct: number;
   masteredAt: string | null;
+  wordbookId: number;
 }
 
 type PullMode = "review" | "balanced" | "new";
 type Pool = "new" | "learned" | "mastered";
 
 const PULL_CONFIG: Record<PullMode, {
-  ratio: [number, number, number]; // [new, learned, mastered]
+  ratio: [number, number, number];
   fallback: [Pool, Pool, Pool];
 }> = {
-  // "速通雅思"：复习优先（默认）。熟悉 + 已熟练为主，新词保持供血
   review:   { ratio: [4, 8, 8],  fallback: ["mastered", "learned", "new"] },
-  // 平衡：跟以前一样的 14/5/1
   balanced: { ratio: [14, 5, 1], fallback: ["new", "learned", "mastered"] },
-  // 新词优先：扩张为主
   new:      { ratio: [18, 2, 0], fallback: ["new", "learned", "mastered"] },
 };
 
@@ -40,7 +37,6 @@ function normalizePullMode(value: unknown): PullMode {
 }
 
 function shuffle<T>(arr: readonly T[], seed?: number): T[] {
-  // Fisher–Yates with optional deterministic seed for tests.
   const out = [...arr];
   const rand = seed === undefined ? Math.random : mulberry32(seed);
   for (let i = out.length - 1; i > 0; i--) {
@@ -69,6 +65,7 @@ function rowToDto(w: {
   attempts: number;
   correct: number;
   masteredAt: Date | null;
+  wordbookId: number;
 }): WordDto {
   return {
     id: w.id,
@@ -79,22 +76,25 @@ function rowToDto(w: {
     attempts: w.attempts,
     correct: w.correct,
     masteredAt: w.masteredAt ? w.masteredAt.toISOString() : null,
+    wordbookId: w.wordbookId,
   };
 }
 
 export async function GET(request: Request) {
-  if (!(await isAuthenticated())) {
-    return NextResponse.json({ error: "未授权" }, { status: 401 });
+  let user;
+  try {
+    user = await requireUser();
+  } catch (e) {
+    if (e instanceof ApiAuthError) return authErrorResponse();
+    throw e;
   }
 
   const url = new URL(request.url);
   const wordbookId = Number(url.searchParams.get("wordbookId"));
   const limit = Math.min(Number(url.searchParams.get("limit") ?? 20), MAX_LIMIT);
   const random = url.searchParams.get("random") === "true";
-  // weighted=true: 14 new + 5 learned + 1 mastered, fall-back fills with anything
   const weighted = url.searchParams.get("weighted") !== "false" && random;
   const idsParam = url.searchParams.get("ids");
-  // priority=review|balanced|new — overrides the default ratio + fallback order
   const priority = normalizePullMode(url.searchParams.get("priority"));
 
   if (!Number.isInteger(wordbookId) || wordbookId < 1) {
@@ -102,7 +102,7 @@ export async function GET(request: Request) {
   }
 
   const settings = await prisma.userSettings.findUnique({
-    where: { id: SETTINGS_SINGLETON_ID },
+    where: { userId: user.id },
     select: { masteryThreshold: true },
   });
   const masteryThreshold = settings?.masteryThreshold ?? MASTERY_THRESHOLD_FALLBACK;
@@ -118,35 +118,58 @@ export async function GET(request: Request) {
     const rows = await prisma.word.findMany({
       where: { id: { in: ids }, wordbookId },
     });
-    words = rows.map(rowToDto);
+    // Merge with per-user state when present.
+    const userWordRows = await prisma.userWord.findMany({
+      where: { userId: user.id, wordId: { in: ids } },
+    });
+    const userWordMap = new Map(userWordRows.map((uw) => [uw.wordId, uw]));
+    words = rows.map((r) => {
+      const uw = userWordMap.get(r.id);
+      return rowToDto({
+        id: r.id,
+        spelling: r.spelling,
+        pos: r.pos,
+        glosses: r.glosses,
+        level: uw?.level ?? 0,
+        attempts: uw?.attempts ?? 0,
+        correct: uw?.correct ?? 0,
+        masteredAt: uw?.masteredAt ?? null,
+        wordbookId: r.wordbookId,
+      });
+    });
   } else if (random && weighted) {
     const N = Math.min(limit, RANDOM_HARD_CAP);
-    const [newSet, learnedSet, masteredSet] = await Promise.all([
-      prisma.word.findMany({
-        where: { wordbookId, level: { lt: masteryThreshold }, attempts: 0 },
-        select: { id: true },
-      }),
-      prisma.word.findMany({
-        where: {
-          wordbookId,
-          level: { lt: masteryThreshold },
-          attempts: { gt: 0 },
-          masteredAt: null,
-        },
-        select: { id: true },
-      }),
-      prisma.word.findMany({
-        where: { wordbookId, masteredAt: { not: null } },
-        select: { id: true },
-      }),
-    ]);
+    // Identify the user's view of the wordbook: words the user has
+    // ever attempted at all, classified by their SM-2 state.
+    const allUserWordIds = await prisma.userWord.findMany({
+      where: { userId: user.id, word: { wordbookId } },
+      select: { wordId: true, level: true, attempts: true, correct: true, masteredAt: true },
+    });
+    const allWordIds = await prisma.word.findMany({
+      where: { wordbookId },
+      select: { id: true },
+    });
 
-    const pickIds = (pool: { id: number }[], k: number): number[] =>
-      shuffle(pool).slice(0, k).map((w) => w.id);
+    const userWordMap = new Map(allUserWordIds.map((uw) => [uw.wordId, uw]));
+    const newSet: number[] = [];
+    const learnedSet: number[] = [];
+    const masteredSet: number[] = [];
+    for (const w of allWordIds) {
+      const uw = userWordMap.get(w.id);
+      if (!uw || uw.attempts === 0) {
+        newSet.push(w.id);
+      } else if (uw.masteredAt || (uw.level ?? 0) >= masteryThreshold) {
+        masteredSet.push(w.id);
+      } else {
+        learnedSet.push(w.id);
+      }
+    }
+
+    const pickIds = (pool: number[], k: number): number[] => shuffle(pool).slice(0, k);
     const used = new Set<number>();
     const ids: number[] = [];
 
-    const poolMap: Record<Pool, { id: number }[]> = {
+    const poolMap: Record<Pool, number[]> = {
       new: newSet,
       learned: learnedSet,
       mastered: masteredSet,
@@ -165,15 +188,15 @@ export async function GET(request: Request) {
     }
     if (ids.length < N) {
       const fallbackOrder = PULL_CONFIG[priority].fallback;
-      const fallback: { id: number }[] = [];
+      const fallback: number[] = [];
       for (const pool of fallbackOrder) {
-        fallback.push(...poolMap[pool].filter((w) => !used.has(w.id)));
+        fallback.push(...poolMap[pool].filter((id) => !used.has(id)));
       }
-      for (const w of shuffle(fallback)) {
+      for (const id of shuffle(fallback)) {
         if (ids.length >= N) break;
-        if (!used.has(w.id)) {
-          ids.push(w.id);
-          used.add(w.id);
+        if (!used.has(id)) {
+          ids.push(id);
+          used.add(id);
         }
       }
     }
@@ -184,39 +207,93 @@ export async function GET(request: Request) {
     const rows = await prisma.word.findMany({
       where: { id: { in: ids }, wordbookId },
     });
-    // Restore random order from `ids` (findMany doesn't preserve order)
     const byId = new Map(rows.map((r) => [r.id, r]));
-    words = ids.map((id) => byId.get(id)).filter((w): w is NonNullable<typeof w> => !!w).map(rowToDto);
+    words = ids
+      .map((id) => byId.get(id))
+      .filter((w): w is NonNullable<typeof w> => !!w)
+      .map((r) => {
+        const uw = userWordMap.get(r.id);
+        return rowToDto({
+          id: r.id,
+          spelling: r.spelling,
+          pos: r.pos,
+          glosses: r.glosses,
+          level: uw?.level ?? 0,
+          attempts: uw?.attempts ?? 0,
+          correct: uw?.correct ?? 0,
+          masteredAt: uw?.masteredAt ?? null,
+          wordbookId: r.wordbookId,
+        });
+      });
   } else if (random) {
-    // Pure random fallback (weighted=false)
-    const count = await prisma.word.count({
-      where: { wordbookId, level: { lt: masteryThreshold } },
+    // Pure random: only words the user hasn't mastered yet.
+    const userWordRows = await prisma.userWord.findMany({
+      where: { userId: user.id, word: { wordbookId }, masteredAt: null },
+      select: { wordId: true, level: true, attempts: true, correct: true, masteredAt: true },
     });
-    const take = Math.min(limit, count);
-    if (take > 0) {
-      const rows = await prisma.$queryRawUnsafe<
-        Array<{
-          id: number; spelling: string; pos: string | null; glosses: string;
-          level: number; attempts: number; correct: number; masteredAt: Date | null;
-        }>
-      >(
-        `SELECT id, spelling, pos, glosses, level, attempts, correct, masteredAt FROM Word
-         WHERE wordbookId = ? AND level < ?
-         ORDER BY RANDOM()
-         LIMIT ?`,
-        wordbookId,
-        masteryThreshold,
-        take
-      );
-      words = (rows as unknown as Parameters<typeof rowToDto>[0][]).map(rowToDto);
+    const eligibleIds = userWordRows
+      .filter((uw) => (uw.level ?? 0) < masteryThreshold)
+      .map((uw) => uw.wordId);
+    // New users see no eligible rows (no UserWord yet). Fall back to the
+    // first `limit` words from the wordbook so they get a queue.
+    let takeIds: number[];
+    if (eligibleIds.length === 0) {
+      const firstRows = await prisma.word.findMany({
+        where: { wordbookId },
+        select: { id: true },
+        take: limit,
+      });
+      takeIds = firstRows.map((r) => r.id);
+    } else {
+      takeIds = shuffle(eligibleIds).slice(0, limit);
     }
+    if (takeIds.length === 0) return NextResponse.json({ words: [] });
+    const rows = await prisma.word.findMany({
+      where: { id: { in: takeIds }, wordbookId },
+    });
+    const userWordMap = new Map(userWordRows.map((uw) => [uw.wordId, uw]));
+    const byId = new Map(rows.map((r) => [r.id, r]));
+    words = takeIds
+      .map((id) => byId.get(id))
+      .filter((w): w is NonNullable<typeof w> => !!w)
+      .map((r) => {
+        const uw = userWordMap.get(r.id);
+        return rowToDto({
+          id: r.id,
+          spelling: r.spelling,
+          pos: r.pos,
+          glosses: r.glosses,
+          level: uw?.level ?? 0,
+          attempts: uw?.attempts ?? 0,
+          correct: uw?.correct ?? 0,
+          masteredAt: uw?.masteredAt ?? null,
+          wordbookId: r.wordbookId,
+        });
+      });
   } else {
     const rows = await prisma.word.findMany({
       where: { wordbookId },
       take: limit,
       orderBy: { id: "asc" },
     });
-    words = rows.map(rowToDto);
+    const userWordRows = await prisma.userWord.findMany({
+      where: { userId: user.id, wordId: { in: rows.map((r) => r.id) } },
+    });
+    const userWordMap = new Map(userWordRows.map((uw) => [uw.wordId, uw]));
+    words = rows.map((r) => {
+      const uw = userWordMap.get(r.id);
+      return rowToDto({
+        id: r.id,
+        spelling: r.spelling,
+        pos: r.pos,
+        glosses: r.glosses,
+        level: uw?.level ?? 0,
+        attempts: uw?.attempts ?? 0,
+        correct: uw?.correct ?? 0,
+        masteredAt: uw?.masteredAt ?? null,
+        wordbookId: r.wordbookId,
+      });
+    });
   }
 
   return NextResponse.json({ words });

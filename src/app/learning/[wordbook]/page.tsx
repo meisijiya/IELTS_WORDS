@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
+import { getCurrentUser } from "@/lib/auth";
 import {
   aggregateWordsByWord,
   partitionWords,
@@ -16,6 +17,9 @@ interface PageProps {
 }
 
 export default async function LearningPage({ params, searchParams }: PageProps) {
+  const user = await getCurrentUser();
+  if (!user) redirect("/login");
+
   const { wordbook: slug } = await params;
   const { range = "all" } = await searchParams;
 
@@ -44,14 +48,15 @@ export default async function LearningPage({ params, searchParams }: PageProps) 
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
   const settings = await prisma.userSettings.findUnique({
-    where: { id: 1 },
+    where: { userId: user.id },
     select: { masteryThreshold: true },
   });
   const masteryThreshold = settings?.masteryThreshold ?? 5;
 
-  const [attempts, historyAttempts] = await Promise.all([
+  const [attempts, historyAttempts, userWordRows] = await Promise.all([
     prisma.attempt.findMany({
       where: {
+        userId: user.id,
         session: { wordbookId: wordbook.id },
         ...(since ? { createdAt: { gte: since } } : {}),
       },
@@ -61,15 +66,35 @@ export default async function LearningPage({ params, searchParams }: PageProps) 
     }),
     prisma.attempt.findMany({
       where: {
+        userId: user.id,
         session: { wordbookId: wordbook.id },
         createdAt: { gte: thirtyDaysAgo },
       },
       select: { wordId: true, correct: true, createdAt: true },
       orderBy: { createdAt: "desc" },
     }),
+    prisma.userWord.findMany({
+      where: { userId: user.id, word: { wordbookId: wordbook.id } },
+      select: { wordId: true, level: true, masteredAt: true },
+    }),
   ]);
 
-  const words = aggregateWordsByWord(attempts);
+  const userWordMap = new Map(
+    userWordRows.map((uw) => [uw.wordId, { level: uw.level, masteredAt: uw.masteredAt }]),
+  );
+  const attemptsWithUserWord = attempts.map((a) => {
+    const uw = userWordMap.get(a.wordId);
+    return {
+      ...a,
+      word: {
+        ...a.word,
+        level: uw?.level ?? 0,
+        masteredAt: uw?.masteredAt ?? null,
+      },
+    };
+  });
+
+  const words = aggregateWordsByWord(attemptsWithUserWord);
   const { learning } = partitionWords(words, masteryThreshold);
   const sorted = sortByAttempts(learning);
   const wordHistories = aggregateWordHistories(historyAttempts, now);

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { isAuthenticated } from "@/lib/auth";
+import { requireUser, authErrorResponse, ApiAuthError } from "@/lib/api";
 
 const DEFAULTS = {
   flashMs: 800,
@@ -12,19 +12,14 @@ const DEFAULTS = {
   checkinRetentionDays: null as number | null,
   masteryThreshold: 5,
   flashSkipMinLevel: null as number | null,
+  soundEnabled: true,
 };
-const SINGLETON_ID = 1;
 
 const PRON_MODES = new Set(["both", "flash", "feedback", "off"]);
 const PULL_MODES = new Set(["review", "balanced", "new"]);
-// Hard upper bound — accidental 1_000_000-day inputs would silently do nothing
-// (cutoff lands in the past), but a sane ceiling documents intent.
 const RETENTION_MAX_DAYS = 3650;
-// masteryThreshold: 2 is the floor (need room for a wrong to de-master from one rung above);
-// 20 is a sane ceiling beyond which the SM-2 ladder stops being useful.
 const MASTERY_THRESHOLD_MIN = 2;
 const MASTERY_THRESHOLD_MAX = 20;
-// flashSkipMinLevel: 1 is the floor; 100 is the ceiling (way past any reasonable ladder).
 const FLASH_SKIP_MIN_LEVEL_MIN = 1;
 const FLASH_SKIP_MIN_LEVEL_MAX = 100;
 
@@ -57,19 +52,23 @@ function clampInt(value: unknown, min: number, max: number, fallback: number): n
   return floored;
 }
 
-async function ensureSingleton() {
-  const existing = await prisma.userSettings.findUnique({ where: { id: SINGLETON_ID } });
-  if (existing) return existing;
-  return prisma.userSettings.create({
-    data: { id: SINGLETON_ID, ...DEFAULTS },
+async function ensureSettings(userId: number) {
+  return prisma.userSettings.upsert({
+    where: { userId },
+    create: { userId, ...DEFAULTS },
+    update: {},
   });
 }
 
 export async function GET() {
-  if (!(await isAuthenticated())) {
-    return NextResponse.json({ error: "未授权" }, { status: 401 });
+  let user;
+  try {
+    user = await requireUser();
+  } catch (e) {
+    if (e instanceof ApiAuthError) return authErrorResponse();
+    throw e;
   }
-  const settings = await ensureSingleton();
+  const settings = await ensureSettings(user.id);
   const mode = normalizePronMode(
     (settings as { pronunciationMode?: string }).pronunciationMode ??
       (settings.enablePronunciation ? "both" : "off"),
@@ -87,12 +86,17 @@ export async function GET() {
     checkinRetentionDays: settings.checkinRetentionDays ?? null,
     masteryThreshold: settings.masteryThreshold,
     flashSkipMinLevel: settings.flashSkipMinLevel ?? null,
+    soundEnabled: settings.soundEnabled,
   });
 }
 
 export async function PUT(request: Request) {
-  if (!(await isAuthenticated())) {
-    return NextResponse.json({ error: "未授权" }, { status: 401 });
+  let user;
+  try {
+    user = await requireUser();
+  } catch (e) {
+    if (e instanceof ApiAuthError) return authErrorResponse();
+    throw e;
   }
 
   let body: Partial<typeof DEFAULTS>;
@@ -104,7 +108,6 @@ export async function PUT(request: Request) {
 
   const flashMs = Math.max(100, Math.min(3000, Number(body.flashMs) || DEFAULTS.flashMs));
   const fadeMs = Math.max(100, Math.min(1000, Number(body.fadeMs) || DEFAULTS.fadeMs));
-  // pronunciationMode is canonical; back-compat: if not provided, derive from enablePronunciation.
   const legacyEnable = typeof body.enablePronunciation === "boolean"
     ? body.enablePronunciation
     : DEFAULTS.enablePronunciation;
@@ -129,10 +132,11 @@ export async function PUT(request: Request) {
       FLASH_SKIP_MIN_LEVEL_MAX,
       FLASH_SKIP_MIN_LEVEL_MIN,
     );
+  const soundEnabled = typeof body.soundEnabled === "boolean"
+    ? body.soundEnabled
+    : DEFAULTS.soundEnabled;
 
-  const current = await ensureSingleton();
-  // Lowering the threshold retroactively marks already-qualified words as
-  // mastered. Raising or holding the value is a no-op (mastery is sticky).
+  const current = await ensureSettings(user.id);
   const lowered = masteryThreshold < current.masteryThreshold;
   const updateData = {
     flashMs,
@@ -144,17 +148,18 @@ export async function PUT(request: Request) {
     checkinRetentionDays,
     masteryThreshold,
     flashSkipMinLevel,
+    soundEnabled,
   };
 
   let promotedCount = 0;
   const updated = await prisma.$transaction(async (tx) => {
     const u = await tx.userSettings.update({
-      where: { id: SINGLETON_ID },
+      where: { userId: user.id },
       data: updateData,
     });
     if (lowered) {
-      const res = await tx.word.updateMany({
-        where: { level: { gte: masteryThreshold }, masteredAt: null },
+      const res = await tx.userWord.updateMany({
+        where: { userId: user.id, level: { gte: masteryThreshold }, masteredAt: null },
         data: { masteredAt: new Date() },
       });
       promotedCount = res.count;
@@ -172,6 +177,7 @@ export async function PUT(request: Request) {
     checkinRetentionDays: updated.checkinRetentionDays ?? null,
     masteryThreshold: updated.masteryThreshold,
     flashSkipMinLevel: updated.flashSkipMinLevel ?? null,
+    soundEnabled: updated.soundEnabled,
     ...(lowered ? { promotedCount } : {}),
   });
 }

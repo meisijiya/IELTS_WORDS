@@ -2,7 +2,7 @@
 
 ## OVERVIEW
 
-Next.js 15 (App Router) + Prisma 的雅思单词拼写训练器。3 个词库（雅思精简 3611 / 雅思完整 7076 / CET-6 5518），US+UK 双口音真人发音，SM-2 简化学习曲线。CI/CD 自动 deploy 到腾讯云（GH Actions → 阿里云容器镜像 ACR 个人版）。
+Next.js 15 (App Router) + Prisma 的雅思单词拼写训练器。3 个词库（雅思精简 3611 / 雅思完整 7076 / CET-6 5518），US+UK 双口音真人发音，SM-2 简化学习曲线。**多用户系统**：admin 通过一次性邀请码创建账号，所有数据按 userId 隔离。CI/CD 自动 deploy 到腾讯云（GH Actions → 阿里云容器镜像 ACR 个人版）。
 
 `public/audio/` 不在 git，从 release tarball 拉进 image。原 PDF/DOCX 文献在 `resources/` (tracked)。
 
@@ -32,13 +32,16 @@ Next.js 15 (App Router) + Prisma 的雅思单词拼写训练器。3 个词库（
 | 任务 | 位置 | 关键事实 |
 |---|---|---|
 | 练习主循环 | `src/app/practice/[wordbook]/practice-client.tsx` | 最大 client file；sessions/words/attempts API |
-| Auth gate | `src/lib/auth.ts`, `src/middleware.ts` | Web Crypto HMAC；page + API 双重校验 |
+| Auth gate | `src/lib/auth.ts`, `src/middleware.ts`, `src/lib/api.ts` | Web Crypto HMAC；page + API 双重校验；`requireUser()` 是 route 入口 |
 | DB 单例 | `src/lib/db.ts`, `prisma/schema.prisma` | Prisma 单例；schema 是数据模型唯一源 |
 | 取词 + 答题 | `src/app/api/words/route.ts`, `src/app/api/attempts/route.ts` | PULL_CONFIG；drill/review 分叉 |
 | 三路集合分区 | `src/lib/word-collections.ts` | wrong / learning / mastered |
 | 30 天历史 | `src/lib/word-history.ts` | word-level 准确率聚合 |
 | Rate limit | `src/lib/rate-limit.ts` | 单进程 Map；多实例部署需要 Redis |
-| Checkin snapshot | `src/lib/checkin-snapshot.ts` | reset 前 eager 写盘 |
+| Checkin snapshot | `src/lib/checkin-snapshot.ts` | reset 前 eager 写盘；masteredTodayCount = promote events in [date, date+1) |
+| 排行榜 | `src/lib/leaderboard.ts`, `src/app/leaderboard/`, `src/app/api/leaderboard/` | byRange.today/week/month/all + per-user today detail |
+| 用户管理 | `src/app/admin/`, `src/app/api/admin/users/`, `prisma/seed.ts` | admin 改任意用户名 |
+| 邀请注册 | `src/app/admin/invites/`, `src/app/api/admin/invites/`, `src/app/register/` | 一次性 code + 7 天过期 |
 | PDF 解析 | `src/parser.py`, `tools/parse_full.py` | parser 在 `src/` 不是 `tools/` |
 | 词库导入 | `seed/*.json`, `prisma/seed.ts` | concise/full/cet6；upsert 幂等 |
 | Deploy | `Dockerfile`, `docker/entrypoint.sh`, `docker-compose.yml`, `CICD.md` | 见 PITFALLS 段 |
@@ -47,13 +50,13 @@ Next.js 15 (App Router) + Prisma 的雅思单词拼写训练器。3 个词库（
 
 | 中心节点 | 位置 | 作用 |
 |---|---|---|
-| `isAuthenticated` | `src/lib/auth.ts` | 所有受保护入口的共享守卫 |
+| `isAuthenticated` / `requireUser` | `src/lib/auth.ts`, `src/lib/api.ts` | 所有受保护入口的共享守卫 |
 | `PrismaClient` | `src/lib/db.ts` | 单例 — 业务文件不要 `new PrismaClient()` |
-| `PracticeClient` | `src/app/practice/[wordbook]/practice-client.tsx` | 练习队列 / 提交 / 提示 / 音频 / streak |
+| `PracticeClient` | `src/app/practice/[wordbook]/practice-client.tsx` | 练习队列 / 提交 / 提示 / 音频 / streak / word history |
 | `GET /api/words` | words/route.ts | review/balanced/new 加权 |
-| `POST /api/attempts` | attempts/route.ts | SM-2 简化更新；review 只插 Attempt |
+| `POST /api/attempts` | attempts/route.ts | SM-2 简化更新；review 只插 Attempt；firstAttemptedAt 在 create 路径写入 |
 | `sameIds` 会话复用 | sessions/route.ts | 同一 word ID 集合（含乱序） |
-| schema | `prisma/schema.prisma` | Wordbook/Word/Session/Attempt/Checkin/UserSettings 契约 |
+| schema | `prisma/schema.prisma` | User/Invitation/Wordbook/Word/Session/Attempt/Checkin/UserSettings/UserWord 契约；所有 per-user 数据带 `userId`；`UserSettings.userId` 是 `@unique` |
 
 API + middleware 入口不出现在 import graph 中；按 URL/Next 框架入口理解，不能因调用数低就当死代码。
 

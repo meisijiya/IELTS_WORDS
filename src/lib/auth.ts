@@ -1,4 +1,9 @@
 // Web Crypto API for Edge-runtime compatibility (middleware runs on Edge).
+//
+// Session cookie carries { userId, role, iat, exp } signed by HMAC-SHA256.
+// The signature is verifiable on Edge (no DB), but `getCurrentUser` does
+// the DB lookup on Node runtime (RSC / route handlers) to attach the
+// authorized user to a request.
 
 export const SESSION_COOKIE_NAME = "yasi_session";
 export const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
@@ -9,12 +14,6 @@ function getSecret(): string {
     throw new Error("SESSION_SECRET must be set and at least 32 characters");
   }
   return s;
-}
-
-function getAdminPassword(): string {
-  const p = process.env.ADMIN_PASSWORD;
-  if (!p) throw new Error("ADMIN_PASSWORD must be set");
-  return p;
 }
 
 function b64urlEncode(bytes: Uint8Array): string {
@@ -67,54 +66,76 @@ async function hmacVerify(payloadB64: string, sigB64: string): Promise<boolean> 
   }
 }
 
-export function checkPassword(input: string): boolean {
-  const expected = new TextEncoder().encode(getAdminPassword());
-  const actual = new TextEncoder().encode(input);
-  if (expected.length !== actual.length) return false;
-  let diff = 0;
-  for (let i = 0; i < expected.length; i++) {
-    diff |= expected[i] ^ actual[i];
-  }
-  return diff === 0;
+export interface SessionPayload {
+  userId: number;
+  role: string;
+  iat: number;
+  exp: number;
 }
 
-export async function createSessionCookie(): Promise<string> {
-  const payload = {
-    sub: "admin",
+export async function createSessionCookie(
+  userId: number,
+  role: string,
+): Promise<string> {
+  const payload: SessionPayload = {
+    userId,
+    role,
     iat: Date.now(),
     exp: Date.now() + SESSION_TTL_MS,
   };
   const payloadB64 = b64urlEncode(
-    new TextEncoder().encode(JSON.stringify(payload))
+    new TextEncoder().encode(JSON.stringify(payload)),
   );
   const sig = await hmacSign(payloadB64);
   return `${payloadB64}.${sig}`;
 }
 
-export async function verifySessionCookie(
-  cookieValue: string | undefined
-): Promise<boolean> {
-  if (!cookieValue) return false;
+export async function verifySessionPayload(
+  cookieValue: string | undefined,
+): Promise<SessionPayload | null> {
+  if (!cookieValue) return null;
   const [payloadB64, sig] = cookieValue.split(".");
-  if (!payloadB64 || !sig) return false;
-  if (!(await hmacVerify(payloadB64, sig))) return false;
+  if (!payloadB64 || !sig) return null;
+  if (!(await hmacVerify(payloadB64, sig))) return null;
   try {
     const payload = JSON.parse(
-      new TextDecoder().decode(new Uint8Array(b64urlDecode(payloadB64)))
-    );
-    return typeof payload.exp === "number" && payload.exp > Date.now();
+      new TextDecoder().decode(new Uint8Array(b64urlDecode(payloadB64))),
+    ) as SessionPayload;
+    if (typeof payload.exp !== "number" || payload.exp <= Date.now()) return null;
+    if (typeof payload.userId !== "number") return null;
+    return payload;
   } catch {
-    return false;
+    return null;
   }
 }
 
+export async function verifySessionCookie(
+  cookieValue: string | undefined,
+): Promise<boolean> {
+  return (await verifySessionPayload(cookieValue)) !== null;
+}
+
+export interface CurrentUser {
+  id: number;
+  username: string;
+  role: string;
+}
+
+export async function getCurrentUser(): Promise<CurrentUser | null> {
+  // Dynamic import so the prisma client (Node-only) is not pulled into
+  // Edge-runtime bundles that only use verifySessionCookie.
+  const { cookies } = await import("next/headers");
+  const { prisma } = await import("@/lib/db");
+  const cookie = (await cookies()).get(SESSION_COOKIE_NAME)?.value;
+  const payload = await verifySessionPayload(cookie);
+  if (!payload) return null;
+  const user = await prisma.user.findUnique({
+    where: { id: payload.userId },
+    select: { id: true, username: true, role: true },
+  });
+  return user;
+}
+
 export async function isAuthenticated(): Promise<boolean> {
-  try {
-    const { cookies } = await import("next/headers");
-    const cookieStore = await cookies();
-    const cookie = cookieStore.get(SESSION_COOKIE_NAME);
-    return await verifySessionCookie(cookie?.value);
-  } catch {
-    return false;
-  }
+  return (await getCurrentUser()) !== null;
 }

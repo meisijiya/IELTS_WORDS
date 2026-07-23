@@ -7,6 +7,7 @@ export async function middleware(request: NextRequest) {
   // Allow public paths
   if (
     pathname.startsWith("/login") ||
+    pathname.startsWith("/register") ||
     pathname.startsWith("/api/auth") ||
     pathname.startsWith("/audio/") ||
     pathname === "/favicon.ico"

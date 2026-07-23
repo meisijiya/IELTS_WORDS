@@ -17,6 +17,7 @@ interface Settings {
   checkinRetentionDays: number | null;
   masteryThreshold: number;
   flashSkipMinLevel: number | null;
+  soundEnabled: boolean;
 }
 
 const PRON_OPTIONS: { value: PronMode; label: string; hint: string }[] = [
@@ -63,7 +64,13 @@ const FLASH_SKIP_OPTIONS: { value: number | null; label: string }[] = [
   { value: 10, label: "10" },
 ];
 
-export function SettingsClient() {
+export function SettingsClient({
+  currentUsername,
+  currentRole,
+}: {
+  currentUsername: string;
+  currentRole: string;
+}) {
   const [settings, setSettings] = useState<Settings | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -113,6 +120,21 @@ export function SettingsClient() {
       <Link href="/" className="text-sm text-muted-fg hover:text-accent">
         ← 返回主页
       </Link>
+
+      {currentRole === "admin" && (
+        <p className="text-xs text-muted-foreground">
+          修改其他用户用户名请去 <Link href="/admin/invites" className="text-accent hover:underline">管理</Link> 页面。
+        </p>
+      )}
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold">修改用户名</h2>
+        <p className="text-sm text-muted-foreground">
+          当前：<span className="font-mono font-medium">{currentUsername}</span>
+          （下次登录用新名字。需要当前密码确认）
+        </p>
+        <RenameUsernameForm currentUsername={currentUsername} />
+      </section>
 
       <section className="space-y-3">
         <h2 className="text-lg font-semibold">闪现时长（毫秒）</h2>
@@ -191,6 +213,32 @@ export function SettingsClient() {
             </div>
           </div>
         )}
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold">练习音效</h2>
+        <p className="text-sm text-muted-foreground">
+          答对/答错的合成 chime、连击升级音、屏幕震动等即时反馈。
+          关闭后只静音合成音效，不影响上方真人发音设置。
+        </p>
+        <div className="flex gap-2">
+          {([
+            { value: true, label: "开启" },
+            { value: false, label: "关闭" },
+          ] as const).map((opt) => (
+            <button
+              key={opt.label}
+              onClick={() => setSettings({ ...settings, soundEnabled: opt.value })}
+              className={`px-4 py-2 rounded border ${
+                settings.soundEnabled === opt.value
+                  ? "bg-accent text-accent-fg border-accent"
+                  : "border-gray-300 dark:border-gray-700 hover:border-accent"
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
       </section>
 
       <section className="space-y-3">
@@ -313,6 +361,16 @@ export function SettingsClient() {
       </div>
 
       <section className="pt-8 border-t border-gray-200 dark:border-gray-800 space-y-3">
+        <h2 className="text-lg font-semibold">打卡记录</h2>
+        <p className="text-sm text-muted-foreground">
+          删除你所有打卡快照（Checkin 表行），用于从备份/导入等场景清空聚合。
+          <br />
+          <strong className="font-medium">不影响</strong> attempts / sessions / 词的学习进度 —— 重置后下次访问 /checkin 会按当前 attempts 重新生成快照。
+        </p>
+        <ResetCheckinsButton />
+      </section>
+
+      <section className="pt-8 border-t border-gray-200 dark:border-gray-800 space-y-3">
         <h2 className="text-lg font-semibold text-error">危险区域</h2>
         <p className="text-sm text-muted-fg">
           重置会清空所有学习记录（attempts / sessions / 词的 level），
@@ -321,6 +379,174 @@ export function SettingsClient() {
         </p>
         <ResetButton />
       </section>
+    </div>
+  );
+}
+
+function RenameUsernameForm({ currentUsername }: { currentUsername: string }) {
+  const [username, setUsername] = useState(currentUsername);
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [done, setDone] = useState(false);
+
+  async function submit() {
+    setError(null);
+    if (username === currentUsername) {
+      setError("新用户名需与当前不同");
+      return;
+    }
+    setSaving(true);
+    try {
+      const res = await fetch("/api/users/me", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || "修改失败");
+        return;
+      }
+      setDone(true);
+      setTimeout(() => location.reload(), 800);
+    } catch {
+      setError("网络错误");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  if (done) {
+    return (
+      <p className="text-sm text-success inline-flex items-center gap-1">
+        <Check className="h-4 w-4" /> 已修改，页面即将刷新
+      </p>
+    );
+  }
+
+  return (
+    <div className="space-y-3 p-3 border border-border rounded-md bg-background">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label className="block text-xs font-medium mb-1">新用户名</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            pattern="[a-zA-Z0-9_]+"
+            minLength={3}
+            maxLength={32}
+            className="w-full px-3 py-2 border border-border rounded text-sm bg-surface font-mono"
+            placeholder={currentUsername}
+          />
+        </div>
+        <div>
+          <label className="block text-xs font-medium mb-1">当前密码</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
+            className="w-full px-3 py-2 border border-border rounded text-sm bg-surface"
+          />
+        </div>
+      </div>
+      {error && <p className="text-xs text-error">{error}</p>}
+      <button
+        type="button"
+        onClick={submit}
+        disabled={saving || !username || !password}
+        className="px-4 py-2 bg-accent text-accent-foreground rounded text-sm font-medium hover:bg-accent-hover transition disabled:opacity-50"
+      >
+        {saving ? "修改中…" : "修改用户名"}
+      </button>
+    </div>
+  );
+}
+
+function ResetCheckinsButton() {
+  const CONFIRM = "CLEAN ALL CHECKINS";
+  const [confirming, setConfirming] = useState(false);
+  const [phrase, setPhrase] = useState("");
+  const [working, setWorking] = useState(false);
+  const [done, setDone] = useState<{ deleted: number } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  async function doReset() {
+    setWorking(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/checkin/reset", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ confirm: CONFIRM }),
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok) {
+        throw new Error(data?.message ?? data?.error ?? "删除失败");
+      }
+      setDone({ deleted: data.deleted });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "删除失败");
+    } finally {
+      setWorking(false);
+    }
+  }
+
+  if (done) {
+    return (
+      <p className="text-sm text-success inline-flex items-center gap-1">
+        <Check className="h-4 w-4" /> 已删除 {done.deleted} 条打卡快照
+      </p>
+    );
+  }
+
+  if (!confirming) {
+    return (
+      <button
+        onClick={() => setConfirming(true)}
+        className="px-4 py-2 border border-warning text-warning rounded text-sm font-medium hover:bg-warning hover:text-white transition"
+      >
+        删除所有打卡快照
+      </button>
+    );
+  }
+
+  return (
+    <div className="space-y-3 p-3 border border-warning/40 rounded bg-warning/5">
+      <p className="text-sm">
+        将删除 <strong>你的</strong>所有 Checkin 行（每个日期的快照聚合）。attempts / sessions / 词的 learning state 保持不变。
+      </p>
+      <div className="flex items-center gap-2">
+        <span className="text-xs font-mono">
+          输入 <code>{CONFIRM}</code>：
+        </span>
+        <input
+          type="text"
+          value={phrase}
+          onChange={(e) => setPhrase(e.target.value)}
+          className="flex-1 border border-border rounded px-2 py-1 font-mono text-xs bg-surface"
+          placeholder={CONFIRM}
+        />
+      </div>
+      <div className="flex items-center gap-2">
+        <button
+          onClick={doReset}
+          disabled={working || phrase !== CONFIRM}
+          className="px-4 py-2 bg-warning text-white rounded text-sm font-medium disabled:opacity-50"
+        >
+          {working ? "删除中…" : "确认删除"}
+        </button>
+        <button
+          onClick={() => { setConfirming(false); setPhrase(""); setError(null); }}
+          disabled={working}
+          className="px-4 py-2 border border-border rounded text-sm"
+        >
+          取消
+        </button>
+      </div>
+      {error && <p className="text-sm text-error">{error}</p>}
     </div>
   );
 }

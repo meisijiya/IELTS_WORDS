@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { prisma } from "@/lib/db";
-import { isAuthenticated } from "@/lib/auth";
+import { requireUser, authErrorResponse, ApiAuthError } from "@/lib/api";
 
 function sameIds(a: string | null, b: string | null): boolean {
   if (a === b) return true;
@@ -17,8 +17,12 @@ function sameIds(a: string | null, b: string | null): boolean {
 }
 
 export async function POST(request: Request) {
-  if (!(await isAuthenticated())) {
-    return NextResponse.json({ error: "未授权" }, { status: 401 });
+  let user;
+  try {
+    user = await requireUser();
+  } catch (e) {
+    if (e instanceof ApiAuthError) return authErrorResponse();
+    throw e;
   }
 
   let body: { wordbookId?: number; wordIds?: number[]; mode?: string };
@@ -36,10 +40,8 @@ export async function POST(request: Request) {
   const isTargeted = wordIdsJson !== null;
   const mode = body.mode === "review" ? "review" : "drill";
 
-  // Targeted sessions (错词批量练习) coexist with random sessions.
-  // Conflict only when both are random, or both targeted with the SAME id set.
   const candidates = await prisma.session.findMany({
-    where: { wordbookId, endedAt: null },
+    where: { userId: user.id, wordbookId, endedAt: null },
     orderBy: { startedAt: "desc" },
   });
 
@@ -48,7 +50,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ id: reusable.id, resumed: true });
   }
 
-  // For a random session, refuse if any random (null-wordIds) active session exists.
   if (!isTargeted) {
     const randomActive = candidates.find((s) => s.wordIds === null);
     if (randomActive) {
@@ -71,6 +72,7 @@ export async function POST(request: Request) {
   const session = await prisma.session.create({
     data: {
       id: randomUUID(),
+      userId: user.id,
       wordbookId,
       wordIds: wordIdsJson,
       mode,

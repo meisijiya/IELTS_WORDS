@@ -4,16 +4,22 @@
 
 ## 资源 vs 动作路由
 
-- 资源型端点按 HTTP 动词挂资源上:`GET /api/words`、`POST /api/sessions`、`POST /api/attempts`、`PATCH /api/sessions/[id]`、`DELETE /api/sessions/[id]`。
+- 资源型端点按 HTTP 动词挂资源上:`GET /api/words`、`POST /api/sessions`、`POST /api/attempts`、`PATCH /api/sessions/[id]`、`DELETE /api/sessions/[id]`、`PUT /api/users/me`、`PUT /api/admin/users/[id]`。
 - 动作型端点用动词子路径,仅暴露 `POST`:
   - `/api/words/mark-mastered` — 手动标记 `level=5`
   - `/api/sessions/[id]/end` — 提前结束会话
   - `/api/admin/checkin/cleanup` — 删除 N 天前的 Checkin 快照(由用户在 Settings 触发,confirm phrase = `CLEAN N DAYS`)
+  - `/api/admin/reset` — 确认短语全量重置
+  - `/api/admin/invites` — POST 创建新邀请码,DELETE `[code]` 作废
+  - `/api/checkin/reset` — 删除当前用户所有 Checkin 快照(confirm phrase = `CLEAN ALL CHECKINS`)
+  - `/api/auth/register` — POST `{ username, password, code }` 注册新账号
+  - `/api/auth/login` — POST `{ username, password }` 颁发 session cookie
 - 新增路由时若命名属于"动词 + 资源",按动作型处理;否则按资源型。两种风格在同一项目共存,不要把动作型改造成 PATCH/PUT 形式。
 
 ## 鉴权调用顺序
 
-- 每个 handler(除 `/api/auth/*` 外)首行必须 `await isAuthenticated()`;失败立即 `401`。
+- 每个 handler(除 `/api/auth/*` 外)首行必须 `await requireUser()`(返回 `{ id, role }`);失败抛 `ApiAuthError` → handler 捕获后返回 `authErrorResponse()` 即 `401`。
+- Admin-only 路由额外调 `requireAdmin()`;失败抛 `ApiAuthError` → 401(并非 403,因为 edge middleware 拦截前的伪路径不该泄露)。
 - `src/middleware.ts` 已对路径做前置拦截,但**不是替代**——客户端/服务端都必须做二次校验,避免内部调用绕过 Edge 网关。
 
 ## 错误模型
@@ -21,11 +27,20 @@
 - 抛出 `ApiError`(在 `src/lib/auth.ts` 或同级定义)→ handler 捕获后 `Response.json({error, message}, {status})`。
 - 资源未找到时统一返回 `404`,不要用 `500`:`SESSION_NOT_FOUND`、`WORD_NOT_FOUND`、`CHECKIN_NOT_FOUND`、`SETTINGS_NOT_FOUND`。
 - `/api/admin/reset` 必须完整匹配 confirm phrase:`RESET PROGRESS` / `DELETE ATTEMPTS` / `DELETE SESSIONS` / `RESET EVERYTHING`。
+- `/api/auth/register` 顺序校验:先 username 重复(`409 USERNAME_TAKEN`)→ 再 invitation code 无效/已用/过期(`400 INVITATION_INVALID`)。两段错误信息独立,不要合二为一。
+- `/api/checkin/reset` 确认 phrase = `CLEAN ALL CHECKINS`,逐字匹配;任何拼写差异都返回 `400 CONFIRM_REQUIRED`。
 
 ## 限流作用域
 
 - `src/lib/rate-limit.ts` 仅作用于 `/api/auth/login`(5 次失败 / 60 秒 → `429` + `Retry-After`)。
 - 单进程 Map 实现,不适合多实例部署;扩容前需替换为 Redis。
+- `/api/auth/register` 不限流(邀请码一次性 + 7 天过期已具备防滥用能力)。
+
+## 排行榜
+
+- `/api/leaderboard` — `GET ?range=today|week|month|all` 返回 `{ totals: [...], todayByUser }`。全员按累计 wordsAttempted 排序;每个 range 同时输出 mastered / learning / new / totalAttempted。
+- `/api/leaderboard/[userId]/today` — `GET` 返回该用户今日 attempt 明细(单词 + correct + 时刻);卡片点击展开使用。
+- 两个 endpoint 都要求 `requireUser()`,但**不**要求 admin——所有登录用户可看。
 
 ## 静态资源缓存
 

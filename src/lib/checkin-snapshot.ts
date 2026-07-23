@@ -1,11 +1,14 @@
 import { prisma } from "@/lib/db";
 
+const MASTERY_THRESHOLD_FALLBACK = 5;
+
 export interface CheckinData {
   date: string;
   totalAttempts: number;
   correctCount: number;
   accuracy: number;
-  newMasteredCount: number;
+  masteredTodayCount: number;
+  learningCount: number;
   wordsAttempted: number;
   sessionsCount: number;
   cumulativeMastered: number;
@@ -27,21 +30,39 @@ function endOfDay(d: Date): Date {
   return new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
 }
 
-/**
- * Compute the checkin snapshot data for a given date from live Attempt rows.
- * Pure-of-side-effects (only reads DB, returns data); doesn't write.
- */
-export async function computeCheckinData(date: Date): Promise<CheckinData> {
+// ponytail: every checkin function takes userId — the per-user isolation
+// layer above this lib (Wordbook is shared, Attempt/Checkin are per-user).
+
+export async function computeCheckinData(userId: number, date: Date): Promise<CheckinData> {
   const start = startOfDay(date);
   const end = endOfDay(date);
 
-  const [attempts, cumulativeMastered] = await Promise.all([
+  const todayWordIds = [...new Set(
+    (await prisma.attempt.findMany({
+      where: { userId, createdAt: { gte: start, lt: end } },
+      select: { wordId: true },
+    })).map((a) => a.wordId),
+  )];
+
+  const [attempts, userWordRows, cumulativeMastered] = await Promise.all([
     prisma.attempt.findMany({
-      where: { createdAt: { gte: start, lt: end } },
+      where: { userId, createdAt: { gte: start, lt: end } },
       include: { word: true, session: true },
       orderBy: { createdAt: "asc" },
     }),
-    prisma.word.count({ where: { level: { gte: 5 } } }),
+    todayWordIds.length
+      ? prisma.userWord.findMany({
+          where: { userId, wordId: { in: todayWordIds } },
+          select: { wordId: true, attempts: true, masteredAt: true, level: true, firstAttemptedAt: true },
+        })
+      : Promise.resolve([] as Array<{
+          wordId: number;
+          attempts: number;
+          masteredAt: Date | null;
+          level: number;
+          firstAttemptedAt: Date | null;
+        }>),
+    prisma.userWord.count({ where: { userId, masteredAt: { not: null } } }),
   ]);
 
   const totalAttempts = attempts.length;
@@ -67,9 +88,33 @@ export async function computeCheckinData(date: Date): Promise<CheckinData> {
   }
 
   const wordsAttempted = wordStats.size;
-  const newMasteredCount = [...wordStats.values()].filter(
-    (w) => w.correct === w.attempts,
-  ).length;
+
+  // masteredTodayCount per schema doc = UserWord.masteredAt events within [start, end).
+  // learningCount = today attempts on words not yet mastered (masteredAt IS NULL).
+  // newCount = firstAttemptedAt within [start, end).
+  const userWordMap = new Map(userWordRows.map((uw) => [uw.wordId, uw]));
+  const settingsRow = await prisma.userSettings.findUnique({
+    where: { userId },
+    select: { masteryThreshold: true },
+  });
+  const masteryThreshold = settingsRow?.masteryThreshold ?? MASTERY_THRESHOLD_FALLBACK;
+  let newCount = 0;
+  let learningCount = 0;
+  let masteredCount = 0;
+  for (const wordId of todayWordIds) {
+    const uw = userWordMap.get(wordId);
+    if (!uw) {
+      newCount += 1;
+      continue;
+    }
+    if (uw.masteredAt !== null && uw.masteredAt >= start && uw.masteredAt < end) {
+      masteredCount += 1;
+    } else if (uw.firstAttemptedAt && uw.firstAttemptedAt >= start && uw.masteredAt === null) {
+      newCount += 1;
+    } else if (uw.masteredAt === null) {
+      learningCount += 1;
+    }
+  }
 
   const topMissed = [...wordStats.entries()]
     .map(([wordId, w]) => ({
@@ -78,7 +123,6 @@ export async function computeCheckinData(date: Date): Promise<CheckinData> {
       pos: w.pos,
       glosses: JSON.parse(w.glosses),
       mistakes: w.attempts - w.correct,
-      level: 0,
     }))
     .filter((x) => x.mistakes > 0)
     .sort((a, b) => b.mistakes - a.mistakes)
@@ -122,7 +166,8 @@ export async function computeCheckinData(date: Date): Promise<CheckinData> {
     totalAttempts,
     correctCount,
     accuracy: Math.round(accuracy * 1000) / 1000,
-    newMasteredCount,
+    masteredTodayCount: masteredCount,
+    learningCount,
     wordsAttempted,
     sessionsCount,
     cumulativeMastered,
@@ -131,23 +176,22 @@ export async function computeCheckinData(date: Date): Promise<CheckinData> {
   };
 }
 
-/**
- * Persist a snapshot for `date` (no-op if one already exists). Idempotent:
- * repeated calls are safe — existing snapshot wins so we don't overwrite
- * a frozen historical record.
- */
-export async function snapshotCheckin(date: Date): Promise<void> {
+export async function snapshotCheckin(userId: number, date: Date): Promise<void> {
   const dateStr = fmtDate(date);
-  const existing = await prisma.checkin.findUnique({ where: { date: dateStr } });
+  const existing = await prisma.checkin.findUnique({
+    where: { userId_date: { userId, date: dateStr } },
+  });
   if (existing) return;
-  const data = await computeCheckinData(date);
+  const data = await computeCheckinData(userId, date);
   await prisma.checkin.create({
     data: {
+      userId,
       date: data.date,
       totalAttempts: data.totalAttempts,
       correctCount: data.correctCount,
       accuracy: data.accuracy,
-      newMasteredCount: data.newMasteredCount,
+      masteredTodayCount: data.masteredTodayCount,
+      learningCount: data.learningCount,
       wordsAttempted: data.wordsAttempted,
       sessionsCount: data.sessionsCount,
       cumulativeMastered: data.cumulativeMastered,
@@ -157,37 +201,35 @@ export async function snapshotCheckin(date: Date): Promise<void> {
   });
 }
 
-/**
- * Snapshot every distinct date that has at least one Attempt row.
- * Used by /api/admin/reset to lock in history before wiping attempts.
- */
-export async function snapshotAllDatesWithAttempts(): Promise<number> {
-  const dates = await prisma.attempt.findMany({ select: { createdAt: true } });
+export async function snapshotAllDatesWithAttempts(userId: number): Promise<number> {
+  const dates = await prisma.attempt.findMany({
+    where: { userId },
+    select: { createdAt: true },
+  });
   const dateSet = new Set(dates.map((d) => fmtDate(d.createdAt)));
   for (const dateStr of dateSet) {
     const [y, mo, d] = dateStr.split("-").map(Number);
-    await snapshotCheckin(new Date(y, mo - 1, d));
+    await snapshotCheckin(userId, new Date(y, mo - 1, d));
   }
   return dateSet.size;
 }
 
-/**
- * Read a snapshot by date. Returns null if no snapshot exists. The
- * returned object includes `weekday` and `isToday` derived from `date`,
- * matching the shape /api/analytics/daily used to return.
- */
 export async function readCheckin(
+  userId: number,
   date: Date,
 ): Promise<(CheckinData & { weekday: string; isToday: boolean }) | null> {
   const dateStr = fmtDate(date);
-  const row = await prisma.checkin.findUnique({ where: { date: dateStr } });
+  const row = await prisma.checkin.findUnique({
+    where: { userId_date: { userId, date: dateStr } },
+  });
   if (!row) return null;
   return {
     date: row.date,
     totalAttempts: row.totalAttempts,
     correctCount: row.correctCount,
     accuracy: row.accuracy,
-    newMasteredCount: row.newMasteredCount,
+    masteredTodayCount: row.masteredTodayCount,
+    learningCount: row.learningCount,
     wordsAttempted: row.wordsAttempted,
     sessionsCount: row.sessionsCount,
     cumulativeMastered: row.cumulativeMastered,

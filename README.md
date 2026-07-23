@@ -59,6 +59,13 @@
 - **大学英语六级词汇** — 5,518 词 · CET-6，含真人发音
 - 新增词库流程见 [`docs/add-wordbook.md`](docs/add-wordbook.md)
 
+### 多用户系统
+- **账号体系** — `User` 表 + username + password（Web Crypto HMAC）。Session cookie 携带 `userId` + `role`，所有 per-user 数据按 `userId` 隔离。
+- **admin 邀请注册** — admin 在 `/admin/invites` 一次性生成邀请码（7 天过期）。新用户通过 `/register?code=xxx` 提交 username + password + code 创建账号。
+- **admin 改任意用户名** — `/admin/users` 列表 + 行内 modal 改 `username`。普通用户在 `/settings` 可改自己的 username（需当前密码）。
+- **排行榜** — `/leaderboard` 全员按 `byRange.{today, week, month, all}` 排名；卡片点击展开当日 attempt 明细。
+- **自助重置** — `/checkin` 卡片右下"删除打卡记录"按钮（确认 phrase `CLEAN ALL CHECKINS`）。
+
 ### 数据持久化
 - **打卡记录跨重置保留** — `/checkin/[date]` 是当日 attempt 实时聚合。重置会清空 attempts → 历史消失？
   不会：`Checkin` 表在首次访问时 lazy 快照，重置前 eager 快照所有有 attempt 的日期。
@@ -191,7 +198,8 @@ docker compose down
 | **框架** | Next.js 15 (App Router) + TypeScript 5 + React 19 |
 | **ORM** | Prisma 6 + SQLite (dev) / PostgreSQL (prod) |
 | **UI** | Tailwind CSS 3 + 自定义"冬天旭日"主题 |
-| **认证** | Web Crypto HMAC-signed cookie (Edge-safe) |
+| **认证** | Web Crypto HMAC-signed cookie (Edge-safe)，username + password，邀请码注册 |
+| **多用户** | Session/Attempt/Checkin/UserSettings/UserWord 全 `userId` 隔离 |
 | **音频** | Web Audio API（合成 chime / buzz / streak 音效）+ Next.js 静态文件提供 MP3 |
 | **图表** | Recharts（分析页）+ html2canvas（打卡图导出） |
 | **音频下载** | Youdao OpenDict API，13500 词 ~ 30 分钟，stdlib urllib + threading |

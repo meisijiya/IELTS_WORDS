@@ -1,10 +1,33 @@
 import { NextResponse } from "next/server";
-import { isAuthenticated } from "@/lib/auth";
-import {
-  computeCheckinData,
-  readCheckin,
-  snapshotCheckin,
-} from "@/lib/checkin-snapshot";
+import { prisma } from "@/lib/db";
+import { requireUser, authErrorResponse, ApiAuthError } from "@/lib/api";
+
+export async function GET(request: Request) {
+  let user;
+  try {
+    user = await requireUser();
+  } catch (e) {
+    if (e instanceof ApiAuthError) return authErrorResponse();
+    throw e;
+  }
+
+  const url = new URL(request.url);
+  const date = parseDateParam(url.searchParams.get("date"));
+  const todayStr = fmtDate(new Date());
+
+  let snap = await readCheckin(user.id, date);
+  if (!snap) {
+    const data = await computeCheckinData(user.id, date);
+    await snapshotCheckin(user.id, date);
+    snap = {
+      ...data,
+      weekday: weekdayOf(data.date),
+      isToday: data.date === todayStr,
+    };
+  }
+
+  return NextResponse.json(snap);
+}
 
 function parseDateParam(raw: string | null): Date {
   const today = new Date();
@@ -26,28 +49,8 @@ function weekdayOf(dateStr: string): string {
   return WEEKDAYS[new Date(y, mo - 1, d).getDay()];
 }
 
-export async function GET(request: Request) {
-  if (!(await isAuthenticated())) {
-    return NextResponse.json({ error: "未授权" }, { status: 401 });
-  }
-
-  const url = new URL(request.url);
-  const date = parseDateParam(url.searchParams.get("date"));
-  const todayStr = fmtDate(new Date());
-
-  // Lazy snapshot: serve from saved snapshot if available, otherwise
-  // compute + persist, then return. /api/admin/reset also snapshots all
-  // dates with attempts, so /checkin reads preserve history across resets.
-  let snap = await readCheckin(date);
-  if (!snap) {
-    const data = await computeCheckinData(date);
-    await snapshotCheckin(date);
-    snap = {
-      ...data,
-      weekday: weekdayOf(data.date),
-      isToday: data.date === todayStr,
-    };
-  }
-
-  return NextResponse.json(snap);
-}
+import {
+  computeCheckinData,
+  readCheckin,
+  snapshotCheckin,
+} from "@/lib/checkin-snapshot";

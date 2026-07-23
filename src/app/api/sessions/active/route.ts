@@ -1,10 +1,14 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { isAuthenticated } from "@/lib/auth";
+import { requireUser, authErrorResponse, ApiAuthError } from "@/lib/api";
 
 export async function GET(request: Request) {
-  if (!(await isAuthenticated())) {
-    return NextResponse.json({ error: "未授权" }, { status: 401 });
+  let user;
+  try {
+    user = await requireUser();
+  } catch (e) {
+    if (e instanceof ApiAuthError) return authErrorResponse();
+    throw e;
   }
 
   const url = new URL(request.url);
@@ -14,7 +18,7 @@ export async function GET(request: Request) {
   }
 
   const session = await prisma.session.findFirst({
-    where: { wordbookId, endedAt: null },
+    where: { userId: user.id, wordbookId, endedAt: null },
     orderBy: { startedAt: "desc" },
   });
 
@@ -22,7 +26,7 @@ export async function GET(request: Request) {
 
   const liveCounts = await prisma.attempt.groupBy({
     by: ["correct"],
-    where: { sessionId: session.id },
+    where: { userId: user.id, sessionId: session.id },
     _count: { _all: true },
   });
   let liveCorrect = 0;
