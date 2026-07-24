@@ -196,7 +196,7 @@ export function CheckinClient({ date }: { date: string }) {
                   <p className="text-xs text-muted-foreground mt-1">首次遇到</p>
                 </div>
                 <div className="bg-background rounded-lg p-5 border border-border">
-                  <p className="text-sm text-muted-foreground">学习中的次数</p>
+                  <p className="text-sm text-muted-foreground">复练词数</p>
                   <p className="mt-1 text-4xl font-bold text-warning tabular-nums">
                     {data.learningCount}
                   </p>
