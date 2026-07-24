@@ -9,18 +9,26 @@
 | 任务 | 路径 | 关键事实 |
 |---|---|---|
 | Edge 鉴权 gate | `/home/ljh2923/opencode-project/English_YASI/src/middleware.ts` | Web Crypto HMAC；matcher 排除 `_next/static`、`_next/image`、`favicon.ico`；allowlist：`/login`、`/api/auth`、`/audio/`、`/favicon.ico` |
-| 鉴权原语 | `/home/ljh2923/opencode-project/English_YASI/src/lib/auth.ts` | `SESSION_COOKIE_NAME="yasi_session"`；`verifySessionCookie` / `checkPassword` / `isAuthenticated`；server-only，client bundle 零依赖 |
+| 鉴权原语 | `/home/ljh2923/opencode-project/English_YASI/src/lib/auth.ts` | `SESSION_COOKIE_NAME="yasi_session"`；`verifySessionCookie` / `checkPassword` / `isAuthenticated`；server-only，client bundle 零依赖；payload 含 `userId` + `role` |
+| Route 鉴权守卫 | `/home/ljh2923/opencode-project/English_YASI/src/lib/api.ts` | `requireUser()` / `requireAdmin()` / `authErrorResponse()`；所有 `/api/*`（除 auth/*）首行调用 |
+| 密码哈希 | `/home/ljh2923/opencode-project/English_YASI/src/lib/password.ts` | PBKDF2-SHA-256 100k iters；`hashPassword` / `verifyPassword` / `validateUsername` / `validatePassword` |
 | Prisma 单例 | `/home/ljh2923/opencode-project/English_YASI/src/lib/db.ts` | 全局缓存，development 仅打 error/warn；业务文件从 `@/lib/db` 导入 |
 | 词集合三路分区 | `/home/ljh2923/opencode-project/English_YASI/src/lib/word-collections.ts` | wrong / learning / mastered 互斥 |
 | 30 天聚合 | `/home/ljh2923/opencode-project/English_YASI/src/lib/word-history.ts` | `DailyStat` 类型由 sparkline 复用 |
-| Checkin 快照 | `/home/ljh2923/opencode-project/English_YASI/src/lib/checkin-snapshot.ts` | reset 前 eager 写盘 |
+| Checkin 快照（三桶） | `/home/ljh2923/opencode-project/English_YASI/src/lib/checkin-snapshot.ts` | reset 前 eager 写盘；masteredTodayCount = promote events in [date, date+1)；详见 `src/lib/AGENTS.md` |
+| 排行榜 | `/home/ljh2923/opencode-project/English_YASI/src/lib/leaderboard.ts` | ⚠️ 80% 代码与 `/api/leaderboard/route.ts` 重复，新增路由直接调此 lib |
 | 限流 | `/home/ljh2923/opencode-project/English_YASI/src/lib/rate-limit.ts` | 内存计数器 |
 | Collection tabs | `/home/ljh2923/opencode-project/English_YASI/src/components/collection-tabs.tsx` | 三个 slug 互链，保留 `?range=` |
 | 错词曲线 | `/home/ljh2923/opencode-project/English_YASI/src/components/wrong-word-sparkline.tsx` | 120×32 inline SVG；`findNearestIndex` 暴露给单测 |
 | PDF 解析 | `/home/ljh2923/opencode-project/English_YASI/src/parser.py` | `parse_page_lines` / `parse_page_dict` / `lines_from_fixture`；WORD_X0_MAX=100、GLOSS_X0_MIN=130、CROSS_LINE_GAP_PT=50 |
-| 练习主循环 | `/home/ljh2923/opencode-project/English_YASI/src/app/practice/[wordbook]/practice-client.tsx` | 最大文件，含 streak chime、Web Audio、提示 |
+| 练习主循环 | `/home/ljh2923/opencode-project/English_YASI/src/app/practice/[wordbook]/practice-client.tsx` | 1053 行；wordHistory 栈 cap 20 + HistoryModal + soundEnabled ref 守卫 |
 | 错词榜展开 | `/home/ljh2923/opencode-project/English_YASI/src/app/wrong-words/[wordbook]/wrong-words-client.tsx` | 接入 `WrongWordSparkline` |
-| API 路由 | `/home/ljh2923/opencode-project/English_YASI/src/app/api/{sessions,attempts,words,analytics,settings,auth,admin}/...` | 受 middleware 保护，除了 `auth/*` |
+| Admin 邀请码 | `/home/ljh2923/opencode-project/English_YASI/src/app/admin/invites/` | 详见 `src/app/admin/AGENTS.md` |
+| 排行榜页 | `/home/ljh2923/opencode-project/English_YASI/src/app/leaderboard/` | RSC 初始 + client 30s 轮询 + 卡片点击展开今日明细 |
+| 邀请注册 | `/home/ljh2923/opencode-project/English_YASI/src/app/register/` | 一次性 code + username + password + confirm；调 `/api/auth/register` |
+| API 路由 | `/home/ljh2923/opencode-project/English_YASI/src/app/api/{sessions,attempts,words,analytics,settings,auth,admin,users,leaderboard,checkin}/...` | 19 个 endpoint；除 `auth/*` 全部走 `requireUser()`，详见 `src/app/api/AGENTS.md` |
+| Ops 脚本 | `/home/ljh2923/opencode-project/English_YASI/scripts/` | server-bootstrap + fix-prod-schema + migrate-legacy-userdata；详见 `scripts/AGENTS.md` |
+| Ops workflows | `/home/ljh2923/opencode-project/English_YASI/.github/workflows/` | 8 个 `workflow_dispatch` 恢复/诊断/备份 workflow；详见 `.github/workflows/AGENTS.md` |
 
 ## CONVENTIONS
 - 路径别名：`@/*` → `src/*`；导入仅走 `@/lib/*`、`@/components/*`。

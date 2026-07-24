@@ -59,6 +59,16 @@ One-shot scripts for the multi-user migration:
 
 These scripts are committed for reproducibility — re-run only on a fresh dev DB.
 
+## Schema upgrade protocol (expand-and-contract)
+
+`prisma db push` 在 PostgreSQL 上是单一事务:加 NOT NULL 列失败 → 整个 push rollback → 新表也回滚。生产环境 schema 升级**必须**分三步:
+
+1. **Expand** — 加列但 nullable 或带 `Int @default(0)`
+2. **Backfill** — 用 `Migrate-Legacy-UserData` workflow(触发 `scripts/migrate-legacy-userdata.sql`)把 `userId=0` 占位改成真值
+3. **Contract** — 再切到 `Int NOT NULL` 并跑 `db push`
+
+详见 `CICD.md` 坑 13 + 根 `AGENTS.md` 的 "Schema 升级规范" 章节。
+
 ## Deprecated fields
 
 `UserSettings.enablePronunciation` is superseded by `pronunciationMode` (`both` / `flash` / `feedback` / `off`). Kept for back-compat reads only; do not write to it.

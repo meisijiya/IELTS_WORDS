@@ -38,9 +38,30 @@
 
 ## 排行榜
 
-- `/api/leaderboard` — `GET ?range=today|week|month|all` 返回 `{ totals: [...], todayByUser }`。全员按累计 wordsAttempted 排序;每个 range 同时输出 mastered / learning / new / totalAttempted。
+- `/api/leaderboard` — `GET` 返回全员 today attempts + mastered + 最近 5 个答对词。⚠️ **逻辑与 `src/lib/leaderboard.ts: getLeaderboard()` 80% 重复**。新代码应直接调 lib,不要复制粘贴。
 - `/api/leaderboard/[userId]/today` — `GET` 返回该用户今日 attempt 明细(单词 + correct + 时刻);卡片点击展开使用。
-- 两个 endpoint 都要求 `requireUser()`,但**不**要求 admin——所有登录用户可看。
+- 两个 endpoint **仍** 用 `getCurrentUser()` 自实现 401,而非 `requireUser()`(返回 401 效果相同但风格不一致,API 路由约定要求 `requireUser()`)。修复优先级 P2。
+
+## 新增 endpoint 模板
+
+```ts
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/db";
+import { requireUser, authErrorResponse, ApiAuthError } from "@/lib/api";
+
+export async function POST(request: Request) {
+  let user;
+  try {
+    user = await requireUser();
+  } catch (e) {
+    if (e instanceof ApiAuthError) return authErrorResponse();
+    throw e;
+  }
+  // ... body 解析 + where: { userId: user.id } 作用域 + try/catch 包 DB + crypto
+}
+```
+
+Admin-only 加 `requireAdmin()`;密码修改/用户管理走 `src/lib/password.ts: hashPassword()`。
 
 ## 静态资源缓存
 
