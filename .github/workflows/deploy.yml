@@ -5,6 +5,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Default to read-only token; deploy job needs contents:read only (no write).
+permissions:
+  contents: read
+
 jobs:
   build-and-push:
     name: Build Docker image & push to Aliyun ACR
@@ -69,9 +73,29 @@ jobs:
           username: ${{ secrets.DEPLOY_SSH_USER || 'root' }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
-            set -e
-            echo "[deploy] pulling new image..."
+            set -euo pipefail
+            echo "[deploy] starting..."
             cd /opt/yasi-words
+
+            # ===== DB protection: pre-check =====
+            # Postgres container + pgdata volume MUST already exist before any
+            # deploy step. This script MUST NOT call `docker compose down -v`,
+            # `docker compose down postgres`, or `--force-recreate postgres` —
+            # any of those would delete the named `pgdata` volume and lose
+            # every User / Attempt / Session / Checkin / UserWord row.
+            # Only `app` is recreated below; postgres / pgdata are read-only
+            # from this script's perspective.
+            echo "[deploy] pre-check: pgdata volume present?"
+            docker volume inspect pgdata > /dev/null 2>&1 || {
+              echo "[deploy] FATAL: pgdata volume missing. ABORT to protect any possible user data."
+              exit 1
+            }
+            echo "[deploy] pre-check: yasi-postgres container running?"
+            docker ps --filter "name=yasi-postgres" --filter "status=running" --format "{{.Names}}" | grep -q '^yasi-postgres$' || {
+              echo "[deploy] FATAL: yasi-postgres container not running. ABORT."
+              exit 1
+            }
+
             export ALIYUN_REGISTRY='${{ secrets.ALIYUN_REGISTRY }}'
             export ALIYUN_REGISTRY_NAMESPACE='${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}'
             # Login to pull from ACR
@@ -84,20 +108,38 @@ jobs:
             export APP_IMAGE='${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:latest'
             docker pull "$APP_IMAGE"
             docker compose pull app
+            # Recreate `app` ONLY. `postgres` service is intentionally absent
+            # from this command — see DB protection block above.
             docker compose up -d --force-recreate app
+
+            # ===== Server-side image prune =====
+            # Keep: current running image + 1 most-recent non-current = 2 total.
+            # (ACR-side retention is enforced by Alibaba Cloud lifecycle policy
+            # configured out-of-band on the registry console; this server-side
+            # prune is the local-disk safety net.)
             echo "[deploy] pruning old yasi-words images (keep current + 1 rollback)..."
             CURRENT_ID=$(docker ps --filter "name=yasi-app" --format "{{.Image}}" | head -1)
             docker images --format "{{.ID}}|{{.CreatedAt}}|{{.Repository}}:{{.Tag}}" \
               | grep "yasi-words" \
               | sort -t'|' -k2 -r \
               | awk -F'|' -v keep_id="$CURRENT_ID" '{
-                  if (seen == 2) { print $1; exit }
-                  if ($1 == keep_id) { next }
-                  seen++
+                  if ($1 == keep_id) next
+                  if (++seen > 1) print $1
                 }' \
               | xargs -r docker rmi -f 2>&1 | tail -5 || true
             docker image prune -f --filter "until=24h" 2>&1 | tail -3 || true
             docker builder prune -f --filter "until=24h" 2>&1 | tail -3 || true
+
+            # ===== DB protection: post-check =====
+            # Verify postgres still healthy after the app recreate. The recreate
+            # should not have touched postgres / pgdata, but verify defensively.
+            PGUSER=$(grep '^POSTGRES_USER=' /opt/yasi-words/.env 2>/dev/null | cut -d= -f2- || echo yasi)
+            PGDB=$(grep '^POSTGRES_DB=' /opt/yasi-words/.env 2>/dev/null | cut -d= -f2- || echo yasi_db)
+            echo "[deploy] post-check: pg_isready on yasi-postgres..."
+            if ! docker exec yasi-postgres pg_isready -U "$PGUSER" -d "$PGDB" > /dev/null 2>&1; then
+              echo "[deploy] WARN: pg_isready failed — check 'docker logs yasi-postgres'"
+            fi
+
             echo "[deploy] disk after prune:"
             df -h / | tail -1
             echo "[deploy] complete."
