@@ -55,11 +55,12 @@ next-env.d.ts
 
 # Planning + omo metadata (generated locally)
 /.planning/
-/.omo/
 /.codegraph/
 
-# Track durable design specs under .omo/design-spec/ while keeping run metadata ignored
+# .omo is metadata by default; whitelist durable design-spec content
+/.omo/**
 !/.omo/design-spec/
+!/.omo/design-spec/**
 
 # Python tooling caches
 __pycache__/
