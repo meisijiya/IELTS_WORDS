@@ -1,0 +1,48 @@
+name: Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "project-page/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+# Ponytail: 项目静态展示页，无需构建链，直接把 project-page/ 上传为 Pages artifact。
+# Permissions 与 trigger 已收紧：PR 不触发（fork 信任边界），仅 push main 与手动重发。
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5.0.0 # v5.0.0
+        with:
+          enablement: github-pages
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3.0.1 # v3.0.1
+        with:
+          path: ./project-page
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4.0.0 # v4.0.0
