@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#FAF7F2" />
+    <title>Yasi Words CI/CD 教材目录</title>
+    <meta
+      name="description"
+      content="以 Yasi Words 真实部署链路为案例，学习 GitHub Actions、阿里云容器镜像服务 ACR、Docker Compose 与云服务器部署。"
+    />
+    <link rel="icon" type="image/png" href="../favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&amp;family=Newsreader:ital,wght@0,400;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Serif+SC:wght@500;700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="./chapters/_shared.css?v=3" />
+    <link rel="stylesheet" href="./_shared.css?v=3" />
+  </head>
+  <body>
+    <article class="chapter-shell">
+      <nav class="breadcrumb" aria-label="面包屑">
+        <a href="../index.html">首页</a> / <span>CICD 教材</span> /
+        <span aria-current="page">目录</span>
+      </nav>
+      <h1>Yasi Words CI/CD 教材</h1>
+      <p class="meta-bar">最后更新 2026-07-25</p>
+
+      <p>
+        这套教材以 Yasi Words 的真实生产链路为主线：开发者执行 <code>git push</code>，
+        GitHub Actions 构建镜像并推送到阿里云容器镜像服务 ACR，随后通过 SSH 在腾讯云或阿里云服务器上拉取并重启服务。
+        内容来自 <code>CICD.md</code>，每章保留可直接核对的章节编号与命令。
+      </p>
+
+      <section id="system-map" aria-labelledby="system-map-title">
+        <h2 id="system-map-title">先看完整链路</h2>
+        <ol>
+          <li>本地提交进入 <code>main</code> 分支，触发 <code>.github/workflows/deploy.yml</code>。</li>
+          <li><code>build-and-push</code> job 在 GitHub 托管 runner 上构建并推送镜像。</li>
+          <li><code>deploy</code> job 使用 <code>appleboy/ssh-action@v1</code> 登录服务器。</li>
+          <li>服务器拉取 ACR 的 <code>:latest</code> 镜像，并执行 <code>docker compose up -d</code>。</li>
+          <li>浏览器最终访问部署后的 Next.js 服务，PostgreSQL 数据保留在持久化 volume 中。</li>
+        </ol>
+        <p>
+          项目首页提供了部署流程的视觉入口，见
+          <a href="../index.html#deploy">首页的部署与 CI/CD 图示</a>。完整原始拓扑见来源 §0。
+        </p>
+      </section>
+
+      <section aria-labelledby="chapters-title">
+        <h2 id="chapters-title">十个阅读入口</h2>
+        <div class="chapter-toc">
+          <h3><a href="../index.html">项目 Landing</a></h3>
+          <p>先认识 Yasi Words 的产品目标、代码结构与部署背景。</p>
+        </div>
+        <div class="chapter-toc">
+          <h3><a href="./chapters/00-overview.html">第 00 章：系统总览</a></h3>
+          <p>从五个节点理解一次 push 如何变成可访问的生产服务，来源 §0。</p>
+        </div>
+        <div class="chapter-toc">
+          <h3><a href="./chapters/01-setup.html">第 01 章：一次性配置</a></h3>
+          <p>创建 ACR、配置 Secrets、初始化服务器和 SSH keypair，来源 §1。</p>
+        </div>
+        <div class="chapter-toc">
+          <h3><a href="./chapters/02-workflow.html">第 02 章：Workflow 拆解</a></h3>
+          <p>逐步阅读 <code>build-and-push</code> 与 <code>deploy</code> 两个 job，来源 §2。</p>
+        </div>
+        <div class="chapter-toc">
+          <h3><a href="./chapters/03-usage.html">第 03 章：日常使用</a></h3>
+          <p>触发部署、查看运行状态与执行常用维护动作。</p>
+        </div>
+        <div class="chapter-toc">
+          <h3><a href="./chapters/04-pitfalls.html">第 04 章：生产环境陷阱</a></h3>
+          <p>集中识别凭证、缓存、volume、磁盘与脚本同步问题。</p>
+        </div>
+        <div class="chapter-toc">
+          <h3><a href="./chapters/05-troubleshooting.html">第 05 章：故障排查</a></h3>
+          <p>按症状定位 Actions、ACR、SSH、Docker 与数据库故障。</p>
+        </div>
+        <div class="chapter-toc">
+          <h3><a href="./chapters/06-advanced.html">第 06 章：高级配置</a></h3>
+          <p>进一步理解镜像、备份、恢复与生产升级策略。</p>
+        </div>
+        <div class="chapter-toc">
+          <h3><a href="./chapters/07-commands.html">第 07 章：命令速查</a></h3>
+          <p>把高频部署与诊断命令集中到一页。</p>
+        </div>
+        <div class="chapter-toc">
+          <h3><a href="./chapters/08-actual.html">第 08 章：项目实战配置</a></h3>
+          <p>将前面章节映射回 Yasi Words 当前生产配置。</p>
+        </div>
+      </section>
+
+      <nav class="chapter-prev-next" aria-label="章节导航">
+        <a href="../index.html" aria-disabled="true">上一节</a>
+        <a href="./index.html">目录</a>
+        <a href="./chapters/00-overview.html">下一节</a>
+      </nav>
+    </article>
+  </body>
+</html>

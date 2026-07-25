@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#FAF7F2" />
+    <title>第 01 章：一次性配置 | Yasi Words CI/CD 教材</title>
+    <meta
+      name="description"
+      content="完成阿里云 ACR、GitHub Secrets、云服务器、SSH keypair、PostgreSQL 密码与安全组的一次性配置。"
+    />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&amp;family=Newsreader:ital,wght@0,400;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Serif+SC:wght@500;700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="./_shared.css?v=3" />
+    <link rel="stylesheet" href="../_shared.css?v=3" />
+  </head>
+  <body>
+    <article class="chapter-shell">
+      <nav class="breadcrumb" aria-label="面包屑">
+        <a href="../../index.html">首页</a> / <a href="../index.html">CICD 教材</a> /
+        <span aria-current="page">第 01 章</span>
+      </nav>
+      <h1>一次性配置</h1>
+      <p class="meta-bar">最后更新 2026-07-25</p>
+
+      <nav class="chapter-toc" aria-label="本章目录">
+        <h2>本章内容</h2>
+        <ul>
+          <li><a href="#acr">创建阿里云 ACR</a></li>
+          <li><a href="#secrets">配置 GitHub Secrets</a></li>
+          <li><a href="#server">初始化云服务器</a></li>
+          <li><a href="#ssh">生成部署 SSH keypair</a></li>
+          <li><a href="#postgres">处理 PostgreSQL 密码陷阱</a></li>
+          <li><a href="#security-group">配置安全组</a></li>
+        </ul>
+      </nav>
+
+      <section id="acr">
+        <h2>创建阿里云容器镜像服务 ACR</h2>
+        <p>
+          在阿里云容器镜像服务 ACR 个人版创建仓库，仓库名使用 <code>yasi-words</code>，
+          地域选择靠近服务器的区域。部署需要公网地址，例如
+          <code>crpi-***.cn-shenzhen.personal.cr.aliyuncs.com</code>。来源：§1.1。
+        </p>
+        <table>
+          <thead>
+            <tr><th>字段</th><th>建议值</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>仓库名</td><td><code>yasi-words</code></td></tr>
+            <tr><td>地域</td><td><code>cn-shenzhen</code>、<code>cn-hangzhou</code> 或 <code>cn-beijing</code></td></tr>
+            <tr><td>类型</td><td>公开或私有，push 前都需要正确登录</td></tr>
+            <tr><td>代码源</td><td>GitHub，可选，仅用于展示</td></tr>
+          </tbody>
+        </table>
+        <div class="callout warning">
+          <strong>凭证不要混用：</strong>ACR 用户名是访问凭证中的账号全名，ACR 密码需要单独设置。它们不是阿里云控制台登录密码。
+        </div>
+      </section>
+
+      <section id="secrets">
+        <h2>配置 7 个 GitHub Secrets</h2>
+        <p>
+          进入 <code>https://github.com/&lt;owner&gt;/&lt;repo&gt;/settings/secrets/actions</code>，
+          逐项创建以下 repository secrets。来源：§1.2。
+        </p>
+        <table>
+          <thead>
+            <tr><th>Secret</th><th>内容</th><th>错配症状</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>ALIYUN_REGISTRY</code></td><td><code>crpi-***.cn-shenzhen.personal.cr.aliyuncs.com</code></td><td>push 或 pull 返回 401</td></tr>
+            <tr><td><code>ALIYUN_REGISTRY_NAMESPACE</code></td><td>ACR namespace</td><td>镜像路径不存在</td></tr>
+            <tr><td><code>ALIYUN_REGISTRY_USERNAME</code></td><td>ACR 访问凭证用户名</td><td><code>docker login</code> 返回 401</td></tr>
+            <tr><td><code>ALIYUN_REGISTRY_PASSWORD</code></td><td>ACR 独立密码</td><td><code>docker login</code> 返回 401</td></tr>
+            <tr><td><code>DEPLOY_HOST</code></td><td><code>&lt;host&gt;</code></td><td>SSH 连接失败</td></tr>
+            <tr><td><code>DEPLOY_SSH_USER</code></td><td><code>ubuntu</code> 或 <code>root</code></td><td>用户不匹配导致 Permission denied</td></tr>
+            <tr><td><code>DEPLOY_SSH_KEY</code></td><td>OpenSSH 私钥全文</td><td>SSH 认证失败</td></tr>
+          </tbody>
+        </table>
+        <p>显式配置 <code>DEPLOY_SSH_USER</code>，不要依赖错误的默认用户。</p>
+      </section>
+
+      <section id="server">
+        <h2>初始化云服务器</h2>
+        <p>以下命令覆盖 Docker、镜像加速、部署目录、仓库与运行时环境。来源：§1.3。</p>
+        <pre><code>ssh root@&lt;server-ip&gt;
+
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh --mirror Aliyun
+sudo usermod -aG docker ubuntu
+
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json &gt; /dev/null &lt;&lt;EOF
+{
+  "registry-mirrors": ["https://mirror.ccs.tencentyun.com"]
+}
+EOF
+sudo systemctl restart docker
+
+sudo mkdir -p /opt/yasi-words
+sudo chown $USER:$USER /opt/yasi-words
+cd /opt/yasi-words
+git clone https://github.com/&lt;owner&gt;/&lt;repo&gt;.git .</code></pre>
+        <p>用随机值创建服务器端 <code>.env</code>，并确保该文件被 Git 忽略：</p>
+        <pre><code>cat &gt; .env &lt;&lt;EOF
+POSTGRES_USER=yasi
+POSTGRES_PASSWORD=$(openssl rand -base64 24 | tr -d '/+=' | head -c 24)
+POSTGRES_DB=yasi_db
+ADMIN_PASSWORD=$(openssl rand -base64 24 | tr -d '/+=' | head -c 24)
+SESSION_SECRET=$(openssl rand -base64 48)
+APP_PORT=3000
+TZ=Asia/Shanghai
+AUDIO_BUNDLE_URL=https://github.com/&lt;owner&gt;/&lt;repo&gt;/releases/download/&lt;tag&gt;/audio.tgz
+EOF
+
+grep -E "^\.env$" .gitignore || printf '%s\n' '.env' &gt;&gt; .gitignore
+exit
+ssh ubuntu@&lt;server-ip&gt; "docker --version &amp;&amp; docker compose version"</code></pre>
+      </section>
+
+      <section id="ssh">
+        <h2>生成部署 SSH keypair</h2>
+        <p>密钥必须在本地生成，公钥进入服务器，私钥进入 GitHub Secret。来源：§1.4。</p>
+        <pre><code>ssh-keygen -t ed25519 -C "github-deploy-yasi" -f ~/.ssh/yasi_deploy
+ssh-copy-id -i ~/.ssh/yasi_deploy.pub ubuntu@&lt;server-ip&gt;
+ssh -i ~/.ssh/yasi_deploy ubuntu@&lt;server-ip&gt; "echo OK"
+cat ~/.ssh/yasi_deploy</code></pre>
+        <ul>
+          <li>把 <code>yasi_deploy.pub</code> 加入服务器 <code>authorized_keys</code>。</li>
+          <li>把私钥完整内容写入 <code>DEPLOY_SSH_KEY</code>，包括 BEGIN 与 END 行。</li>
+          <li>先在本地验证免密登录，再让 GitHub Actions 使用同一把密钥。</li>
+        </ul>
+      </section>
+
+      <section id="postgres">
+        <h2>处理 PostgreSQL volume 密码陷阱</h2>
+        <p>
+          PostgreSQL volume 会保留首次 <code>initdb</code> 的密码。以后只修改 <code>.env</code>
+          不会同步数据库角色密码，应用会报 <code>password authentication failed</code>。来源：§1.5。
+        </p>
+        <pre><code>cd /opt/yasi-words
+docker compose up -d postgres
+docker compose logs postgres | grep -E "PASSWORD|initdb" | head -5
+
+docker compose exec postgres env PGPASSWORD=&lt;masked&gt; psql -U yasi -d yasi_db \
+  -c "ALTER USER yasi WITH PASSWORD '&lt;new-postgres-password&gt;'"
+
+docker compose up -d
+docker compose ps
+curl http://localhost:3000/login</code></pre>
+        <div class="callout warning">
+          <strong>安全做法：</strong>不要把旧密码或新密码写进教程、终端历史、日志或 Git。上面的值全部是占位符。
+        </div>
+      </section>
+
+      <section id="security-group">
+        <h2>配置腾讯云或阿里云安全组</h2>
+        <p>首次验证只需要 SSH 与应用端口。生产环境应由 nginx 终止 TLS，并减少直接暴露。来源：§1.6。</p>
+        <table>
+          <thead>
+            <tr><th>端口</th><th>协议</th><th>来源</th><th>用途</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>22</td><td>TCP</td><td>建议限制为管理员出口地址</td><td>SSH</td></tr>
+            <tr><td>3000</td><td>TCP</td><td><code>&lt;all-ipv4&gt;</code> 仅用于首次验证</td><td>临时访问应用</td></tr>
+            <tr><td>443</td><td>TCP</td><td><code>&lt;all-ipv4&gt;</code></td><td>生产 HTTPS</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <nav class="chapter-prev-next" aria-label="章节导航">
+        <a href="./00-overview.html">上一节</a>
+        <a href="./index.html">目录</a>
+        <a href="./02-workflow.html">下一节</a>
+      </nav>
+    </article>
+  </body>
+</html>

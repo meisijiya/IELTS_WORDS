@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>05 · 故障排查速查 · Yasi Words CI/CD 教材</title>
+    <meta
+      name="description"
+      content="一行命令速查：看 workflow、看 server、看镜像、手动重跑 deploy。"
+    />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@500;700&display=swap"
+    />
+    <link rel="stylesheet" href="../_shared.css?v=3" />
+  </head>
+  <body>
+    <main id="main" class="chapter-shell">
+      <p class="breadcrumb">
+        <a href="../index.html">首页</a> /
+        <a href="../index.html">CICD</a> /
+        <span aria-current="page">故障排查速查</span>
+      </p>
+      <h1>故障排查速查</h1>
+      <p class="meta-bar">最后更新 2026-07-25</p>
+
+      <nav class="chapter-toc" aria-label="本页目录">
+        <h2>本章内容</h2>
+        <ul>
+          <li><a href="#by-symptom">按症状定位</a></li>
+          <li><a href="#commands">一条命令速查</a></li>
+        </ul>
+      </nav>
+
+      <p>
+        出问题先复制对应行到本机或 server shell 跑。本章命令直接来自
+        <code>CICD.md §5</code>。
+      </p>
+
+      <h2 id="by-symptom">按症状定位</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>症状</th>
+            <th>第一步</th>
+            <th>第二步</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>deploy 步骤红了</td>
+            <td><code>gh run list --limit 5</code></td>
+            <td><code>gh run view &lt;id&gt; --log</code></td>
+          </tr>
+          <tr>
+            <td>server 代码没变</td>
+            <td>看 GH Actions log 里 build tag</td>
+            <td><code>ssh ubuntu@&lt;host&gt; "docker images | grep yasi"</code></td>
+          </tr>
+          <tr>
+            <td>app 启动 500</td>
+            <td><code>docker compose logs --tail 50 app</code></td>
+            <td>看 entrypoint 报 schema / audio / seed</td>
+          </tr>
+          <tr>
+            <td>页面打不开</td>
+            <td>本机 <code>curl</code> 测 3000 端口</td>
+            <td>看 nginx 反代 + 安全组</td>
+          </tr>
+          <tr>
+            <td>audio 全部 404</td>
+            <td>进容器 <code>ls /app/public/audio | wc -l</code></td>
+            <td>查 entrypoint 拉 audio 日志</td>
+          </tr>
+          <tr>
+            <td>DB 连不上</td>
+            <td><code>docker compose ps</code> 看 postgres</td>
+            <td><code>pg_isready</code> 测连通性</td>
+          </tr>
+          <tr>
+            <td>磁盘满</td>
+            <td><code>df -h /</code></td>
+            <td>跑 <code>Free-Disk</code> workflow</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 id="commands">一条命令速查</h2>
+
+      <h3>GitHub Actions / CLI</h3>
+      <pre><code># 看 workflow 最近状态
+gh run list --limit 5
+
+# 看单次 run 详细日志
+gh run view &lt;id&gt; --log
+
+# 强制 clean rebuild（绕过 cache）
+# GitHub Actions run page → Re-run jobs → 勾「Force rebuild without cache」</code></pre>
+
+      <h3>Server 状态</h3>
+      <pre><code># 看 server 上镜像（确认 deploy 拉了新 image）
+ssh ubuntu@&lt;host&gt; "docker images | grep yasi"
+
+# 看 server 容器状态
+ssh ubuntu@&lt;host&gt; "cd /opt/yasi-words &amp;&amp; docker compose ps"
+
+# 看 entrypoint / app 日志
+ssh ubuntu@&lt;host&gt; "cd /opt/yasi-words &amp;&amp; docker compose logs --tail 50 app"
+
+# 本机直接测 3000 端口
+ssh ubuntu@&lt;host&gt; "curl -sS -o /dev/null -w '%{http_code}\n' http://localhost:3000/login"</code></pre>
+
+      <h3>手动重现 deploy（绕过 CI/CD）</h3>
+      <pre><code>ssh ubuntu@&lt;host&gt; "cd /opt/yasi-words &amp;&amp; \
+  export APP_IMAGE=ACR_REGISTRY/meisijiya/yasi-words:latest &amp;&amp; \
+  docker pull \$APP_IMAGE &amp;&amp; \
+  docker compose pull app &amp;&amp; \
+  docker compose up -d --force-recreate app"</code></pre>
+      <div class="callout warning">
+        <strong>注意</strong>：上面 inline 示例里的 <code>ACR_REGISTRY</code> 占位符要替换成实际的
+        <code>$ALIYUN_REGISTRY</code>，例如 <code>crpi-***.cn-shenzhen.personal.cr.aliyuncs.com</code>。
+      </div>
+
+      <h3>ACR 镜像列表</h3>
+      <pre><code># 用 aliyun CLI
+aliyun cr ListRepositoryTag --RegionId cn-shenzhen \
+  --Namespace meisijiya --RepositoryName yasi-words</code></pre>
+
+      <nav class="chapter-prev-next" aria-label="章节导航">
+        <a href="./04-pitfalls.html">上一节</a>
+        <a href="../index.html">目录</a>
+        <a href="./06-advanced.html">下一节</a>
+      </nav>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#FAF7F2" />
+    <title>第 00 章：系统总览 | Yasi Words CI/CD 教材</title>
+    <meta
+      name="description"
+      content="理解 Yasi Words 从 git push、GitHub Actions、阿里云 ACR 到云服务器的完整部署数据流。"
+    />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&amp;family=Newsreader:ital,wght@0,400;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Serif+SC:wght@500;700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="./_shared.css?v=3" />
+    <link rel="stylesheet" href="../_shared.css?v=3" />
+  </head>
+  <body>
+    <article class="chapter-shell">
+      <nav class="breadcrumb" aria-label="面包屑">
+        <a href="../../index.html">首页</a> / <a href="../index.html">CICD 教材</a> /
+        <span aria-current="page">第 00 章</span>
+      </nav>
+      <h1>系统总览</h1>
+      <p class="meta-bar">最后更新 2026-07-25</p>
+
+      <nav class="chapter-toc" aria-label="本章目录">
+        <h2>本章内容</h2>
+        <ul>
+          <li><a href="#diagram">系统图怎么读</a></li>
+          <li><a href="#nodes">五个关键节点</a></li>
+          <li><a href="#flow">数据流叙事</a></li>
+          <li><a href="#boundaries">边界与持久化</a></li>
+        </ul>
+      </nav>
+
+      <section id="diagram">
+        <h2>系统图怎么读</h2>
+        <p>
+          本章不复制 SVG。请先打开
+          <a href="../index.html#system-map">教材目录中的完整链路</a>，再结合项目首页的
+          <a href="../../index.html#deploy">部署图示入口</a>阅读。原始字符图与节点说明来自 <code>CICD.md</code> §0。
+        </p>
+        <p>
+          图的水平轴表示服务边界：GitHub 托管 runner、阿里云容器镜像服务 ACR、云服务器。
+          垂直轴表示时间顺序：提交代码、构建镜像、推送镜像、远程部署、浏览器访问。
+        </p>
+      </section>
+
+      <section id="nodes">
+        <h2>五个关键节点</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>节点</th>
+              <th>职责</th>
+              <th>主要产物</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>本地开发环境</td>
+              <td>提交代码并执行 <code>git push origin main</code></td>
+              <td>Git commit</td>
+            </tr>
+            <tr>
+              <td>GitHub</td>
+              <td>触发 <code>.github/workflows/deploy.yml</code></td>
+              <td>Actions run</td>
+            </tr>
+            <tr>
+              <td>GitHub runner</td>
+              <td>执行 BuildKit 构建并推送三个镜像 tag</td>
+              <td>容器镜像</td>
+            </tr>
+            <tr>
+              <td>阿里云 ACR</td>
+              <td>保存 <code>:latest</code>、commit SHA 与时间戳 tag</td>
+              <td>可拉取的镜像版本</td>
+            </tr>
+            <tr>
+              <td>云服务器</td>
+              <td>拉取镜像并运行 Next.js 与 PostgreSQL 容器</td>
+              <td>可访问服务与持久化数据</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="flow">
+        <h2>数据流叙事</h2>
+        <h3>第一段：源码进入流水线</h3>
+        <p>
+          开发者把 <code>main</code> 分支推到 GitHub。GitHub 根据 workflow 的 <code>push</code>
+          触发器创建一次 run，使用 <code>ubuntu-latest</code> runner 拉取源码。此时流动的是 Git 对象与 workflow 配置。
+        </p>
+
+        <h3>第二段：源码变成镜像</h3>
+        <p>
+          <code>build-and-push</code> job 登录阿里云容器镜像服务 ACR，执行
+          <code>docker/build-push-action@v6</code>。Dockerfile、应用源码和构建参数被封装为不可变镜像层，
+          然后以 <code>:latest</code>、短 SHA、时间戳三个 tag 推送。此时流动的是镜像 manifest 与 layer。
+        </p>
+
+        <h3>第三段：镜像进入运行环境</h3>
+        <p>
+          只有构建成功后，<code>deploy</code> job 才会启动。它通过
+          <code>appleboy/ssh-action@v1</code> 连接服务器，导出 <code>APP_IMAGE</code>，执行
+          <code>docker pull</code> 与 <code>docker compose up -d --force-recreate app</code>。
+          此时流动的是 ACR 中的镜像内容，不是在服务器上重新编译的源码。
+        </p>
+
+        <h3>第四段：请求与数据分离</h3>
+        <p>
+          浏览器请求到达 Next.js 容器，业务数据写入 PostgreSQL。应用镜像可以随部署替换，数据库数据仍保存在 volume 中。
+          这就是为什么应用回滚与数据库变更必须分别考虑。
+        </p>
+      </section>
+
+      <section id="boundaries">
+        <h2>边界与持久化</h2>
+        <div class="callout">
+          <strong>记住一条主线：</strong>GitHub 负责自动化，ACR 负责镜像分发，云服务器负责运行，PostgreSQL volume 负责持久化。
+        </div>
+        <ul>
+          <li>GitHub Secrets 只向 workflow 提供部署凭证，不应写入仓库。</li>
+          <li>ACR 访问凭证与阿里云登录密码不是同一组凭证。</li>
+          <li><code>audio_data</code> 与 PostgreSQL volume 的生命周期独立于应用容器。</li>
+          <li>服务器上的 <code>.env</code> 保存运行时配置，不进入 Git。</li>
+        </ul>
+      </section>
+
+      <nav class="chapter-prev-next" aria-label="章节导航">
+        <a href="../index.html" aria-disabled="true">上一节</a>
+        <a href="./index.html">目录</a>
+        <a href="./01-setup.html">下一节</a>
+      </nav>
+    </article>
+  </body>
+</html>

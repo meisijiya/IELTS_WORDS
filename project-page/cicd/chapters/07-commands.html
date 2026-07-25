@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>07 · 参考命令速查 · Yasi Words CI/CD 教材</title>
+    <meta
+      name="description"
+      content="密码生成、gh secret、强制 rebuild、ACR 镜像列表等参考命令。"
+    />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@500;700&display=swap"
+    />
+    <link rel="stylesheet" href="../_shared.css?v=3" />
+  </head>
+  <body>
+    <main id="main" class="chapter-shell">
+      <p class="breadcrumb">
+        <a href="../index.html">首页</a> /
+        <a href="../index.html">CICD</a> /
+        <span aria-current="page">参考命令速查</span>
+      </p>
+      <h1>参考命令速查</h1>
+      <p class="meta-bar">最后更新 2026-07-25</p>
+
+      <nav class="chapter-toc" aria-label="本页目录">
+        <h2>本章内容</h2>
+        <ul>
+          <li><a href="#passwords">密码生成</a></li>
+          <li><a href="#gh-secrets">GitHub repo secrets</a></li>
+          <li><a href="#workflow">Workflow 控制</a></li>
+          <li><a href="#acr-api">ACR API 镜像列表</a></li>
+        </ul>
+      </nav>
+
+      <p>本页对应 <code>CICD.md §7</code>，可直接复制运行。</p>
+
+      <h2 id="passwords">密码生成</h2>
+      <p>三种方式产生强密码（任选其一）：</p>
+      <pre><code>openssl rand -base64 48 | tr -d '/+='
+openssl rand -hex 32
+head -c 24 /dev/urandom | base64</code></pre>
+      <div class="callout">
+        <strong>用法</strong>：把输出塞到 <code>/opt/yasi-words/.env</code> 的
+        <code>POSTGRES_PASSWORD</code> / <code>ADMIN_PASSWORD</code> /
+        <code>SESSION_SECRET</code>。详见
+        <a href="https://github.com/meisijiya/IELTS_WORDS/blob/main/CICD.md">CICD.md §1.3</a>。
+      </div>
+
+      <h2 id="gh-secrets">GitHub repo secrets</h2>
+      <p>用 <code>gh</code> CLI 写 secrets（要先 <code>gh auth login</code>）：</p>
+      <pre><code># 单条设置
+gh secret set ALIYUN_REGISTRY --body "crpi-***.cn-shenzhen.personal.cr.aliyuncs.com"
+
+# 列出当前所有 secret
+gh secret list</code></pre>
+
+      <h2 id="workflow">Workflow 控制</h2>
+      <pre><code># 强制重 build（带 fresh cache）
+gh workflow run deploy.yml
+
+# 取消正在跑的 workflow
+gh run cancel &lt;id&gt;</code></pre>
+      <p>
+        想看 run 详细日志：
+      </p>
+      <pre><code>gh run list --limit 5
+gh run view &lt;id&gt; --log</code></pre>
+
+      <h2 id="acr-api">ACR API 镜像列表</h2>
+      <pre><code># 用 docker login 拿 token
+docker login $ALIYUN_REGISTRY -u $ALIYUN_REGISTRY_USERNAME -p $ALIYUN_REGISTRY_PASSWORD
+
+# 用 registry v2 API 拉 tag 列表
+curl -s "https://$ALIYUN_REGISTRY/v2/meisijiya/yasi-words/tags/list" \
+  -u "$ALIYUN_REGISTRY_USERNAME:$ALIYUN_REGISTRY_PASSWORD" | jq .</code></pre>
+
+      <p>
+        上面命令里的 <code>$ALIYUN_REGISTRY</code> /
+        <code>$ALIYUN_REGISTRY_USERNAME</code> / <code>$ALIYUN_REGISTRY_PASSWORD</code> 都来自
+        server 上的 <code>/opt/yasi-words/.env</code>，或 GH Actions secrets 同名变量。
+        不要把密码 commit 到 git 或 echo 到聊天里。
+      </p>
+
+      <nav class="chapter-prev-next" aria-label="章节导航">
+        <a href="./06-advanced.html">上一节</a>
+        <a href="../index.html">目录</a>
+        <a href="./08-actual.html">下一节</a>
+      </nav>
+    </main>
+  </body>
+</html>

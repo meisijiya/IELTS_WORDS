@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>08 · 本项目最终配置 · Yasi Words CI/CD 教材</title>
+    <meta
+      name="description"
+      content="本项目 (Yasi Words) 实际跑通的最终配置：deploy.yml、docker-compose.yml、Dockerfile、entrypoint.sh。"
+    />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@500;700&display=swap"
+    />
+    <link rel="stylesheet" href="../_shared.css?v=3" />
+  </head>
+  <body>
+    <main id="main" class="chapter-shell">
+      <p class="breadcrumb">
+        <a href="../index.html">首页</a> /
+        <a href="../index.html">CICD</a> /
+        <span aria-current="page">本项目最终配置</span>
+      </p>
+      <h1>本项目最终配置</h1>
+      <p class="meta-bar">最后更新 2026-07-25</p>
+
+      <nav class="chapter-toc" aria-label="本页目录">
+        <h2>本章内容</h2>
+        <ul>
+          <li><a href="#constants">项目常量</a></li>
+          <li><a href="#deploy">deploy.yml</a></li>
+          <li><a href="#compose">docker-compose.yml</a></li>
+          <li><a href="#dockerfile">Dockerfile</a></li>
+          <li><a href="#entrypoint">entrypoint.sh</a></li>
+          <li><a href="#coupling">耦合关系</a></li>
+        </ul>
+      </nav>
+
+      <p>
+        本章快照对应 <code>CICD.md §8</code>。所有 IP / 密码 / 真实 registry 域名都用占位符替换，
+        但保留全部结构性内容（commit 摘要、文件路径、命名空间），方便 fork 后对照修改。
+      </p>
+
+      <h2 id="constants">项目常量</h2>
+      <table>
+        <thead>
+          <tr><th>项</th><th>实际值</th><th>占位符形式</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Server 公网 IP</td>
+            <td>腾讯云轻量服务器</td>
+            <td><code>&lt;host&gt;</code></td>
+          </tr>
+          <tr>
+            <td>Server 部署路径</td>
+            <td><code>/opt/yasi-words</code></td>
+            <td>保持原样（已硬编码）</td>
+          </tr>
+          <tr>
+            <td>ACR namespace</td>
+            <td><code>meisijiya</code></td>
+            <td>保持原样</td>
+          </tr>
+          <tr>
+            <td>ACR 仓库名</td>
+            <td><code>yasi-words</code></td>
+            <td>保持原样</td>
+          </tr>
+          <tr>
+            <td>ACR 地域</td>
+            <td><code>cn-shenzhen</code></td>
+            <td>保持原样</td>
+          </tr>
+          <tr>
+            <td>Postgres image</td>
+            <td><code>postgres:16-alpine</code></td>
+            <td>保持原样</td>
+          </tr>
+          <tr>
+            <td>Node image</td>
+            <td><code>node:22-alpine</code></td>
+            <td>保持原样</td>
+          </tr>
+          <tr>
+            <td>Container 名</td>
+            <td><code>yasi-app</code> + <code>yasi-postgres</code></td>
+            <td>保持原样</td>
+          </tr>
+          <tr>
+            <td>Admin 默认密码</td>
+            <td><code>&lt;admin-password&gt;</code>（docker-compose.yml 默认值）</td>
+            <td>已被 <code>.env</code> 覆盖</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 id="deploy">deploy.yml</h2>
+      <p>
+        文件：<code>.github/workflows/deploy.yml</code>。
+        关键差异：默认 <code>permissions: contents: read</code>；build job 在
+        <code>push</code> 才跑；deploy job 显式做 DB 保护（不允许 <code>down -v</code> 或
+        <code>--force-recreate postgres</code>）。
+      </p>
+
+      <h3>触发与权限</h3>
+      <pre><code>on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read</code></pre>
+
+      <h3>build-and-push job</h3>
+      <p>仅 <code>push</code> 触发，runner = <code>ubuntu-latest</code>。</p>
+      <pre><code>jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.ALIYUN_REGISTRY }}
+          username: ${{ secrets.ALIYUN_REGISTRY_USERNAME }}
+          password: ${{ secrets.ALIYUN_REGISTRY_PASSWORD }}
+
+      - name: Extract version
+        id: meta
+        run: |
+          echo "short_sha=$(echo ${{ github.sha }} | cut -c1-7)" &gt;&gt; $GITHUB_OUTPUT
+          echo "timestamp=$(date +%Y%m%d-%H%M%S)" &gt;&gt; $GITHUB_OUTPUT
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          build-args: |
+            AUDIO_BUNDLE_URL=https://github.com/meisijiya/IELTS_WORDS/releases/download/audio-full-2026-07-23/audio_full.tgz
+          tags: |
+            ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:latest
+            ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:${{ steps.meta.outputs.short_sha }}
+            ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:${{ steps.meta.outputs.timestamp }}
+          # cache 故意关闭: 避免 stale layer 掩盖 AUDIO_BUNDLE_URL 改动
+          cache-from: ""
+          cache-to: ""</code></pre>
+
+      <h3>deploy job（核心是 DB 保护 + APP_IMAGE 显式 export）</h3>
+      <pre><code>  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_SSH_USER || 'root' }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            set -euo pipefail
+            cd /opt/yasi-words
+
+            # DB 保护: postgres 必须先在跑；否则 abort
+            docker ps --filter "name=yasi-postgres" --filter "status=running" \
+              --format "{{.Names}}" | grep -q '^yasi-postgres$' || {
+              echo "[deploy] FATAL: yasi-postgres not running. ABORT."
+              exit 1
+            }
+
+            export ALIYUN_REGISTRY='${{ secrets.ALIYUN_REGISTRY }}'
+            export ALIYUN_REGISTRY_NAMESPACE='${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}'
+
+            echo "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}" | docker login \
+              -u '${{ secrets.ALIYUN_REGISTRY_USERNAME }}' \
+              --password-stdin ${{ secrets.ALIYUN_REGISTRY }}
+
+            export APP_IMAGE='${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_REGISTRY_NAMESPACE }}/yasi-words:latest'
+            docker pull "$APP_IMAGE"
+            docker compose pull app
+            # 只 recreate app，不动 postgres 与其 volume
+            docker compose up -d --force-recreate app
+
+            # 保留当前 + 1 个最近非当前 image，清理其余
+            CURRENT_ID=$(docker ps --filter "name=yasi-app" --format "{{.Image}}" | head -1)
+            docker images --format "{{.ID}}|{{.CreatedAt}}|{{.Repository}}:{{.Tag}}" \
+              | grep "yasi-words" | sort -t'|' -k2 -r \
+              | awk -F'|' -v keep_id="$CURRENT_ID" \
+                  '($1 == keep_id) {next} (++seen &gt; 1) {print $1}' \
+              | xargs -r docker rmi -f 2&gt;&amp;1 | tail -5 || true
+            docker image prune -f --filter "until=24h" || true
+            docker builder prune -f --filter "until=24h" || true
+
+            # DB 保护: post-check
+            if ! docker exec yasi-postgres pg_isready \
+                 -U "$(grep '^POSTGRES_USER=' /opt/yasi-words/.env | cut -d= -f2-)" \
+                 -d "$(grep '^POSTGRES_DB=' /opt/yasi-words/.env | cut -d= -f2-)" \
+                 &gt; /dev/null 2&gt;&amp;1; then
+              echo "[deploy] WARN: pg_isready failed"
+            fi
+            df -h / | tail -1</code></pre>
+
+      <h3>Health check</h3>
+      <pre><code>      - name: Health check
+        run: |
+          sleep 10
+          for i in 1 2 3 4 5; do
+            if curl -fsS http://${{ secrets.DEPLOY_HOST }}:3000/login &gt;/dev/null; then
+              echo "[health] OK"
+              exit 0
+            fi
+            sleep 5
+          done
+          exit 1</code></pre>
+
+      <h2 id="compose">docker-compose.yml</h2>
+      <p>
+        关键点：<code>app</code> service 同时有 <code>image:</code> 和
+        <code>build:</code>，靠 <code>${APP_IMAGE:-}</code> 切换 deploy 模式 vs 本地 dev。
+        <code>audio_data</code> named volume 持久化 entrypoint 拉下来的 audio。
+      </p>
+      <pre><code>services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: yasi-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-yasi}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-yasi_dev_pwd_change_me}
+      POSTGRES_DB: ${POSTGRES_DB:-yasi_db}
+      TZ: ${TZ:-Asia/Shanghai}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-yasi} -d ${POSTGRES_DB:-yasi_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks: [yasi-net]
+
+  app:
+    image: ${APP_IMAGE:-}     # deploy 时 = ACR tag；本地 dev 留空走 build:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        AUDIO_BUNDLE_URL: ${AUDIO_BUNDLE_URL:-}
+    container_name: yasi-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-yasi}:${POSTGRES_PASSWORD:-yasi_dev_pwd_change_me}@postgres:5432/${POSTGRES_DB:-yasi_db}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-&lt;admin-password&gt;}
+      SESSION_SECRET: ${SESSION_SECRET:-change-me-in-production-min-32-chars-long}
+      NODE_ENV: production
+      TZ: ${TZ:-Asia/Shanghai}
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    volumes:
+      - app_logs:/app/logs
+      - audio_data:/app/public/audio
+    networks: [yasi-net]
+
+volumes:
+  pgdata:
+  app_logs:
+  audio_data:</code></pre>
+
+      <h2 id="dockerfile">Dockerfile</h2>
+      <p>
+        两阶段 build。builder 阶段加 <code>mkdir -p /app/public</code> 解决
+        <a href="./04-pitfalls.html">坑 5</a>；runner 阶段 <code>COPY --from=builder /app/public/ ./public/</code>
+        必须路径存在。
+      </p>
+      <pre><code>FROM node:22-alpine AS builder
+RUN sed -i 's|dl-cdn.alpinelinux.org|mirrors.aliyun.com|g' /etc/apk/repositories
+ENV npm_config_registry=https://registry.npmmirror.com
+WORKDIR /app
+RUN apk add --no-cache python3 py3-pip curl
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+RUN mkdir -p /app/public        # 解决坑 5
+ARG AUDIO_BUNDLE_URL=""
+RUN if [ -n "$AUDIO_BUNDLE_URL" ]; then \
+      mkdir -p public/audio; \
+      curl -fsSL --max-time 600 "$AUDIO_BUNDLE_URL" \
+        | tar xz --strip-components=1 -C public/audio/ \
+        || echo "WARN: audio fetch failed"; \
+    fi
+RUN npx prisma generate
+RUN npm run build
+
+FROM node:22-alpine AS runner
+RUN sed -i 's|dl-cdn.alpinelinux.org|mirrors.aliyun.com|g' /etc/apk/repositories
+ENV npm_config_registry=https://registry.npmmirror.com
+WORKDIR /app
+ENV NODE_ENV=production
+RUN apk add --no-cache python3 py3-pip curl
+COPY package.json package-lock.json ./
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/seed ./seed
+COPY --from=builder /app/src ./src
+COPY --from=builder /app/tools ./tools
+COPY --from=builder /app/public/ ./public/
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \
+  CMD curl -fsS http://localhost:3000/login &gt;/dev/null || exit 1
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["node", "node_modules/next/dist/bin/next", "start", "-H", "0.0.<bind>", "-p", "3000"]</code></pre>
+
+      <h2 id="entrypoint">entrypoint.sh</h2>
+      <p>
+        三件事：等 DB → push schema → seed；audio 缺失时 runtime fetch（兜底）。
+      </p>
+      <pre><code>#!/bin/sh
+set -eu
+echo "[entrypoint] starting Yasi Words container..."
+
+# 1. 按 DATABASE_URL 切换 Prisma provider
+if echo "$DATABASE_URL" | grep -qE '^postgres'; then
+  if grep -q 'provider = "sqlite"' prisma/schema.prisma; then
+    cp prisma/schema.prisma prisma/schema.sqlite.prisma.bak
+    sed -i 's/provider = "sqlite"/provider = "postgresql"/' prisma/schema.prisma
+    npx prisma generate
+    NEED_RESTORE=1
+  fi
+fi
+
+# 2. 等 Postgres 30s
+i=0
+while [ "$i" -lt 30 ]; do
+  if node -e "const {PrismaClient}=require('@prisma/client');const p=new PrismaClient();p.\$queryRaw\`SELECT 1\`.then(()=>{p.\$disconnect();process.exit(0);}).catch(()=>process.exit(1));" &gt;/dev/null 2&gt;&amp;1; then
+    break
+  fi
+  i=$((i+1)); sleep 1
+done
+[ "$i" -ge 30 ] &amp;&amp; { echo "[entrypoint] DB not ready"; exit 1; }
+
+# 3. push schema（loud-exit，无 || true）
+npx prisma db push --skip-generate --accept-data-loss 2&gt;&amp;1 | tail -5 || { echo "[entrypoint] db push failed"; exit 1; }
+
+# 4. seed
+if [ -d "seed" ]; then
+  npx tsx prisma/seed.ts 2&gt;&amp;1 | tail -30 || { echo "[entrypoint] seed failed"; exit 1; }
+fi
+
+# 5. audio 兜底: baked 缺失时 runtime 拉
+AUDIO_COUNT=$(find public/audio -type f -name "*.mp3" 2&gt;/dev/null | wc -l)
+if [ "$AUDIO_COUNT" -eq 0 ] &amp;&amp; [ -n "$AUDIO_BUNDLE_URL" ]; then
+  mkdir -p public/audio
+  curl -fsSL --retry 3 --retry-delay 5 --max-time 600 "$AUDIO_BUNDLE_URL" \
+    | tar xz --strip-components=1 -C public/audio/ \
+    &amp;&amp; AUDIO_COUNT=$(find public/audio -type f -name "*.mp3" | wc -l)
+fi
+
+# 6. 复原 schema
+[ "${NEED_RESTORE:-0}" = "1" ] &amp;&amp; mv prisma/schema.sqlite.prisma.bak prisma/schema.prisma
+
+exec "$@"</code></pre>
+
+      <h2 id="coupling">耦合关系</h2>
+      <div class="callout">
+        <strong>改一处必看另外三处</strong>：<code>.github/workflows/deploy.yml</code> ↔
+        <code>docker-compose.yml</code> ↔ <code>docker/entrypoint.sh</code> ↔
+        <code>Dockerfile</code>。
+      </div>
+      <ul>
+        <li>改 <code>AUDIO_BUNDLE_URL</code>：deploy.yml build-args + Dockerfile ARG + entrypoint runtime fetch 三处都改。</li>
+        <li>改 Postgres 主版本：Dockerfile 不变；docker-compose.yml <code>image:</code> + entrypoint 都不引用具体版本（仅 Prisma provider 改动）。</li>
+        <li>改 container name：deploy.yml DB 保护 grep 字符串 + docker-compose.yml <code>container_name:</code> 同步。</li>
+        <li>改 server 路径：deploy.yml <code>cd /opt/yasi-words</code> + 所有 ops workflow <code>cd</code> 同步（详见 <a href="./04-pitfalls.html">坑 11</a>）。</li>
+      </ul>
+
+      <p>
+        后续改动请保持这 4 个文件的耦合关系一起改。这是本项目跑通的核心。
+      </p>
+
+      <nav class="chapter-prev-next" aria-label="章节导航">
+        <a href="./07-commands.html">上一节</a>
+        <a href="../index.html">目录</a>
+        <a href="#" aria-disabled="true">下一节</a>
+      </nav>
+    </main>
+  </body>
+</html>

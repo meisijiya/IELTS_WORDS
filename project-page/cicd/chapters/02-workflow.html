@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#FAF7F2" />
+    <title>第 02 章：Workflow 拆解 | Yasi Words CI/CD 教材</title>
+    <meta
+      name="description"
+      content="拆解 Yasi Words deploy.yml 的 build-and-push 与 deploy jobs，并解释 Docker Compose image 字段。"
+    />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&amp;family=Newsreader:ital,wght@0,400;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;family=Noto+Serif+SC:wght@500;700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="./_shared.css?v=3" />
+    <link rel="stylesheet" href="../_shared.css?v=3" />
+  </head>
+  <body>
+    <article class="chapter-shell">
+      <nav class="breadcrumb" aria-label="面包屑">
+        <a href="../../index.html">首页</a> / <a href="../index.html">CICD 教材</a> /
+        <span aria-current="page">第 02 章</span>
+      </nav>
+      <h1>Workflow 拆解</h1>
+      <p class="meta-bar">最后更新 2026-07-25</p>
+
+      <nav class="chapter-toc" aria-label="本章目录">
+        <h2>本章内容</h2>
+        <ul>
+          <li><a href="#trigger">触发条件与依赖关系</a></li>
+          <li><a href="#build">build-and-push job</a></li>
+          <li><a href="#deploy">deploy job</a></li>
+          <li><a href="#compose-image">为什么 Compose 必须有 image 字段</a></li>
+          <li><a href="#mental-model">运行心智模型</a></li>
+        </ul>
+      </nav>
+
+      <section id="trigger">
+        <h2>触发条件与依赖关系</h2>
+        <p>
+          Workflow 位于 <code>.github/workflows/deploy.yml</code>，只在 <code>main</code> 分支 push
+          或手动触发时运行。来源：§2。
+        </p>
+        <pre><code>on:
+  push:
+    branches: [main]
+  workflow_dispatch:</code></pre>
+        <p>
+          两个 job 不是并行关系。<code>deploy</code> 声明 <code>needs: build-and-push</code>，
+          因此只有镜像构建和推送成功，服务器部署才会开始。
+        </p>
+      </section>
+
+      <section id="build">
+        <h2><code>build-and-push</code> job</h2>
+        <p>这个 job 在 GitHub 托管的 <code>ubuntu-latest</code> runner 上执行。来源：§2.1。</p>
+        <ol>
+          <li><code>actions/checkout@v4</code> 拉取当前提交源码。</li>
+          <li><code>docker/setup-buildx-action@v3</code> 准备 BuildKit buildx。</li>
+          <li><code>docker/login-action@v3</code> 使用 Secrets 登录阿里云 ACR。</li>
+          <li><code>Extract version</code> 计算短 SHA 与时间戳。</li>
+          <li><code>docker/build-push-action@v6</code> 构建并推送镜像。</li>
+          <li>以 inline 形式写入 OCI cache metadata。</li>
+        </ol>
+        <table>
+          <thead>
+            <tr><th>Tag</th><th>用途</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>meisijiya/yasi-words:latest</code></td><td>deploy job 默认拉取</td></tr>
+            <tr><td><code>meisijiya/yasi-words:&lt;short-sha&gt;</code></td><td>精确定位提交与回滚</td></tr>
+            <tr><td><code>meisijiya/yasi-words:&lt;timestamp&gt;</code></td><td>按构建时间追踪历史</td></tr>
+          </tbody>
+        </table>
+        <div class="callout">
+          <strong>关键结果：</strong>这个 job 的交付物不是压缩包，也不是服务器目录中的源码，而是 ACR 中可按 tag 拉取的容器镜像。
+        </div>
+      </section>
+
+      <section id="deploy">
+        <h2><code>deploy</code> job</h2>
+        <p>
+          这个 job 同样运行在 GitHub runner 上，但真正的部署命令由
+          <code>appleboy/ssh-action@v1</code> 发送到服务器执行。来源：§2.2。
+        </p>
+        <pre><code>set -e
+cd /opt/yasi-words
+
+echo "$ALIYUN_REGISTRY_PASSWORD" | docker login \
+  -u "$ALIYUN_REGISTRY_USERNAME" \
+  --password-stdin "$ALIYUN_REGISTRY"
+
+export APP_IMAGE="$ALIYUN_REGISTRY/$ALIYUN_REGISTRY_NAMESPACE/yasi-words:latest"
+
+docker pull "$APP_IMAGE"
+docker compose pull app
+docker compose up -d --force-recreate app
+docker image prune -f --filter "until=24h"</code></pre>
+        <h3>逐行理解</h3>
+        <ul>
+          <li><code>set -e</code> 让任何失败命令立即终止部署。</li>
+          <li><code>docker login</code> 让服务器获得拉取 ACR 镜像的权限。</li>
+          <li><code>APP_IMAGE</code> 把完整 registry、namespace、仓库与 tag 交给 Compose。</li>
+          <li><code>docker pull</code> 明确拉取目标镜像，避免把 server build 当成 fallback。</li>
+          <li><code>--force-recreate app</code> 用新镜像替换应用容器，不重建 PostgreSQL。</li>
+          <li><code>docker image prune</code> 清理较旧的未使用镜像，控制磁盘占用。</li>
+        </ul>
+        <p>Workflow 还会执行 5 次 sleep 与 curl 的健康检查，总等待上限约 1 分钟。</p>
+      </section>
+
+      <section id="compose-image">
+        <h2>为什么 Compose 必须有 <code>image:</code></h2>
+        <p>
+          如果 <code>app</code> service 只有 <code>build:</code>，<code>docker compose pull app</code>
+          会提示没有可拉取镜像并跳过。随后 <code>up --force-recreate</code> 可能在服务器上重新 build，
+          整条 ACR 分发链路被绕过。来源：§2.3。
+        </p>
+        <p>错误配置：</p>
+        <pre><code>app:
+  build:
+    context: .</code></pre>
+        <p>项目需要的配置：</p>
+        <pre><code>app:
+  image: ${APP_IMAGE:-}
+  build:
+    context: .</code></pre>
+        <p>
+          部署时，workflow 导出 <code>APP_IMAGE</code>，Compose 得到明确远程镜像；本地开发不设置它时，
+          <code>build:</code> 仍然可用。一个 service 同时保留两种入口，但生产部署必须沿着 <code>image:</code> 走。
+        </p>
+        <div class="callout warning">
+          <strong>验证原则：</strong><code>docker compose pull app</code> 成功并不等于服务已重启，
+          还必须执行 <code>docker compose up -d --force-recreate app</code> 并通过健康检查。
+        </div>
+      </section>
+
+      <section id="mental-model">
+        <h2>运行心智模型</h2>
+        <table>
+          <thead>
+            <tr><th>问题</th><th>答案</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>在哪里 build</td><td>GitHub Actions runner</td></tr>
+            <tr><td>镜像存在哪里</td><td>阿里云容器镜像服务 ACR</td></tr>
+            <tr><td>服务器做什么</td><td>登录、拉取、重建 app 容器、健康检查</td></tr>
+            <tr><td>为什么要三个 tag</td><td>latest 用于部署，SHA 与时间戳用于审计和回滚</td></tr>
+            <tr><td>什么保证顺序</td><td><code>needs: build-and-push</code></td></tr>
+            <tr><td>什么防止 server 重建</td><td><code>image: ${APP_IMAGE:-}</code> 与显式 <code>docker pull</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <nav class="chapter-prev-next" aria-label="章节导航">
+        <a href="./01-setup.html">上一节</a>
+        <a href="./index.html">目录</a>
+        <a href="./03-usage.html">下一节</a>
+      </nav>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>04 · 17 个生产坑 · Yasi Words CI/CD 教材</title>
+    <meta
+      name="description"
+      content="按发现时间排序的 17 个 CI/CD 生产坑，分区：ACR / Docker / GHA / DB / shell tricks。"
+    />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@500;700&display=swap"
+    />
+    <link rel="stylesheet" href="../_shared.css?v=3" />
+  </head>
+  <body>
+    <main id="main" class="chapter-shell">
+      <p class="breadcrumb">
+        <a href="../index.html">首页</a> /
+        <a href="../index.html">CICD</a> /
+        <span aria-current="page">17 个生产坑</span>
+      </p>
+      <h1>17 个生产坑</h1>
+      <p class="meta-bar">最后更新 2026-07-25</p>
+
+      <nav class="chapter-toc" aria-label="本页目录">
+        <h2>本章内容</h2>
+        <ul>
+          <li><a href="#acr">ACR（阿里云容器镜像）</a></li>
+          <li><a href="#docker">Docker / 镜像构建</a></li>
+          <li><a href="#gha">GitHub Actions workflow</a></li>
+          <li><a href="#db">数据库（Postgres + Prisma）</a></li>
+          <li><a href="#shell">Shell 调用 docker 的细节</a></li>
+        </ul>
+      </nav>
+
+      <p>
+        按发现问题的时间顺序排列。每条都给出 <strong>症状 / 原因 / 修法</strong>。
+        引用编号沿用 <code>CICD.md §4</code> 的 1 到 17。
+      </p>
+
+      <h2 id="acr">ACR（阿里云容器镜像）</h2>
+
+      <div class="pitfall">
+        <h3>坑 1 · ACR 用户名 ≠ 阿里云账号</h3>
+        <dl>
+          <dt>症状</dt><dd><code>unauthorized: authentication required</code>。</dd>
+          <dt>原因</dt><dd>把阿里云账号密码当 ACR 密码。</dd>
+          <dt>修法</dt>
+          <dd>
+            ACR 个人版 → 「访问凭证」→ 重置密码；用户名为账号全名（不是邮箱或昵称）。
+          </dd>
+        </dl>
+      </div>
+
+      <div class="pitfall">
+        <h3>坑 2 · <code>cache-to</code> 推 cacheconfig.v0 被 ACR 拒</h3>
+        <dl>
+          <dt>症状</dt>
+          <dd><code>denied: unknown manifest class for application/vnd.buildkit.cacheconfig.v0</code>。</dd>
+          <dt>原因</dt>
+          <dd>
+            <code>cache-to: type=registry</code> 写 BuildKit cache 当 OCI artifact，ACR 不认这个 media type。
+          </dd>
+          <dt>修法</dt>
+          <dd>改 <code>cache-to: type=inline</code>：cache 嵌进 image（OCI 标准，ACR 接收）。</dd>
+        </dl>
+      </div>
+
+      <h2 id="docker">Docker / 镜像构建</h2>
+
+      <div class="pitfall">
+        <h3>坑 3 · 阿里云 <code>library/postgres</code> 镜像路径不通</h3>
+        <dl>
+          <dt>症状</dt>
+          <dd><code>pull access denied for registry.cn-hangzhou.aliyuncs.com/library/postgres</code>。</dd>
+          <dt>原因</dt><dd><code>library/</code> 镜像加速已下线。</dd>
+          <dt>修法</dt>
+          <dd>
+            所有 <code>image:</code> 和 <code>FROM</code> 改 docker hub 官方名
+            （<code>postgres:16-alpine</code> / <code>node:22-alpine</code>），
+            并在 daemon.json 加
+            <code>"registry-mirrors": ["https://mirror.ccs.tencentyun.com"]</code>。
+          </dd>
+        </dl>
+      </div>
+
+      <div class="pitfall">
+        <h3>坑 4 · <code>docker compose pull</code> 永远是 no-op</h3>
+        <dl>
+          <dt>症状</dt><dd>CI/CD 全绿，但 server 上代码不变。</dd>
+          <dt>原因</dt>
+          <dd>
+            <code>app</code> service 只有 <code>build:</code> 没 <code>image:</code>，pull 触发 silent skip，
+            <code>up --force-recreate</code> 直接在 server 上重新 build。
+          </dd>
+          <dt>修法</dt>
+          <dd>
+            <code>docker-compose.yml</code> 加 <code>image: ${APP_IMAGE:-}</code>，让
+            <code>APP_IMAGE</code> 环境变量在 deploy 时指向 ACR tag。
+          </dd>
+        </dl>
+      </div>
+
+      <div class="pitfall">
+        <h3>坑 5 · BuildKit 拒绝 shell redirect</h3>
+        <dl>
+          <dt>症状</dt><dd><code>'/2>/dev/null': not found</code>。</dd>
+          <dt>原因</dt>
+          <dd>
+            <code>COPY --from=builder /app/public ./public 2>/dev/null || true</code>：
+            BuildKit 严格 validator 不允许在 <code>COPY</code> 里写 shell 重定向。
+          </dd>
+          <dt>修法</dt>
+          <dd>
+            删 <code>2>/dev/null || true</code>；builder 阶段加 <code>RUN mkdir -p /app/public</code>
+            确保目录存在。
+          </dd>
+        </dl>
+      </div>
+
+      <div class="pitfall">
+        <h3>坑 8 · Audio bundle 在 build 时拉不到</h3>
+        <dl>
+          <dt>症状</dt><dd>所有 <code>/audio/*.mp3</code> 404。</dd>
+          <dt>原因</dt>
+          <dd>
+            GitHub Actions runner 上 <code>curl https://github.com/.../audio.tgz</code> 失败
+            （5 分钟超时），image 里 audio 目录为空。
+          </dd>
+          <dt>修法</dt>
+          <dd>
+            <code>docker-compose.yml</code> 加 <code>audio_data</code> named volume 持久化；
+            <code>entrypoint.sh</code> 在 audio 目录为空且 <code>AUDIO_BUNDLE_URL</code> 非空时 runtime fetch。
+          </dd>
+        </dl>
+      </div>
+
+      <div class="pitfall">
+        <h3>坑 12 · <code>/favicon.ico</code> 404</h3>
+        <dl>
+          <dt>症状</dt><dd>浏览器 console noise，无功能影响。</dd>
+          <dt>原因</dt><dd>Next.js 没自动从 <code>public/</code> 拾取 favicon。</dd>
+          <dt>修法</dt><dd><code>src/app/icon.png</code> 放 32×32 PNG，Next.js 自动作为 favicon。</dd>
+        </dl>
+      </div>
+
+      <div class="pitfall">
+        <h3>坑 16 · Server 磁盘被旧 docker image 填满</h3>
+        <dl>
+          <dt>症状</dt>
+          <dd>
+            deploy 看起来成功，但 <code>fix-prod-schema.yml</code> 第一步 <code>git fetch</code> 报
+            <code>fatal: write error: No space left on device</code>。
+          </dd>
+          <dt>原因</dt>
+          <dd>
+            每次 deploy GH Actions push 3 个 tag（<code>latest</code> + <code>short_sha</code> +
+            <code>timestamp</code>），旧的 <code>timestamp</code> tag 永远占着不释放。
+          </dd>
+          <dt>修法</dt>
+          <dd>
+            跑 <code>Free-Disk</code> workflow；或 deploy.yml 自带 prune 逻辑
+            （保留当前 + 1 个最近非当前 image）。
+          </dd>
+        </dl>
+      </div>
+
+      <h2 id="gha">GitHub Actions workflow</h2>
+
+      <div class="pitfall">
+        <h3>坑 9 · <code>DEPLOY_SSH_USER</code> 漏配默认 root</h3>
+        <dl>
+          <dt>症状</dt><dd><code>Permission denied (publickey)</code>。</dd>
+          <dt>原因</dt>
+          <dd>
+            <code>username: ${{ secrets.DEPLOY_SSH_USER || 'root' }}</code>
+            漏配时 fallback 到 root，但你的密钥只给了 <code>ubuntu</code>。
+          </dd>
+          <dt>修法</dt><dd>必须显式加 <code>DEPLOY_SSH_USER=ubuntu</code> secret。</dd>
+        </dl>
+      </div>
+
+      <div class="pitfall">
+        <h3>坑 10 · <code>args:</code> 块只有注释被 strict validator 拒绝</h3>
+        <dl>
+          <dt>症状</dt><dd><code>services.app.build.args must be a mapping</code>。</dd>
+          <dt>原因</dt><dd>YAML 解析空 mapping 失败（注释不算 key）。</dd>
+          <dt>修法</dt>
+          <dd>
+            要么放真 key-value（<code>AUDIO_BUNDLE_URL: ${AUDIO_BUNDLE_URL:-}</code>），
+            要么显式写 <code>args: {}</code>。
+          </dd>
+        </dl>
+      </div>
+
+      <div class="pitfall">
+        <h3>坑 11 · <code>/opt/yasi-words</code> 路径硬编码</h3>
+        <dl>
+          <dt>症状</dt>
+          <dd>
+            项目 clone 在 <code>~/projects/...</code>，workflow 里 <code>cd /opt/yasi-words</code> 失败。
+          </dd>
+          <dt>原因</dt><dd>路径没参数化。</dd>
+          <dt>修法</dt>
+          <dd>
+            固定 <code>/opt/yasi-words</code>，server 初始化时 <code>sudo mkdir -p</code>；
+            未来可改成 secret。
+          </dd>
+        </dl>
+      </div>
+
+      <div class="pitfall">
+        <h3>坑 17 · deploy.yml 只 pull image，不更新 server host 上的 <code>scripts/</code></h3>
+        <dl>
+          <dt>症状</dt>
+          <dd>
+            <code>Fix-Prod-Schema</code> workflow 报 <code>scripts/fix-prod-schema.sql: No such file or directory</code>，
+            即使文件已 commit 到 main。
+          </dd>
+          <dt>原因</dt>
+          <dd>
+            deploy.yml 只 <code>docker pull</code> + <code>up -d</code>，不更新 server host 上的
+            <code>/opt/yasi-words/scripts/</code>（是初始 <code>git clone</code> 创建的工作树，不是 image 内容）。
+          </dd>
+          <dt>修法</dt>
+          <dd>
+            所有需要 server-side host 文件的 workflow 第一步必须
+            <code>git fetch + git reset --hard origin/main</code>。
+          </dd>
+        </dl>
+      </div>
+
+      <h2 id="db">数据库（Postgres + Prisma）</h2>
+
+      <div class="pitfall">
+        <h3>坑 7 · Postgres volume 不随 .env 同步密码</h3>
+        <dl>
+          <dt>症状</dt><dd><code>password authentication failed for user "yasi"</code>。</dd>
+          <dt>原因</dt>
+          <dd>volume 持久化的是首次 initdb 时的密码，<code>.env</code> 改了不自动同步。</dd>
+          <dt>修法</dt>
+          <dd>
+            用旧密码连进 postgres，<code>ALTER USER yasi WITH PASSWORD '&lt;.env 里的密码&gt;'</code>。
+            详见 <code>CICD.md §1.5</code>。
+          </dd>
+        </dl>
+      </div>
+
+      <div class="pitfall">
+        <h3>坑 13 · <code>prisma db push</code> 在已有数据的表上加 NOT NULL 列失败，整个 push rollback</h3>
+        <dl>
+          <dt>症状</dt>
+          <dd>
+            上线多用户系统后生产 admin 登录报 500；<code>docker logs yasi-app</code> 显示
+            <code>PrismaClientKnownRequestError: The table 'public.User' does not exist in the current database.</code>
+          </dd>
+          <dt>原因</dt>
+          <dd>
+            Prisma 在 PostgreSQL 上的 <code>db push</code> 是单一事务。当 schema 改动同时包含「给已有数据的表加
+            <code>userId Int NOT NULL</code>」+「创建新表 <code>User</code> / <code>Invitation</code>」，
+            PostgreSQL 拒绝给已存在的表加 NOT NULL 列无 default value → 中间步骤失败 → 整个事务 rollback → 新表也回滚。
+          </dd>
+          <dt>修法</dt>
+          <dd>
+            <ol>
+              <li>首次 schema 加 <code>userId</code> 列必须带 default value（如 <code>userId Int @default(0)</code>），然后迁移脚本改成真值。</li>
+              <li>entrypoint 失败时 loud-exit（去掉 <code>|| true</code>），让 push 错误直接 fail container。</li>
+              <li>建立 production schema recovery（<code>scripts/fix-prod-schema.sql</code> + <code>Fix-Prod-Schema</code> workflow）。</li>
+              <li>事后 reset 流程（<code>Reset-Admin-Password</code> workflow）绕过 entrypoint 直接修 admin 密码。</li>
+            </ol>
+          </dd>
+        </dl>
+      </div>
+
+      <h2 id="shell">Shell 调用 docker 的细节</h2>
+
+      <div class="pitfall">
+        <h3>坑 6 · Cookie Secure flag 在 HTTP 部署被 drop</h3>
+        <dl>
+          <dt>症状</dt>
+          <dd>
+            登录后 URL 仍是 <code>/login?next=%2F</code>，前端无报错。
+          </dd>
+          <dt>原因</dt>
+          <dd>
+            <code>secure: process.env.NODE_ENV === "production"</code> 让 cookie 带 Secure 标志，
+            HTTP 下浏览器不存。
+          </dd>
+          <dt>修法</dt>
+          <dd>
+            改为 <code>secure: process.env.AUTH_COOKIE_SECURE === "true"</code>（HTTPS 时显式开）。
+            HTTPS 部署时 <code>.env</code> 加 <code>AUTH_COOKIE_SECURE=true</code>。
+          </dd>
+        </dl>
+      </div>
+
+      <div class="pitfall">
+        <h3>坑 14 · <code>docker exec psql -f /host/path</code> 找不到文件</h3>
+        <dl>
+          <dt>症状</dt>
+          <dd>
+            <code>psql: error: /opt/yasi-words/scripts/fix-prod-schema.sql: No such file or directory</code>，
+            但 <code>ls -la</code> 显示文件就在 server host 上。
+          </dd>
+          <dt>原因</dt>
+          <dd>
+            <code>docker exec</code> 在 container 内部执行 psql，<code>-f /opt/yasi-words/...</code>
+            是 host 路径，但 psql 在 container 里只能看到自己的文件系统。
+          </dd>
+          <dt>修法</dt>
+          <dd>
+            用 stdin 把 host 文件喂进 container：
+          </dd>
+        </dl>
+        <pre><code># 错: psql 在 container 里看不到 host 路径
+docker exec -i yasi-postgres psql ... -f /opt/yasi-words/scripts/fix.sql
+
+# 对: stdin 把文件内容 pipe 进去
+docker exec -i yasi-postgres psql ... &lt; /opt/yasi-words/scripts/fix.sql</code></pre>
+      </div>
+
+      <div class="pitfall">
+        <h3>坑 15 · <code>docker exec -e</code> 不继承宿主 env，必须显式传</h3>
+        <dl>
+          <dt>症状</dt>
+          <dd>
+            <code>Reset-Admin-Password</code> workflow 报 <code>password too short</code>，
+            但 input 明明传了 8 位密码。
+          </dd>
+          <dt>原因</dt>
+          <dd>
+            bash 脚本里的 <code>NEW_PW="$X"</code> 是宿主 shell 变量，不会自动传入
+            <code>docker exec</code> 启动的 container。
+          </dd>
+          <dt>修法</dt>
+          <dd>
+            所有要传给 container 的 env 必须出现在 <code>docker exec -e</code> 后：
+          </dd>
+        </dl>
+        <pre><code># 错: NEW_PW 是宿主变量，container 看不到
+NEW_PW="Admin@2026" docker exec -i yasi-app node -e "..."
+
+# 对
+docker exec -i -e NEW_PW="Admin@2026" yasi-app node -e "..."</code></pre>
+      </div>
+
+      <nav class="chapter-prev-next" aria-label="章节导航">
+        <a href="./03-usage.html">上一节</a>
+        <a href="../index.html">目录</a>
+        <a href="./05-troubleshooting.html">下一节</a>
+      </nav>
+    </main>
+  </body>
+</html>

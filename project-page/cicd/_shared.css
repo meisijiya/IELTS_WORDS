@@ -1,0 +1,328 @@
+/* Yasi Words · CICD 教材共享样式
+ * Chapters live in chapters/ subdirectory, reference this file via ../_shared.css
+ * Design contract: .omo/design-spec/project-page/spec.md §11
+ */
+
+:root {
+  /* Re-declare design tokens so chapter pages render even if ../styles.css is unavailable */
+  --ink-paper: #faf7f2;
+  --ink-snow: #f1ece4;
+  --ink-ash: #1f1b16;
+  --ink-mist: #5c544a;
+  --ink-line: #e2dbcf;
+  --ink-rule: #d8d1c4;
+  --ink-soft: #6e655a;
+  --sunrise-core: #e35a2a;
+  --sunrise-warm: #f4a65a;
+  --ink-night: #0f141b;
+  --ink-snow-on-night: #e9e2d1;
+  --ink-ember: #ff8a4c;
+
+  --fs-h2: clamp(1.75rem, 3.2vw, 2.75rem);
+  --fs-h3: clamp(1.25rem, 2vw, 1.5rem);
+  --fs-body: 1rem;
+  --fs-caption: 0.8125rem;
+
+  --radius-md: 12px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter Tight", "Inter", "Helvetica Neue", system-ui, sans-serif;
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  color: var(--ink-ash);
+  background: var(--ink-paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* === Chapter shell === */
+.chapter-shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 2rem) clamp(1.25rem, 4vw, 2rem) 4rem;
+}
+
+.chapter-shell h1 {
+  font-family: "Newsreader", "Source Serif 4", "Noto Serif SC", serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: var(--fs-h2);
+  line-height: 1.15;
+  color: var(--ink-ash);
+  margin: 0.5rem 0 0.25rem;
+}
+
+.chapter-shell h2 {
+  font-family: "Newsreader", "Source Serif 4", "Noto Serif SC", serif;
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  line-height: 1.25;
+  margin: 2.5rem 0 0.75rem;
+  padding-block-start: 1.5rem;
+  border-block-start: 1px solid var(--ink-rule);
+}
+
+.chapter-shell h2:first-of-type {
+  border-block-start: none;
+  padding-block-start: 0;
+}
+
+.chapter-shell h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 1.75rem 0 0.5rem;
+}
+
+.chapter-shell p,
+.chapter-shell li {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink-ash);
+}
+
+.chapter-shell p {
+  margin: 0 0 1rem;
+}
+
+.chapter-shell ul,
+.chapter-shell ol {
+  margin: 0 0 1rem;
+  padding-inline-start: 1.25rem;
+}
+
+.chapter-shell li {
+  margin-bottom: 0.35rem;
+}
+
+.chapter-shell a {
+  color: var(--sunrise-core);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.chapter-shell a:hover {
+  color: var(--sunrise-warm);
+}
+
+/* === Breadcrumb === */
+.chapter-shell .breadcrumb {
+  font-size: var(--fs-caption);
+  color: var(--ink-mist);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.chapter-shell .breadcrumb a {
+  color: var(--ink-mist);
+  text-decoration: none;
+}
+
+.chapter-shell .breadcrumb a:hover {
+  color: var(--sunrise-core);
+}
+
+.chapter-shell .breadcrumb span[aria-current="page"] {
+  color: var(--ink-soft);
+}
+
+/* === Meta bar === */
+.chapter-shell .meta-bar {
+  color: var(--ink-soft);
+  font-size: var(--fs-caption);
+  margin: 0.25rem 0 1.5rem;
+}
+
+/* === Chapter TOC === */
+.chapter-shell .chapter-toc {
+  background: var(--ink-snow);
+  border: 1px solid var(--ink-line);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.chapter-shell .chapter-toc h2 {
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-mist);
+  margin: 0 0 0.5rem;
+  padding: 0;
+  border: none;
+}
+
+.chapter-shell .chapter-toc ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.chapter-shell .chapter-toc li {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+/* === Code blocks === */
+.chapter-shell pre,
+.chapter-shell code {
+  font-family: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.chapter-shell :not(pre) > code {
+  background: var(--ink-snow);
+  border: 1px solid var(--ink-line);
+  border-radius: 4px;
+  padding: 0.05em 0.35em;
+  color: var(--ink-ash);
+}
+
+.chapter-shell pre {
+  background: var(--ink-night);
+  color: var(--ink-snow-on-night);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  margin: 0 0 1.25rem;
+  border: 1px solid var(--ink-night);
+}
+
+.chapter-shell pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: 0.8125rem;
+}
+
+.chapter-shell .keyword {
+  color: var(--ink-ember);
+}
+
+/* === Tables === */
+.chapter-shell table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1.5rem;
+  font-size: 0.9375rem;
+}
+
+.chapter-shell th,
+.chapter-shell td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-block-end: 1px solid var(--ink-line);
+  vertical-align: top;
+}
+
+.chapter-shell th {
+  background: var(--ink-snow);
+  font-weight: 600;
+  color: var(--ink-ash);
+}
+
+.chapter-shell td code {
+  white-space: nowrap;
+}
+
+/* === Definition / callout blocks === */
+.chapter-shell .callout {
+  background: var(--ink-snow);
+  border-inline-start: 3px solid var(--sunrise-core);
+  border-radius: 4px;
+  padding: 0.85rem 1rem;
+  margin: 1rem 0 1.25rem;
+  font-size: 0.9375rem;
+}
+
+.chapter-shell .callout.warning {
+  border-inline-start-color: var(--sunrise-warm);
+}
+
+.chapter-shell .callout strong {
+  color: var(--ink-ash);
+}
+
+/* === Pitfall grid (chapter 04) === */
+.chapter-shell .pitfall {
+  background: var(--ink-paper);
+  border: 1px solid var(--ink-line);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.15rem;
+  margin: 0 0 1rem;
+}
+
+.chapter-shell .pitfall h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.0625rem;
+  color: var(--ink-ash);
+}
+
+.chapter-shell .pitfall dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 0.35rem 0.75rem;
+  font-size: 0.9375rem;
+}
+
+.chapter-shell .pitfall dt {
+  color: var(--ink-mist);
+  font-weight: 600;
+}
+
+.chapter-shell .pitfall dd {
+  margin: 0;
+  color: var(--ink-ash);
+}
+
+/* === Prev / next nav === */
+.chapter-shell .chapter-prev-next {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-block: 3rem 0;
+  padding-block-start: 1.5rem;
+  border-block-start: 1px solid var(--ink-rule);
+}
+
+.chapter-shell .chapter-prev-next a {
+  color: var(--ink-ash);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.chapter-shell .chapter-prev-next a:hover {
+  color: var(--sunrise-core);
+}
+
+.chapter-shell .chapter-prev-next a[aria-disabled="true"] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* === Mobile === */
+@media (max-width: 640px) {
+  .chapter-shell .pitfall dl {
+    grid-template-columns: 1fr;
+  }
+
+  .chapter-shell table {
+    font-size: 0.875rem;
+  }
+
+  .chapter-shell pre {
+    font-size: 0.75rem;
+  }
+}

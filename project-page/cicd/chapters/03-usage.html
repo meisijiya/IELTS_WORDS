@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>03 · 日常使用 · Yasi Words CI/CD 教材</title>
+    <meta
+      name="description"
+      content="一行触发 deploy、手动触发、重跑失败 run、回滚到上一个正常版本。"
+    />
+    <link rel="icon" type="image/png" href="../../favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@500;700&display=swap"
+    />
+    <link rel="stylesheet" href="../_shared.css?v=3" />
+  </head>
+  <body>
+    <main id="main" class="chapter-shell">
+      <p class="breadcrumb">
+        <a href="../index.html">首页</a> /
+        <a href="../index.html">CICD</a> /
+        <span aria-current="page">日常使用</span>
+      </p>
+      <h1>日常使用</h1>
+      <p class="meta-bar">最后更新 2026-07-25</p>
+
+      <nav class="chapter-toc" aria-label="本页目录">
+        <h2>本章内容</h2>
+        <ul>
+          <li><a href="#trigger">一行触发 deploy</a></li>
+          <li><a href="#manual">手动触发 workflow</a></li>
+          <li><a href="#rerun">重跑失败的 run</a></li>
+          <li><a href="#rollback">回滚到上一个正常版本</a></li>
+          <li><a href="#tldr">速查 TL;DR</a></li>
+        </ul>
+      </nav>
+
+      <h2 id="trigger">一行触发 deploy</h2>
+      <p>
+        默认入口：往 <code>main</code> 分支 push 一次，CI 通过后自动进入 deploy job。
+        整个过程 5 到 6 分钟。
+      </p>
+      <pre><code>git add .
+git commit -m "feat: ..."
+git push origin main</code></pre>
+      <p>
+        跑完后到 <code>https://github.com/&lt;owner&gt;/&lt;repo&gt;/actions</code> 看 run 状态：
+        绿勾 = 服务已是新版本；红 X = 进入下一节排查。
+      </p>
+
+      <h2 id="manual">手动触发 workflow</h2>
+      <p>
+        不想 commit 也能 deploy：到 GitHub → Actions → Build &amp; Deploy → 右上角
+        <strong>Run workflow</strong> → 选 <code>main</code> 分支。
+      </p>
+      <p>
+        适用场景：仅修改 server 上的脚本或 ops workflow（无需触发 build）；线上事故热修后想
+        重新跑一遍以确认 build 没问题。
+      </p>
+
+      <h2 id="rerun">重跑失败的 run</h2>
+      <p>
+        GitHub Actions → 失败的 run → 右上角 <strong>Re-run jobs</strong>。
+        想清空旧 cache 重建选 <strong>Re-run jobs</strong> 时勾
+        <em>Force rebuild without cache</em>。
+      </p>
+      <div class="callout warning">
+        <strong>什么时候必须 force rebuild</strong>：改过 <code>AUDIO_BUNDLE_URL</code>、
+        <code>Dockerfile</code> 的 <code>ARG</code>、<code>package-lock.json</code>
+        又怀疑上次 cache 把陈旧 layer 复用过来时。
+      </div>
+
+      <h2 id="rollback">回滚到上一个正常版本</h2>
+      <p>
+        ACR 保留所有 <code>:short_sha</code> tag，rollback 很简单：
+      </p>
+      <pre><code>ssh ubuntu@&lt;host&gt;
+cd /opt/yasi-words
+
+# 找一个 known-good 的 sha
+export APP_IMAGE="$ALIYUN_REGISTRY/meisijiya/yasi-words:&lt;old-sha&gt;"
+docker pull "$APP_IMAGE"
+docker compose up -d --force-recreate app</code></pre>
+      <p>
+        server 端 prune 脚本默认保留当前 running image + 1 个最近非 running image，
+        所以 server 磁盘上一直有上一个版本可供回滚。如果想回滚到更早版本，从
+        <code>docker images</code> 里挑 sha，或去 ACR 控制台找历史 tag。
+      </p>
+
+      <h2 id="tldr">速查 TL;DR</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>想做的事</th>
+            <th>入口</th>
+            <th>耗时</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>触发 deploy</td>
+            <td><code>git push origin main</code></td>
+            <td>5-6 分钟</td>
+          </tr>
+          <tr>
+            <td>手动 deploy</td>
+            <td>Actions → Run workflow</td>
+            <td>5-6 分钟</td>
+          </tr>
+          <tr>
+            <td>重跑失败 run</td>
+            <td>Actions → Re-run jobs</td>
+            <td>同初次</td>
+          </tr>
+          <tr>
+            <td>强制重建</td>
+            <td>Re-run jobs → 勾 Force rebuild</td>
+            <td>同初次</td>
+          </tr>
+          <tr>
+            <td>回滚到上一个版本</td>
+            <td>server 改 <code>APP_IMAGE=&lt;old-sha&gt;</code></td>
+            <td>~30 秒</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <nav class="chapter-prev-next" aria-label="章节导航">
+        <a href="#" aria-disabled="true">上一节</a>
+        <a href="../index.html">目录</a>
+        <a href="./04-pitfalls.html">下一节</a>
+      </nav>
+    </main>
+  </body>
+</html>
