@@ -61,6 +61,8 @@ next-env.d.ts
 /.omo/**
 !/.omo/design-spec/
 !/.omo/design-spec/**
+!/.omo/scripts/
+!/.omo/scripts/**
 
 # Python tooling caches
 __pycache__/
