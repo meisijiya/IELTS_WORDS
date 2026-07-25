@@ -58,6 +58,9 @@ next-env.d.ts
 /.omo/
 /.codegraph/
 
+# Track durable design specs under .omo/design-spec/ while keeping run metadata ignored
+!/.omo/design-spec/
+
 # Python tooling caches
 __pycache__/
 *.pyc
