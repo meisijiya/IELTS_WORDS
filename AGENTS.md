@@ -198,3 +198,13 @@ docker compose up -d --build | logs -f app | down    # 不带 -v 保留 volume
 - CI 跑 `lint` / `typecheck` / `build` / Vitest / pytest；`gate` 现在可入 CI（源在 `resources/`），但默认不开。
 - Tracked 源数据：`seed/` / `fixtures/` / `resources/`。其它目录都是生成物 / 编译产物。
 - 触网脚本：`tools/fetch_pronunciations.py`、`audit/spot-check.py`、release 上传 — 未明确要求不要跑。
+
+## PROJECT PAGES
+
+- Project GitHub Pages 静态展示页源码在 `project-page/`，仅含 HTML + CSS + 静态资产（截图、SVG、字体引用），与 Next.js 应用源码隔离。
+- 部署 workflow：`.github/workflows/pages.yml`。触发条件 `push main` 且仅当 `project-page/**` 或 workflow 自身变更时执行；同时支持 `workflow_dispatch` 手动重发。
+- 设计规范归档在 `.omo/design-spec/project-page/spec.md`（Design Read、配色、字体、信息架构、反 slop checklist）。
+- URL：https://meisijiya.github.io/IELTS_WORDS/
+- 本地预览：`cd project-page && python3 -m http.server 8088`。
+- 截图工具：临时脚本在 `/tmp/opencode/pp-tools/capture-screenshots.mjs`，依赖 `~/.cache/ms-playwright/chromium_headless_shell-1228`，需要 sudo 安装 libnss3 libnspr4 libasound2t64。
+- ⚠️ 截图脚本会重置 dev DB 的 admin 密码哈希为 `yasi-2026-dev`（用于截图登录）；生产数据库不会受影响，因为脚本只连接 `prisma/dev.db`。
