@@ -122,3 +122,26 @@
 ---
 
 **Status**: draft → 待用户最终确认后进入实现阶段。
+
+## 11 · CICD 教材章节外壳
+
+> 本章节外壳规范适用于从本站衍生的 CICD 教材子页面（独立 HTML 文件），继承项目页设计语言 winter-sunrise × technical-editor。每个页面是自包含的 HTML 文件，复用项目页的 CSS 变量与字体。章节子页面通过 pages.yml 条件触发构建，只在 project-page/** 变更时部署。
+> 
+> 章节子页面不引入新字体。正文沿用 Inter Tight，代码块沿用 JetBrains Mono，标题沿用 Newsreader。字号遵循现有 type scale。
+
+**排版层级**：每个章节 HTML 文件包含三层自上而下结构：
+- **面包屑栏**（breadcrumb bar）：位于 H1 上方，占一行，形如「首页 / CICD / 容器构建」。面包屑每一级用斜线分隔，末级不加链接。面包屑使用弱化文字色（`--ink-mist`），字号用 caption 级，不可点击的末级不加 `<a>` 标签。
+- **H1**：章节标题。字号使用现有 type scale 中的 H2 级；`var(--fs-h2)` 可作为章节子页面的合理 fallback，无需为章节页面另设 H1 字号。章节标题不带编号，编号仅在面包屑和导航中出现。H1 与面包屑之间间距 8px。
+- **元信息栏**（`.meta-bar`）：位于 H1 下方占一行，左对齐显示最后更新日期（格式 YYYY-MM-DD）。元信息栏使用弱化文字色（`--ink-mist`），字号用 caption 级。H1 与元信息栏之间间距 4px。
+
+**字体规则**：正文用 Inter Tight 16/24，代码片段用 JetBrains Mono 13/20。标题使用 Newsreader 斜体变体以示与主页面区隔。
+
+**CSS class 定义**（4 个）：
+- `.chapter-shell`：章节页面最外层容器，控制最大宽度 960px 与左右 padding 24px。
+- `.chapter-toc`：章节目录区，链接到页面内锚点（h3 级小节），使用无序列表样式。
+- `.chapter-prev-next`：底部导航行，放置上一节 / 下一节 / 目录三个链接，flex 布局。
+- `.meta-bar`：元信息行，包含最后更新日期，可选附加编辑历史链接。
+
+**前后导航 contract**：每个章节页面末尾必须包含 `<nav class="chapter-prev-next">`，内含三个 `<a>` 链接，顺序固定：「上一节」「下一节」「目录」。三个锚点必须始终存在，不可折叠。当位于第一章或最后一章时，对应的上一节或下一节链接应 disabled 而非隐藏。目录链接始终指向页面内 toc 锚点，不跳转。导航行使用 flex 布局，左右两端分布：上一节居左，目录居中，下一节居右。
+
+**标点规则**：Chapter copy must never use the em-dash character (U+2014). Use comma, colon, or parentheses instead. This is enforced by a grep check at validation time.
