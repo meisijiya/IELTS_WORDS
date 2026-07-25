@@ -208,3 +208,12 @@ docker compose up -d --build | logs -f app | down    # 不带 -v 保留 volume
 - 本地预览：`cd project-page && python3 -m http.server 8088`。
 - 截图工具：临时脚本在 `/tmp/opencode/pp-tools/capture-screenshots.mjs`，依赖 `~/.cache/ms-playwright/chromium_headless_shell-1228`，需要 sudo 安装 libnss3 libnspr4 libasound2t64。
 - ⚠️ 截图脚本会重置 dev DB 的 admin 密码哈希为 `yasi-2026-dev`（用于截图登录）；生产数据库不会受影响，因为脚本只连接 `prisma/dev.db`。
+
+## CICD TEXTBOOK
+
+- Path mapping: `project-page/cicd/index.html` is the TOC; `project-page/cicd/chapters/00.html` through `08.html` are the 9 chapter pages; `project-page/cicd/_shared.css` is the chapter shell stylesheet; `project-page/cicd/chapters/_diagram-overview.svg` is the system flow diagram.
+- Pages workflow coverage: the existing `paths: ["project-page/**", ".github/workflows/pages.yml"]` glob in `.github/workflows/pages.yml` (lines 7-8) already covers `project-page/cicd/**` -- no workflow edit was needed.
+- Cache-bust note: each chapter and `index.html` reference `?v=3` to defeat the Cloudflare cache that sits in front of `xn--ljhfjm-dl0o.top` (Cloudflare `cache-control: max-age=14400`).
+- Redaction summary: chapter copy is light-redacted; literal IPs are masked to `<host>`, all PGPASSWORD literals become `<masked>`, admin password strings become `<admin-password>`, registry host like `crpi-xxx.cn-shenzhen.personal.cr.aliyuncs.com` becomes `crpi-***.cn-shenzhen.personal.cr.aliyuncs.com`, and chapter copy uses no em-dash characters.
+- Pointer: design contract for chapter shell lives at `.omo/design-spec/project-page/spec.md` §11.
+- Tooling: cross-page link audit is `.omo/scripts/audit-chapters.mjs` (Node 22, no deps). Run pattern: `node .omo/scripts/audit-chapters.mjs`.
