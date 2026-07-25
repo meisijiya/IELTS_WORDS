@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#FAF7F2" />
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="apple-touch-icon" href="./favicon.png" />
+    <title>Yasi Words · 为雅思键盘手设计的拼写训练器</title>
+    <meta
+      name="description"
+      content="基于 Next.js + Prisma 的雅思单词拼写训练器：Flash-then-Spell、SM-2 简化记忆、多用户隔离、完整 CI/CD。"
+    />
+    <meta property="og:title" content="Yasi Words · 雅思单词拼写训练器" />
+    <meta property="og:description" content="Flash-then-Spell · SM-2 · US/UK 双口音 · 多用户 · CI/CD 详解。" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@500;700&display=swap"
+    />
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到正文</a>
+
+    <header class="site-nav" role="banner">
+      <div class="container nav-row">
+        <a class="brand" href="#top" aria-label="Yasi Words">
+          <span class="brand-mark" aria-hidden="true">Y·W</span>
+          <span class="brand-name">Yasi Words</span>
+        </a>
+        <nav class="nav-links" aria-label="主导航">
+          <a href="#features">功能</a>
+          <a href="#codewalk">代码解剖</a>
+          <a href="#deploy">部署</a>
+          <a
+            class="nav-cta"
+            href="https://github.com/meisijiya/IELTS_WORDS"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub ↗</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="top" class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Yasi Words · Project Showcase</p>
+            <h1 class="hero-title">
+              为雅思键盘手设计的<br />
+              <em>拼写训练器</em>
+            </h1>
+            <p class="hero-sub">
+              本地优先的闪卡拼写循环：中文释义浮现 → 英文渐隐 → 键盘复原。SM-2 简化记忆曲线、US/UK
+              双口音真人发音，贴合机考的键感与节奏。
+            </p>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="#features">看功能</a>
+              <a class="btn btn-ghost" href="https://github.com/meisijiya/IELTS_WORDS"
+                >GitHub Star ↗</a
+              >
+            </div>
+            <dl class="hero-stats">
+              <div>
+                <dt>词库</dt>
+                <dd>16 205 词</dd>
+              </div>
+              <div>
+                <dt>音频</dt>
+                <dd>20 194 mp3</dd>
+              </div>
+              <div>
+                <dt>API</dt>
+                <dd>19 routes</dd>
+              </div>
+              <div>
+                <dt>CI/CD</dt>
+                <dd>自动 deploy</dd>
+              </div>
+            </dl>
+          </div>
+          <figure class="hero-shot" aria-label="练习界面截图占位">
+            <!-- 截图将由 Slice 2 注入 -->
+            <img
+              src="./assets/screenshots/practice.png"
+              alt="练习主界面：闪卡拼写循环"
+              loading="eager"
+              decoding="async"
+              width="1200"
+              height="780"
+            />
+            <figcaption class="shot-caption">
+              <span class="dot"></span> 练习主界面 · Flash-then-Spell
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="features" class="features">
+        <div class="container">
+          <header class="section-head">
+            <p class="eyebrow">功能</p>
+            <h2>三段式循环 + 三路集合 + 真实反馈</h2>
+            <p class="section-sub">
+              从单词浮现、拼写反馈，到错题集合与排行榜，每一段都对应可读的代码入口。
+            </p>
+          </header>
+
+          <article class="feature feature-split">
+            <div class="feature-text">
+              <p class="kicker">Flash-then-Spell</p>
+              <h3>键盘拼出的「机考手感」</h3>
+              <p>
+                显示中文释义与英文 → 英文在 <code>flashMs</code> 内渐隐 → 键盘复原。错的词反复回到队列，答对进入下一关。
+              </p>
+              <ul class="feature-list">
+                <li>新词 2 字母提示、复习词 1 字母、已熟练不提示</li>
+                <li>答对 +1 等级，5 连击进入 mastered</li>
+                <li>已熟练答错 → 重置 level=0 重学</li>
+              </ul>
+            </div>
+            <figure class="feature-shot">
+              <img
+                src="./assets/diagrams/practice-flash.svg"
+                alt="Flash-then-Spell 时序"
+                loading="lazy"
+                decoding="async"
+                width="900"
+                height="560"
+              />
+            </figure>
+          </article>
+
+          <article class="feature feature-split feature-flip">
+            <div class="feature-text">
+              <p class="kicker">三路集合</p>
+              <h3>wrong / learning / mastered</h3>
+              <p>
+                每个单词按 <code>masteredAt</code> 与 <code>level</code> 自动归类，三个页面顶部 tabs 互链。
+                错词 Session（review mode）只插入 Attempt，<strong>不污染 word 持久化字段</strong>。
+              </p>
+              <ul class="feature-list">
+                <li>错题榜按错误次数排序，可按 今日 / 一周 / 一月 / 全部 过滤</li>
+                <li>展开行内 30 天每日正确率折线图（inline SVG）</li>
+                <li>「今日已复习」仅由 review mode 的 Attempt 触发</li>
+              </ul>
+            </div>
+            <figure class="feature-shot">
+              <img
+                src="./assets/screenshots/wrong-words.png"
+                alt="错题榜页面"
+                loading="lazy"
+                decoding="async"
+                width="900"
+                height="560"
+              />
+            </figure>
+          </article>
+
+          <section class="bento" aria-label="更多功能矩阵">
+            <article class="bento-card bento-wide">
+              <p class="kicker">加权拉取</p>
+              <h3>review / balanced / new 三档比例</h3>
+              <p>
+                单 batch 20 词，按比例分配新词、学过词、已熟练词。全部 mastered 后 fallback 到
+                learned 池，保证无限练习节奏。
+              </p>
+              <pre class="code-snippet"><code>review:   [新 4, 学过 8, 已熟 8]
+balanced: [新 14, 学过 5, 已熟 1]
+new:      [新 18, 学过 2, 已熟 0]</code></pre>
+            </article>
+            <article class="bento-card">
+              <p class="kicker">音频</p>
+              <h3>US + UK 双口音</h3>
+              <p>
+                闪现阶段 + 反馈时各播一次。accent 自动 fallback，<code>/audio/*</code> 走 1 年
+                immutable 缓存。
+              </p>
+            </article>
+            <article class="bento-card">
+              <p class="kicker">反馈</p>
+              <h3>Web Audio 合成</h3>
+              <p>
+                答对双音 ding、答错 buzz；streak 3/6/9/12/15 milestones
+                阶梯式升级音效，零外部资源。
+              </p>
+            </article>
+            <article class="bento-card">
+              <p class="kicker">多用户</p>
+              <h3>userId 全表隔离</h3>
+              <p>
+                admin 通过一次性邀请码创建账号；Session / Attempt / Checkin / UserSettings
+                全部带 <code>userId</code>，跨用户零泄漏。
+              </p>
+            </article>
+            <article class="bento-card">
+              <p class="kicker">数据</p>
+              <h3>Checkin 跨重置保留</h3>
+              <p>
+                重置前 eager 快照所有有 attempt 的日期，<code>/checkin</code> 永远能显示历史。
+              </p>
+            </article>
+          </section>
+        </div>
+      </section>
+
+      <section id="codewalk" class="codewalk">
+        <div class="container">
+          <header class="section-head">
+            <p class="eyebrow">代码解剖</p>
+            <h2>从浏览器到 Prisma 的真实调用链</h2>
+            <p class="section-sub">
+              下面四段代码片段均来自 <code>src/</code> 当前主干，未删改。
+            </p>
+          </header>
+
+          <figure class="diagram" aria-label="架构图占位">
+            <img
+              src="./assets/diagrams/architecture.svg"
+              alt="PracticeClient → API routes → Prisma 架构图"
+              loading="lazy"
+              decoding="async"
+              width="1200"
+              height="640"
+            />
+          </figure>
+
+          <ol class="codewalk-list">
+            <li>
+              <h3>① 鉴权 — <code>requireUser()</code></h3>
+              <p>
+                Web Crypto HMAC 签名 cookie；page 与 API 双重校验。所有受保护入口共享同一个守卫。
+              </p>
+              <pre class="code-snippet"><code>export async function requireUser(): Promise&lt;CurrentUser&gt; {
+  const user = await getCurrentUser();
+  if (!user) throw new ApiAuthError();
+  return user;
+}</code></pre>
+            </li>
+            <li>
+              <h3>② 取词 — <code>GET /api/words</code></h3>
+              <p>
+                按 <code>PULL_CONFIG[priority]</code> 在 新 / 学过 / 已熟
+                三个池中按比例抽词；同 batch 上限 20，单次响应 < 100 KB。
+              </p>
+              <pre class="code-snippet"><code>const ratio = PULL_CONFIG[priority].ratio; // [new, learned, mastered]
+const counts = ratio.map((p) =&gt; Math.floor(N * p));
+counts[0] += N - counts.reduce((a, b) =&gt; a + b, 0); // 兜底补齐</code></pre>
+            </li>
+            <li>
+              <h3>③ 答题 — <code>POST /api/attempts</code></h3>
+              <p>
+                SM-2 简化版：drill 模式更新 level / attempts / masteredAt；review 模式仅插入
+                Attempt，不动 word 状态。
+              </p>
+              <pre class="code-snippet"><code>// drill
+newLevel = correct ? Math.min(5, level + 1) : (level &gt;= 5 ? 0 : Math.max(0, level - 1));
+// review
+// → 仅 await prisma.attempt.create({ data: { wordId, sessionId, correct } })</code></pre>
+            </li>
+            <li>
+              <h3>④ 打卡 — <code>checkin-snapshot</code> 三桶语义</h3>
+              <p>
+                <code>masteredTodayCount</code> = 升级事件；<code>newCount</code> =
+                <code>firstAttemptedAt</code>；<code>learningCount</code> =
+                <code>masteredAt IS NULL AND firstAttemptedAt &lt; today</code>。
+              </p>
+              <pre class="code-snippet"><code>const start = startOfDay(date);
+const end   = addDays(start, 1);
+return {
+  masteredTodayCount: await countPromotes({ userId, gte: start, lt: end }),
+  newCount:           await countFirstAttempts({ userId, gte: start, lt: end }),
+  learningCount:      await countLearning({ userId, before: start }),
+};</code></pre>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="deploy" class="deploy">
+        <div class="container">
+          <header class="section-head">
+            <p class="eyebrow">部署</p>
+            <h2>从 push 到生产：5 步自动</h2>
+          </header>
+          <ol class="deploy-steps">
+            <li>
+              <span class="step-no">1</span>
+              <h3>push main</h3>
+              <p>GitHub Actions runner 收到 commit，禁用 BuildKit cache（避免 stale audio layer）。</p>
+            </li>
+            <li>
+              <span class="step-no">2</span>
+              <h3>build &amp; push</h3>
+              <p>
+                镜像推送到阿里云容器镜像 ACR；<code>AUDIO_BUNDLE_URL</code> 在构建时下载并烤入
+                image。
+              </p>
+            </li>
+            <li>
+              <span class="step-no">3</span>
+              <h3>deploy job</h3>
+              <p>SSH server → <code>docker compose pull app &amp;&amp; up -d --force-recreate</code>。</p>
+            </li>
+            <li>
+              <span class="step-no">4</span>
+              <h3>回滚 buffer</h3>
+              <p>deploy 后保留当前 + 上一个 image tag，事故时 <code>up &lt;previous_tag&gt;</code> 即可。</p>
+            </li>
+            <li>
+              <span class="step-no">5</span>
+              <h3>每日备份</h3>
+              <p>
+                03:00 Asia/Shanghai 自动 <code>pg_dump</code> → 保留 14 天 → GH Actions artifact
+                90 天。
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="roadmap">
+        <div class="container roadmap-grid">
+          <div>
+            <h2>数据准确率</h2>
+            <p>
+              词源《雅思词汇真经》+《IELTS》两本 PDF 共 10 686 词；双引擎交叉验证（PyMuPDF +
+              pdfplumber）+ 人工校对；抽样 1000/1000 = 100% PASS ✅。
+            </p>
+          </div>
+          <div>
+            <h2>协议</h2>
+            <p>MIT License · 欢迎贡献新词库、调整拉取比例、改 streak milestone 倍率。</p>
+            <p>
+              <a href="https://github.com/meisijiya/IELTS_WORDS/blob/main/README.md"
+                >完整 README ↗</a
+              >
+              · <a href="https://github.com/meisijiya/IELTS_WORDS/blob/main/CICD.md">CICD.md ↗</a>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-row">
+        <span>© 2026 Yasi Words contributors · MIT</span>
+        <span class="footer-links">
+          <a href="https://github.com/meisijiya/IELTS_WORDS">GitHub</a>
+          <a href="https://github.com/meisijiya/IELTS_WORDS/issues">Issues</a>
+          <a href="https://github.com/meisijiya/IELTS_WORDS/blob/main/CICD.md">CI/CD</a>
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>
