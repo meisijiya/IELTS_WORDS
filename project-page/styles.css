@@ -117,18 +117,11 @@ pre {
   letter-spacing: -0.01em;
 }
 .brand-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   width: 32px;
   height: 32px;
   border-radius: var(--radius-sm);
-  background: var(--ink-ash);
-  color: var(--ink-paper);
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  object-fit: cover;
 }
 .nav-links {
   display: flex;
