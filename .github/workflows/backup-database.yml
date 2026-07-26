@@ -39,11 +39,3 @@ jobs:
             # include the file size + timestamp.
             echo "BACKUP_FILE=$FILENAME" >> $GITHUB_ENV
             echo "BACKUP_BYTES=$(stat -c%s "$BACKUP_DIR/$FILENAME")" >> $GITHUB_ENV
-
-      - name: Persist backup as artifact (90 days)
-        uses: actions/upload-artifact@v4
-        with:
-          name: yasi-db-backup-${{ env.BACKUP_FILE }}
-          path: /tmp/transfer/${{ env.BACKUP_FILE }}
-          retention-days: 90
-          if-no-files-found: error
