@@ -10,7 +10,7 @@ jobs:
   backup:
     runs-on: ubuntu-latest
     steps:
-      - name: pg_dump → upload artifact
+      - name: pg_dump + 14-day rotation
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.DEPLOY_HOST }}
@@ -32,10 +32,7 @@ jobs:
             echo "=== keep last 14 backups (disk-bounded) ==="
             cd "$BACKUP_DIR"
             ls -1t yasi-db-*.sql.gz | tail -n +15 | xargs -r rm -f
-            ls -1 "$BACKUP_DIR" | wc -l
-            echo "=== upload as GH Actions artifact ==="
-            # Move to a known GH-rsyncable path via GH CLI artifact command.
-            # We tag the run with a marker so the success notification can
-            # include the file size + timestamp.
-            echo "BACKUP_FILE=$FILENAME" >> $GITHUB_ENV
-            echo "BACKUP_BYTES=$(stat -c%s "$BACKUP_DIR/$FILENAME")" >> $GITHUB_ENV
+            REMAINING=$(ls -1 "$BACKUP_DIR" | wc -l)
+            echo "backups remaining: $REMAINING"
+            echo "BACKUP_FILE=$FILENAME"
+            echo "BACKUP_BYTES=$(stat -c%s "$BACKUP_DIR/$FILENAME")"
