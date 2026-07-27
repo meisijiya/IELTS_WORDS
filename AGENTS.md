@@ -6,6 +6,8 @@ Next.js 15 (App Router) + Prisma 的雅思单词拼写训练器。3 个词库（
 
 `public/audio/` 不在 git，从 release tarball 拉进 image。原 PDF/DOCX 文献在 `resources/` (tracked)。
 
+README.md 是项目门面，最新重写于 2026-07；阅读顺序：README → project-page/ → AGENTS.md → 中具体路径。
+
 ## STRUCTURE
 
 ```text

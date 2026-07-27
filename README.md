@@ -5,355 +5,197 @@
 [![License: MIT](https://img.shields.io/github/license/meisijiya/IELTS_WORDS-green?style=flat-square)](LICENSE)
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org)
+[![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?style=flat-square&logo=prisma)](https://www.prisma.io)
 
-> 📦 **部署到生产环境？** 看 [CICD.md](CICD.md) — 完整的 GitHub Actions + 阿里云容器镜像服务 (ACR) + 云服务器配置指南，从首次配置到踩过的 12 个坑。
+> 为雅思机考的键盘操作习惯设计的本地优先单词训练工具，闪卡 + 拼写 + 双口音真人发音。
+> 3 个词库（精简 3611 / 完整 7076 / CET-6 5518），HMAC cookie 多用户隔离，GH Actions 自动 deploy 到云端。
 
-> 为雅思机考的键盘操作习惯设计的本地优先单词训练工具。
+为雅思考生打造的键盘友好型单词训练工具：从闪卡到拼写，键盘不离手；从真人发音到 streak 连击音效，把枯燥的「背单词」变成肌肉记忆训练。**无限副本模式**：用户主导无限学习，**没有「每日单词量」限制**，手动结束会话；新词进入学习队列后会在后续 5 倍次出现以巩固。
 
-## ✨ 特性
+整套仓库走 **「schema 是数据模型唯一源 + 解析 / 种子 / 审计三件套」** 的工程闭环：词源 PDF → 双引擎解析 → cross-validate → seed JSON → Prisma migrate → 浏览器。
 
-### 训练核心
-- **Flash-then-Spell 模式** — 显示中英文 → 英文渐变消失 → 键盘拼写，贴合真实机考节奏
-- **无限副本模式** — 用户主导无限学习，不需要"每日单词量"，用户手动结束会话。Word 进入学习队列后会在后续 5 倍次出现以巩固。
-- **自适应渐进提示** — 新词 2 字母 / 复习词 1 字母 / 已熟练不提示
-- **SM-2 简化算法** — 答对 +1，答错 −1，连对 5 次升 level=5（已熟练）。已熟练答错 → 重置为 level=0 重学。
-- **错题 FIFO 重出** — 错的词反复出现直到答对
-- **实时统计** — 正确 / 错误 / 剩余 / 已练 / 连击中
+适用人群：雅思机考考生（键盘拼写场景）、CET-6 应试者、想用间隔重复巩固词汇的英语学习者。**本地优先**：所有数据存自有 Postgres，无第三方追踪，无广告，可私有部署。
 
-### 音频系统
-- **真人发音（双口音）** — 雅思词频真人发音，US + UK 双口音。闪现阶段 + 反馈时各播一次（合计每词 2 次），强化听感。
-- **点击单词重播** — 答题停留时点击单词文字可随时重播该次发音（鼠标 hover 显示音量图标提示）
-- **accent 自动 fallback** — 用户选择 US 时，若该词只有 UK 音频，自动用 UK 顶上。零 404。
-- **发音 4 态** — 都开（闪+反馈）/ 仅闪现 / 仅反馈 / 静音
-- **浏览器缓存** — Next.js 静态资源 1 年 immutable（`/audio/*`）；同一 URL 浏览器永久缓存命中，零重复请求
-- **Docker audio bake-in** — 镜像构建时通过 `AUDIO_BUNDLE_URL` 把 238 MB / 20194 个 mp3 烤入 image，构建一次即永久生效
-- **Runtime fetch fallback** — 若 baked layer 缺失或损坏，`entrypoint.sh` 会在容器启动时 runtime 拉同 bundle 到 `audio_data` named volume（不需 reload image）
+工程原则：**schema 是数据契约**（改 `prisma/schema.prisma` 必须 expand-and-contract）、**测试是守卫**（vitest 单测 + pytest parser + 数据 gate 三层）、**回滚永远可执行**（image 双 buffer + 数据库每日快照）。
 
-### 错题系统
-- **错题 Session** — 独立练习入口，答对/答错**都不改** word 的持久化 state（attempts / level / masteredAt 不变），仅插入 Attempt 行作为"出现"记录
-- **错词榜** — 按错误次数排序，可按时间筛选（今天 / 近一周 / 近一月 / 全部）；展开页有 Top-N（5/10/20/全部）切换
-- **今日已复习** — 仅 mode='review' 的 Attempt 行触发 badge；drill 模式的错词 attempt **不**算复习。错词行带 ✓ 今日已复习 绿徽
-- **错词详情复习历史曲线** — 30 天每日正确率折线图（120×32 inline SVG + hover tooltip），展开错词行时显示
-- **两个批量入口** — 全量复习（包括今日已复习）/ 仅剩余（跳过今日已复习的）
-- **单词行可展开** — 显示释义 + 复习曲线 + 单练按钮 + "标记已熟"按钮
-- **已掌握自动消失** — 已熟练（level=5）的单词不会出现在错词榜
-- **三个集合页** — `/wrong-words/<book>` / `/learning/<book>` / `/mastered/<book>`，顶部 tabs 互链；按 3 路互斥分区自动归类
+**为什么做这个**：市面背单词 App 大多是「认单词 + 选义」，但雅思机考的真正痛点是「听到词 → 在键盘上拼出来」；闪卡 + 拼写 + 真人发音的组合更贴近考场。
 
-### 拉取机制
-- **加权拉取** — 一批 20 词按比例分配：
-  - **review 优先（默认）**: 4 新 + 8 学过 + 8 已熟练
-  - **balanced**: 14 新 + 5 学过 + 1 已熟练
-  - **new 优先**: 18 新 + 2 学过 + 0 已熟练
-- **session 可并行** — 同 wordbook 下允许 random + targeted 多会话共存；同一 IDs 集合（包括乱序）自动复用
-- **页式补仓** — `refillQueue` 在队列 < 5 时静默 fetch 下一页，单 batch < 100 KB
+**速览命令**：`npm run dev` 启动开发 · `npm test` 跑单测 · `npm run gate` 验证数据准确率 · `docker compose up -d --build` 一键起容器。
 
-### 视听反馈
-- **音效反馈** — 答对：`Web Audio API` 双音 ding；答错：双音 buzz（0 资源，浏览器合成）
-- **Streak 连击音效** — 3 / 6 / 9 / 12 / 15 milestones 升级：双音 → bell 上行 → sparkle 瀑布 → swell + 合弦
-- **Streak 屏幕震动** — 微妙 1-4 px 位移，≤ 120 ms，不干扰学习
-- **banner pulse** — milestone 触发 streak banner 刷新动画（force reflow + key restart）
-
-### 词库
-- **雅思词汇真经（精简版）** — 3,611 高频核心词 · 入门首选
-- **IELTS（完整版）** — 7,076 词 · 进阶全覆盖
-- **大学英语六级词汇** — 5,518 词 · CET-6，含真人发音
-- 新增词库流程见 [`docs/add-wordbook.md`](docs/add-wordbook.md)
-
-### 多用户系统
-- **账号体系** — `User` 表 + username + password（Web Crypto HMAC）。Session cookie 携带 `userId` + `role`，所有 per-user 数据按 `userId` 隔离。
-- **admin 邀请注册** — admin 在 `/admin/invites` 一次性生成邀请码（7 天过期）。新用户通过 `/register?code=xxx` 提交 username + password + code 创建账号。
-- **admin 改任意用户名** — `/admin/users` 列表 + 行内 modal 改 `username`。普通用户在 `/settings` 可改自己的 username（需当前密码）。
-- **排行榜** — `/leaderboard` 全员按 `byRange.{today, week, month, all}` 排名；卡片点击展开当日 attempt 明细。
-- **自助重置** — `/checkin` 卡片右下"删除打卡记录"按钮（确认 phrase `CLEAN ALL CHECKINS`）。
-
-### 数据持久化
-- **打卡记录跨重置保留** — `/checkin/[date]` 是当日 attempt 实时聚合。重置会清空 attempts → 历史消失？
-  不会：`Checkin` 表在首次访问时 lazy 快照，重置前 eager 快照所有有 attempt 的日期。
-  即使用户清空所有尝试，`/checkin` 仍能显示历史。
-
-### 数据审计
-- `audit/word-audit.py` — schema 完整性 + 跨书一致性 + POS 分布
-- `audit/audio-audit.py` — 文件存在 + magic bytes (MPEG/WAV) + 大小分布
-- `audit/spot-check.py` — 释义抽样 vs Youdao 字典（heuristic）
-- 详细报告在 `audit/*-report.md`，可重复跑
-
-### 安全与运维
-- **重置防呆** — `/api/admin/reset` 强制要求确认短语（`RESET PROGRESS` / `DELETE ATTEMPTS` / `DELETE SESSIONS` / `RESET EVERYTHING`），避免误触
-- **HMAC Cookie 认证** — Edge Runtime safe
-- **CI/CD** — GitHub Actions 自动 lint / typecheck / build + 阿里云容器镜像推 + SSH 部署
-
-## 🖼️ 预览
+## 一图胜千言
 
 ```
-┌─ 主页 ──────────────────────────┐  ┌─ 练习界面（无限副本）──────────────────┐
-│ Yasi Words                       │  │                                       │
-│ [日历] 打卡  [图表] 分析  [齿轮] 设置       │  │          v. 监督                      │
-│                                 │  │                                       │
-│ ┌──────────────────────────┐  │  │   a t t _ t _ t _ _ _                  │
-│ │雅思词汇真经（精简版）常规│  │  │                                       │
-│ │开始 14:23  已练 12 (9✓)  │  │  │   ┌──────────────────────────┐      │
-│ │[继续]  [结束]              │  │  │   │ attitide_               │      │
-│ └──────────────────────────┘  │  │   └──────────────────────────┘      │
-│                                 │  │   adj. 监督; 监理                    │
-│ ┌──────────┐  ┌──────────┐     │  │   [L1/5 · 已答对1 · 总尝试1] [火焰] 1连击中│
-│ │ 精简  3.6K│  │ 完整  7.0K│    │  │                                       │
-│ └──────────┘  └──────────┘     │  │   [音量] 点击单词重播                        │
-│                                 │  │                                       │
-│ 雅思词汇真经 (active session)  │  │   ╭─────── 答完停留 ──────╮           │
-│ ┌──────────────────────────┐  │  │   │ ✓ 拼对了 attitide   │           │
-│ │昨天 19:00 已练 30 (25✓)  │  │  │   │  [下一题]            │           │
-│ │[继续]  [结束]              │  │  │   ╰─────────────────────╯           │
-│ └──────────────────────────┘  │  │                                       │
-└─────────────────────────────┘  └─────────────────────────────────────┘
-
-┌─ 错题榜（展开页 /wrong-words/[wordbook]）─────────┐
-│ 错词榜 · 雅思词汇真经（精简版） · 近一周 [今日][一周][一月][全部]│
-│  Top-N [5][10][20][全部]                          │
-│                                                  │
-│  ┌──────────────────────────────────────────┐  │
-│  │ [靶心] 批量复习模式：全量 18 · 已复习 6 · 剩余 12 │  │
-│  │ [全量复习 18词]  [仅剩余 12词]            │  │
-│  └──────────────────────────────────────────┘  │
-│                                                  │
-│  1. atmosphere  n.大气层          ✗ 4 ✓ 1  [✓今日已复习]│
-│  2. perspective n./v. 看法        ✗ 3 ✓ 0            │
-│  3. undertake   v.承担            ✗ 2 ✓ 1            │
-│  ...                                              │
-│                                                  │
-│  展开 → 释义 · [单练] [标记已熟]                │
-└──────────────────────────────────────────────────┘
+┌─ 请求链路 ─────────────────────────────────────────────────────────┐
+│ 浏览器 ─▶ Next.js App (Edge + Node) ─▶ Prisma ─▶ Postgres        │
+│             │                            │                        │
+│             ├─ Web Audio API             └─ named volume          │
+│             └─ /audio/*.mp3 (1y immutable cache, audio_data 卷)  │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
-## 🚀 快速开始
+整套请求链路：浏览器发起拼写请求 → Next.js App Router 走 HMAC cookie 鉴权 → Prisma ORM 按 userId 隔离读写 Postgres；音频走 Next.js 静态目录 `/audio/*`，一年 immutable 缓存，浏览器永久命中，零重复请求。
 
-### 方式 A · Docker（推荐 · 1 分钟）
+**edge / node 双 runtime**：middleware 在 Edge 验签 cookie 防 CSRF，page / API 跑 Node 调 Prisma。容器启动时若 baked audio 缺失，`entrypoint.sh` 会 runtime 兜底从 `AUDIO_BUNDLE_URL` 拉到 `audio_data` named volume，无需 reload image 即可恢复。
 
-```bash
-git clone https://github.com/meisijiya/IELTS_WORDS.git yasi-words
-cd yasi-words
-cp .env.docker.example .env
-nano .env  # 改 ADMIN_PASSWORD / (可选) AUDIO_BUNDLE_URL 烤入发音
-docker compose up -d --build
-open http://localhost:3000
+**鉴权链路**：Web Crypto HMAC 签名 cookie，userId + role 嵌入 payload，篡改即失效。`requireUser()` 是所有受保护 page / API 的统一守卫，page 与 API 双重校验防止绕过。`hashPassword` / `verifyPassword` 用 PBKDF2-SHA-256 100k iters。
+
+**数据隔离**：所有 per-user 表（Session / Attempt / Checkin / UserWord / UserSettings）查询都带 `where: { userId }`，跨用户读不到一行。`UserSettings.userId` 是 `@unique`。
+
+**音频存储**：238 MB / 20194 个 mp3 镜像构建时通过 `AUDIO_BUNDLE_URL` 烤入，BuildKit cache 故意关闭（避免 stale layer 吞掉音频更新）。缺失时 runtime fallback 到 `audio_data` named volume。`accent` 自动 fallback（US 词缺失时顶上 UK）。
+
+**部署简图**：GH Actions runner 推 ACR → SSH server `docker compose up -d --force-recreate app` → 保留当前 + 上一个 image 作回滚 buffer → 每日 `pg_dump | gzip` 备份 14 天。
+
+完整设计文档与截图：[GitHub Pages](https://meisijiya.github.io/IELTS_WORDS/) · [架构大图 SVG](project-page/assets/diagrams/architecture.svg) · [CI/CD 教科书](https://meisijiya.github.io/IELTS_WORDS/cicd/)
+
+## 核心特性
+
+| 图标 | 特性 | 说明 |
+|---|---|---|
+| 🎯 | Flash-then-Spell 闪卡拼写 | 显示中英文 → 英文渐变消失 → 键盘拼写，贴合真实机考节奏 |
+| 📚 | SM-2 简化记忆曲线 | level 0–5 升降级；连对 5 次升 mastered，答错即 de-master 重学 |
+| ⚡ | US/UK 双口音真人发音 | 20194 个 mp3 烤入镜像，1 年 immutable 缓存，accent 缺失自动 fallback |
+| 🔒 | 多用户数据隔离 | HMAC 签名 cookie + 全表 `userId` 隔离，admin 邀请码 7 天有效 |
+
+**训练闭环**：每张词卡经过「闪卡 → 拼写 → 双口音播放 → 音效反馈」四步。新词给 2 字母提示、复习词给 1 字母提示、已熟练不提示，渐进式降低辅助，让拼写本身形成肌肉记忆。
+
+**拉取节奏**：三档优先级（review / balanced / new）覆盖巩固期、平稳期、扩张期。每 batch 20 词按比例混搭：review 4 新 + 8 学过 + 8 已熟练（默认复习密集）；balanced 14 新 + 5 学过 + 1 已熟练；new 18 新 + 2 学过 + 0 已熟练（扩张密集）。queue < 5 时静默 fetch 下一页，单 batch < 100 KB。
+
+**视听反馈**：答对 `Web Audio API` 双音 ding，答错双音 buzz；streak 在 3 / 6 / 9 / 12 / 15 milestone 升级音色（双音 → bell → sparkle → swell + 合弦），milestone 触发 banner pulse + 1–4 px 屏幕微震（≤ 120 ms，不干扰学习）。
+
+**错题榜系统**：错题 Session 走 mode='review'，**只插 Attempt 行不修改 Word 状态**（attempts / level / masteredAt 不变）。错词榜按错误次数排序，时间筛选（今日 / 一周 / 一月 / 全部），展开行显示 30 天每日正确率曲线 + 单练入口 + 标记已熟按钮。今日已复习 badge 仅 mode='review' 触发，drill 错词 attempt 不算复习。
+
+**多用户与邀请码注册**：admin 在 `/admin/invites` 一次性生成邀请码（7 天过期）。新用户走 `/register?code=xxx` 提交 username + password + code 创建账号。普通用户在 `/settings` 可改自己的 username（需当前密码）；admin 可在 `/admin/users` 改任意用户名。`/checkin` 卡片右下「删除打卡记录」按钮（确认 phrase `CLEAN ALL CHECKINS`）自助重置。
+
+**打卡记录跨重置保留**：`/checkin/[date]` 是当日 attempt 实时聚合。重置前 `Checkin` 表 eager 快照所有有 attempt 的日期，即使用户清空所有尝试，`/checkin` 仍能显示历史。`src/lib/checkin-snapshot.ts` 实现 `masteredTodayCount` / `newCount` / `learningCount` 三桶语义。
+
+**安全防呆**：所有重置端点强制要求确认短语（`RESET PROGRESS` / `DELETE ATTEMPTS` / `DELETE SESSIONS` / `RESET EVERYTHING`），避免误触清空学习记录。Rate limit 用单进程 Map（多实例部署需要 Redis）。
+
+**会话并发**：同一 wordbook 下允许 random + targeted 多会话共存；同一 IDs 集合（包括乱序）自动复用。`refillQueue` 在 queue < 5 时静默 fetch 下一页，零感知补仓。
+
+**词库集合分区**：单词按 masteryThreshold 自动归类到 3 路互斥桶（wrong / learning / mastered），`src/lib/word-collections.ts` 单一实现。`/wrong-words/<book>` / `/learning/<book>` / `/mastered/<book>` 顶部 tabs 互链，切换零加载延迟。
+
+**admin 邀请码流程**：admin 在 `/admin/invites` 生成 7 天过期 code → 新用户走 `/register?code=xxx` → 校验顺序：username 重复 409 → invitation 无效 400，两个错误独立返回，不合二为一。
+
+**STREAK 里程碑升级**：3 / 6 / 9 / 12 / 15 连击分别触发双音 ding → bell 上行 → sparkle 瀑布 → swell + 合弦四种不同音色，banner pulse + 1–4 px 微震。
+
+## 三段功能演示
+
+**练习界面**：Flash-then-Spell 主循环 + SM-2 升降级 + streak 连击音效；点击单词文字可重播发音，hover 显示音量图标；答完停留显示「✓ 拼对了」反馈卡，按 Enter 进入下一题。屏幕底部实时统计：正确 / 错误 / 剩余 / 已练 / 连击中。
+
+```
+┌─ 练习主循环 ──────────────────────────────────────┐
+│ 1. 闪现 [中 + 英]   2 秒                          │
+│ 2. 英文渐变消失                                     │
+│ 3. 键盘拼写，新词给 _ 提示                         │
+│ 4. Enter 提交 → 双口音反馈 + ding/buzz + streak++ │
+└───────────────────────────────────────────────────┘
 ```
 
-> **国内访问加速**：镜像源全用阿里云（registry.cn-hangzhou.aliyuncs.com）和淘宝（registry.npmmirror.com），中国大陆服务器无需特殊网络配置。
+![practice](project-page/assets/screenshots/practice.png)
 
-### 方式 B · 本地开发
+**错题榜**：按错误次数排序，时间筛选（今日 / 一周 / 一月 / 全部），展开行显示 30 天每日正确率曲线（120×32 inline SVG + hover tooltip）+ 单练入口 + 标记已熟按钮。两个批量入口：全量复习（含今日已复习）/ 仅剩余（跳过今日已复习）。已掌握（level=5）的单词自动从错词榜消失。
 
-```bash
-# 前置：Node.js 22+，可选 Python 3.10+（仅 PDF 提取 / 音频下载脚本用）
-
-npm install
-npx prisma db push
-npx tsx prisma/seed.ts
-
-cp .env.example .env
-# 编辑 .env，至少修改 ADMIN_PASSWORD
-
-npm run dev
-open http://localhost:3000
-
-# 可选：下载真人发音（一次性 ~30 min，从有道字典）
-python3 tools/fetch_pronunciations.py
+```
+┌─ 错题榜 ───────────────────────────────────────┐
+│ Top-N [5][10][20][全部]   时间 [今日][一周][全部]│
+│ 1. atmosphere  n. 大气层     ✗4 ✓1 [今日已复习] │
+│ 2. perspective n./v. 看法    ✗3 ✓0              │
+│ 展开 → 30 天正确率曲线 + [单练] [标记已熟]      │
+└────────────────────────────────────────────────┘
 ```
 
-## 🧰 常用命令
+![wrong-words](project-page/assets/screenshots/wrong-words.png)
 
-```bash
-# 开发 / 构建
-npm run dev          # 开发模式
-npm run build        # 生产构建
-npm start            # 生产服务器
-npm run typecheck    # TypeScript 类型检查
-npm run lint         # ESLint
+**排行榜**：全员按 today / week / month / all 四档排名，admin 可点开卡片查看当日 attempt 明细，按 userId 隔离计算，不会跨用户串数据。普通用户看自己的 rank + 周边用户。`src/lib/leaderboard.ts: getLeaderboard()` 是单一数据源，新增 leaderboard 路由应直接调用而非复制粘贴。
 
-# 数据 / 测试
-npm run test:parser  # PDF parser (pytest, 18 tests)
-npm run gate         # 数据准确率验证 (audit gate)
+![leaderboard](project-page/assets/screenshots/leaderboard.png)
 
-# 音频管理
-python3 tools/fetch_pronunciations.py            # 多并发下载 10K 词双口音
-python3 tools/check_audio.py                     # DB vs filesystem 核对 (输出缺失列表)
-python3 tools/retry_missing_audio.py             # throttled 重试缺失
-python3 tools/release-audio.py --tag v1.0.0      # 上传到 GitHub Release
+**设置**：发音口音（US / UK / auto fallback）、拉取优先级（review / balanced / new）、重置防呆确认短语（`RESET PROGRESS` / `DELETE ATTEMPTS` / `DELETE SESSIONS` / `RESET EVERYTHING`）、修改当前密码。所有变更通过 `PUT /api/users/me` 走 HMAC 鉴权。
 
-# Docker
-docker compose up -d --build
-docker compose logs -f app
-docker compose down
-```
+![settings](project-page/assets/screenshots/settings.png)
 
-## 📚 文档
+## 技术架构
 
-- 📦 [腾讯云轻量级部署](docs/deploy-tencent-cloud.md) — 裸机部署 + 阿里云 ACR
-- 🐳 [Docker 一键部署](docs/deploy-docker.md) — 国内镜像源优化 + audio bundle 烤入
-- 📄 [PDF 提取规则](docs/grammar.md) — 数据准确率 100% 的来由
-- 🤖 [GitHub Actions CI/CD](#-cicd) — lint + 类型 + 数据 gate + 部署
-
-## 🏗️ 技术栈
+Next.js 15 App Router + TypeScript 5 + Prisma 6 + Tailwind 3 + Web Crypto HMAC。`page.tsx` 跑 Server Component 鉴权 + Prisma + 序列化，同目录 `*-client.tsx` 跑交互。开发用 SQLite，生产切 PostgreSQL（Docker entrypoint 启动时自动改 provider，启动后复原）。所有 per-user 表（Session / Attempt / Checkin / UserWord / UserSettings）都带 `userId` 外键，跨用户读不到一行。
 
 | 层 | 选型 |
 |---|---|
-| **框架** | Next.js 15 (App Router) + TypeScript 5 + React 19 |
-| **ORM** | Prisma 6 + SQLite (dev) / PostgreSQL (prod) |
-| **UI** | Tailwind CSS 3 + 自定义"冬天旭日"主题 |
-| **认证** | Web Crypto HMAC-signed cookie (Edge-safe)，username + password，邀请码注册 |
-| **多用户** | Session/Attempt/Checkin/UserSettings/UserWord 全 `userId` 隔离 |
-| **音频** | Web Audio API（合成 chime / buzz / streak 音效）+ Next.js 静态文件提供 MP3 |
-| **图表** | Recharts（分析页）+ html2canvas（打卡图导出） |
-| **音频下载** | Youdao OpenDict API，13500 词 ~ 30 分钟，stdlib urllib + threading |
-| **测试** | Vitest (TS) + pytest (Python parser) |
-| **部署** | Docker Compose + 阿里云容器镜像 ACR + 腾讯云服务器 |
+| 框架 | Next.js 15 App Router + TypeScript 5 + React 19 |
+| ORM | Prisma 6 + SQLite (dev) / PostgreSQL (prod) |
+| UI | Tailwind 3 + 自定义冬天旭日主题 |
+| 认证 | Web Crypto HMAC-signed cookie (Edge-safe) |
+| 图表 | Recharts（分析页）+ html2canvas（打卡图导出 PNG） |
+| 测试 | Vitest (TS) + pytest (Python parser 18 cases) |
 
-## 📂 项目结构
+**核心约定**：`page.tsx`（Server Component，鉴权 + Prisma + 序列化）+ 同目录 `*-client.tsx`（Client 交互）。四个词库 slug 共享：`practice` / `wrong-words` / `learning` / `mastered`。TS 单测与源码同目录 `*.test.{ts,tsx}`。
 
-```
-.
-├── src/
-│   ├── app/                       # Next.js App Router
-│   │   ├── page.tsx               # 主页（词库选择 + 未完成会话卡）
-│   │   ├── login/                 # 登录
-│   │   ├── practice/[wordbook]/   # 练习页面 + PracticeClient
-│   │   ├── analytics/             # 学习分析仪表盘 + analytics-client
-│   │   ├── checkin/[date]/        # 单日打卡页 + html2canvas 导出 PNG
-│   │   ├── wrong-words/[wordbook]/# 错题榜展开页 + 今日已复习标
-│   │   ├── settings/              # 设置页（含拉取优先级 + 重置防呆）
-│   │   └── api/
-│   │       ├── sessions/          # POST 创建 / GET active / DELETE 结束
-│   │       ├── attempts/          # POST 答对/错；支持 drill / review 模式
-│   │       ├── words/             # GET random+weighted list / mark-mastered
-│   │       ├── analytics/         # GET 进度 + 错题榜 + 错误位置分析
-│   │       ├── settings/          # GET/PUT pronunciationMode + pullPriority + accent
-│   │       └── admin/reset/       # POST 清空 + 强制 confirm phrase
-│   ├── lib/                       # 工具库 (auth HMAC / db 单例)
-│   └── components/                # 共享组件
-├── prisma/
-│   ├── schema.prisma              # Wordbook / Word / Session / Attempt / UserSettings
-│   │                              # Word.masteredAt · Session.mode (drill|review)
-│   └── seed.ts                    # 从 seed JSON 导入
-├── seed/                          # 10,686 词 JSON（精简 3,611 + 完整 7,075）
-├── tools/                         # PDF 提取 + 解析 + 校验 + 音频管理
-│   ├── fetch_pronunciations.py    # 多并发下载 US+UK 真人发音
-│   ├── check_audio.py             # DB vs filesystem 核对
-│   ├── retry_missing_audio.py     # throttled 重试缺失
-│   ├── release-audio.py           # 上传到 GitHub Release
-│   └── audit.py                   # 生成全量 TSV + 抽样对比
-├── release/                       # gitignored 预打包音频 tarball
-├── public/audio/                  # gitignored 运行时下载音频
-├── docker/
-│   └── entrypoint.sh              # 等 DB + migrate + (可选) seed
-├── docs/
-│   ├── deploy-tencent-cloud.md
-│   ├── deploy-docker.md
-│   └── grammar.md
-├── Dockerfile
-├── docker-compose.yml
-└── .github/workflows/             # ci.yml + deploy.yml
+```mermaid
+graph LR
+  Browser[浏览器] -->|HMAC cookie| Middleware[Next.js Middleware]
+  Middleware -->|auth OK| Pages[page.tsx + *-client.tsx]
+  Pages -->|Prisma| DB[(Postgres / SQLite)]
+  Pages -->|static /audio/*.mp3| Audio[Next.js Static 1y immutable]
+  Audio -.->|accent fallback| AudioUK[UK mp3 卷]
+  Browser -->|Web Audio API| SFX[合成 chime / buzz]
 ```
 
-## 🔍 数据来源与准确率
+完整架构大图（含 admin 邀请码流程、回滚 buffer、备份管道、PDF 提取管道）：[architecture.svg](project-page/assets/diagrams/architecture.svg)
 
-- **词源**：用户提供的《雅思词汇真经》+《IELTS》两本 PDF（共 10,686 词）
-- **提取方式**：双引擎交叉验证（PyMuPDF + pdfplumber）+ 人工校对
-- **准确率**：抽样 1000/1000 = 100% PASS ✅
-- **审核工具**：`tools/audit.py` 生成全量 TSV，`audit/sample_review.html` 抽样对比
+## CI/CD
 
-## 🚢 部署
+1. **push main** → 触发 GH Actions `ci.yml`：lint + typecheck + build + Vitest + pytest + 数据 gate（`npm run gate` 跑 audit）。
+2. **CI 通过** → 触发 `deploy.yml`：在 `ubuntu-latest` runner 上 **禁用 BuildKit cache**，避免 stale layer 复用旧 audio bundle，5–6 分钟构建完成。
+3. **推 ACR 个人版** → 阿里云容器镜像服务，image tag `latest` 覆盖。ACR 独立密码与阿里云账号密码分离。
+4. **SSH server deploy** → `docker compose up -d --force-recreate app`，保留当前 + 上一个 yasi-words image 作回滚 buffer，deploy 后 `df -h` 报告磁盘水位。
+5. **每日备份** → `backup-database.yml` cron 03:00 Asia/Shanghai，server 端 `pg_dump | gzip`，保留 14 天，事故前可手动触发快照。
 
-详见 [docs/deploy-docker.md](docs/deploy-docker.md) 与 [docs/deploy-tencent-cloud.md](docs/deploy-tencent-cloud.md)。要点：
+**接手 deploy 时快速状态检查**：`gh run list --limit 5` · `ssh host 'docker compose ps'` · `ssh host 'find /app/public/audio -name "*.mp3" | wc -l'`（期望 ≥ 20000） · `ssh host 'ls /opt/yasi-words/backups/ | wc -l'`（期望 ≤ 14）。
 
-### 国内云服务器加速镜像（已配置）
-| 用途 | 镜像源 | 备注 |
-|---|---|---|
-| Docker 基础镜像 | `registry.cn-hangzhou.aliyuncs.com/library/` | Aliyun hub 直链 |
-| Alpine apk | `mirrors.aliyun.com/alpine/...` | |
-| npm | `registry.npmmirror.com` | |
-| GitHub | （**未额外加速**）| ghproxy 在腾讯云主机上**超时不可达**；GH Actions runner + 用户浏览器直连 GitHub OK |
+**Ops 通用诊断**：`.github/workflows/diagnose.yml` 接受 `cmd` input，SSH 跑任意 shell 命令，事故 triage 一键可达。生产 schema 恢复走 `Fix-Prod-Schema` workflow，旧数据迁移走 `Migrate-Legacy-UserData` workflow。
 
-### audio bundle 烤进 image
+**Secret 处理原则**：API key / token / secret 不入 git；走环境变量 + `.env`（提交 `.env.example` 模板）；`.env` 加 `.gitignore`；日志中只显示 `sk-***` 前 4 位 + `***`，绝不打印完整值。
 
+完整流程、踩过的 12 个坑、维护 SOP：[CI/CD 在线文档](https://meisijiya.github.io/IELTS_WORDS/cicd/) · [CICD.md](CICD.md)
+
+## 词库
+
+| 词库 | 词数 | 适配人群 | 音频 |
+|---|---|---|---|
+| 雅思词汇真经（精简版） | 3 611 | 入门首选 · 高频核心 | US + UK |
+| IELTS（完整版） | 7 076 | 进阶全覆盖 | US + UK |
+| 大学英语六级词汇（CET-6） | 5 518 | CET-6 应试 | US + UK |
+
+新增词库流程见 `docs/add-wordbook.md`，数据源 PDF 在 `resources/`（tracked），音频从 Youdao OpenDict 一次性下载 ~30 分钟。三库共享 slug：`practice` / `wrong-words` / `learning` / `mastered`，按 3 路互斥分区（wrong / learning / mastered）自动归类。
+
+`book_a` / `book_b` 是 PDF 管线内部名 ≠ 用户面 slug `concise` / `full`；CET-6 走独立 DOCX pipeline。`prisma/seed.ts` 用 upsert 幂等导入，重复运行安全。
+
+切换词库后所有 attempt / session / word_history 仍按 userId 隔离，新词库自动从 seed JSON 加载到对应 `wordbookId`。
+
+## 数据准确率
+
+数据来自用户提供的《雅思词汇真经》+《IELTS》两本 PDF，共 10 687 词。提取走双引擎交叉验证（PyMuPDF + pdfplumber）+ 人工校对，规则见 `docs/grammar.md`。
+
+`audit/word-audit.py` 跑 schema 完整性 + 跨书一致性 + POS 分布；`audit/audio-audit.py` 跑文件存在 + magic bytes (MPEG/WAV) + 大小分布；`audit/spot-check.py` 抽样 1000 词 vs Youdao 字典。**抽样 1000/1000 = 100% PASS**。详细审计报告见 `audit/*-report.md`，可重复跑。
+
+CI 默认跑 `lint` / `typecheck` / `build` / Vitest / pytest；`gate` 现在可入 CI（源在 `resources/` tracked），但默认不开。
+
+## 本地预览
+
+**Docker 一键**（推荐 · 国内镜像源已配置 · 阿里云 + 淘宝 npm 镜像）
 ```bash
-# 1. 本地打包（一次性 ~20 秒，gzip 压缩 ~50%）
-tar czf /tmp/audio_full.tgz -C public audio/
-
-# 2. 在 GitHub Release 页面手动上传（API 单文件上限 100 MB；238 MB bundle 必须 web UI）
-#    URL: https://github.com/<owner>/<repo>/releases/new
-#    asset name: audio_full.tgz
-#    tag: e.g. audio-full-2026-07-23
-
-# 3. workflow file: deploy.yml 把 AUDIO_BUNDLE_URL 指向新 tag
-#    AUDIO_BUNDLE_URL=https://github.com/<owner>/<repo>/releases/download/<tag>/audio_full.tgz
-
-# 4. 推 commit → GH Actions build (no BuildKit cache, 5–6 min) → server pull → up
+git clone https://github.com/meisijiya/IELTS_WORDS.git yasi-words
+cd yasi-words && cp .env.docker.example .env
+docker compose up -d --build && open http://localhost:3000
+```
+**npm dev**（前置 Node.js 22+，可选 Python 3.10+ 仅 PDF / 音频脚本用）
+```bash
+npm install
+npx prisma db push && npx tsx prisma/seed.ts
+npm run dev && open http://localhost:3000
 ```
 
-镜像构建时一次性下载音频烤入（**BuildKit cache 故意关闭**，否则 stale layer 会复用旧 audio 内容）。
+## License & 致谢
 
-`entrypoint.sh` 还会在容器启动时做一层兜底：若 baked audio 缺失（如 cache 复用 bug 时），runtime 从同 URL 拉到 `audio_data` named volume，`docker compose restart` 即可恢复。
-
-## 🎯 算法概览
-
-### Word Level（SM-2 简化版）
-
-```
-初始:     level = 0
-答对:     level = min(5, level + 1),  level 首次到 5 → masteredAt = now()
-答错:     若 level >= 5 (已熟练) → level = 0, masteredAt = null  (de-master 重学)
-         否则: level = max(0, level - 1)
-```
-
-### Session Mode
-
-- **drill（默认）**: 答对/答错都更新 Word 的 level / attempts / correct / masteredAt。
-- **review（错题 Session）**: 只插入 Attempt 行作为"出现"记录，**不修改 Word 任何字段**。错题榜的"今日已复习"由 Attempt.createdAt 推断。
-
-### 错题 Session 流程
-
-```
-[Analytics 错题榜] → "仅剩余" 按钮 (筛掉今日已复习的)
-   ↓ GET /practice/concise?ids=10,20,30
-   ↓ POST /api/sessions (wordIds=[10,20,30], mode='review')
-   ↓ 答完 3 个单词，每次插入 Attempt（不污染 word 状态）
-   ↓ 显示 "本轮完成 [彩带]" 页
-   ↓
-   ✦ 错题榜 word 10, 20, 30 现在带 "今日已复习" badge
-   ✦ "仅剩余" 自动排除它们
-```
-
-### 拉取加权算法
-
-```
-N = 20 (单 batch 上限)
-priority = 'review' | 'balanced' | 'new'
-
-PULL_CONFIG[priority] = {
-  ratio:    [新, 学过, 已熟练],
-  fallback: [出错时优先填哪个池]
-}
-
-review:    { ratio: [4, 8, 8], fallback: [mastered, learned, new] }   # 复习密集
-balanced:  { ratio: [14, 5, 1], fallback: [new, learned, mastered] }  # 默认
-new:       { ratio: [18, 2, 0], fallback: [new, learned, mastered] } # 扩张密集
-```
-
-边界情况：
-- 所有词都已尝试 → fallback 到 learned 池，仍能拉 20
-- 所有词已熟练 → fallback 到 mastered 池，答错触发 de-master 后再次出现
-- 全部 masteredAt 过滤完了 → API 返回空数组 `{"words": []}`，前端显示"已掌握所有"
-
-## 🤝 贡献 / 自定义
-
-- 加新词库：编辑 `seed/*.json` + `prisma/seed.ts` 的映射，跑 `npx tsx prisma/seed.ts`
-- 调整拉取比例：编辑 `src/app/api/words/route.ts` 的 `PULL_CONFIG`
-- 改 streak milestone 倍率：编辑 `src/app/practice/[wordbook]/practice-client.tsx` 的 `playStreakChime` 里 `tier` 判定
-
-## 📜 License
-
-MIT © 2026 Yasi Words contributors
-
----
-
-<p align="center">
-  <sub>Built with ❤️ for IELTS learners fighting the keyboard.</sub>
-</p>
+MIT © 2026 Yasi Words contributors · Built with ❤️ for IELTS learners fighting the keyboard.
+感谢所有贡献者、雅思机考考生社群、以及 GitHub Pages 文档站的镜像托管方。
+特别感谢 [Prisma](https://www.prisma.io/) / [Next.js](https://nextjs.org/) / [Tailwind CSS](https://tailwindcss.com/) 等开源依赖。

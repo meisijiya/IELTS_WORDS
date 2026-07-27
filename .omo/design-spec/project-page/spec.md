@@ -145,3 +145,44 @@
 **前后导航 contract**：每个章节页面末尾必须包含 `<nav class="chapter-prev-next">`，内含三个 `<a>` 链接，顺序固定：「上一节」「下一节」「目录」。三个锚点必须始终存在，不可折叠。当位于第一章或最后一章时，对应的上一节或下一节链接应 disabled 而非隐藏。目录链接始终指向页面内 toc 锚点，不跳转。导航行使用 flex 布局，左右两端分布：上一节居左，目录居中，下一节居右。
 
 **标点规则**：Chapter copy must never use the em-dash character (U+2014). Use comma, colon, or parentheses instead. This is enforced by a grep check at validation time.
+
+## 12 · README 节奏指引
+### Hero 段约束
+
+- README 必须以 6 行 badges + tagline + 一句话定位开头（首行 H1，次行 6 枚 flat-square badge，次行 blockquote tagline，次行一句话定位）。
+- tagline 使用 blockquote `>` 包裹，定位句不加粗不加链接。
+- 不在 Hero 区写 TBD / TODO / 待补充等占位符；未完成的功能干脆不写。
+
+### 章节字数上限
+
+| 章节 | 字数上限 |
+|---|---|
+| Hero | 25 |
+| 一图胜千言 | 25 |
+| 核心特性 | 35 |
+| 三段功能演示 | 40 |
+| 技术架构 | 30 |
+| CI/CD | 25 |
+| 词库 | 15 |
+| 数据准确率 | 15 |
+| 本地预览 | 15 |
+| License & 致谢 | 10 |
+
+### 元素硬约束
+
+- 表格使用 GFM 表格语法（`| - |`），禁止 HTML 表格。
+- 截图引用必须使用相对仓库根路径 `project-page/assets/screenshots/...png`。
+- ASCII 艺术 <= 10 行（紧凑），超出部分应截断或转为 SVG 备图。
+- 表情符号限定使用 6 类通用 emoji：📦 🎯 📚 ⚡ 🔒 🌐；不引入 emoji 文字占位符。
+- 不写 em-dash `—`；改用 `,` `:` `（` `）`。
+- redaction：禁止 `PGPASSWORD` / `yasi-2026-dev` / `crpi-xxx.cn-shenzhen` 字面量；禁止 IP `X.X.X.X` 字面量。
+### 验证命令
+
+```bash
+wc -l README.md                       # 200 ~ 350
+grep -P "—" README.md                 # 0 hits
+grep -E "PGPASSWORD|yasi-2026|crpi-xxx\\.cn|([0-9]{1,3}\\.){3}[0-9]{1,3}" README.md  # 0 hits
+```
+### 来源指针
+
+screenshot 资产来自 `project-page/assets/screenshots/` (6 PNG) + `project-page/assets/diagrams/` (2 SVG)；具体清单存于 AGENTS.md 的 § PROJECT PAGES 段。
