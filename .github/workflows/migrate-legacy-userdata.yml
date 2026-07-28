@@ -26,12 +26,18 @@ jobs:
             echo "=== restart app ==="
             docker restart yasi-app
             sleep 10
-            echo "=== admin dashboard check ==="
-            COOKIE=$(curl -s -i -X POST http://localhost:3000/api/auth/login -H "Content-Type: application/json" -d '{"username":"admin","password":"Admin@2026"}' | grep -i "^set-cookie:" | head -1 | sed 's/.*: //; s/;.*//')
-            curl -s "http://localhost:3000/api/analytics?wordbookId=1&range=all" -H "Cookie: $COOKIE" | python3 -c "
+            echo "=== admin dashboard check (creds from .env) ==="
+            ADMIN_USER=$(grep '^ADMIN_USERNAME=' .env | cut -d= -f2-)
+            ADMIN_PW=$(grep '^ADMIN_PASSWORD=' .env | cut -d= -f2-)
+            if [ -z "$ADMIN_USER" ] || [ -z "$ADMIN_PW" ]; then
+              echo "WARN: ADMIN_USERNAME / ADMIN_PASSWORD not set in .env — skipping dashboard check"
+            else
+              COOKIE=$(curl -s -i -X POST http://localhost:3000/api/auth/login -H "Content-Type: application/json" -d "{\"username\":\"$ADMIN_USER\",\"password\":\"$ADMIN_PW\"}" | grep -i "^set-cookie:" | head -1 | sed 's/.*: //; s/;.*//')
+              curl -s "http://localhost:3000/api/analytics?wordbookId=1&range=all" -H "Cookie: $COOKIE" | python3 -c "
 import sys, json
 d = json.load(sys.stdin)
 print('today attempts:', d['byRange']['today']['totalAttempted'])
 print('total attempts ever:', d['recent']['totalAttempts'])
 print('mastered words:', d['progress']['masteredWords'])
 "
+            fi
