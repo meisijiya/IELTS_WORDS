@@ -37,6 +37,9 @@ model User {
   userWords           UserWord[]
   invitationsSent     Invitation[] @relation("Inviter")
   invitationsAccepted Invitation[] @relation("Invitee")
+  duelsChallenged     Duel[]         @relation("DuelChallenger")
+  duelsOpponent       Duel[]         @relation("DuelOpponent")
+  duelAnswers         DuelAnswer[]
 }
 
 model Invitation {
@@ -63,6 +66,7 @@ model Wordbook {
 
   words    Word[]
   sessions Session[]
+  duels    Duel[]
 }
 
 model Word {
@@ -80,6 +84,7 @@ model Word {
 
   userWords UserWord[]
   attemptRecords Attempt[] @relation("WordAttempts")
+  duelAnswers   DuelAnswer[] @relation("WordDuelAnswers")
 
   @@unique([wordbookId, spelling])
   @@index([wordbookId])
@@ -216,4 +221,62 @@ model UserSettings {
   // Web Audio synth effects.
   soundEnabled          Boolean  @default(true)
   updatedAt             DateTime @updatedAt
+}
+
+// Duel = 1v1 challenge. Sandbox mode — never writes to Attempt/UserWord/Checkin/Session.
+// wordIds is JSON-encoded number[] (sqlite has no native array type).
+// id is generated server-side via crypto.randomUUID() (matches Session/Invitation pattern).
+model Duel {
+  id           String   @id // crypto.randomUUID() in code
+  // "1" = speed race (60s, max correct wins); "2" = round race (N rounds, per-round winner)
+  mode         String
+  // "pending" | "ready" | "active" | "finished" | "forfeited"
+  status       String
+  wordbookId   Int
+  wordbook     Wordbook @relation(fields: [wordbookId], references: [id], onDelete: Cascade)
+  durationSec  Int      @default(60)  // mode 1
+  roundCount   Int      @default(20)  // mode 2 (user-selectable: 10/20/30/50)
+  wordIds      String                  // JSON number[] — frozen at creation
+
+  challengerId Int
+  challenger   User     @relation("DuelChallenger", fields: [challengerId], references: [id], onDelete: Cascade)
+  opponentId   Int?
+  opponent     User?    @relation("DuelOpponent", fields: [opponentId], references: [id])
+
+  createdAt             DateTime  @default(now())
+  startedAt             DateTime?
+  finishedAt            DateTime?
+  winnerId              Int?     // null = tie or pending
+  forfeitById           Int?     // userId who disconnected
+  challengerLastSeenAt  DateTime? // heartbeat — set on state-poll
+  opponentLastSeenAt    DateTime?
+  currentRoundIndex     Int?      // mode 2 only
+  currentRoundStartedAt DateTime? // mode 2 round timeout anchor
+
+  answers DuelAnswer[]
+
+  @@index([status, finishedAt])
+  @@index([challengerId, status])
+  @@index([opponentId, status])
+}
+
+model DuelAnswer {
+  id          Int      @id @default(autoincrement())
+  duelId      String
+  duel        Duel     @relation(fields: [duelId], references: [id], onDelete: Cascade)
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  wordId      Int
+  word        Word     @relation("WordDuelAnswers", fields: [wordId], references: [id], onDelete: Cascade)
+  // null for mode 1 (each submission is a new "attempt"); 0..N-1 for mode 2 (per-round).
+  roundIndex  Int?
+  correct     Boolean
+  elapsedMs   Int
+  submittedAt DateTime @default(now())
+
+  @@index([duelId])
+  @@index([userId])
+  // Mode 2: enforce one answer per (duel, user, round). Mode 1: roundIndex is null and SQLite/Postgres
+  // treat NULLs as distinct under UNIQUE, so a user can submit many answers for mode 1.
+  @@unique([duelId, userId, roundIndex])
 }
