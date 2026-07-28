@@ -173,7 +173,7 @@ export function LeaderboardClient({ entries: initial }: { entries: LeaderboardEn
                     "今日还未答对单词"
                   )}
                 </div>
-                {e.todayDuelTotal > 0 && (
+                {e.todayDuelTotal > 0 ? (
                   <div className="flex items-center gap-1.5 mt-1">
                     <Swords className="h-3 w-3 text-accent" />
                     <span className="text-xs text-muted-foreground tabular-nums">
@@ -184,6 +184,11 @@ export function LeaderboardClient({ entries: initial }: { entries: LeaderboardEn
                         {Math.round(e.todayDuelWinRate * 100)}%
                       </span>
                     )}
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1.5 mt-1">
+                    <Swords className="h-3 w-3 text-muted-foreground/60" />
+                    <span className="text-xs text-muted-foreground">单挑胜率：暂无</span>
                   </div>
                 )}
               </div>

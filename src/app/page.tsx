@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { CalendarDays, BarChart3, Settings, Pin, Trophy, Users } from "lucide-react";
+import { CalendarDays, BarChart3, Settings, Pin, Swords, Trophy, Users } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { ActiveSessionCard } from "./active-session-card";
@@ -119,6 +119,12 @@ export default async function HomePage() {
             className="text-accent hover:text-accent-hover transition inline-flex items-center gap-1.5"
           >
             <Trophy className="h-4 w-4" /> 排行榜
+          </Link>
+          <Link
+            href="/duel"
+            className="text-accent hover:text-accent-hover transition inline-flex items-center gap-1.5"
+          >
+            <Swords className="h-4 w-4" /> 单挑
           </Link>
           {user.role === "admin" && (
             <Link
