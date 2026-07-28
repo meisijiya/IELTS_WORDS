@@ -12,6 +12,9 @@ export interface LeaderboardEntry {
   todayAttempts: number;
   masteredCount: number;
   recentWords: Array<{ spelling: string; createdAt: string }>;
+  todayDuelWins: number;
+  todayDuelTotal: number;
+  todayDuelWinRate: number | null;
 }
 
 export interface Leaderboard {
@@ -66,16 +69,43 @@ export async function getLeaderboard(currentUserId: number): Promise<Leaderboard
     }
   }
 
+  const todaysDuels = userIds.length
+    ? await prisma.duel.findMany({
+        where: {
+          finishedAt: { gte: startOfDay },
+          status: { in: ["finished", "forfeited"] },
+          opponentId: { not: null },
+        },
+        select: { challengerId: true, opponentId: true, winnerId: true },
+      })
+    : [];
+
+  const duelStatsByUser = new Map<number, { wins: number; total: number }>();
+  for (const d of todaysDuels) {
+    for (const userId of [d.challengerId, d.opponentId!]) {
+      const cur = duelStatsByUser.get(userId) ?? { wins: 0, total: 0 };
+      cur.total++;
+      if (d.winnerId === userId) cur.wins++;
+      duelStatsByUser.set(userId, cur);
+    }
+  }
+
   return {
     today: startOfDay.toISOString(),
-    entries: users.map((u) => ({
-      id: u.id,
-      username: u.username,
-      role: u.role,
-      isMe: u.id === currentUserId,
-      todayAttempts: todayByUser.get(u.id) ?? 0,
-      masteredCount: masteredByUser.get(u.id) ?? 0,
-      recentWords: recentByUser.get(u.id) ?? [],
-    })),
+    entries: users.map((u) => {
+      const s = duelStatsByUser.get(u.id) ?? { wins: 0, total: 0 };
+      return {
+        id: u.id,
+        username: u.username,
+        role: u.role,
+        isMe: u.id === currentUserId,
+        todayAttempts: todayByUser.get(u.id) ?? 0,
+        masteredCount: masteredByUser.get(u.id) ?? 0,
+        recentWords: recentByUser.get(u.id) ?? [],
+        todayDuelWins: s.wins,
+        todayDuelTotal: s.total,
+        todayDuelWinRate: s.total === 0 ? null : s.wins / s.total,
+      };
+    }),
   };
 }
