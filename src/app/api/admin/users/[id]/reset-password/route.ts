@@ -1,19 +1,24 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { requireUser, authErrorResponse, ApiAuthError } from "@/lib/api";
+import { hashPassword } from "@/lib/password";
 
-const DELETE_CONFIRM_PHRASE = "DELETE USER";
+const MIN_PASSWORD_LEN = 6;
 
-function parseBody(raw: string): { confirm?: unknown } {
+const RESET_CONFIRM_PHRASE = "RESET PASSWORD";
+
+function parseBody(raw: string): { confirm?: unknown; newPassword?: unknown } {
   try {
     const parsed = JSON.parse(raw);
-    return typeof parsed === "object" && parsed !== null ? (parsed as { confirm?: unknown }) : {};
+    return typeof parsed === "object" && parsed !== null
+      ? (parsed as { confirm?: unknown; newPassword?: unknown })
+      : {};
   } catch {
     return {};
   }
 }
 
-export async function DELETE(
+export async function POST(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
@@ -34,13 +39,16 @@ export async function DELETE(
     return NextResponse.json({ error: "id required" }, { status: 400 });
   }
 
-  if (targetId === me.id) {
-    return NextResponse.json({ error: "CANNOT_DELETE_SELF" }, { status: 400 });
+  const body = parseBody(await request.text());
+  if (body.confirm !== RESET_CONFIRM_PHRASE) {
+    return NextResponse.json({ error: "CONFIRM_REQUIRED" }, { status: 400 });
   }
 
-  const body = parseBody(await request.text());
-  if (body.confirm !== DELETE_CONFIRM_PHRASE) {
-    return NextResponse.json({ error: "CONFIRM_REQUIRED" }, { status: 400 });
+  if (
+    typeof body.newPassword !== "string" ||
+    body.newPassword.length < MIN_PASSWORD_LEN
+  ) {
+    return NextResponse.json({ error: "INVALID_PASSWORD" }, { status: 400 });
   }
 
   const target = await prisma.user.findUnique({
@@ -51,6 +59,11 @@ export async function DELETE(
     return NextResponse.json({ error: "USER_NOT_FOUND" }, { status: 404 });
   }
 
-  await prisma.user.delete({ where: { id: targetId } });
-  return NextResponse.json({ ok: true, deletedId: targetId, deletedUsername: target.username });
+  const passwordHash = await hashPassword(body.newPassword);
+  await prisma.user.update({
+    where: { id: targetId },
+    data: { passwordHash },
+  });
+
+  return NextResponse.json({ ok: true, userId: targetId, username: target.username });
 }

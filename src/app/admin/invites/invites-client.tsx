@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Copy, Plus, Trash2, Check } from "lucide-react";
+import { Copy, Plus, Trash2, Check, KeyRound, AlertTriangle } from "lucide-react";
 
 interface User {
   id: number;
@@ -24,9 +24,11 @@ interface Invitation {
 export function InvitesClient({
   invitations: initialInvitations,
   users: initialUsers,
+  currentUserId,
 }: {
   invitations: Invitation[];
   users: User[];
+  currentUserId: number;
 }) {
   const [invitations, setInvitations] = useState(initialInvitations);
   const [users, setUsers] = useState(initialUsers);
@@ -36,6 +38,18 @@ export function InvitesClient({
   const [editUsername, setEditUsername] = useState("");
   const [editError, setEditError] = useState<string | null>(null);
   const [editSaving, setEditSaving] = useState(false);
+
+  const [deletingUser, setDeletingUser] = useState<User | null>(null);
+  const [deleteConfirm, setDeleteConfirm] = useState("");
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [deleteSaving, setDeleteSaving] = useState(false);
+
+  const [resettingUser, setResettingUser] = useState<User | null>(null);
+  const [resetPassword, setResetPassword] = useState("");
+  const [resetConfirm, setResetConfirm] = useState("");
+  const [resetError, setResetError] = useState<string | null>(null);
+  const [resetSaving, setResetSaving] = useState(false);
+  const [resetSuccess, setResetSuccess] = useState<string | null>(null);
 
   async function handleCreate() {
     setCreating(true);
@@ -116,6 +130,68 @@ export function InvitesClient({
       setEditingUser(null);
     } finally {
       setEditSaving(false);
+    }
+  }
+
+  function openDelete(u: User) {
+    setDeletingUser(u);
+    setDeleteConfirm("");
+    setDeleteError(null);
+  }
+
+  async function confirmDelete() {
+    if (!deletingUser) return;
+    setDeleteSaving(true);
+    setDeleteError(null);
+    try {
+      const res = await fetch(`/api/admin/users/${deletingUser.id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ confirm: deleteConfirm.trim() }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setDeleteError(data.error || "删除失败");
+        return;
+      }
+      setUsers((prev) => prev.filter((u) => u.id !== deletingUser.id));
+      setDeletingUser(null);
+    } finally {
+      setDeleteSaving(false);
+    }
+  }
+
+  function openReset(u: User) {
+    setResettingUser(u);
+    setResetPassword("");
+    setResetConfirm("");
+    setResetError(null);
+    setResetSuccess(null);
+  }
+
+  async function confirmReset() {
+    if (!resettingUser) return;
+    setResetSaving(true);
+    setResetError(null);
+    try {
+      const res = await fetch(`/api/admin/users/${resettingUser.id}/reset-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          confirm: resetConfirm.trim(),
+          newPassword: resetPassword,
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setResetError(data.error || "重置失败");
+        return;
+      }
+      setResetSuccess(`已为 ${resettingUser.username} 设置新密码`);
+      setResetPassword("");
+      setResetConfirm("");
+    } finally {
+      setResetSaving(false);
     }
   }
 
@@ -220,6 +296,26 @@ export function InvitesClient({
               >
                 编辑
               </button>
+              {u.id !== currentUserId && (
+                <>
+                  <button
+                    onClick={() => openReset(u)}
+                    className="text-xs text-muted-foreground hover:text-foreground px-2 py-1 rounded border border-transparent hover:border-border transition inline-flex items-center gap-1"
+                    title="重置该用户的密码"
+                  >
+                    <KeyRound className="h-3 w-3" />
+                    重置密码
+                  </button>
+                  <button
+                    onClick={() => openDelete(u)}
+                    className="text-xs text-error hover:text-error/70 px-2 py-1 rounded border border-transparent hover:border-error/30 transition inline-flex items-center gap-1"
+                    title="删除该用户（含其所有数据）"
+                  >
+                    <Trash2 className="h-3 w-3" />
+                    删除
+                  </button>
+                </>
+              )}
             </div>
           ))}
         </div>
@@ -266,6 +362,135 @@ export function InvitesClient({
               <button
                 type="button"
                 onClick={() => setEditingUser(null)}
+                className="px-4 py-2 border border-border rounded-md text-muted-foreground hover:text-foreground transition"
+              >
+                取消
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {deletingUser && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setDeletingUser(null);
+          }}
+        >
+          <div className="bg-surface border border-error/40 rounded-xl shadow-soft-lg p-6 max-w-md w-full space-y-4">
+            <div className="flex items-baseline justify-between">
+              <h3 className="text-lg font-bold text-error flex items-center gap-2">
+                <AlertTriangle className="h-5 w-5" />
+                删除用户
+              </h3>
+              <span className="text-xs text-muted-foreground">{deletingUser.role}</span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              将永久删除 <strong>{deletingUser.username}</strong> 的账号及其所有数据（Session / Attempt / Checkin / UserWord / UserSettings / 邀请记录）。
+              <br />
+              该操作不可恢复。
+            </p>
+            <div>
+              <label htmlFor="delete-confirm" className="block text-sm font-medium mb-2">
+                输入确认短语 <code className="px-1.5 py-0.5 bg-error/15 text-error rounded font-mono">DELETE USER</code>：
+              </label>
+              <input
+                id="delete-confirm"
+                type="text"
+                value={deleteConfirm}
+                onChange={(e) => setDeleteConfirm(e.target.value)}
+                autoFocus
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded bg-transparent font-mono"
+              />
+            </div>
+            {deleteError && <p className="text-sm text-error">{deleteError}</p>}
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={confirmDelete}
+                disabled={deleteSaving || deleteConfirm !== "DELETE USER"}
+                className="flex-1 px-4 py-2 bg-error text-error-foreground rounded-md font-medium hover:bg-error/90 transition disabled:opacity-50"
+              >
+                {deleteSaving ? "删除中..." : "确认删除"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setDeletingUser(null)}
+                className="px-4 py-2 border border-border rounded-md text-muted-foreground hover:text-foreground transition"
+              >
+                取消
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {resettingUser && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setResettingUser(null);
+          }}
+        >
+          <div className="bg-surface border border-border rounded-xl shadow-soft-lg p-6 max-w-md w-full space-y-4">
+            <div className="flex items-baseline justify-between">
+              <h3 className="text-lg font-bold flex items-center gap-2">
+                <KeyRound className="h-5 w-5" />
+                重置密码
+              </h3>
+              <span className="text-xs text-muted-foreground">{resettingUser.username}</span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              为 <strong>{resettingUser.username}</strong> 设置一个新密码。设置后请通过安全渠道告知该用户。
+            </p>
+            <div>
+              <label htmlFor="reset-pw" className="block text-sm font-medium mb-2">
+                新密码（≥ 6 字符）
+              </label>
+              <input
+                id="reset-pw"
+                type="text"
+                value={resetPassword}
+                onChange={(e) => setResetPassword(e.target.value)}
+                autoFocus
+                minLength={6}
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded bg-transparent font-mono"
+              />
+            </div>
+            <div>
+              <label htmlFor="reset-confirm" className="block text-sm font-medium mb-2">
+                输入确认短语 <code className="px-1.5 py-0.5 bg-muted text-muted-foreground rounded font-mono">RESET PASSWORD</code>：
+              </label>
+              <input
+                id="reset-confirm"
+                type="text"
+                value={resetConfirm}
+                onChange={(e) => setResetConfirm(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded bg-transparent font-mono"
+              />
+            </div>
+            {resetError && <p className="text-sm text-error">{resetError}</p>}
+            {resetSuccess && <p className="text-sm text-success">{resetSuccess}</p>}
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={confirmReset}
+                disabled={
+                  resetSaving ||
+                  resetConfirm !== "RESET PASSWORD" ||
+                  resetPassword.length < 6
+                }
+                className="flex-1 px-4 py-2 bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent-hover transition disabled:opacity-50"
+              >
+                {resetSaving ? "重置中..." : "确认重置"}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setResettingUser(null);
+                  setResetSuccess(null);
+                }}
                 className="px-4 py-2 border border-border rounded-md text-muted-foreground hover:text-foreground transition"
               >
                 取消

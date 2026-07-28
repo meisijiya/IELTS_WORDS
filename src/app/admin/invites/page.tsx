@@ -65,6 +65,7 @@ export default async function InvitesPage() {
           role: u.role,
           createdAt: u.createdAt.toISOString(),
         }))}
+        currentUserId={user.id}
       />
     </main>
   );
