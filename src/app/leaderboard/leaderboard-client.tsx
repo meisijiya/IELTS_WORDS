@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowUp, Crown, ChevronDown, ChevronUp, X } from "lucide-react";
+import { ArrowUp, Crown, ChevronDown, ChevronUp, X, Swords } from "lucide-react";
 
 interface LeaderboardEntry {
   id: number;
@@ -11,6 +11,9 @@ interface LeaderboardEntry {
   todayAttempts: number;
   masteredCount: number;
   recentWords: Array<{ spelling: string; createdAt: string }>;
+  todayDuelWins: number;
+  todayDuelTotal: number;
+  todayDuelWinRate: number | null;
 }
 
 interface UserToday {
@@ -170,6 +173,19 @@ export function LeaderboardClient({ entries: initial }: { entries: LeaderboardEn
                     "今日还未答对单词"
                   )}
                 </div>
+                {e.todayDuelTotal > 0 && (
+                  <div className="flex items-center gap-1.5 mt-1">
+                    <Swords className="h-3 w-3 text-accent" />
+                    <span className="text-xs text-muted-foreground tabular-nums">
+                      {e.todayDuelWins}胜/{e.todayDuelTotal}场
+                    </span>
+                    {e.todayDuelWinRate !== null && (
+                      <span className="text-[10px] px-1 py-0.5 bg-accent-soft text-accent rounded font-medium">
+                        {Math.round(e.todayDuelWinRate * 100)}%
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
               <div className="text-right shrink-0">
                 <div className="text-lg font-bold tabular-nums">{e.todayAttempts}</div>
