@@ -1,7 +1,16 @@
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
-import { isAuthenticated } from "@/lib/auth";
+import { getCurrentUser } from "@/lib/auth";
 import { PracticeClient } from "./practice-client";
+
+export const dynamic = "force-dynamic";
+
+const DEFAULT_PULL_PRIORITY = "review" as const;
+const DEFAULT_PRONUNCIATION_MODE = "both" as const;
+const DEFAULT_ACCENT = "us" as const;
+const DEFAULT_FALLBACK_PRIORITY: "review" | "balanced" | "new" = DEFAULT_PULL_PRIORITY;
+const DEFAULT_FALLBACK_PRONUNCIATION: "both" | "flash" | "feedback" | "off" = DEFAULT_PRONUNCIATION_MODE;
+const DEFAULT_FALLBACK_ACCENT: "us" | "uk" = DEFAULT_ACCENT;
 
 export default async function PracticePage({
   params,
@@ -10,7 +19,8 @@ export default async function PracticePage({
   params: Promise<{ wordbook: string }>;
   searchParams: Promise<{ ids?: string }>;
 }) {
-  if (!(await isAuthenticated())) {
+  const user = await getCurrentUser();
+  if (!user) {
     redirect("/login");
   }
 
@@ -40,6 +50,29 @@ export default async function PracticePage({
     if (practiceWordIds.length === 0) practiceWordIds = null;
   }
 
+  // Read settings in RSC so the first batch fetch (which happens before the
+  // client's /api/settings call resolves) uses the user's actual pullPriority
+  // instead of a hardcoded "review" default. Same fix for pronunciationMode,
+  // accent, masteryThreshold, flashSkipMinLevel — all of them used to start
+  // from client-side defaults and only update after the async settings fetch.
+  const settings = await prisma.userSettings.findUnique({
+    where: { userId: user.id },
+  });
+
+  const initialSettings = {
+    pullPriority:
+      (settings?.pullPriority as "review" | "balanced" | "new" | null | undefined) ??
+      DEFAULT_FALLBACK_PRIORITY,
+    pronunciationMode:
+      (settings?.pronunciationMode as "both" | "flash" | "feedback" | "off" | null | undefined) ??
+      DEFAULT_FALLBACK_PRONUNCIATION,
+    accent: (settings?.accent as "us" | "uk" | null | undefined) ?? DEFAULT_FALLBACK_ACCENT,
+    flashMs: settings?.flashMs ?? 800,
+    masteryThreshold: settings?.masteryThreshold ?? 5,
+    flashSkipMinLevel: settings?.flashSkipMinLevel ?? null,
+    soundEnabled: settings?.soundEnabled ?? true,
+  };
+
   return (
     <main className="min-h-screen px-6 py-12 max-w-2xl mx-auto">
       <header className="mb-8">
@@ -54,6 +87,7 @@ export default async function PracticePage({
         wordbookId={wb.id}
         wordbookSlug={wb.slug}
         practiceWordIds={practiceWordIds}
+        initialSettings={initialSettings}
       />
     </main>
   );

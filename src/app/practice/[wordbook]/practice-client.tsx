@@ -93,10 +93,20 @@ export function PracticeClient({
   wordbookId,
   wordbookSlug,
   practiceWordIds,
+  initialSettings,
 }: {
   wordbookId: number;
   wordbookSlug: string;
   practiceWordIds: number[] | null;
+  initialSettings: {
+    pullPriority: "review" | "balanced" | "new";
+    pronunciationMode: "both" | "flash" | "feedback" | "off";
+    accent: "us" | "uk";
+    flashMs: number;
+    masteryThreshold: number | null;
+    flashSkipMinLevel: number | null;
+    soundEnabled: boolean;
+  };
 }) {
   const router = useRouter();
   const [sessionId, setSessionId] = useState<string | null>(null);
@@ -120,13 +130,13 @@ export function PracticeClient({
   const [error, setError] = useState<string | null>(null);
   const [wordHistory, setWordHistory] = useState<HistoryEntry[]>([]);
   const [historyModal, setHistoryModal] = useState<HistoryEntry | null>(null);
-  const [flashMs, setFlashMs] = useState(800);
-  const [pronunciationMode, setPronunciationMode] = useState<"both" | "flash" | "feedback" | "off">("both");
-  const [pullPriority, setPullPriority] = useState<"review" | "balanced" | "new">("review");
-  const [accent, setAccent] = useState<"us" | "uk">("us");
-  const [masteryThreshold, setMasteryThreshold] = useState(MASTERY_THRESHOLD_FALLBACK);
-  const [flashSkipMinLevel, setFlashSkipMinLevel] = useState<number | null>(null);
-  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [flashMs, setFlashMs] = useState(initialSettings.flashMs);
+  const [pronunciationMode, setPronunciationMode] = useState<"both" | "flash" | "feedback" | "off">(initialSettings.pronunciationMode);
+  const [pullPriority, setPullPriority] = useState<"review" | "balanced" | "new">(initialSettings.pullPriority);
+  const [accent, setAccent] = useState<"us" | "uk">(initialSettings.accent);
+  const [masteryThreshold, setMasteryThreshold] = useState(initialSettings.masteryThreshold ?? MASTERY_THRESHOLD_FALLBACK);
+  const [flashSkipMinLevel, setFlashSkipMinLevel] = useState<number | null>(initialSettings.flashSkipMinLevel ?? null);
+  const [soundEnabled, setSoundEnabled] = useState(initialSettings.soundEnabled ?? true);
   const inputRef = useRef<HTMLInputElement>(null);
   const soundEnabledRef = useRef(true);
 
