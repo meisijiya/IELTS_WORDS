@@ -561,15 +561,13 @@ export function PracticeClient({
     });
     if (isCorrect) {
       playCorrectChime();
-      // ponytail: stats only update on first attempt; retries are pure UX
-      // practice so streak / correct counter reflects first-attempt recall.
-      if (!isRetry) {
-        const next = stats.streak + 1;
-        setStats({ ...stats, streak: next, correct: stats.correct + 1, wrong: stats.wrong });
-        if (next > 0 && next % 3 === 0) {
-          playStreakChime(next);
-          triggerMilestoneFx(next);
-        }
+      // ponytail: retry-correct counts as a real correct (stats + milestone).
+      // Only retry-wrong is a no-op (per the original "no new attempt" spec).
+      const next = stats.streak + 1;
+      setStats({ ...stats, streak: next, correct: stats.correct + 1, wrong: stats.wrong });
+      if (next > 0 && next % 3 === 0) {
+        playStreakChime(next);
+        triggerMilestoneFx(next);
       }
     } else {
       playWrongBuzz();
@@ -578,8 +576,9 @@ export function PracticeClient({
         else setStats({ ...stats, wrong: stats.wrong + 1 });
       }
     }
-    // ponytail: retries neither mutate SM-2 state nor call /api/attempts.
-    if (isRetry) return;
+    // ponytail: retry-wrong is UX-only; everything else writes to /api/attempts
+    // so retry-correct recovers SM-2 + word counters in the DB.
+    if (isRetry && !isCorrect) return;
     // Optimistic local update — apply BEFORE advance can pop the word off queue[0]
     // so the badge updates the moment user submits (no waiting for /api/attempts round-trip).
     setQueue((prev) =>
