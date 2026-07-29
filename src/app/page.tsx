@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { CalendarDays, BarChart3, Settings, Pin, Swords, Trophy, Users } from "lucide-react";
+import { Pin } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { ActiveSessionCard } from "./active-session-card";
 import { CheckinCalendarCard } from "./checkin-calendar-card";
+import { NavMenu } from "./nav-menu";
 
 export const dynamic = "force-dynamic";
 
@@ -88,59 +89,24 @@ export default async function HomePage() {
 
   return (
     <main className="min-h-screen px-4 py-10 md:px-8 max-w-3xl mx-auto">
-      <header className="mb-10 flex items-baseline justify-between">
-        <div>
-          <h1 className="text-4xl font-bold tracking-tight mb-1">Yasi Words</h1>
+      <header className="mb-10 flex items-baseline justify-between gap-4">
+        <div className="min-w-0">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-1">
+            Yasi Words
+          </h1>
           <p className="text-sm text-muted-foreground">
             雅思单词拼写训练 · 选词库开始练习
           </p>
-          <p className="text-xs text-muted-foreground mt-1">
+          <p className="text-xs text-muted-foreground mt-1 hidden sm:block">
             当前用户：<span className="font-medium">{user.username}</span>
             {user.role === "admin" && (
-              <span className="ml-2 px-1.5 py-0.5 rounded bg-accent-soft text-accent text-[10px] font-semibold">ADMIN</span>
+              <span className="ml-2 px-1.5 py-0.5 rounded bg-accent-soft text-accent text-[10px] font-semibold">
+                ADMIN
+              </span>
             )}
           </p>
         </div>
-        <div className="flex gap-4 text-sm flex-wrap">
-          <Link
-            href={`/checkin/${today}`}
-            className="text-accent hover:text-accent-hover transition inline-flex items-center gap-1.5"
-          >
-            <CalendarDays className="h-4 w-4" /> 打卡
-          </Link>
-          <Link
-            href="/analytics"
-            className="text-accent hover:text-accent-hover transition inline-flex items-center gap-1.5"
-          >
-            <BarChart3 className="h-4 w-4" /> 分析
-          </Link>
-          <Link
-            href="/leaderboard"
-            className="text-accent hover:text-accent-hover transition inline-flex items-center gap-1.5"
-          >
-            <Trophy className="h-4 w-4" /> 排行榜
-          </Link>
-          <Link
-            href="/duel"
-            className="text-accent hover:text-accent-hover transition inline-flex items-center gap-1.5"
-          >
-            <Swords className="h-4 w-4" /> 单挑
-          </Link>
-          {user.role === "admin" && (
-            <Link
-              href="/admin/invites"
-              className="text-accent hover:text-accent-hover transition inline-flex items-center gap-1.5"
-            >
-              <Users className="h-4 w-4" /> 管理
-            </Link>
-          )}
-          <Link
-            href="/settings"
-            className="text-accent hover:text-accent-hover transition inline-flex items-center gap-1.5"
-          >
-            <Settings className="h-4 w-4" /> 设置
-          </Link>
-        </div>
+        <NavMenu username={user.username} isAdmin={user.role === "admin"} />
       </header>
 
       {activeSessions.length > 0 && (
