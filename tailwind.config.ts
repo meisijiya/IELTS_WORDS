@@ -6,24 +6,30 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  // ponytail: class-based dark mode. The .dark class is toggled by ThemeProvider
+  // (or by the no-FOUC inline script before paint). We do NOT need Tailwind's
+  // dark: variants because every color token reads CSS vars that already flip.
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        background: "#F8FAFC",
-        surface: "#FFFFFF",
-        foreground: "#0F172A",
-        muted: "#F1F5F9",
-        "muted-foreground": "#64748B",
-        border: "#E2E8F0",
+        // ponytail: RGB-channel variables so `bg-background/50` (alpha modifier)
+        // works through Tailwind's <alpha-value> placeholder.
+        background: "rgb(var(--background) / <alpha-value>)",
+        surface: "rgb(var(--surface) / <alpha-value>)",
+        foreground: "rgb(var(--foreground) / <alpha-value>)",
+        muted: "rgb(var(--muted) / <alpha-value>)",
+        "muted-foreground": "rgb(var(--muted-foreground) / <alpha-value>)",
+        border: "rgb(var(--border) / <alpha-value>)",
         accent: {
-          DEFAULT: "#E8845F",
-          hover: "#D97757",
-          soft: "#FDE7DA",
-          foreground: "#FFFFFF",
+          DEFAULT: "rgb(var(--accent) / <alpha-value>)",
+          hover: "rgb(var(--accent-hover) / <alpha-value>)",
+          soft: "rgb(var(--accent-soft) / <alpha-value>)",
+          foreground: "rgb(var(--accent-foreground) / <alpha-value>)",
         },
-        success: "#0D9488",
-        warning: "#D97706",
-        error: "#DC2626",
+        success: "rgb(var(--success) / <alpha-value>)",
+        warning: "rgb(var(--warning) / <alpha-value>)",
+        error: "rgb(var(--error) / <alpha-value>)",
       },
       fontFamily: {
         sans: [
@@ -52,9 +58,14 @@ const config: Config = {
         xl: "1rem",
       },
       boxShadow: {
-        "soft-sm": "0 1px 2px 0 rgb(15 23 42 / 0.04), 0 1px 1px 0 rgb(15 23 42 / 0.03)",
-        "soft-md": "0 2px 4px 0 rgb(15 23 42 / 0.06), 0 4px 8px -1px rgb(15 23 42 / 0.04)",
-        "soft-lg": "0 8px 16px -4px rgb(15 23 42 / 0.08), 0 4px 8px -2px rgb(15 23 42 / 0.05)",
+        // ponytail: shadows reference the CSS var so they soften in dark mode
+        // (the rgb channel is consumed by the var; alpha stays constant).
+        "soft-sm":
+          "0 1px 2px 0 rgb(var(--shadow-color) / 0.04), 0 1px 1px 0 rgb(var(--shadow-color) / 0.03)",
+        "soft-md":
+          "0 2px 4px 0 rgb(var(--shadow-color) / 0.06), 0 4px 8px -1px rgb(var(--shadow-color) / 0.04)",
+        "soft-lg":
+          "0 8px 16px -4px rgb(var(--shadow-color) / 0.08), 0 4px 8px -2px rgb(var(--shadow-color) / 0.05)",
       },
       keyframes: {
         "fade-in": {

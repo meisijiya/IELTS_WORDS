@@ -35,7 +35,7 @@ export function WrongWordSparkline({ data }: WrongWordSparklineProps) {
   const hasAttempts = data.length > 0 && data.some((d) => d.total > 0);
   if (!hasAttempts) {
     return (
-      <span className="text-xs text-muted-fg">近 30 天无练习记录</span>
+      <span className="text-xs text-muted-foreground">近 30 天无练习记录</span>
     );
   }
 

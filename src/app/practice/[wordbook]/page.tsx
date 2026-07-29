@@ -36,7 +36,7 @@ export default async function PracticePage({
     return (
       <main className="min-h-screen px-6 py-12 max-w-3xl mx-auto">
         <h1 className="text-2xl font-bold">词库不存在</h1>
-        <p className="text-muted-fg mt-2">slug: {slug}</p>
+        <p className="text-muted-foreground mt-2">slug: {slug}</p>
       </main>
     );
   }
@@ -77,7 +77,7 @@ export default async function PracticePage({
     <main className="min-h-screen px-6 py-12 max-w-2xl mx-auto">
       <header className="mb-8">
         <h1 className="text-2xl font-bold">{wb.name}</h1>
-        <p className="text-sm text-muted-fg">
+        <p className="text-sm text-muted-foreground">
           {practiceWordIds
             ? `精选练习 · ${practiceWordIds.length} 词`
             : `Flash-then-Spell 模式 · ${wb._count.words} 词可选`}

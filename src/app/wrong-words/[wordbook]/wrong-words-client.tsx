@@ -107,16 +107,16 @@ export function WrongWordsClient({
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
       <div className="flex items-center justify-between">
-        <Link href="/analytics" className="text-sm text-muted-fg hover:text-accent transition">
+        <Link href="/analytics" className="text-sm text-muted-foreground hover:text-accent transition">
           ← 返回分析
         </Link>
       </div>
 
       <header className="space-y-2">
         <h1 className="text-2xl font-bold tracking-tight">
-          错词榜 <span className="text-muted-fg">· {wordbook.name}</span>
+          错词榜 <span className="text-muted-foreground">· {wordbook.name}</span>
         </h1>
-        <p className="text-sm text-muted-fg">
+        <p className="text-sm text-muted-foreground">
           {mistakes.length === 0
             ? <span className="inline-flex items-center gap-1.5"><PartyPopper className="h-4 w-4" /> 当前范围暂无错词</span>
             : `共 ${mistakes.length} 个错词，按错误次数排序`}
@@ -133,8 +133,8 @@ export function WrongWordsClient({
               onClick={() => setRange(t.value)}
               className={`px-3 py-1.5 text-sm rounded-md border transition font-medium ${
                 range === t.value
-                  ? "bg-accent text-accent-fg border-accent"
-                  : "border-border text-muted-fg hover:border-accent/60 hover:text-foreground"
+                  ? "bg-accent text-accent-foreground border-accent"
+                  : "border-border text-muted-foreground hover:border-accent/60 hover:text-foreground"
               }`}
             >
               {t.label}
@@ -148,8 +148,8 @@ export function WrongWordsClient({
               onClick={() => setTopN(opt.value)}
               className={`px-3 py-1.5 text-sm rounded-md border transition font-medium ${
                 topN === opt.value
-                  ? "bg-accent text-accent-fg border-accent"
-                  : "border-border text-muted-fg hover:border-accent/60"
+                  ? "bg-accent text-accent-foreground border-accent"
+                  : "border-border text-muted-foreground hover:border-accent/60"
               }`}
             >
               {opt.label}
@@ -159,7 +159,7 @@ export function WrongWordsClient({
       </div>
 
       {allMistakes.length > 0 && (
-        <div className="rounded-lg shadow-soft-md bg-accent text-accent-fg overflow-hidden">
+        <div className="rounded-lg shadow-soft-md bg-accent text-accent-foreground overflow-hidden">
           <div className="px-5 pt-4 pb-2 text-xs opacity-90 flex items-baseline justify-between">
             <span className="inline-flex items-center gap-1.5"><Target className="h-3.5 w-3.5" /> 批量练习模式：</span>
             <span className="tabular-nums">
@@ -195,7 +195,7 @@ export function WrongWordsClient({
       )}
 
       {visibleMistakes.length === 0 ? (
-        <p className="text-center text-muted-fg py-12 inline-flex items-center gap-1.5"><Dumbbell className="h-4 w-4" /> 当前 Top 没有错词</p>
+        <p className="text-center text-muted-foreground py-12 inline-flex items-center gap-1.5"><Dumbbell className="h-4 w-4" /> 当前 Top 没有错词</p>
       ) : (
         <ol className="space-y-2">
           {visibleMistakes.map((w, idx) => {
@@ -213,10 +213,10 @@ export function WrongWordsClient({
                   className="w-full flex items-baseline justify-between gap-3 p-3 text-left hover:bg-muted/30 transition"
                 >
                   <span className="flex items-baseline gap-3 min-w-0">
-                    <span className="text-sm font-mono text-muted-fg w-7 shrink-0">{idx + 1}</span>
+                    <span className="text-sm font-mono text-muted-foreground w-7 shrink-0">{idx + 1}</span>
                     <span className="font-medium truncate">{w.spelling}</span>
                     {w.pos && (
-                      <span className="text-xs font-mono text-muted-fg shrink-0">{w.pos}</span>
+                      <span className="text-xs font-mono text-muted-foreground shrink-0">{w.pos}</span>
                     )}
                     {reviewedSet.has(w.wordId) && (
                       <span className="text-xs px-2 py-0.5 bg-success/15 text-success rounded-full font-medium shrink-0 inline-flex items-center gap-1">
@@ -224,7 +224,7 @@ export function WrongWordsClient({
                       </span>
                     )}
                   </span>
-                  <span className="text-xs text-muted-fg shrink-0">
+                  <span className="text-xs text-muted-foreground shrink-0">
                     <span className="text-error font-semibold inline-flex items-center gap-0.5">{w.mistakes} <X className="h-3 w-3" /></span>
                     <span className="mx-1">·</span>
                     <span className="text-success inline-flex items-center gap-0.5">{w.correct} <Check className="h-3 w-3" /></span>
@@ -239,7 +239,7 @@ export function WrongWordsClient({
                       <ul className="text-sm space-y-0.5">
                         {w.glosses.slice(0, 3).map((g, i) => (
                           <li key={i}>
-                            <span className="font-mono text-xs text-muted-fg mr-1">{g.pos}</span>
+                            <span className="font-mono text-xs text-muted-foreground mr-1">{g.pos}</span>
                             <span>{g.meaning}</span>
                           </li>
                         ))}
@@ -248,14 +248,14 @@ export function WrongWordsClient({
                     <div className="flex gap-2 pt-1">
                       <Link
                         href={`/practice/${wordbook.slug}?ids=${w.wordId}`}
-                        className="text-xs px-3 py-1.5 bg-accent text-accent-fg rounded-md hover:bg-accent-hover transition"
+                        className="text-xs px-3 py-1.5 bg-accent text-accent-foreground rounded-md hover:bg-accent-hover transition"
                       >
                         单练
                       </Link>
                       <button
                         onClick={() => markMastered(w.wordId)}
                         disabled={busyId === w.wordId}
-                        className="text-xs px-3 py-1.5 border border-border rounded-md text-muted-fg hover:text-success hover:border-success transition disabled:opacity-50"
+                        className="text-xs px-3 py-1.5 border border-border rounded-md text-muted-foreground hover:text-success hover:border-success transition disabled:opacity-50"
                       >
                         {busyId === w.wordId ? "标记中…" : "标记已熟"}
                       </button>

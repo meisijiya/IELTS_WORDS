@@ -13,10 +13,12 @@ const DEFAULTS = {
   masteryThreshold: 5,
   flashSkipMinLevel: null as number | null,
   soundEnabled: true,
+  theme: "system" as "light" | "dark" | "system",
 };
 
 const PRON_MODES = new Set(["both", "flash", "feedback", "off"]);
 const PULL_MODES = new Set(["review", "balanced", "new"]);
+const THEME_MODES = new Set(["light", "dark", "system"]);
 const RETENTION_MAX_DAYS = 3650;
 const MASTERY_THRESHOLD_MIN = 2;
 const MASTERY_THRESHOLD_MAX = 20;
@@ -33,6 +35,12 @@ function normalizePullPriority(value: unknown): typeof DEFAULTS.pullPriority {
   return typeof value === "string" && PULL_MODES.has(value)
     ? (value as typeof DEFAULTS.pullPriority)
     : DEFAULTS.pullPriority;
+}
+
+function normalizeTheme(value: unknown): typeof DEFAULTS.theme {
+  return typeof value === "string" && THEME_MODES.has(value)
+    ? (value as typeof DEFAULTS.theme)
+    : DEFAULTS.theme;
 }
 
 function normalizeRetention(value: unknown): number | null {
@@ -76,6 +84,7 @@ export async function GET() {
   const pullPriority = normalizePullPriority(
     (settings as { pullPriority?: string }).pullPriority,
   );
+  const theme = normalizeTheme((settings as { theme?: string }).theme);
   return NextResponse.json({
     flashMs: settings.flashMs,
     fadeMs: settings.fadeMs,
@@ -87,6 +96,7 @@ export async function GET() {
     masteryThreshold: settings.masteryThreshold,
     flashSkipMinLevel: settings.flashSkipMinLevel ?? null,
     soundEnabled: settings.soundEnabled,
+    theme,
   });
 }
 
@@ -135,6 +145,11 @@ export async function PUT(request: Request) {
   const soundEnabled = typeof body.soundEnabled === "boolean"
     ? body.soundEnabled
     : DEFAULTS.soundEnabled;
+  const theme = body.theme !== undefined
+    ? normalizeTheme(body.theme)
+    : normalizeTheme(
+        (await prisma.userSettings.findUnique({ where: { userId: user.id }, select: { theme: true } }))?.theme,
+      );
 
   const current = await ensureSettings(user.id);
   const lowered = masteryThreshold < current.masteryThreshold;
@@ -149,6 +164,7 @@ export async function PUT(request: Request) {
     masteryThreshold,
     flashSkipMinLevel,
     soundEnabled,
+    theme,
   };
 
   let promotedCount = 0;
@@ -178,6 +194,7 @@ export async function PUT(request: Request) {
     masteryThreshold: updated.masteryThreshold,
     flashSkipMinLevel: updated.flashSkipMinLevel ?? null,
     soundEnabled: updated.soundEnabled,
+    theme,
     ...(lowered ? { promotedCount } : {}),
   });
 }

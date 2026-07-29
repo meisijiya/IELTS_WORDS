@@ -139,6 +139,8 @@ export function PracticeClient({
   const [soundEnabled, setSoundEnabled] = useState(initialSettings.soundEnabled ?? true);
   const inputRef = useRef<HTMLInputElement>(null);
   const soundEnabledRef = useRef(true);
+  // ponytail: gates /api/attempts + stats on retries; reset on word change.
+  const retryModeRef = useRef(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -256,6 +258,17 @@ export function PracticeClient({
     if (!current || feedback) return;
     setHintPositions(computeHintPositions(current.spelling, current.level));
     setUserInput("");
+    // ponytail: on retry, the user already saw the spelling in the feedback
+    // panel — skip the visual flash so they can type immediately. Pronunciation
+    // still plays as a "your turn again" cue.
+    if (retryModeRef.current) {
+      setShowSpelling(false);
+      setSpellingOpacity(0);
+      if (pronunciationMode === "both" || pronunciationMode === "flash") {
+        playPronunciation(current.spelling);
+      }
+      return;
+    }
     const skipFlash = shouldSkipFlash(flashSkipMinLevel, current.level);
     if (skipFlash) {
       setShowSpelling(false);
@@ -275,6 +288,11 @@ export function PracticeClient({
       clearTimeout(hideTimer);
     };
   }, [current, feedback, flashMs, pronunciationMode, accent, flashSkipMinLevel]);
+
+  // ponytail: reset retry flag on word change so it never leaks across words.
+  useEffect(() => {
+    retryModeRef.current = false;
+  }, [current?.id]);
 
   function playPronunciation(spelling: string) {
     playAudioWithFallback(`/audio/${normalizeSpelling(spelling)}.${accent}.mp3`);
@@ -535,6 +553,7 @@ export function PracticeClient({
   function submit() {
     if (!current || feedback) return;
     const isCorrect = checkAnswer(current, userInput);
+    const isRetry = retryModeRef.current;
     setFeedback({
       correct: isCorrect,
       expected: isCorrect ? undefined : current.spelling,
@@ -542,17 +561,25 @@ export function PracticeClient({
     });
     if (isCorrect) {
       playCorrectChime();
-      const next = stats.streak + 1;
-      setStats({ ...stats, streak: next, correct: stats.correct + 1, wrong: stats.wrong });
-      if (next > 0 && next % 3 === 0) {
-        playStreakChime(next);
-        triggerMilestoneFx(next);
+      // ponytail: stats only update on first attempt; retries are pure UX
+      // practice so streak / correct counter reflects first-attempt recall.
+      if (!isRetry) {
+        const next = stats.streak + 1;
+        setStats({ ...stats, streak: next, correct: stats.correct + 1, wrong: stats.wrong });
+        if (next > 0 && next % 3 === 0) {
+          playStreakChime(next);
+          triggerMilestoneFx(next);
+        }
       }
     } else {
       playWrongBuzz();
-      if (stats.streak > 0) setStats({ ...stats, streak: 0, wrong: stats.wrong + 1 });
-      else setStats({ ...stats, wrong: stats.wrong + 1 });
+      if (!isRetry) {
+        if (stats.streak > 0) setStats({ ...stats, streak: 0, wrong: stats.wrong + 1 });
+        else setStats({ ...stats, wrong: stats.wrong + 1 });
+      }
     }
+    // ponytail: retries neither mutate SM-2 state nor call /api/attempts.
+    if (isRetry) return;
     // Optimistic local update — apply BEFORE advance can pop the word off queue[0]
     // so the badge updates the moment user submits (no waiting for /api/attempts round-trip).
     setQueue((prev) =>
@@ -576,7 +603,14 @@ export function PracticeClient({
     if (e.key === "Enter") {
       e.preventDefault();
       if (feedback) {
-        advance(current!, feedback.correct);
+        if (feedback.correct) {
+          advance(current!, true);
+        } else {
+          // ponytail: wrong + Enter = retry same word (no advance, no record).
+          setFeedback(null);
+          setUserInput("");
+          retryModeRef.current = true;
+        }
       } else {
         submit();
       }
@@ -677,7 +711,7 @@ export function PracticeClient({
           <p className="text-muted-foreground">无单词数据</p>
           <Link
             href="/"
-            className="inline-block px-4 py-2 bg-accent text-accent-fg rounded-md font-medium hover:bg-accent-hover transition"
+            className="inline-block px-4 py-2 bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent-hover transition"
           >
             ← 返回主页
           </Link>
@@ -700,7 +734,7 @@ export function PracticeClient({
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/"
-            className="inline-block px-6 py-2.5 bg-accent text-accent-fg rounded-md font-medium hover:bg-accent-hover transition"
+            className="inline-block px-6 py-2.5 bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent-hover transition"
           >
             返回主页
           </Link>
@@ -752,7 +786,7 @@ export function PracticeClient({
             <div className="space-y-2">
               <button
                 onClick={handleSaveProgress}
-                className="w-full px-4 py-2.5 bg-accent text-accent-fg rounded-md font-medium hover:bg-accent-hover transition"
+                className="w-full px-4 py-2.5 bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent-hover transition"
               >
                 保存进度（稍后继续）
               </button>
@@ -890,10 +924,23 @@ export function PracticeClient({
               </button>
               <button
                 type="button"
-                onClick={() => advance(current!, feedback.correct)}
+                onClick={
+                  feedback.correct
+                    ? () => advance(current!, true)
+                    : () => {
+                        // ponytail: same Enter handler as keyboard path — arm retry.
+                        setFeedback(null);
+                        setUserInput("");
+                        retryModeRef.current = true;
+                      }
+                }
                 className="flex-1 md:flex-none md:w-auto px-8 py-3 text-lg bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent-hover active:scale-[0.98] transition"
               >
-                下一个 <ArrowRight className="inline h-5 w-5" />
+                {feedback.correct ? (
+                  <>下一个 <ArrowRight className="inline h-5 w-5" /></>
+                ) : (
+                  <>再试一次 <ArrowRight className="inline h-5 w-5" /></>
+                )}
               </button>
             </>
           ) : (
@@ -912,7 +959,7 @@ export function PracticeClient({
           {feedback
             ? feedback.correct
               ? <><Check className="inline h-3.5 w-3.5" /> 正确 · 点击按钮或按 Enter 进入下一个</>
-              : "对比上方字母 · 点击按钮或按 Enter 进入下一个"
+              : "对比上方字母 · 点击按钮或按 Enter 重新练习这个词"
             : `点击提交或按 Enter · Esc 重置 · 提示字母：${hintPositions.size} 个`}
         </p>
       </div>

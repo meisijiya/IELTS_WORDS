@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 type PronMode = "both" | "flash" | "feedback" | "off";
 type PullMode = "review" | "balanced" | "new";
+type ThemeMode = "light" | "dark" | "system";
 
 interface Settings {
   flashMs: number;
@@ -18,6 +19,7 @@ interface Settings {
   masteryThreshold: number;
   flashSkipMinLevel: number | null;
   soundEnabled: boolean;
+  theme: ThemeMode;
 }
 
 const PRON_OPTIONS: { value: PronMode; label: string; hint: string }[] = [
@@ -25,6 +27,12 @@ const PRON_OPTIONS: { value: PronMode; label: string; hint: string }[] = [
   { value: "flash", label: "仅闪现", hint: "只在单词闪现阶段播发音" },
   { value: "feedback", label: "仅反馈", hint: "只在答对/答错反馈时播发音" },
   { value: "off", label: "静音", hint: "完全不播放发音" },
+];
+
+const THEME_OPTIONS: { value: ThemeMode; label: string; hint: string }[] = [
+  { value: "light", label: "浅色", hint: "强制浅色主题，忽略系统设置" },
+  { value: "dark", label: "深色", hint: "强制深色主题，忽略系统设置" },
+  { value: "system", label: "跟随系统", hint: "跟随操作系统主题设置（推荐）" },
 ];
 
 const PULL_OPTIONS: { value: PullMode; label: string; ratio: string }[] = [
@@ -112,12 +120,12 @@ export function SettingsClient({
     }
   }
 
-  if (loading) return <p className="text-muted-fg">加载中…</p>;
+  if (loading) return <p className="text-muted-foreground">加载中…</p>;
   if (!settings) return <p className="text-error">{error || "未知错误"}</p>;
 
   return (
     <div className="space-y-8">
-      <Link href="/" className="text-sm text-muted-fg hover:text-accent">
+      <Link href="/" className="text-sm text-muted-foreground hover:text-accent">
         ← 返回主页
       </Link>
 
@@ -145,8 +153,38 @@ export function SettingsClient({
       </section>
 
       <section className="space-y-3">
+        <h2 className="text-lg font-semibold">默认主题</h2>
+        <p className="text-sm text-muted-foreground">
+          选择这个账号在所有设备上的默认主题。导航栏的图标可临时切换，跟随系统会随 OS 主题变化。
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          {THEME_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => setSettings({ ...settings, theme: opt.value })}
+              title={opt.hint}
+              className={`px-4 py-3 rounded-md border text-sm font-medium transition text-left ${
+                settings.theme === opt.value
+                  ? "bg-accent text-accent-foreground border-accent"
+                  : "border-border hover:border-accent/50"
+              }`}
+            >
+              <div className="font-medium">{opt.label}</div>
+              <div className={`text-xs mt-0.5 ${
+                settings.theme === opt.value
+                  ? "text-accent-foreground/70"
+                  : "text-muted-foreground"
+              }`}>
+                {opt.hint}
+              </div>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className="space-y-3">
         <h2 className="text-lg font-semibold">闪现时长（毫秒）</h2>
-        <p className="text-sm text-muted-fg">
+        <p className="text-sm text-muted-foreground">
           单词完全显示的时间，之后开始渐变消失
         </p>
         <div className="flex flex-wrap gap-2">
@@ -156,7 +194,7 @@ export function SettingsClient({
               onClick={() => setSettings({ ...settings, flashMs: n })}
               className={`px-4 py-2 rounded border ${
                 settings.flashMs === n
-                  ? "bg-accent text-accent-fg border-accent"
+                  ? "bg-accent text-accent-foreground border-accent"
                   : "border-gray-300 dark:border-gray-700 hover:border-accent"
               }`}
             >
@@ -188,7 +226,7 @@ export function SettingsClient({
                 title={opt.hint}
                 className={`px-3 py-2 rounded-md border text-sm font-medium transition ${
                   settings.pronunciationMode === opt.value
-                    ? "bg-accent text-accent-fg border-accent"
+                    ? "bg-accent text-accent-foreground border-accent"
                     : "border-border hover:border-accent/50"
                 }`}
               >
@@ -211,7 +249,7 @@ export function SettingsClient({
                   onClick={() => setSettings({ ...settings, accent: a })}
                   className={`px-4 py-2 rounded border ${
                     settings.accent === a
-                      ? "bg-accent text-accent-fg border-accent"
+                      ? "bg-accent text-accent-foreground border-accent"
                       : "border-gray-300 dark:border-gray-700 hover:border-accent"
                   }`}
                 >
@@ -239,7 +277,7 @@ export function SettingsClient({
               onClick={() => setSettings({ ...settings, soundEnabled: opt.value })}
               className={`px-4 py-2 rounded border ${
                 settings.soundEnabled === opt.value
-                  ? "bg-accent text-accent-fg border-accent"
+                  ? "bg-accent text-accent-foreground border-accent"
                   : "border-gray-300 dark:border-gray-700 hover:border-accent"
               }`}
             >
@@ -251,7 +289,7 @@ export function SettingsClient({
 
       <section className="space-y-3">
         <h2 className="text-lg font-semibold">拉取优先级</h2>
-        <p className="text-sm text-muted-fg">
+        <p className="text-sm text-muted-foreground">
           决定一批拉取中新词、学过、已熟练的比例（默认复习优先）
         </p>
         <div className="space-y-2">
@@ -261,7 +299,7 @@ export function SettingsClient({
               onClick={() => setSettings({ ...settings, pullPriority: opt.value })}
               className={`w-full flex items-center justify-between px-4 py-3 rounded-md border transition text-left ${
                 settings.pullPriority === opt.value
-                  ? "bg-accent text-accent-fg border-accent"
+                  ? "bg-accent text-accent-foreground border-accent"
                   : "border-border hover:border-accent/50"
               }`}
             >
@@ -269,7 +307,7 @@ export function SettingsClient({
               <span
                 className={`text-xs font-mono ${
                   settings.pullPriority === opt.value
-                    ? "text-accent-fg/70"
+                    ? "text-accent-foreground/70"
                     : "text-muted-foreground"
                 }`}
               >
@@ -293,7 +331,7 @@ export function SettingsClient({
               onClick={() => setSettings({ ...settings, masteryThreshold: opt.value })}
               className={`w-12 py-2 rounded border text-sm font-medium transition ${
                 settings.masteryThreshold === opt.value
-                  ? "bg-accent text-accent-fg border-accent"
+                  ? "bg-accent text-accent-foreground border-accent"
                   : "border-gray-300 dark:border-gray-700 hover:border-accent"
               }`}
             >
@@ -318,7 +356,7 @@ export function SettingsClient({
                 onClick={() => setSettings({ ...settings, flashSkipMinLevel: opt.value })}
                 className={`w-12 py-2 rounded border text-sm font-medium transition ${
                   selected
-                    ? "bg-accent text-accent-fg border-accent"
+                    ? "bg-accent text-accent-foreground border-accent"
                     : "border-gray-300 dark:border-gray-700 hover:border-accent"
                 }`}
               >
@@ -331,7 +369,7 @@ export function SettingsClient({
 
       <section className="space-y-3">
         <h2 className="text-lg font-semibold">打卡保留</h2>
-        <p className="text-sm text-muted-fg">
+        <p className="text-sm text-muted-foreground">
           限制「今日打卡」历史最多保留多少天。「无限」会保留所有 Checkin 快照。
           重置 attempts 仍会保留当天快照（不变量），此设置只决定上限。
         </p>
@@ -344,7 +382,7 @@ export function SettingsClient({
                 onClick={() => setSettings({ ...settings, checkinRetentionDays: opt.value })}
                 className={`px-4 py-2 rounded border ${
                   selected
-                    ? "bg-accent text-accent-fg border-accent"
+                    ? "bg-accent text-accent-foreground border-accent"
                     : "border-gray-300 dark:border-gray-700 hover:border-accent"
                 }`}
               >
@@ -360,7 +398,7 @@ export function SettingsClient({
         <button
           onClick={save}
           disabled={saving}
-          className="px-6 py-2 bg-accent text-accent-fg rounded font-medium disabled:opacity-50"
+          className="px-6 py-2 bg-accent text-accent-foreground rounded font-medium disabled:opacity-50"
         >
           {saving ? "保存中…" : "保存设置"}
         </button>
@@ -380,7 +418,7 @@ export function SettingsClient({
 
       <section className="pt-8 border-t border-gray-200 dark:border-gray-800 space-y-3">
         <h2 className="text-lg font-semibold text-error">危险区域</h2>
-        <p className="text-sm text-muted-fg">
+        <p className="text-sm text-muted-foreground">
           重置会清空所有学习记录（attempts / sessions / 词的 level），
           <br />
           词库本身不受影响。

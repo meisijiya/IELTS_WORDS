@@ -19,7 +19,7 @@ export default async function AnalyticsPage() {
       <header className="mb-8 flex items-baseline justify-between">
         <div>
           <h1 className="text-3xl font-bold">学习分析</h1>
-          <p className="text-sm text-muted-fg mt-1">薄弱词 / 错误模式 / 进度</p>
+          <p className="text-sm text-muted-foreground mt-1">薄弱词 / 错误模式 / 进度</p>
         </div>
         <Link href="/" className="text-sm text-accent hover:underline">
           ← 返回主页

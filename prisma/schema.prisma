@@ -220,6 +220,11 @@ model UserSettings {
   // controlled separately by pronunciationMode; this only silences the
   // Web Audio synth effects.
   soundEnabled          Boolean  @default(true)
+  // "light" | "dark" | "system" — preferred theme. Rendered server-side
+  // by ThemeScript (no-FOUC) + ThemeProvider, persisted across devices
+  // via /api/settings. Defaults to "system" so first-time users get
+  // OS-preference behavior without an extra click.
+  theme                 String   @default("system")
   updatedAt             DateTime @updatedAt
 }
 

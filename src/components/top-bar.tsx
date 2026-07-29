@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { NavMenu } from "@/app/nav-menu";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 interface TopBarProps {
   username: string;
@@ -27,7 +28,10 @@ export function TopBar({ username, isAdmin }: TopBarProps) {
           <span className="text-accent">Y</span>
           <span className="hidden sm:inline">Yasi Words</span>
         </Link>
-        <NavMenu username={username} isAdmin={isAdmin} />
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <NavMenu username={username} isAdmin={isAdmin} />
+        </div>
       </div>
     </header>
   );

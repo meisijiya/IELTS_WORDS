@@ -50,7 +50,7 @@ function LoginForm() {
         className="w-full max-w-sm space-y-4 p-8 border border-gray-200 dark:border-gray-800 rounded-lg"
       >
         <h1 className="text-2xl font-bold">登录</h1>
-        <p className="text-sm text-muted-fg">Yasi Words · 雅思单词拼写训练</p>
+        <p className="text-sm text-muted-foreground">Yasi Words · 雅思单词拼写训练</p>
         <div>
           <label htmlFor="username" className="block text-sm font-medium mb-2">
             用户名
@@ -84,7 +84,7 @@ function LoginForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-2 px-4 bg-accent text-accent-fg rounded font-medium disabled:opacity-50"
+          className="w-full py-2 px-4 bg-accent text-accent-foreground rounded font-medium disabled:opacity-50"
         >
           {loading ? "登录中..." : "登录"}
         </button>
@@ -104,7 +104,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="p-12 text-center text-muted-fg">加载登录页…</div>}>
+    <Suspense fallback={<div className="p-12 text-center text-muted-foreground">加载登录页…</div>}>
       <LoginForm />
     </Suspense>
   );

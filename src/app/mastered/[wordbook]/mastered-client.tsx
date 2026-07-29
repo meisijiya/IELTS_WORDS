@@ -66,16 +66,16 @@ export function MasteredClient({
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 space-y-6">
       <div className="flex items-center justify-between">
-        <Link href="/analytics" className="text-sm text-muted-fg hover:text-accent transition">
+        <Link href="/analytics" className="text-sm text-muted-foreground hover:text-accent transition">
           ← 返回分析
         </Link>
       </div>
 
       <header className="space-y-2">
         <h1 className="text-2xl font-bold tracking-tight">
-          已掌握 <span className="text-muted-fg">· {wordbook.name}</span>
+          已掌握 <span className="text-muted-foreground">· {wordbook.name}</span>
         </h1>
-        <p className="text-sm text-muted-fg">
+        <p className="text-sm text-muted-foreground">
           {words.length === 0
             ? <span className="inline-flex items-center gap-1.5"><PartyPopper className="h-4 w-4" /> 当前还没有掌握的词</span>
             : `共 ${words.length} 个词已掌握（Level 5）`}
@@ -92,8 +92,8 @@ export function MasteredClient({
               onClick={() => setRange(t.value)}
               className={`px-3 py-1.5 text-sm rounded-md border transition font-medium ${
                 range === t.value
-                  ? "bg-accent text-accent-fg border-accent"
-                  : "border-border text-muted-fg hover:border-accent/60 hover:text-foreground"
+                  ? "bg-accent text-accent-foreground border-accent"
+                  : "border-border text-muted-foreground hover:border-accent/60 hover:text-foreground"
               }`}
             >
               {t.label}
@@ -107,8 +107,8 @@ export function MasteredClient({
               onClick={() => setTopN(opt.value)}
               className={`px-3 py-1.5 text-sm rounded-md border transition font-medium ${
                 topN === opt.value
-                  ? "bg-accent text-accent-fg border-accent"
-                  : "border-border text-muted-fg hover:border-accent/60"
+                  ? "bg-accent text-accent-foreground border-accent"
+                  : "border-border text-muted-foreground hover:border-accent/60"
               }`}
             >
               {opt.label}
@@ -118,7 +118,7 @@ export function MasteredClient({
       </div>
 
       {visibleWords.length === 0 ? (
-        <p className="text-center text-muted-fg py-12 inline-flex items-center gap-1.5"><Sprout className="h-4 w-4" /> 当前范围没有已掌握词</p>
+        <p className="text-center text-muted-foreground py-12 inline-flex items-center gap-1.5"><Sprout className="h-4 w-4" /> 当前范围没有已掌握词</p>
       ) : (
         <ol className="space-y-2">
           {visibleWords.map((w, idx) => {
@@ -133,16 +133,16 @@ export function MasteredClient({
                   className="w-full flex items-baseline justify-between gap-3 p-3 text-left hover:bg-muted/30 transition"
                 >
                   <span className="flex items-baseline gap-3 min-w-0">
-                    <span className="text-sm font-mono text-muted-fg w-7 shrink-0">{idx + 1}</span>
+                    <span className="text-sm font-mono text-muted-foreground w-7 shrink-0">{idx + 1}</span>
                     <span className="font-medium truncate">{w.spelling}</span>
                     {w.pos && (
-                      <span className="text-xs font-mono text-muted-fg shrink-0">{w.pos}</span>
+                      <span className="text-xs font-mono text-muted-foreground shrink-0">{w.pos}</span>
                     )}
                     <span className="text-xs px-2 py-0.5 bg-success/15 text-success rounded-full font-medium shrink-0 inline-flex items-center gap-1">
                       <Check className="h-3 w-3" /> 已掌握
                     </span>
                   </span>
-                  <span className="text-xs text-muted-fg shrink-0">
+                  <span className="text-xs text-muted-foreground shrink-0">
                     掌握于 <span className="font-medium text-foreground">{fmtDate(w.masteredAt)}</span>
                   </span>
                 </button>
@@ -155,7 +155,7 @@ export function MasteredClient({
                       <ul className="text-sm space-y-0.5">
                         {w.glosses.slice(0, 3).map((g, i) => (
                           <li key={i}>
-                            <span className="font-mono text-xs text-muted-fg mr-1">{g.pos}</span>
+                            <span className="font-mono text-xs text-muted-foreground mr-1">{g.pos}</span>
                             <span>{g.meaning}</span>
                           </li>
                         ))}

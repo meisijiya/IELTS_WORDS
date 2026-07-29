@@ -123,7 +123,7 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
   }, [data?.topMissed]);
 
   if (wordbooks.length === 0) {
-    return <p className="text-muted-fg">暂无词库</p>;
+    return <p className="text-muted-foreground">暂无词库</p>;
   }
 
   return (
@@ -136,7 +136,7 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
             className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition ${
               selectedId === wb.id
                 ? "border-accent text-accent"
-                : "border-transparent text-muted-fg hover:text-foreground"
+                : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
             {wb.name}
@@ -151,7 +151,7 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
             onClick={() => setRange(r)}
             className={`px-3 py-1 text-sm rounded-full border ${
               range === r
-                ? "bg-accent text-accent-fg border-accent"
+                ? "bg-accent text-accent-foreground border-accent"
                 : "border-gray-300 dark:border-gray-700 hover:border-accent"
             }`}
           >
@@ -160,7 +160,7 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
         ))}
       </div>
 
-      {loading && <p className="text-muted-fg">加载分析数据…</p>}
+      {loading && <p className="text-muted-foreground">加载分析数据…</p>}
       {error && <p className="text-error">{error}</p>}
 
       {data && (
@@ -217,7 +217,7 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
               {data.topMissed.length > 0 && wordbook && (
                 <Link
                   href={`/wrong-words/${wordbook.slug}?range=${range}`}
-                  className="text-sm text-muted-fg hover:text-accent transition inline-flex items-center gap-1"
+                  className="text-sm text-muted-foreground hover:text-accent transition inline-flex items-center gap-1"
                 >
                   查看全部
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -225,7 +225,7 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
               )}
             </div>
             {data.topMissed.length === 0 ? (
-              <p className="text-muted-fg text-sm">暂无错词记录</p>
+              <p className="text-muted-foreground text-sm">暂无错词记录</p>
             ) : (
               <ol className="space-y-2">
                 {visibleTopMissed.map((w, i) => {
@@ -237,23 +237,23 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
                         className="w-full flex items-baseline justify-between p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-900"
                       >
                         <span className="font-mono">
-                          <span className="text-muted-fg text-sm mr-2">{i + 1}.</span>
+                          <span className="text-muted-foreground text-sm mr-2">{i + 1}.</span>
                           <span className="font-semibold">{w.spelling}</span>
                           {w.pos && (
-                            <span className="text-xs text-muted-fg ml-2 font-mono">{w.pos}</span>
+                            <span className="text-xs text-muted-foreground ml-2 font-mono">{w.pos}</span>
                           )}
                         </span>
                         <span className="text-sm flex items-center gap-3">
                           <span className="text-error font-mono inline-flex items-center gap-0.5"><X className="h-3.5 w-3.5" /> {w.mistakes}</span>
-                          <span className="text-muted-fg">·</span>
+                          <span className="text-muted-foreground">·</span>
                           <span className="text-success font-mono inline-flex items-center gap-0.5"><Check className="h-3.5 w-3.5" /> {w.correct}</span>
-                          <span className="text-muted-fg">{expanded ? "▲" : "▼"}</span>
+                          <span className="text-muted-foreground">{expanded ? "▲" : "▼"}</span>
                         </span>
                       </button>
                       {expanded && (
                         <div className="border-t border-gray-200 dark:border-gray-800 p-4 space-y-3 bg-gray-50 dark:bg-gray-900/50">
                           <div>
-                            <p className="text-xs text-muted-fg mb-1">中文释义</p>
+                            <p className="text-xs text-muted-foreground mb-1">中文释义</p>
                             <ul className="space-y-1">
                               {w.glosses.map((g, idx) => (
                                 <li key={idx} className="text-sm">
@@ -267,7 +267,7 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
                             {wordbook && (
                               <Link
                                 href={`/practice/${wordbook.slug}?ids=${w.wordId}`}
-                                className="px-3 py-1 text-sm bg-accent text-accent-fg rounded"
+                                className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded"
                               >
                                 重新练习这个词
                               </Link>
@@ -302,7 +302,7 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
           <section className="space-y-3">
             <h2 className="text-lg font-semibold">会话历史</h2>
             {data.sessions.length === 0 ? (
-              <p className="text-muted-fg text-sm">暂无会话</p>
+              <p className="text-muted-foreground text-sm">暂无会话</p>
             ) : (
               <ul className="text-sm space-y-1">
                 {data.sessions.map((s) => (
@@ -310,7 +310,7 @@ export function AnalyticsClient({ wordbooks }: { wordbooks: Wordbook[] }) {
                     key={s.id}
                     className="flex justify-between items-center border-b border-gray-100 dark:border-gray-900 py-2"
                   >
-                    <span className="text-muted-fg">
+                    <span className="text-muted-foreground">
                       {new Date(s.startedAt).toLocaleString("zh-CN")}
                     </span>
                     <span className="flex items-center gap-2">
@@ -359,7 +359,7 @@ function Stat({
         accent ? "border-accent" : ""
       }`}
     >
-      <p className="text-xs text-muted-fg">{label}</p>
+      <p className="text-xs text-muted-foreground">{label}</p>
       <p className={`font-bold ${accent ? "text-accent" : ""} ${big ? "text-3xl" : "text-2xl"}`}>
         {value}
       </p>
@@ -431,7 +431,7 @@ function ProgressBar({
 function ErrorBox({ label, count }: { label: string; count: number }) {
   return (
     <div className="p-3 border border-gray-200 dark:border-gray-800 rounded">
-      <p className="text-muted-fg text-xs">{label}</p>
+      <p className="text-muted-foreground text-xs">{label}</p>
       <p className={`text-xl font-bold ${count > 0 ? "text-warning" : ""}`}>{count}</p>
     </div>
   );
