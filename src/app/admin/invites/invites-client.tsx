@@ -82,19 +82,29 @@ export function InvitesClient({
     }
   }
 
-  async function handleRevoke(id: string) {
-    if (!confirm("确定撤销该邀请码？撤销后无法恢复。")) return;
+  async function handleRevoke(inv: Invitation) {
+    const expired = new Date(inv.expiresAt) < new Date();
+    const used = !!inv.usedAt;
+    let msg: string;
+    if (used) {
+      msg = `邀请码 ${inv.code} 已被 ${inv.invitee?.username ?? "某用户"} 使用。删除将移除该邀请记录（不影响已注册用户）。继续？`;
+    } else if (expired) {
+      msg = `邀请码 ${inv.code} 已过期。删除该记录？`;
+    } else {
+      msg = `确定撤销邀请码 ${inv.code}？撤销后无法恢复。`;
+    }
+    if (!confirm(msg)) return;
     const res = await fetch("/api/admin/invites", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id }),
+      body: JSON.stringify({ id: inv.id }),
     });
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      alert(data.error || "撤销失败");
+      alert(data.error || "删除失败");
       return;
     }
-    setInvitations((prev) => prev.filter((i) => i.id !== id));
+    setInvitations((prev) => prev.filter((i) => i.id !== inv.id));
   }
 
   function copyCode(code: string) {
@@ -237,28 +247,32 @@ export function InvitesClient({
                       → {inv.invitee.username}
                     </span>
                   )}
-                  {!inv.usedAt && !expired && (
-                    <>
-                      <button
-                        onClick={() => copyCode(inv.code)}
-                        className="text-xs text-accent hover:text-accent-hover inline-flex items-center gap-1"
-                        title="复制邀请码"
-                      >
-                        {copiedCode === inv.code ? (
-                          <Check className="h-3.5 w-3.5" />
-                        ) : (
-                          <Copy className="h-3.5 w-3.5" />
-                        )}
-                      </button>
-                      <button
-                        onClick={() => handleRevoke(inv.id)}
-                        className="text-xs text-error hover:text-error/70 inline-flex items-center gap-1"
-                        title="撤销邀请码"
-                      >
-                        <Trash2 className="h-3.5 w-3.5" />
-                      </button>
-                    </>
+                  {!expired && (
+                    <button
+                      onClick={() => copyCode(inv.code)}
+                      className="text-xs text-accent hover:text-accent-hover inline-flex items-center gap-1"
+                      title="复制邀请码"
+                    >
+                      {copiedCode === inv.code ? (
+                        <Check className="h-3.5 w-3.5" />
+                      ) : (
+                        <Copy className="h-3.5 w-3.5" />
+                      )}
+                    </button>
                   )}
+                  <button
+                    onClick={() => handleRevoke(inv)}
+                    className="text-xs text-error hover:text-error/70 inline-flex items-center gap-1"
+                    title={
+                      inv.usedAt
+                        ? "删除已使用邀请记录（不影响已注册用户）"
+                        : expired
+                          ? "删除过期邀请码"
+                          : "撤销邀请码"
+                    }
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </button>
                 </div>
               );
             })}

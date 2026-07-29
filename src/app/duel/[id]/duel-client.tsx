@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Swords, Clock, Trophy, AlertTriangle, Users, Copy } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, Home, Swords, Clock, Trophy, AlertTriangle, Users, Copy, X } from "lucide-react";
 
 interface Gloss {
   pos: string;
@@ -65,6 +66,9 @@ export function DuelRoomClient({
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<{ correct: boolean } | null>(null);
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const submittedRoundRef = useRef(false);
@@ -155,12 +159,60 @@ export function DuelRoomClient({
   }
 
   async function copyLink() {
+    setCopyError(false);
+    // Modern path. Works on https:// and localhost (secure context).
+    if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(pageUrl);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+        return;
+      } catch {
+        // fall through to legacy fallback
+      }
+    }
+    // Legacy fallback for http:// (non-secure context) where clipboard API is gated.
     try {
-      await navigator.clipboard.writeText(pageUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      const ta = document.createElement("textarea");
+      ta.value = pageUrl;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.top = "0";
+      ta.style.left = "0";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, pageUrl.length);
+      const ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      if (ok) {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } else {
+        setCopyError(true);
+      }
     } catch {
-      // silent
+      setCopyError(true);
+    }
+  }
+
+  async function cancelDuel() {
+    if (cancelling) return;
+    if (!confirm("确认取消该挑战？取消后该 ID 将失效，对手将无法加入。")) return;
+    setCancelling(true);
+    setError(null);
+    try {
+      const res = await fetch(`/api/duel/${duelId}`, { method: "DELETE" });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        setError(err.error || "取消失败");
+        return;
+      }
+      router.push("/duel");
+    } catch {
+      setError("网络错误");
+    } finally {
+      setCancelling(false);
     }
   }
 
@@ -204,12 +256,19 @@ export function DuelRoomClient({
   return (
     <div className="max-w-2xl mx-auto p-6 space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Swords className="w-6 h-6 text-accent" />
-          <h1 className="text-xl font-bold">单挑</h1>
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 min-w-0">
+          <Link
+            href="/duel"
+            className="p-2 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition"
+            title="返回单挑列表"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </Link>
+          <Swords className="w-6 h-6 text-accent shrink-0" />
+          <h1 className="text-xl font-bold shrink-0">单挑</h1>
         </div>
-        <span className="text-sm px-3 py-1 rounded-full bg-muted text-muted-foreground">
+        <span className="text-xs sm:text-sm px-3 py-1 rounded-full bg-muted text-muted-foreground shrink-0">
           {statusBadge}
         </span>
       </div>
@@ -219,23 +278,37 @@ export function DuelRoomClient({
 
       {/* ---- PENDING ---- */}
       {status === "pending" && (
-        <div className="space-y-6 text-center py-12">
+        <div className="space-y-6 text-center py-8 sm:py-12">
           <h2 className="text-2xl font-bold">等待对手加入</h2>
           <p className="text-muted-foreground">
             分享链接给对手，对手加入后自动开始
           </p>
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-muted rounded-lg text-sm font-mono">
-            <span className="truncate max-w-[240px]">{pageUrl}</span>
+          <div className="flex items-stretch gap-1 max-w-md mx-auto">
+            <input
+              type="text"
+              readOnly
+              value={pageUrl}
+              onFocus={(e) => e.currentTarget.select()}
+              className="flex-1 min-w-0 px-3 py-2 bg-muted rounded-l-lg text-xs sm:text-sm font-mono border border-border border-r-0 focus:outline-none"
+              onClick={(e) => e.currentTarget.select()}
+              aria-label="分享链接"
+            />
             <button
               onClick={copyLink}
-              className="p-1.5 rounded-md hover:bg-border transition-colors"
+              className="px-3 py-2 bg-accent text-accent-foreground rounded-r-lg text-sm font-medium hover:bg-accent-hover transition-colors inline-flex items-center gap-1.5"
               title="复制链接"
             >
               <Copy className="w-4 h-4" />
+              {copied ? "已复制" : "复制"}
             </button>
           </div>
-          {copied && (
-            <p className="text-sm text-success">链接已复制</p>
+          {copyError && (
+            <p className="text-xs text-warning">
+              浏览器拦截了自动复制。长按上方输入框 → 全选 → 复制即可。
+            </p>
+          )}
+          {copied && !copyError && (
+            <p className="text-sm text-success">链接已复制 ✓</p>
           )}
           {mode === "1" && (
             <div className="text-sm text-muted-foreground flex items-center justify-center gap-2">
@@ -248,6 +321,19 @@ export function DuelRoomClient({
               轮次赛 {display?.roundCount ?? initialWordIds.length} 轮，每轮双方比拼正确与速度
             </div>
           )}
+          {isChallenger && (
+            <div className="pt-4 border-t border-border/60 flex flex-col sm:flex-row gap-2 justify-center">
+              <button
+                onClick={cancelDuel}
+                disabled={cancelling}
+                className="inline-flex items-center justify-center gap-1.5 px-5 py-2 border border-error/40 text-error hover:bg-error/10 rounded-md text-sm font-medium transition-colors disabled:opacity-50"
+              >
+                <X className="w-4 h-4" />
+                {cancelling ? "取消中..." : "取消挑战"}
+              </button>
+            </div>
+          )}
+          {error && <p className="text-sm text-error">{error}</p>}
         </div>
       )}
 
@@ -447,6 +533,23 @@ export function DuelRoomClient({
       {!state && !isFinished && status !== "pending" && status !== "ready" && (
         <div className="text-center py-12 text-muted-foreground">加载中...</div>
       )}
+
+      {/* Footer nav: home + back to list (always visible) */}
+      <div className="pt-6 mt-2 border-t border-border/60 flex flex-wrap items-center justify-between gap-2">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition"
+        >
+          <Home className="w-3.5 h-3.5" />
+          返回主页
+        </Link>
+        <Link
+          href="/duel"
+          className="inline-flex items-center gap-1.5 text-xs text-accent hover:text-accent-hover transition"
+        >
+          ← 单挑列表
+        </Link>
+      </div>
     </div>
   );
 }

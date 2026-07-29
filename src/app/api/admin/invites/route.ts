@@ -141,13 +141,9 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ error: "id required" }, { status: 400 });
   }
 
-  // Cannot delete an already-used invitation: it represents a real user.
   const existing = await prisma.invitation.findUnique({ where: { id: body.id } });
   if (!existing) {
     return NextResponse.json({ error: "INVITATION_NOT_FOUND" }, { status: 404 });
-  }
-  if (existing.usedAt) {
-    return NextResponse.json({ error: "INVITATION_ALREADY_USED" }, { status: 400 });
   }
 
   await prisma.invitation.delete({ where: { id: body.id } });

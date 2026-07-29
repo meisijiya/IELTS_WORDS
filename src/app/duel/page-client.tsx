@@ -49,7 +49,7 @@ export function DuelListClient({
   duels: DuelListItem[];
 }) {
   const router = useRouter();
-  const [duels] = useState<DuelListItem[]>(initialDuels);
+  const [duels, setDuels] = useState<DuelListItem[]>(initialDuels);
 
   const [mode, setMode] = useState<"1" | "2">("1");
   const [wordbookId, setWordbookId] = useState<number>(
@@ -204,7 +204,12 @@ export function DuelListClient({
           <h2 className="text-lg font-semibold">进行中</h2>
           <div className="space-y-2">
             {activeDuels.map((d) => (
-              <DuelRow key={d.id} d={d} currentUserId={currentUser.id} />
+              <DuelRow
+                key={d.id}
+                d={d}
+                currentUserId={currentUser.id}
+                onCanceled={(id) => setDuels((prev) => prev.filter((x) => x.id !== id))}
+              />
             ))}
           </div>
         </section>
@@ -215,7 +220,12 @@ export function DuelListClient({
           <h2 className="text-lg font-semibold">历史单挑</h2>
           <div className="space-y-2">
             {finishedDuels.map((d) => (
-              <DuelRow key={d.id} d={d} currentUserId={currentUser.id} />
+              <DuelRow
+                key={d.id}
+                d={d}
+                currentUserId={currentUser.id}
+                onCanceled={() => {}}
+              />
             ))}
           </div>
         </section>
@@ -233,10 +243,13 @@ export function DuelListClient({
 function DuelRow({
   d,
   currentUserId,
+  onCanceled,
 }: {
   d: DuelListItem;
   currentUserId: number;
+  onCanceled: (id: string) => void;
 }) {
+  const [cancelling, setCancelling] = useState(false);
   const badge = STATUS_BADGE[d.status];
   const isFinished =
     d.status === "finished" || d.status === "forfeited";
@@ -245,6 +258,9 @@ function DuelRow({
       ? d.opponent?.username ?? "等待加入"
       : d.challenger.username;
   const opponentPrefix = d.myRole === "challenger" ? "vs" : "由";
+  const canCancel =
+    d.myRole === "challenger" &&
+    (d.status === "pending" || d.status === "ready");
 
   let resultLabel: string | null = null;
   if (isFinished) {
@@ -253,8 +269,29 @@ function DuelRow({
     else resultLabel = "你负";
   }
 
+  async function handleCancel(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (cancelling) return;
+    if (!confirm("确认取消该挑战？取消后该 ID 将失效。")) return;
+    setCancelling(true);
+    try {
+      const res = await fetch(`/api/duel/${d.id}`, { method: "DELETE" });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        alert(err.error || "取消失败");
+        return;
+      }
+      onCanceled(d.id);
+    } catch {
+      alert("网络错误");
+    } finally {
+      setCancelling(false);
+    }
+  }
+
   return (
-    <div className="bg-surface border border-border rounded-xl p-4 flex items-center gap-3 hover:border-accent/40 transition">
+    <div className="bg-surface border border-border rounded-xl p-4 flex items-center gap-3 hover:border-accent/40 transition flex-wrap">
       <div className="flex-1 min-w-0">
         <div className="text-sm font-medium flex items-center gap-2">
           {d.mode === "1" ? (
@@ -291,19 +328,31 @@ function DuelRow({
         </div>
       </div>
       <span
-        className={`text-xs px-2 py-0.5 rounded-full font-medium ${badge.cls}`}
+        className={`text-xs px-2 py-0.5 rounded-full font-medium shrink-0 ${badge.cls}`}
       >
         {badge.label}
       </span>
       {d.status === "finished" && d.winnerId === currentUserId && (
         <Trophy className="h-4 w-4 text-success" />
       )}
-      <Link
-        href={`/duel/${d.id}`}
-        className="px-3 py-1.5 bg-accent text-accent-foreground rounded-md text-sm font-medium hover:bg-accent-hover transition"
-      >
-        进入
-      </Link>
+      <div className="flex items-center gap-2 shrink-0 ml-auto">
+        {canCancel && (
+          <button
+            onClick={handleCancel}
+            disabled={cancelling}
+            className="px-3 py-1.5 border border-error/40 text-error hover:bg-error/10 rounded-md text-sm font-medium transition disabled:opacity-50"
+            title="取消该挑战"
+          >
+            {cancelling ? "取消中..." : "取消"}
+          </button>
+        )}
+        <Link
+          href={`/duel/${d.id}`}
+          className="px-3 py-1.5 bg-accent text-accent-foreground rounded-md text-sm font-medium hover:bg-accent-hover transition"
+        >
+          进入
+        </Link>
+      </div>
     </div>
   );
 }
