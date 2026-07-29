@@ -250,6 +250,12 @@ model Duel {
   forfeitById           Int?     // userId who disconnected
   challengerLastSeenAt  DateTime? // heartbeat — set on state-poll
   opponentLastSeenAt    DateTime?
+  // Dual-ready handshake: each side calls POST /api/duel/[id]/start to mark
+  // themselves ready; only when BOTH timestamps are non-null does the duel
+  // transition from "ready" → "active". Either side can rescind with
+  // DELETE /api/duel/[id]/start while the duel is still in "ready".
+  challengerReadyAt     DateTime?
+  opponentReadyAt       DateTime?
   currentRoundIndex     Int?      // mode 2 only
   currentRoundStartedAt DateTime? // mode 2 round timeout anchor
 

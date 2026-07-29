@@ -35,6 +35,8 @@ interface DuelState {
   opponentLastSeenAt: string | null;
   winnerId: number | null;
   forfeitById: number | null;
+  myReady: boolean;
+  opponentReady: boolean;
 }
 
 export function DuelRoomClient({
@@ -68,6 +70,7 @@ export function DuelRoomClient({
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
   const [cancelling, setCancelling] = useState(false);
+  const [togglingReady, setTogglingReady] = useState(false);
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -216,16 +219,35 @@ export function DuelRoomClient({
     }
   }
 
-  async function startDuel() {
+  async function markReady() {
+    setTogglingReady(true);
     setError(null);
     try {
       const res = await fetch(`/api/duel/${duelId}/start`, { method: "POST" });
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        setError(err.error || "开始失败");
+        setError(err.error || "操作失败");
       }
     } catch {
       setError("网络错误");
+    } finally {
+      setTogglingReady(false);
+    }
+  }
+
+  async function unmarkReady() {
+    setTogglingReady(true);
+    setError(null);
+    try {
+      const res = await fetch(`/api/duel/${duelId}/start`, { method: "DELETE" });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        setError(err.error || "撤销失败");
+      }
+    } catch {
+      setError("网络错误");
+    } finally {
+      setTogglingReady(false);
     }
   }
 
@@ -337,7 +359,7 @@ export function DuelRoomClient({
         </div>
       )}
 
-      {/* ---- READY ---- */}
+      {/* ---- READY (双方就绪握手) ---- */}
       {status === "ready" && (
         <div className="space-y-6 text-center py-12">
           <div className="flex items-center justify-center gap-4 text-lg">
@@ -346,6 +368,7 @@ export function DuelRoomClient({
             <span className="text-muted-foreground">vs</span>
             <span className="font-semibold">{display?.opponent?.username ?? opponentName ?? "???"}</span>
           </div>
+
           {mode === "1" && (
             <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
               <Clock className="w-4 h-4" />
@@ -357,12 +380,67 @@ export function DuelRoomClient({
               轮次赛 {display?.roundCount ?? initialWordIds.length} 轮，每轮双方比拼正确与速度
             </p>
           )}
-          <button
-            onClick={startDuel}
-            className="px-8 py-3 bg-accent text-accent-foreground rounded-lg text-lg font-medium hover:bg-accent-hover transition-colors"
-          >
-            开始
-          </button>
+
+          <div className="grid grid-cols-2 gap-3 max-w-md mx-auto text-sm">
+            <div
+              className={`p-3 rounded-md border ${
+                (display?.myReady ?? false)
+                  ? "border-success/40 bg-success/10 text-success"
+                  : "border-border bg-muted text-muted-foreground"
+              }`}
+            >
+              <div className="font-medium flex items-center justify-center gap-1.5">
+                {(display?.myReady ?? false) ? "✓ 已就绪" : "未就绪"}
+              </div>
+              <div className="text-xs mt-0.5">你 ({myUsername})</div>
+            </div>
+            <div
+              className={`p-3 rounded-md border ${
+                (display?.opponentReady ?? false)
+                  ? "border-success/40 bg-success/10 text-success"
+                  : "border-border bg-muted text-muted-foreground"
+              }`}
+            >
+              <div className="font-medium flex items-center justify-center gap-1.5">
+                {(display?.opponentReady ?? false) ? "✓ 已就绪" : "等待中…"}
+              </div>
+              <div className="text-xs mt-0.5">
+                对手 (
+                {display?.opponent?.username ?? opponentName ?? "???"}
+                )
+              </div>
+            </div>
+          </div>
+
+          <p className="text-sm text-muted-foreground">
+            双方都点击「开始」后比赛正式生效。
+          </p>
+
+          {display?.myReady ? (
+            <>
+              <button
+                disabled
+                className="px-8 py-3 bg-success/15 text-success rounded-lg text-lg font-medium cursor-default"
+              >
+                ✓ 已就绪，等待对手…
+              </button>
+              <button
+                onClick={unmarkReady}
+                disabled={togglingReady}
+                className="block mx-auto text-xs text-muted-foreground hover:text-foreground underline"
+              >
+                {togglingReady ? "撤销中..." : "撤销就绪"}
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={markReady}
+              disabled={togglingReady}
+              className="px-8 py-3 bg-accent text-accent-foreground rounded-lg text-lg font-medium hover:bg-accent-hover transition-colors disabled:opacity-50"
+            >
+              {togglingReady ? "提交中..." : "开始"}
+            </button>
+          )}
           {error && <p className="text-sm text-error">{error}</p>}
         </div>
       )}

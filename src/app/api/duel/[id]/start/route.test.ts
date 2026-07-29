@@ -17,7 +17,7 @@ vi.mock("@/lib/db", () => ({
   },
 }));
 
-import { POST } from "./route";
+import { POST, DELETE } from "./route";
 
 const BASE_DUEL = {
   id: "duel-1",
@@ -36,54 +36,85 @@ const BASE_DUEL = {
   forfeitById: null,
   challengerLastSeenAt: null,
   opponentLastSeenAt: null,
+  challengerReadyAt: null,
+  opponentReadyAt: null,
   currentRoundIndex: null,
   currentRoundStartedAt: null,
 };
 
-const AUTH_USER = { id: 1, username: "challenger", role: "user" };
+const CHALLENGER = { id: 1, username: "challenger", role: "user" };
+const OPPONENT = { id: 2, username: "opponent", role: "user" };
 
-function makeRequest(): Request {
+function makePost(): Request {
   return new Request("http://localhost/api/duel/duel-1/start", {
     method: "POST",
   });
 }
 
-describe("POST /api/duel/[id]/start", () => {
+function makeDelete(): Request {
+  return new Request("http://localhost/api/duel/duel-1/start", {
+    method: "DELETE",
+  });
+}
+
+describe("POST /api/duel/[id]/start (dual-ready handshake)", () => {
+  let state: Record<string, unknown>;
+
   beforeEach(() => {
-    mockGetCurrentUser.mockResolvedValue(AUTH_USER);
-    mockDuelFindUnique.mockResolvedValue({ ...BASE_DUEL });
-    mockDuelUpdate.mockImplementation(async ({ data }) => ({
-      ...BASE_DUEL,
-      ...data,
-    }));
+    state = { ...BASE_DUEL };
+    mockDuelFindUnique.mockImplementation(() => Promise.resolve({ ...state }));
+    mockDuelUpdate.mockImplementation(async ({ data }: { data: Record<string, unknown> }) => {
+      state = { ...state, ...data };
+      return { ...state };
+    });
   });
   afterEach(() => vi.clearAllMocks());
 
-  it("starts a ready duel (happy path mode 1)", async () => {
-    const res = await POST(makeRequest(), { params: Promise.resolve({ id: "duel-1" }) });
+  it("first side ready: sets own readyAt, returns transitioned=false", async () => {
+    mockGetCurrentUser.mockResolvedValue(CHALLENGER);
+
+    const res = await POST(makePost(), { params: Promise.resolve({ id: "duel-1" }) });
     const json = await res.json();
 
     expect(res.status).toBe(200);
-    expect(json.status).toBe("active");
-    expect(json.startedAt).toBeTruthy();
+    expect(json.transitioned).toBe(false);
+    expect(mockDuelUpdate).toHaveBeenCalledTimes(1);
     expect(mockDuelUpdate).toHaveBeenCalledWith({
+      where: { id: "duel-1" },
+      data: { challengerReadyAt: expect.any(Date) },
+    });
+  });
+
+  it("second side ready: both readyAt present transitions to active (mode 1)", async () => {
+    state.challengerReadyAt = new Date("2026-01-01T00:00:01Z");
+    mockGetCurrentUser.mockResolvedValue(OPPONENT);
+
+    const res = await POST(makePost(), { params: Promise.resolve({ id: "duel-1" }) });
+    const json = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(json.transitioned).toBe(true);
+    expect(mockDuelUpdate).toHaveBeenCalledTimes(2);
+    expect(mockDuelUpdate).toHaveBeenNthCalledWith(1, {
+      where: { id: "duel-1" },
+      data: { opponentReadyAt: expect.any(Date) },
+    });
+    expect(mockDuelUpdate).toHaveBeenNthCalledWith(2, {
       where: { id: "duel-1" },
       data: { startedAt: expect.any(Date), status: "active" },
     });
   });
 
-  it("sets currentRoundIndex and currentRoundStartedAt for mode 2", async () => {
-    mockDuelFindUnique.mockResolvedValue({ ...BASE_DUEL, mode: "2" });
+  it("mode 2 transition seeds currentRoundIndex + currentRoundStartedAt", async () => {
+    state.mode = "2";
+    state.challengerReadyAt = new Date("2026-01-01T00:00:01Z");
+    mockGetCurrentUser.mockResolvedValue(OPPONENT);
 
-    const res = await POST(makeRequest(), { params: Promise.resolve({ id: "duel-1" }) });
+    const res = await POST(makePost(), { params: Promise.resolve({ id: "duel-1" }) });
     const json = await res.json();
 
-    expect(res.status).toBe(200);
-    expect(json.status).toBe("active");
-    expect(json.startedAt).toBeTruthy();
-    expect(json.currentRoundIndex).toBe(0);
-    expect(json.currentRoundStartedAt).toBeTruthy();
-    expect(mockDuelUpdate).toHaveBeenCalledWith({
+    expect(json.transitioned).toBe(true);
+    expect(mockDuelUpdate).toHaveBeenNthCalledWith(2, {
       where: { id: "duel-1" },
       data: {
         startedAt: expect.any(Date),
@@ -94,10 +125,11 @@ describe("POST /api/duel/[id]/start", () => {
     });
   });
 
-  it("returns 409 when duel is not in ready status", async () => {
-    mockDuelFindUnique.mockResolvedValue({ ...BASE_DUEL, status: "pending" });
+  it("returns 409 when duel status is not 'ready'", async () => {
+    state.status = "active";
+    mockGetCurrentUser.mockResolvedValue(CHALLENGER);
 
-    const res = await POST(makeRequest(), { params: Promise.resolve({ id: "duel-1" }) });
+    const res = await POST(makePost(), { params: Promise.resolve({ id: "duel-1" }) });
     const json = await res.json();
 
     expect(res.status).toBe(409);
@@ -108,7 +140,7 @@ describe("POST /api/duel/[id]/start", () => {
   it("returns 403 when caller is not a participant", async () => {
     mockGetCurrentUser.mockResolvedValue({ id: 99, username: "stranger", role: "user" });
 
-    const res = await POST(makeRequest(), { params: Promise.resolve({ id: "duel-1" }) });
+    const res = await POST(makePost(), { params: Promise.resolve({ id: "duel-1" }) });
     const json = await res.json();
 
     expect(res.status).toBe(403);
@@ -117,9 +149,10 @@ describe("POST /api/duel/[id]/start", () => {
   });
 
   it("returns 404 when duel not found", async () => {
+    mockGetCurrentUser.mockResolvedValue(CHALLENGER);
     mockDuelFindUnique.mockResolvedValue(null);
 
-    const res = await POST(makeRequest(), { params: Promise.resolve({ id: "nonexistent" }) });
+    const res = await POST(makePost(), { params: Promise.resolve({ id: "nonexistent" }) });
     const json = await res.json();
 
     expect(res.status).toBe(404);
@@ -130,7 +163,68 @@ describe("POST /api/duel/[id]/start", () => {
   it("returns 401 when unauthenticated", async () => {
     mockGetCurrentUser.mockResolvedValue(null);
 
-    const res = await POST(makeRequest(), { params: Promise.resolve({ id: "duel-1" }) });
+    const res = await POST(makePost(), { params: Promise.resolve({ id: "duel-1" }) });
+    expect(res.status).toBe(401);
+    expect(mockDuelUpdate).not.toHaveBeenCalled();
+  });
+});
+
+describe("DELETE /api/duel/[id]/start (rescind readiness)", () => {
+  let state: Record<string, unknown>;
+
+  beforeEach(() => {
+    state = { ...BASE_DUEL };
+    mockDuelFindUnique.mockImplementation(() => Promise.resolve({ ...state }));
+    mockDuelUpdate.mockImplementation(async ({ data }: { data: Record<string, unknown> }) => {
+      state = { ...state, ...data };
+      return { ...state };
+    });
+  });
+  afterEach(() => vi.clearAllMocks());
+
+  it("clears own readyAt while duel is still in ready", async () => {
+    state.challengerReadyAt = new Date("2026-01-01T00:00:01Z");
+    mockGetCurrentUser.mockResolvedValue(CHALLENGER);
+
+    const res = await DELETE(makeDelete(), { params: Promise.resolve({ id: "duel-1" }) });
+    const json = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(json.ok).toBe(true);
+    expect(mockDuelUpdate).toHaveBeenCalledWith({
+      where: { id: "duel-1" },
+      data: { challengerReadyAt: null },
+    });
+  });
+
+  it("clears opponent's readyAt when opponent calls", async () => {
+    state.opponentReadyAt = new Date("2026-01-01T00:00:01Z");
+    mockGetCurrentUser.mockResolvedValue(OPPONENT);
+
+    const res = await DELETE(makeDelete(), { params: Promise.resolve({ id: "duel-1" }) });
+    expect(res.status).toBe(200);
+    expect(mockDuelUpdate).toHaveBeenCalledWith({
+      where: { id: "duel-1" },
+      data: { opponentReadyAt: null },
+    });
+  });
+
+  it("no-ops when duel already active (cannot rescind post-start)", async () => {
+    state.status = "active";
+    mockGetCurrentUser.mockResolvedValue(CHALLENGER);
+
+    const res = await DELETE(makeDelete(), { params: Promise.resolve({ id: "duel-1" }) });
+    const json = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(json.noop).toBe(true);
+    expect(mockDuelUpdate).not.toHaveBeenCalled();
+  });
+
+  it("returns 401 when unauthenticated", async () => {
+    mockGetCurrentUser.mockResolvedValue(null);
+
+    const res = await DELETE(makeDelete(), { params: Promise.resolve({ id: "duel-1" }) });
     expect(res.status).toBe(401);
     expect(mockDuelUpdate).not.toHaveBeenCalled();
   });

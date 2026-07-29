@@ -277,5 +277,12 @@ export async function GET(
       )?.toISOString() ?? null,
     winnerId: latestDuel.winnerId,
     forfeitById: latestDuel.forfeitById,
+    // Dual-ready handshake state. Derived from the caller's perspective.
+    myReady: user.id === latestDuel.challengerId
+      ? latestDuel.challengerReadyAt !== null
+      : latestDuel.opponentReadyAt !== null,
+    opponentReady: user.id === latestDuel.challengerId
+      ? latestDuel.opponentReadyAt !== null
+      : latestDuel.challengerReadyAt !== null,
   });
 }
