@@ -561,24 +561,26 @@ export function PracticeClient({
     });
     if (isCorrect) {
       playCorrectChime();
-      // ponytail: retry-correct counts as a real correct (stats + milestone).
-      // Only retry-wrong is a no-op (per the original "no new attempt" spec).
-      const next = stats.streak + 1;
-      setStats({ ...stats, streak: next, correct: stats.correct + 1, wrong: stats.wrong });
-      if (next > 0 && next % 3 === 0) {
-        playStreakChime(next);
-        triggerMilestoneFx(next);
+      // ponytail: only first-try correct counts. Retry-correct is silent UX
+      // practice — the word is reinforced by re-entering the queue tail,
+      // not by inflating the user's score.
+      if (!isRetry) {
+        const next = stats.streak + 1;
+        setStats({ ...stats, streak: next, correct: stats.correct + 1 });
+        if (next > 0 && next % 3 === 0) {
+          playStreakChime(next);
+          triggerMilestoneFx(next);
+        }
       }
     } else {
       playWrongBuzz();
-      if (!isRetry) {
-        if (stats.streak > 0) setStats({ ...stats, streak: 0, wrong: stats.wrong + 1 });
-        else setStats({ ...stats, wrong: stats.wrong + 1 });
-      }
+      // ponytail: wrong attempts (first try + retry) are silent UX practice —
+      // no stats, no DB attempt, no level change. The wrong + Enter key combo
+      // enters retry mode so the user re-attempts the same word at queue[0].
     }
-    // ponytail: retry-wrong is UX-only; everything else writes to /api/attempts
-    // so retry-correct recovers SM-2 + word counters in the DB.
-    if (isRetry && !isCorrect) return;
+    // ponytail: retry path (both retry-wrong and retry-correct) is silent.
+    // Only first-try attempts write to DB and update SM-2 / word counters.
+    if (isRetry) return;
     // Optimistic local update — apply BEFORE advance can pop the word off queue[0]
     // so the badge updates the moment user submits (no waiting for /api/attempts round-trip).
     setQueue((prev) =>
@@ -598,13 +600,34 @@ export function PracticeClient({
     postAttempt(current, userInput, isCorrect);
   }
 
+  function pushBackCurrent() {
+    // ponytail: retry-correct = word was originally wrong → pop from queue[0]
+    // and push to the tail for reinforcement training (per spec: "因为是答错的，
+    // 因此还是要重新回到队列的末尾进行再一次的加强训练"). No stats/DB attempt
+    // happened during the retry sequence, so nothing to record.
+    retryModeRef.current = false;
+    setQueue((prev) => {
+      const next = prev.slice(1);
+      next.push(current!);
+      if (next.length > QUEUE_HARD_CAP) next.splice(0, next.length - QUEUE_HARD_CAP);
+      return next;
+    });
+    setAnswered((a) => a + 1);
+    setUserInput("");
+    setFeedback(null);
+    refillQueue();
+  }
+
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
       e.preventDefault();
       if (feedback) {
-        if (feedback.correct) {
-          advance(current!, true);
-        } else {
+          if (feedback.correct) {
+            // ponytail: retry-correct (originally wrong) → push back to queue tail;
+            // first-try correct → pop. Check retryModeRef, not session stats.
+            if (retryModeRef.current) pushBackCurrent();
+            else advance(current!, true);
+          } else {
           // ponytail: wrong + Enter = retry same word (no advance, no record).
           setFeedback(null);
           setUserInput("");
@@ -925,7 +948,12 @@ export function PracticeClient({
                 type="button"
                 onClick={
                   feedback.correct
-                    ? () => advance(current!, true)
+                    ? () => {
+                        // ponytail: retry-correct (originally wrong) → push back
+                        // to queue tail; first-try correct → pop.
+                        if (retryModeRef.current) pushBackCurrent();
+                        else advance(current!, true);
+                      }
                     : () => {
                         // ponytail: same Enter handler as keyboard path — arm retry.
                         setFeedback(null);
