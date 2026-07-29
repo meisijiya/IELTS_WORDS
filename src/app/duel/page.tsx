@@ -11,7 +11,14 @@ export default async function DuelPage() {
 
   const [duels, wordbooks] = await Promise.all([
     prisma.duel.findMany({
-      where: { OR: [{ challengerId: user.id }, { opponentId: user.id }] },
+      where: {
+        OR: [{ challengerId: user.id }, { opponentId: user.id }],
+        // ponytail: filter my-side soft-deletes (challenger-side if I'm challenger, etc).
+        NOT: [
+          { challengerId: user.id, challengerHiddenAt: { not: null } },
+          { opponentId: user.id, opponentHiddenAt: { not: null } },
+        ],
+      },
       orderBy: { createdAt: "desc" },
       take: 20,
       include: {

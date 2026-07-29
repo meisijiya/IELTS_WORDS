@@ -34,6 +34,7 @@ export function InvitesClient({
   const [users, setUsers] = useState(initialUsers);
   const [creating, setCreating] = useState(false);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [copyError, setCopyError] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [editUsername, setEditUsername] = useState("");
   const [editError, setEditError] = useState<string | null>(null);
@@ -107,11 +108,42 @@ export function InvitesClient({
     setInvitations((prev) => prev.filter((i) => i.id !== inv.id));
   }
 
-  function copyCode(code: string) {
-    navigator.clipboard.writeText(code).then(() => {
-      setCopiedCode(code);
-      setTimeout(() => setCopiedCode(null), 1500);
-    });
+  async function copyCode(code: string) {
+    setCopyError(false);
+    // ponytail: HTTPS/localhost path.
+    if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(code);
+        setCopiedCode(code);
+        setTimeout(() => setCopiedCode(null), 1500);
+        return;
+      } catch {
+        // fall through
+      }
+    }
+    // ponytail: HTTP fallback — clipboard API is gated without secure context.
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = code;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.top = "0";
+      ta.style.left = "0";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      const ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      if (ok) {
+        setCopiedCode(code);
+        setTimeout(() => setCopiedCode(null), 1500);
+      } else {
+        setCopyError(true);
+      }
+    } catch {
+      setCopyError(true);
+    }
   }
 
   function openEditUser(u: User) {
@@ -219,6 +251,11 @@ export function InvitesClient({
             <Plus className="h-4 w-4" /> 生成新邀请码
           </button>
         </div>
+        {copyError && (
+          <p className="text-xs text-warning mb-2">
+            浏览器拦截了自动复制。长按对应邀请码 → 全选 → 复制即可。
+          </p>
+        )}
         {invitations.length === 0 ? (
           <p className="text-sm text-muted-foreground py-4">还没有邀请码。点击右上方生成。</p>
         ) : (

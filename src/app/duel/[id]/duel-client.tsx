@@ -3,7 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Home, Swords, Clock, Trophy, AlertTriangle, Users, Copy, X } from "lucide-react";
+import { ArrowLeft, Home, Swords, Clock, Trophy, AlertTriangle, Users, Copy, X, Volume2 } from "lucide-react";
+
+const DUEL_WORD_FLASH_MS = 600;
+const DUEL_FADE_MS = 200;
+
+function normalizeSpelling(spelling: string): string {
+  return spelling
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
 
 interface Gloss {
   pos: string;
@@ -66,15 +76,22 @@ export function DuelRoomClient({
   const [input, setInput] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<{ correct: boolean } | null>(null);
+  const [result, setResult] = useState<
+    { correct: boolean; spelling: string; typed: string } | null
+  >(null);
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
   const [cancelling, setCancelling] = useState(false);
   const [togglingReady, setTogglingReady] = useState(false);
+  const [accent, setAccent] = useState<"us" | "uk">("us");
+  const [hintPos, setHintPos] = useState<number>(-1);
+  const [showWord, setShowWord] = useState(false);
+  const [wordOpacity, setWordOpacity] = useState(0);
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const submittedRoundRef = useRef(false);
+  const lastAudioWordIdRef = useRef<number | null>(null);
   const [pageUrl, setPageUrl] = useState("");
 
   useEffect(() => {
@@ -124,6 +141,64 @@ export function DuelRoomClient({
     }
   }, [state?.status, state?.currentWordId]);
 
+  // ponytail: pull accent once for audio file naming (falls back to "us").
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/settings")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((s) => {
+        if (!cancelled && s && (s.accent === "uk" || s.accent === "us")) {
+          setAccent(s.accent);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // ponytail: on each new word → audio + random hint + brief reveal.
+  useEffect(() => {
+    if (!state || state.status !== "active") return;
+    const wordId = state.currentWordId;
+    const spelling = state.currentWordSpelling;
+    if (wordId == null || !spelling) return;
+    if (lastAudioWordIdRef.current === wordId) return;
+    lastAudioWordIdRef.current = wordId;
+
+    const len = spelling.length;
+    setHintPos(len > 0 ? Math.floor(Math.random() * len) : -1);
+
+    const normalized = normalizeSpelling(spelling);
+    const primary = `/audio/${normalized}.${accent}.mp3`;
+    const fallback = `/audio/${normalized}.${accent === "us" ? "uk" : "us"}.mp3`;
+    try {
+      const audio = new Audio(primary);
+      audio.volume = 0.8;
+      let tried = false;
+      audio.onerror = () => {
+        if (tried) return;
+        tried = true;
+        const fb = new Audio(fallback);
+        fb.volume = 0.8;
+        fb.play().catch(() => {});
+      };
+      audio.play().catch(() => {});
+    } catch {
+      // autoplay policy / pre-DOM
+    }
+
+    setShowWord(true);
+    setWordOpacity(1);
+    const fadeT = setTimeout(() => setWordOpacity(0), DUEL_WORD_FLASH_MS);
+    const hideT = setTimeout(() => setShowWord(false), DUEL_WORD_FLASH_MS + DUEL_FADE_MS);
+    return () => {
+      clearTimeout(fadeT);
+      clearTimeout(hideT);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state?.currentWordId, state?.status, accent]);
+
   async function submitAnswer() {
     if (!input.trim()) return;
     if (submitting) return;
@@ -146,10 +221,16 @@ export function DuelRoomClient({
         return;
       }
       const data = await res.json();
-      setResult({ correct: data.correct });
+      setResult({
+        correct: data.correct,
+        spelling: data.spelling ?? "",
+        typed: input,
+      });
       setInput("");
       submittedRoundRef.current = true;
-      setTimeout(() => setResult(null), 1500);
+      // ponytail: longer dwell on wrong so user can read the correct spelling.
+      const dwell = data.correct ? 700 : 1400;
+      setTimeout(() => setResult(null), dwell);
     } finally {
       setSubmitting(false);
     }
@@ -468,10 +549,31 @@ export function DuelRoomClient({
             </div>
           )}
 
-          {/* Word / Gloss display */}
+          {/* Word / Hint display */}
           {hasWord ? (
             <div className="space-y-4">
-              <div className="text-4xl font-mono font-bold text-center py-8">???</div>
+              <div className="flex justify-center items-center gap-1.5 text-4xl font-mono font-bold min-h-[4rem] tracking-wider">
+                {display!.currentWordSpelling!.split("").map((ch, i) => (
+                  <span
+                    key={i}
+                    className={
+                      i === hintPos
+                        ? "text-accent border-b-2 border-accent px-1.5"
+                        : showWord
+                          ? "text-foreground border-b-2 border-border px-1.5 transition-opacity"
+                          : "text-muted-foreground/40 border-b-2 border-border px-1.5"
+                    }
+                    style={
+                      !showWord && i !== hintPos
+                        ? undefined
+                        : { opacity: i === hintPos ? 1 : wordOpacity }
+                    }
+                    aria-hidden={!showWord && i !== hintPos}
+                  >
+                    {i === hintPos ? ch : showWord ? ch : "_"}
+                  </span>
+                ))}
+              </div>
               {display?.currentWordGlosses && display.currentWordGlosses.length > 0 && (
                 <div className="text-center space-y-1">
                   {display.currentWordGlosses.map((g, i) => (
@@ -482,6 +584,22 @@ export function DuelRoomClient({
                   ))}
                 </div>
               )}
+              <p className="text-xs text-center text-muted-foreground">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!display?.currentWordSpelling) return;
+                    const normalized = normalizeSpelling(display.currentWordSpelling);
+                    const a = new Audio(`/audio/${normalized}.${accent}.mp3`);
+                    a.volume = 0.8;
+                    a.play().catch(() => {});
+                  }}
+                  className="hover:text-accent transition inline-flex items-center gap-1"
+                  title="重播发音"
+                >
+                  <Volume2 className="h-3.5 w-3.5" /> 重播
+                </button>
+              </p>
             </div>
           ) : (
             <p className="text-center text-lg text-muted-foreground py-8">已完成所有题目</p>
@@ -521,8 +639,18 @@ export function DuelRoomClient({
 
           {/* Feedback */}
           {result && (
-            <div className={`text-center text-lg font-semibold ${result.correct ? "text-success" : "text-error"}`}>
-              {result.correct ? "✓ 正确" : `✗ 错误`}
+            <div className="text-center space-y-3 animate-fade-in">
+              <div className={`text-xl font-semibold ${result.correct ? "text-success" : "text-error"}`}>
+                {result.correct ? "✓ 正确" : "✗ 答错"}
+              </div>
+              <div className="text-3xl font-mono font-bold tracking-wider text-foreground">
+                {result.spelling}
+              </div>
+              {!result.correct && result.typed && (
+                <div className="text-sm text-muted-foreground">
+                  你输入的：<span className="font-mono text-error line-through">{result.typed}</span>
+                </div>
+              )}
             </div>
           )}
 

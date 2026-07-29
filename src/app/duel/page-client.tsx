@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Clock, LogIn, Plus, Swords, Trophy } from "lucide-react";
+import { Clock, LogIn, Plus, Swords, Trophy, Trash2 } from "lucide-react";
 
 export type DuelStatus =
   | "pending"
@@ -261,6 +261,9 @@ function DuelRow({
   const canCancel =
     d.myRole === "challenger" &&
     (d.status === "pending" || d.status === "ready");
+  // ponytail: either side may hide a finished/forfeited record from
+  // their own list; server decides soft vs hard delete.
+  const canDelete = isFinished;
 
   let resultLabel: string | null = null;
   if (isFinished) {
@@ -269,17 +272,17 @@ function DuelRow({
     else resultLabel = "你负";
   }
 
-  async function handleCancel(e: React.MouseEvent) {
+  async function handleRemove(e: React.MouseEvent, confirmMsg: string) {
     e.preventDefault();
     e.stopPropagation();
     if (cancelling) return;
-    if (!confirm("确认取消该挑战？取消后该 ID 将失效。")) return;
+    if (!confirm(confirmMsg)) return;
     setCancelling(true);
     try {
       const res = await fetch(`/api/duel/${d.id}`, { method: "DELETE" });
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        alert(err.error || "取消失败");
+        alert(err.error || "操作失败");
         return;
       }
       onCanceled(d.id);
@@ -338,12 +341,28 @@ function DuelRow({
       <div className="flex items-center gap-2 shrink-0 ml-auto">
         {canCancel && (
           <button
-            onClick={handleCancel}
+            onClick={(e) =>
+              handleRemove(e, "确认取消该挑战？取消后该 ID 将失效。")
+            }
             disabled={cancelling}
             className="px-3 py-1.5 border border-error/40 text-error hover:bg-error/10 rounded-md text-sm font-medium transition disabled:opacity-50"
             title="取消该挑战"
           >
             {cancelling ? "取消中..." : "取消"}
+          </button>
+        )}
+        {canDelete && !canCancel && (
+          <button
+            onClick={(e) =>
+              handleRemove(e, "从历史记录中删除？仅从你的视角隐藏。")
+            }
+            disabled={cancelling}
+            className="px-3 py-1.5 border border-border text-muted-foreground hover:text-error hover:border-error/40 rounded-md text-sm font-medium transition disabled:opacity-50 inline-flex items-center gap-1"
+            title="从历史记录中删除"
+            aria-label="删除该历史记录"
+          >
+            <Trash2 className="h-3.5 w-3.5" />
+            删除
           </button>
         )}
         <Link

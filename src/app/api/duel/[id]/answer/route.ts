@@ -235,7 +235,10 @@ export async function POST(
       return { correct, elapsedMs, totalCorrect, finished: duelFinished };
     });
 
-    return NextResponse.json(result);
+    return NextResponse.json({
+      ...result,
+      spelling: word.spelling,
+    });
   } catch (e) {
     if (e && typeof e === "object" && "code" in e && (e as { code: string }).code === "P2002") {
       return NextResponse.json(

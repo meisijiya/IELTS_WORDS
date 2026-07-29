@@ -259,10 +259,15 @@ model Duel {
   // themselves ready; only when BOTH timestamps are non-null does the duel
   // transition from "ready" → "active". Either side can rescind with
   // DELETE /api/duel/[id]/start while the duel is still in "ready".
-  challengerReadyAt     DateTime?
+challengerReadyAt     DateTime?
   opponentReadyAt       DateTime?
   currentRoundIndex     Int?      // mode 2 only
   currentRoundStartedAt DateTime? // mode 2 round timeout anchor
+  // Per-user soft-delete for historical duels. Each side sets their own
+  // hiddenAt independently; the row is hard-deleted only when BOTH are
+  // non-null. Pending / active duels still use the challenger-cancel path.
+challengerHiddenAt    DateTime?
+  opponentHiddenAt      DateTime?
 
   answers DuelAnswer[]
 
