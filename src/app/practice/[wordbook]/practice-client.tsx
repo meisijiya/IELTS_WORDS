@@ -141,6 +141,11 @@ export function PracticeClient({
   const soundEnabledRef = useRef(true);
   // ponytail: gates /api/attempts + stats on retries; reset on word change.
   const retryModeRef = useRef(false);
+  // ponytail: snapshots the user's first-try typed value when wrong, so
+  // pushBackCurrent can store the *wrong* attempt in wordHistory (not the
+  // retry-correct value, which would render as "✗ 答错 [correct string]" in
+  // the modal and confuse the user into thinking they typed wrong).
+  const firstTryWrongTypedRef = useRef<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -574,9 +579,18 @@ export function PracticeClient({
       }
     } else {
       playWrongBuzz();
-      // ponytail: wrong attempts (first try + retry) are silent UX practice —
-      // no stats, no DB attempt, no level change. The wrong + Enter key combo
-      // enters retry mode so the user re-attempts the same word at queue[0].
+      if (!isRetry) {
+        // ponytail: snapshot the wrong input so the modal can render
+        // "where did I go wrong" diff (instead of the retry-correct value
+        // that would otherwise leak through pushBackCurrent).
+        firstTryWrongTypedRef.current = userInput;
+        // ponytail: wrong counter increments on first try only — symmetric
+        // with first-try correct → stats.correct++. Retry-wrong stays silent
+        // because the word hasn't been "completed" yet.
+        setStats({ ...stats, wrong: stats.wrong + 1 });
+      }
+      // The wrong + Enter key combo enters retry mode so the user re-attempts
+      // the same word at queue[0].
     }
     // ponytail: retry path (both retry-wrong and retry-correct) is silent.
     // Only first-try attempts write to DB and update SM-2 / word counters.
@@ -604,8 +618,22 @@ export function PracticeClient({
     // ponytail: retry-correct = word was originally wrong → pop from queue[0]
     // and push to the tail for reinforcement training (per spec: "因为是答错的，
     // 因此还是要重新回到队列的末尾进行再一次的加强训练"). No stats/DB attempt
-    // happened during the retry sequence, so nothing to record.
+    // happened during the retry sequence, but we still append to wordHistory
+    // (client-side only) so the "view previous word" button surfaces the
+    // word the user just failed on — otherwise the wrong→retry-correct
+    // path is invisible to history (only advance() recorded entries) and
+    // the modal would skip back to an earlier first-try-correct word.
+    // typed = firstTryWrongTypedRef (the original wrong attempt), NOT
+    // userInput (which is the correct retry value) — otherwise the modal
+    // would render "✗ 答错 [correct string]" and confuse the user.
+    const typed = firstTryWrongTypedRef.current ?? userInput;
     retryModeRef.current = false;
+    setWordHistory((prev) => {
+      const entry: HistoryEntry = { word: { ...current! }, typed, correct: false };
+      const next = [...prev, entry];
+      if (next.length > HISTORY_CAP) next.splice(0, next.length - HISTORY_CAP);
+      return next;
+    });
     setQueue((prev) => {
       const next = prev.slice(1);
       next.push(current!);
@@ -1044,9 +1072,40 @@ export function PracticeClient({
             </div>
             <div className="text-sm bg-muted/40 rounded-md p-3">
               <div className="text-xs text-muted-foreground mb-1">你输入的</div>
-              <div className={`font-mono ${historyModal.correct ? "text-success" : "text-error line-through"}`}>
-                {historyModal.typed || <span className="text-muted-foreground/50">(空)</span>}
-              </div>
+              {historyModal.correct ? (
+                <div className="font-mono text-success">
+                  {historyModal.typed || <span className="text-muted-foreground/50">(空)</span>}
+                </div>
+              ) : historyModal.typed ? (
+                // ponytail: wrong-attempt modal — highlight each character whose
+                // position mismatches the expected spelling (case-insensitive,
+                // matching checkAnswer). Extra chars (typed longer than expected)
+                // are also flagged red. Line-through is deliberately omitted
+                // because the displayed value IS the user's own wrong attempt,
+                // not the correct answer — striking it through would suggest
+                // "the answer you typed is wrong" rather than "this is what
+                // you typed and these positions were wrong".
+                <div className="font-mono">
+                  {Array.from(historyModal.typed).map((c, i) => {
+                    const expected = historyModal.word.spelling;
+                    const match =
+                      i < expected.length &&
+                      c.toLowerCase() === expected[i]!.toLowerCase();
+                    return (
+                      <span
+                        key={i}
+                        className={match ? "" : "text-error font-bold"}
+                      >
+                        {c}
+                      </span>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="font-mono">
+                  <span className="text-muted-foreground/50">(空)</span>
+                </div>
+              )}
             </div>
             <button
               type="button"
