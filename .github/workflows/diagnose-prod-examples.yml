@@ -1,0 +1,70 @@
+name: Diagnose-Prod-Examples
+
+on:
+  workflow_dispatch:
+
+# ponytail: workflow uses SSH secrets only; no GITHUB_TOKEN scopes needed.
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect Word.examples coverage on prod
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_SSH_USER || 'root' }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            echo "=== examples NULL/total by wordbook ==="
+            docker exec -i yasi-postgres psql -U yasi -d yasi_db -c '
+              SELECT
+                w."wordbookId",
+                COUNT(*) AS total,
+                COUNT(*) FILTER (WHERE w.examples IS NULL) AS null_examples,
+                COUNT(*) FILTER (WHERE w.examples IS NOT NULL) AS non_null_examples,
+                ROUND(100.0 * COUNT(*) FILTER (WHERE w.examples IS NULL) / COUNT(*), 1) AS null_pct
+              FROM "Word" w
+              GROUP BY w."wordbookId"
+              ORDER BY w."wordbookId";
+            '
+
+            echo ""
+            echo "=== examples JSON length stats (non-null rows only) ==="
+            docker exec -i yasi-postgres psql -U yasi -d yasi_db -c '
+              SELECT
+                w."wordbookId",
+                COUNT(*) AS rows,
+                MIN(LENGTH(w.examples)) AS min_len,
+                MAX(LENGTH(w.examples)) AS max_len,
+                ROUND(AVG(LENGTH(w.examples)))::int AS avg_len
+              FROM "Word" w
+              WHERE w.examples IS NOT NULL
+              GROUP BY w."wordbookId"
+              ORDER BY w."wordbookId";
+            '
+
+            echo ""
+            echo "=== sample 3 non-null rows (raw JSON head) ==="
+            docker exec -i yasi-postgres psql -U yasi -d yasi_db -c '
+              SELECT id, "wordbookId", spelling, LENGTH(examples) AS ex_len, LEFT(examples, 200) AS examples_head
+              FROM "Word"
+              WHERE examples IS NOT NULL
+              ORDER BY RANDOM()
+              LIMIT 3;
+            '
+
+            echo ""
+            echo "=== UserSettings.sentenceMode distribution ==="
+            docker exec -i yasi-postgres psql -U yasi -d yasi_db -c '
+              SELECT "sentenceMode", COUNT(*) AS users
+              FROM "UserSettings"
+              GROUP BY "sentenceMode"
+              ORDER BY "sentenceMode";
+            '
+
+            echo ""
+            echo "=== recent app log: seed + examples lines ==="
+            docker logs --tail 200 yasi-app 2>&1 | grep -E '\[seed\]|examples|loaded' | tail -15 || echo '(no seed-related log lines found in last 200)'
