@@ -66,5 +66,18 @@ jobs:
             '
 
             echo ""
+            echo "=== per-user table row counts (safety: must NOT change across deploy) ==="
+            docker exec -i yasi-postgres psql -U yasi -d yasi_db -c '
+              SELECT '\''User'\'' AS tbl, COUNT(*) AS n FROM "User"
+              UNION ALL SELECT '\''UserSettings'\'', COUNT(*) FROM "UserSettings"
+              UNION ALL SELECT '\''UserWord'\'', COUNT(*) FROM "UserWord"
+              UNION ALL SELECT '\''Attempt'\'', COUNT(*) FROM "Attempt"
+              UNION ALL SELECT '\''Session'\'', COUNT(*) FROM "Session"
+              UNION ALL SELECT '\''Checkin'\'', COUNT(*) FROM "Checkin"
+              UNION ALL SELECT '\''Word'\'', COUNT(*) FROM "Word"
+              ORDER BY tbl;
+            '
+
+            echo ""
             echo "=== recent app log: seed + examples lines ==="
             docker logs --tail 200 yasi-app 2>&1 | grep -E '\[seed\]|examples|loaded' | tail -15 || echo '(no seed-related log lines found in last 200)'
