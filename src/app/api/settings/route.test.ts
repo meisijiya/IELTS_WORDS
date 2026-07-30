@@ -293,13 +293,23 @@ describe("PUT /api/settings sentenceMode (S6)", () => {
     );
   });
 
-  it("normalizes garbage to 'fallback'", async () => {
+  it("normalizes garbage to 'always'", async () => {
     const res = await PUT(makeRequest({ sentenceMode: "garbage" }));
     const json = await res.json();
 
-    expect(json.sentenceMode).toBe("fallback");
+    expect(json.sentenceMode).toBe("always");
     expect(mockUserSettingsUpdate).toHaveBeenCalledWith(
-      expect.objectContaining({ data: expect.objectContaining({ sentenceMode: "fallback" }) }),
+      expect.objectContaining({ data: expect.objectContaining({ sentenceMode: "always" }) }),
+    );
+  });
+
+  it("coerces legacy 'fallback' rows to 'always'", async () => {
+    const res = await PUT(makeRequest({ sentenceMode: "fallback" }));
+    const json = await res.json();
+
+    expect(json.sentenceMode).toBe("always");
+    expect(mockUserSettingsUpdate).toHaveBeenCalledWith(
+      expect.objectContaining({ data: expect.objectContaining({ sentenceMode: "always" }) }),
     );
   });
 });
@@ -311,11 +321,20 @@ describe("GET /api/settings sentenceMode (S6)", () => {
   });
   afterEach(() => vi.clearAllMocks());
 
-  it("defaults to 'fallback' when the DB row lacks sentenceMode", async () => {
+  it("defaults to 'always' when the DB row lacks sentenceMode", async () => {
     const res = await GET();
     const json = await res.json();
 
     expect(res.status).toBe(200);
-    expect(json.sentenceMode).toBe("fallback");
+    expect(json.sentenceMode).toBe("always");
+  });
+
+  it("coerces legacy 'fallback' in stored row to 'always'", async () => {
+    mockUserSettingsUpsert.mockResolvedValue({ ...SETTINGS, sentenceMode: "fallback" });
+    const res = await GET();
+    const json = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(json.sentenceMode).toBe("always");
   });
 });

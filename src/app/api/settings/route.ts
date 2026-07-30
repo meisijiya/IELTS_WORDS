@@ -14,13 +14,16 @@ const DEFAULTS = {
   flashSkipMinLevel: null as number | null,
   soundEnabled: true,
   theme: "system" as "light" | "dark" | "system",
-  sentenceMode: "fallback" as "always" | "fallback" | "off",
+  sentenceMode: "always" as "always" | "off",
 };
 
 const PRON_MODES = new Set(["both", "flash", "feedback", "off"]);
 const PULL_MODES = new Set(["review", "balanced", "new"]);
 const THEME_MODES = new Set(["light", "dark", "system"]);
-const SENTENCE_MODES = new Set(["always", "fallback", "off"]);
+// ponytail: accept legacy "fallback" rows for backwards-compat; collapse them
+// to "always" since the two modes were indistinguishable in pickDisplayMode.
+const SENTENCE_MODES = new Set(["always", "off"]);
+const LEGACY_SENTENCE_FALLBACK = "fallback";
 const RETENTION_MAX_DAYS = 3650;
 const MASTERY_THRESHOLD_MIN = 2;
 const MASTERY_THRESHOLD_MAX = 20;
@@ -46,6 +49,7 @@ function normalizeTheme(value: unknown): typeof DEFAULTS.theme {
 }
 
 function normalizeSentenceMode(value: unknown): typeof DEFAULTS.sentenceMode {
+  if (value === LEGACY_SENTENCE_FALLBACK) return "always";
   return typeof value === "string" && SENTENCE_MODES.has(value)
     ? (value as typeof DEFAULTS.sentenceMode)
     : DEFAULTS.sentenceMode;

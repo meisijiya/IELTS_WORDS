@@ -118,15 +118,15 @@ function computeHintPositions(spelling: string, level: number): Set<number> {
 /**
  * Decide whether to render the SentenceCard or the bare word flash.
  * "off" -> always bare.
- * "always" / "fallback" -> sentence when examples is non-empty; otherwise bare.
- *   (Both modes share the same fallback: when no examples exist for a word,
+ * "always" -> sentence when examples is non-empty; otherwise bare.
+ *   (When no examples exist for a word, both modes fall back to bare flash.
  *   we silently fall back to the bare-word flash. The UI label "总是例句
  *   (无例句的词回退裸单词)" reflects this — "always" means "always try
  *   sentence first", not "force sentence card even with no data".)
  * Exported for unit testing.
  */
 export function pickDisplayMode(
-  settings: { sentenceMode: "always" | "fallback" | "off" },
+  settings: { sentenceMode: "always" | "off" },
   examples: ReadonlyArray<unknown>,
 ): "bare" | "sentence" {
   if (settings.sentenceMode === "off") return "bare";
@@ -166,7 +166,7 @@ export function PracticeClient({
     masteryThreshold: number | null;
     flashSkipMinLevel: number | null;
     soundEnabled: boolean;
-    sentenceMode: "always" | "fallback" | "off";
+    sentenceMode: "always" | "off";
   };
 }) {
   const router = useRouter();
@@ -198,7 +198,7 @@ export function PracticeClient({
   const [masteryThreshold, setMasteryThreshold] = useState(initialSettings.masteryThreshold ?? MASTERY_THRESHOLD_FALLBACK);
   const [flashSkipMinLevel, setFlashSkipMinLevel] = useState<number | null>(initialSettings.flashSkipMinLevel ?? null);
   const [soundEnabled, setSoundEnabled] = useState(initialSettings.soundEnabled ?? true);
-  const [sentenceMode, setSentenceMode] = useState<"always" | "fallback" | "off">(initialSettings.sentenceMode);
+  const [sentenceMode, setSentenceMode] = useState<"always" | "off">(initialSettings.sentenceMode);
   const inputRef = useRef<HTMLInputElement>(null);
   // ponytail: gates /api/attempts + stats on retries; reset on word change.
   const retryModeRef = useRef(false);
@@ -226,7 +226,7 @@ export function PracticeClient({
           masteryThreshold: number;
           flashSkipMinLevel: number | null;
           soundEnabled: boolean;
-          sentenceMode: "always" | "fallback" | "off";
+          sentenceMode: "always" | "off";
         } = await settingsRes.json();
         const active: ActiveSessionResponse = await activeRes.json();
         if (cancelled) return;
@@ -1044,8 +1044,69 @@ function DiffRow({
   const usrLower = typed.toLowerCase();
   const len = expected.length;
 
+  // ponytail: shrink the letter grid only when content overflows on mobile
+  // viewports; desktop keeps text-4xl unconditionally. matchMedia gates the
+  // measurement logic so wide screens never run scrollWidth probes or
+  // ResizeObserver; ResizeObserver fires on rotation / viewport changes.
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scaleRef = useRef<0 | 1 | 2>(0);
+  const isMobileRef = useRef<boolean>(false);
+  const [scale, setScaleState] = useState<0 | 1 | 2>(0);
+  function setScale(next: 0 | 1 | 2) {
+    scaleRef.current = next;
+    setScaleState(next);
+  }
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 640px)");
+    const sync = () => {
+      isMobileRef.current = mql.matches;
+      // ponytail: reset to default when leaving mobile so we don't carry a
+      // shrunk scale back into the desktop layout.
+      if (!mql.matches) {
+        scaleRef.current = 0;
+        setScaleState(0);
+      }
+    };
+    sync();
+    mql.addEventListener("change", sync);
+    return () => mql.removeEventListener("change", sync);
+  }, []);
+  useEffect(() => {
+    if (!isMobileRef.current) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const cur = scaleRef.current;
+    if (el.scrollWidth > el.clientWidth + 1) {
+      if (cur < 2) setScale(((cur + 1) as 0 | 1 | 2));
+    } else if (el.scrollWidth + 60 < el.clientWidth && cur > 0) {
+      setScale(((cur - 1) as 0 | 1 | 2));
+    }
+  }, [expected, typed]);
+  useEffect(() => {
+    if (!isMobileRef.current) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => {
+      const cur = scaleRef.current;
+      if (el.scrollWidth > el.clientWidth + 1) {
+        if (cur < 2) setScale(((cur + 1) as 0 | 1 | 2));
+      } else if (el.scrollWidth + 60 < el.clientWidth && cur > 0) {
+        setScale(((cur - 1) as 0 | 1 | 2));
+      }
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const sizeClass = scale === 0 ? "text-4xl" : scale === 1 ? "text-3xl" : "text-2xl";
+  const gapClass = scale === 0 ? "gap-1" : "gap-0.5";
+  const pxClass = scale === 0 ? "px-1.5" : "px-1";
+
   return (
-    <div className="flex justify-center gap-1 text-4xl font-mono font-bold min-h-[3rem]">
+    <div
+      ref={containerRef}
+      className={`flex justify-center ${gapClass} ${sizeClass} font-mono font-bold min-h-[3rem] w-full max-w-full`}
+    >
       {Array.from({ length: len }).map((_, i) => {
         const expChar = expected[i];
         const usrChar = typed[i] ?? "";
@@ -1057,43 +1118,43 @@ function DiffRow({
         if (showExpected && showTyped) {
           if (isHint) {
             display = expChar;
-            className = "text-accent border-b-2 border-accent px-1.5";
+            className = `text-accent border-b-2 border-accent ${pxClass}`;
           } else if (!usrChar) {
             display = expChar;
-            className = "text-error border-b-2 border-error px-1.5 bg-error/10";
+            className = `text-error border-b-2 border-error ${pxClass} bg-error/10`;
           } else if (expLower[i] === usrLower[i]) {
             display = expChar;
-            className = "text-success border-b-2 border-success px-1.5";
+            className = `text-success border-b-2 border-success ${pxClass}`;
           } else {
             display = expChar;
-            className = "text-error border-b-2 border-error px-1.5 bg-error/10 line-through";
+            className = `text-error border-b-2 border-error ${pxClass} bg-error/10 line-through`;
           }
         } else if (showExpected) {
           display = expChar;
           className = isCorrect
-            ? "text-success border-b-2 border-success px-1.5 bg-success-soft/40"
+            ? `text-success border-b-2 border-success ${pxClass} bg-success-soft/40`
             : isHint
-              ? "text-accent border-b-2 border-accent px-1.5"
-              : "text-foreground border-b-2 border-accent px-1.5";
+              ? `text-accent border-b-2 border-accent ${pxClass}`
+              : `text-foreground border-b-2 border-accent ${pxClass}`;
         } else {
           if (isHint) {
             if (usrChar) {
               if (usrChar.toLowerCase() === expChar.toLowerCase()) {
                 display = usrChar;
-                className = "text-accent border-b-2 border-accent px-1.5";
+                className = `text-accent border-b-2 border-accent ${pxClass}`;
               } else {
                 display = usrChar;
-                className = "text-error border-b-2 border-error px-1.5 bg-error/10 line-through";
+                className = `text-error border-b-2 border-error ${pxClass} bg-error/10 line-through`;
               }
             } else {
               display = expChar;
-              className = "text-accent border-b-2 border-accent px-1.5";
+              className = `text-accent border-b-2 border-accent ${pxClass}`;
             }
           } else {
             display = usrChar || "_";
             className = usrChar
-              ? "text-foreground border-b-2 border-accent px-1.5"
-              : "text-muted-foreground/50 border-b-2 border-border px-1.5";
+              ? `text-foreground border-b-2 border-accent ${pxClass}`
+              : `text-muted-foreground/50 border-b-2 border-border ${pxClass}`;
           }
         }
 
@@ -1108,7 +1169,7 @@ function DiffRow({
         );
       })}
       {showExpected && typed.length > expected.length && (
-        <span className="text-error border-b-2 border-error px-1.5 bg-error/10 rounded">
+        <span className={`text-error border-b-2 border-error ${pxClass} bg-error/10 rounded`}>
           +{typed.length - expected.length}
         </span>
       )}

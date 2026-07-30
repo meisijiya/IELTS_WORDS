@@ -71,7 +71,7 @@ export default async function PracticePage({
     masteryThreshold: settings?.masteryThreshold ?? 5,
     flashSkipMinLevel: settings?.flashSkipMinLevel ?? null,
     soundEnabled: settings?.soundEnabled ?? true,
-    sentenceMode: (settings?.sentenceMode as "always" | "fallback" | "off" | null | undefined) ?? "fallback",
+    sentenceMode: (settings?.sentenceMode as "always" | "off" | null | undefined) ?? "always",
   };
 
   return (

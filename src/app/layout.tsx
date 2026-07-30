@@ -30,10 +30,18 @@ export default async function RootLayout({
   const settings = user
     ? await prisma.userSettings.findUnique({
         where: { userId: user.id },
-        select: { theme: true },
+        select: { theme: true, pullPriority: true, sentenceMode: true },
       })
     : null;
   const initialMode = readTheme(settings?.theme);
+  const initialPullPriority =
+    settings?.pullPriority === "balanced" || settings?.pullPriority === "new"
+      ? settings.pullPriority
+      : "review";
+  const initialSentenceMode =
+    settings?.sentenceMode === "always" || settings?.sentenceMode === "off"
+      ? settings.sentenceMode
+      : "always";
 
   return (
     // ponytail: suppressHydrationWarning is required because ThemeScript mutates
@@ -47,7 +55,12 @@ export default async function RootLayout({
       <body className="min-h-screen bg-background text-foreground">
         <ThemeProvider initialMode={initialMode}>
           {user && (
-            <TopBar username={user.username} isAdmin={user.role === "admin"} />
+            <TopBar
+              username={user.username}
+              isAdmin={user.role === "admin"}
+              initialPullPriority={initialPullPriority}
+              initialSentenceMode={initialSentenceMode}
+            />
           )}
           {/* Spacer so page content sits below the fixed top bar (h-14).
               Login/register pages have no TopBar and need no spacer. */}

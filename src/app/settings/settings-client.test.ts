@@ -13,7 +13,7 @@ const SETTINGS = {
   flashSkipMinLevel: null,
   soundEnabled: true,
   theme: "system",
-  sentenceMode: "fallback",
+  sentenceMode: "always",
 } as const;
 
 const reactState = vi.hoisted(() => ({ call: 0 }));
@@ -44,23 +44,22 @@ describe("SettingsClient sentenceMode section (S9)", () => {
     reactState.call = 0;
   });
 
-  it("renders the three-way selector with all labels", () => {
+  it("renders the two-way selector with all labels", () => {
     const html = renderToString(
       createElement(SettingsClient, { currentUsername: "u", currentRole: "user" }),
     );
 
     expect(html).toContain("例句模式");
     expect(html).toContain("总是例句");
-    expect(html).toContain("有例句才用");
     expect(html).toContain("关闭例句");
   });
 
-  it("highlights the fallback option by default", () => {
+  it("highlights 'always' as the default option", () => {
     const html = renderToString(
       createElement(SettingsClient, { currentUsername: "u", currentRole: "user" }),
     );
 
-    expect(html).toContain("有例句才用");
+    expect(html).toContain("总是例句");
     expect(html).toContain("推荐");
   });
 });

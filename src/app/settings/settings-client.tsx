@@ -20,7 +20,7 @@ interface Settings {
   flashSkipMinLevel: number | null;
   soundEnabled: boolean;
   theme: ThemeMode;
-  sentenceMode: "always" | "fallback" | "off";
+  sentenceMode: "always" | "off";
 }
 
 const PRON_OPTIONS: { value: PronMode; label: string; hint: string }[] = [
@@ -42,10 +42,9 @@ const PULL_OPTIONS: { value: PullMode; label: string; ratio: string }[] = [
   { value: "new",      label: "新词优先", ratio: "18 新 + 2 学过 + 0 已熟练" },
 ];
 
-const SENTENCE_MODE_OPTIONS: { value: "always" | "fallback" | "off"; label: string; hint: string }[] = [
+const SENTENCE_MODE_OPTIONS: { value: "always" | "off"; label: string; hint: string }[] = [
   { value: "always", label: "总是例句", hint: "总是用例句练习（无例句的词回退裸单词）" },
-  { value: "fallback", label: "有例句才用", hint: "有例句时用例句，没有时用裸单词（推荐）" },
-  { value: "off", label: "关闭例句", hint: "永远用裸单词拼写" },
+  { value: "off",    label: "关闭例句", hint: "永远用裸单词拼写" },
 ];
 
 const RETENTION_PRESETS: { value: number | null; label: string }[] = [
