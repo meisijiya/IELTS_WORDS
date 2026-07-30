@@ -20,6 +20,7 @@ interface Settings {
   flashSkipMinLevel: number | null;
   soundEnabled: boolean;
   theme: ThemeMode;
+  sentenceMode: "always" | "fallback" | "off";
 }
 
 const PRON_OPTIONS: { value: PronMode; label: string; hint: string }[] = [
@@ -39,6 +40,12 @@ const PULL_OPTIONS: { value: PullMode; label: string; ratio: string }[] = [
   { value: "review",   label: "复习优先", ratio: "4 新 + 8 学过 + 8 已熟练" },
   { value: "balanced", label: "均衡",    ratio: "14 新 + 5 学过 + 1 已熟练" },
   { value: "new",      label: "新词优先", ratio: "18 新 + 2 学过 + 0 已熟练" },
+];
+
+const SENTENCE_MODE_OPTIONS: { value: "always" | "fallback" | "off"; label: string; hint: string }[] = [
+  { value: "always", label: "总是例句", hint: "总是用例句练习（无例句的词回退裸单词）" },
+  { value: "fallback", label: "有例句才用", hint: "有例句时用例句，没有时用裸单词（推荐）" },
+  { value: "off", label: "关闭例句", hint: "永远用裸单词拼写" },
 ];
 
 const RETENTION_PRESETS: { value: number | null; label: string }[] = [
@@ -312,6 +319,48 @@ export function SettingsClient({
                 }`}
               >
                 {opt.ratio}
+              </span>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold">例句模式</h2>
+        <p className="text-sm text-muted-foreground">
+          用真人例句替代裸单词 flash。例句中目标词在反馈阶段揭示并放大。需要后端有该词的例句数据。
+        </p>
+        <div className="space-y-2">
+          {SENTENCE_MODE_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => setSettings({ ...settings, sentenceMode: opt.value })}
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-md border transition text-left ${
+                settings.sentenceMode === opt.value
+                  ? "bg-accent text-accent-foreground border-accent"
+                  : "border-border hover:border-accent/50"
+              }`}
+            >
+              <div>
+                <div className="font-medium">{opt.label}</div>
+                <div
+                  className={`text-xs mt-0.5 ${
+                    settings.sentenceMode === opt.value
+                      ? "text-accent-foreground/70"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  {opt.hint}
+                </div>
+              </div>
+              <span
+                className={`text-xs font-mono ${
+                  settings.sentenceMode === opt.value
+                    ? "text-accent-foreground/70"
+                    : "text-muted-foreground"
+                }`}
+              >
+                {opt.value}
               </span>
             </button>
           ))}

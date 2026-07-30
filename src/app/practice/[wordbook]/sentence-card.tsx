@@ -1,0 +1,173 @@
+import type { Example } from "@/lib/sentence-mode";
+
+type Phase = "typing" | "feedback";
+
+export interface SentenceCardProps {
+  spelling: string;
+  sentence: Example | null;
+  phase: Phase;
+  userTyped?: string;
+  isCorrect?: boolean;
+  showSpelling?: boolean;
+  spellingOpacity?: number;
+  hintPositions?: ReadonlySet<number>;
+}
+
+function escapeRegExp(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function splitAtFirstWord(
+  text: string,
+  spelling: string,
+): { before: string; after: string } {
+  const bRe = /<b>[^<]*<\/b>/i;
+  const bMatch = text.match(bRe);
+  if (bMatch && bMatch.index !== undefined) {
+    const before = text.slice(0, bMatch.index).replace(/<[^>]+>/g, "").trimEnd();
+    const after = text.slice(bMatch.index + bMatch[0].length).replace(/<[^>]+>/g, "").trimStart();
+    return { before, after };
+  }
+  const stripped = text.replace(/<[^>]+>/g, "");
+  if (!spelling) return { before: stripped, after: "" };
+  const re = new RegExp(`\\b${escapeRegExp(spelling)}\\b`, "i");
+  const m = stripped.match(re);
+  if (!m || m.index === undefined) return { before: stripped, after: "" };
+  return {
+    before: stripped.slice(0, m.index).trimEnd(),
+    after: stripped.slice(m.index + m[0].length).trimStart(),
+  };
+}
+
+function buildMask(
+  spelling: string,
+  userInput: string,
+  hintPositions: ReadonlySet<number>,
+): { char: string; className: string }[] {
+  const out: { char: string; className: string }[] = [];
+  for (let i = 0; i < spelling.length; i++) {
+    const expChar = spelling[i];
+    const userChar = i < userInput.length ? userInput[i] : "";
+    if (hintPositions.has(i)) {
+      if (userChar) {
+        const isWrong = userChar.toLowerCase() !== expChar.toLowerCase();
+        out.push({
+          char: userChar,
+          className: isWrong
+            ? "text-error line-through"
+            : "text-white",
+        });
+      } else {
+        out.push({ char: expChar, className: "text-white" });
+      }
+    } else {
+      if (userChar) {
+        out.push({ char: userChar, className: "text-white" });
+      } else {
+        out.push({ char: "_", className: "text-white/50" });
+      }
+    }
+  }
+  return out;
+}
+
+function BlankPill({
+  spelling,
+  isFeedback,
+  isWrong,
+  userTyped,
+  showSpelling,
+  spellingOpacity,
+  mask,
+}: {
+  spelling: string;
+  isFeedback: boolean;
+  isWrong: boolean;
+  userTyped: string;
+  showSpelling: boolean;
+  spellingOpacity: number;
+  mask: { char: string; className: string }[];
+}) {
+  return (
+    <span
+      data-testid={isFeedback ? (isWrong ? "sentence-revealed-wrong" : "sentence-revealed") : "sentence-mask"}
+      className={
+        isFeedback
+          ? isWrong
+            ? "inline-block align-bottom bg-error/15 text-error px-2 rounded-md font-mono font-bold text-[26px] tracking-[3px] shadow-[0_3px_10px_rgba(220,38,38,0.28)] animate-shake"
+            : "inline-block align-bottom bg-success-soft text-success px-2 rounded-md font-mono font-bold text-[26px] tracking-[3px] shadow-[0_3px_10px_rgba(13,148,136,0.28)] animate-revealPulse"
+          : "inline-block align-bottom bg-accent text-white px-2 rounded-md font-mono font-bold text-[26px] tracking-[3px] shadow-[0_3px_0_rgba(232,132,95,0.35)]"
+      }
+      style={{
+        opacity: !isFeedback && showSpelling ? spellingOpacity : 1,
+        transitionDuration: !isFeedback && showSpelling ? "300ms" : "0ms",
+      }}
+    >
+      {isFeedback
+        ? spelling.split("").map((char, j) => {
+            const isCharCorrect =
+              !isWrong ||
+              (userTyped[j]?.toLowerCase() === char.toLowerCase());
+            return (
+              <span
+                key={j}
+                className={isCharCorrect ? "text-success" : "text-error"}
+              >
+                {char}
+              </span>
+            );
+          })
+        : mask.map((m, j) => (
+            <span key={j} className={m.className}>
+              {m.char}
+            </span>
+          ))}
+    </span>
+  );
+}
+
+export function SentenceCard({
+  spelling,
+  sentence,
+  phase,
+  userTyped = "",
+  isCorrect = true,
+  showSpelling = false,
+  spellingOpacity = 1,
+  hintPositions = new Set(),
+}: SentenceCardProps) {
+  if (!sentence) return null;
+
+  const isFeedback = phase === "feedback";
+  const isWrong = isFeedback && !isCorrect;
+  const mask = buildMask(spelling, userTyped, hintPositions);
+  const { before, after } = splitAtFirstWord(sentence.en, spelling);
+
+  return (
+    <div
+      className="rounded-2xl border border-accent-soft/60 dark:border-accent/30 bg-gradient-to-br from-white to-[#FFFAF5] dark:from-slate-900 dark:to-slate-800 p-8 space-y-4 max-w-2xl mx-auto"
+      data-testid="sentence-card"
+    >
+      <div className="text-[11px] tracking-[0.1em] uppercase text-accent font-bold text-center">例句</div>
+
+      <div className="text-center text-[19px] leading-[1.8] text-foreground/90 font-medium">
+        {before}{" "}
+        <BlankPill
+          spelling={spelling}
+          isFeedback={isFeedback}
+          isWrong={isWrong}
+          userTyped={userTyped}
+          showSpelling={showSpelling}
+          spellingOpacity={spellingOpacity}
+          mask={mask}
+        />{" "}
+        {after}
+      </div>
+
+      <div className="text-sm text-muted-foreground font-sans text-center">
+        <span className="text-[10px] tracking-[0.1em] uppercase text-muted-foreground font-bold mr-1.5">中文</span>
+        <span>{sentence.zh}</span>
+      </div>
+    </div>
+  );
+}

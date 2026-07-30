@@ -80,6 +80,12 @@ __pycache__/
 /release/*.tar.gz
 /release/*.tgz
 
+# Example sentence JSON (large, regenerable via tools/fetch_examples.py)
+# Allow examples-fallback.json (manually curated, 188 examples, 37KB)
+seed/examples-fallback.json
+/seed/examples_*.json
+!seed/examples-fallback.json
+
 # OS
 Thumbs.db
 

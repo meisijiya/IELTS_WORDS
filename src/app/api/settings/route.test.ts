@@ -10,6 +10,18 @@ vi.mock("@/lib/auth", () => ({
   getCurrentUser: () => mockGetCurrentUser(),
   isAuthenticated: () => mockGetCurrentUser().then((u: unknown) => u !== null),
 }));
+vi.mock("@/lib/api", () => {
+  class ApiAuthError extends Error {}
+  return {
+    ApiAuthError,
+    requireUser: async () => {
+      const user = await mockGetCurrentUser();
+      if (!user) throw new ApiAuthError();
+      return user;
+    },
+    authErrorResponse: () => new Response(JSON.stringify({ error: "未授权" }), { status: 401 }),
+  };
+});
 vi.mock("@/lib/db", () => ({
   prisma: {
     userSettings: {
@@ -244,5 +256,66 @@ describe("PUT /api/settings — eager promotion (AC5/AC6)", () => {
     const json = await res.json();
 
     expect(json.promotedCount).toBe(0);
+  });
+});
+
+describe("PUT /api/settings sentenceMode (S6)", () => {
+  beforeEach(() => {
+    mockGetCurrentUser.mockResolvedValue(AUTH_USER);
+    mockUserSettingsFindUnique.mockResolvedValue(SETTINGS);
+    mockUserSettingsUpsert.mockResolvedValue(SETTINGS);
+    mockUserSettingsUpdate.mockImplementation(async ({ data }) => ({
+      ...SETTINGS,
+      ...data,
+    }));
+    mockUserWordUpdateMany.mockResolvedValue({ count: 0 });
+  });
+  afterEach(() => vi.clearAllMocks());
+
+  it("writes 'off' when explicitly set", async () => {
+    const res = await PUT(makeRequest({ sentenceMode: "off" }));
+    const json = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(json.sentenceMode).toBe("off");
+    expect(mockUserSettingsUpdate).toHaveBeenCalledWith(
+      expect.objectContaining({ data: expect.objectContaining({ sentenceMode: "off" }) }),
+    );
+  });
+
+  it("writes 'always' when explicitly set", async () => {
+    const res = await PUT(makeRequest({ sentenceMode: "always" }));
+    const json = await res.json();
+
+    expect(json.sentenceMode).toBe("always");
+    expect(mockUserSettingsUpdate).toHaveBeenCalledWith(
+      expect.objectContaining({ data: expect.objectContaining({ sentenceMode: "always" }) }),
+    );
+  });
+
+  it("normalizes garbage to 'fallback'", async () => {
+    const res = await PUT(makeRequest({ sentenceMode: "garbage" }));
+    const json = await res.json();
+
+    expect(json.sentenceMode).toBe("fallback");
+    expect(mockUserSettingsUpdate).toHaveBeenCalledWith(
+      expect.objectContaining({ data: expect.objectContaining({ sentenceMode: "fallback" }) }),
+    );
+  });
+});
+
+describe("GET /api/settings sentenceMode (S6)", () => {
+  beforeEach(() => {
+    mockGetCurrentUser.mockResolvedValue(AUTH_USER);
+    mockUserSettingsUpsert.mockResolvedValue(SETTINGS);
+  });
+  afterEach(() => vi.clearAllMocks());
+
+  it("defaults to 'fallback' when the DB row lacks sentenceMode", async () => {
+    const res = await GET();
+    const json = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(json.sentenceMode).toBe("fallback");
   });
 });

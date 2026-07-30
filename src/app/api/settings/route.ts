@@ -14,11 +14,13 @@ const DEFAULTS = {
   flashSkipMinLevel: null as number | null,
   soundEnabled: true,
   theme: "system" as "light" | "dark" | "system",
+  sentenceMode: "fallback" as "always" | "fallback" | "off",
 };
 
 const PRON_MODES = new Set(["both", "flash", "feedback", "off"]);
 const PULL_MODES = new Set(["review", "balanced", "new"]);
 const THEME_MODES = new Set(["light", "dark", "system"]);
+const SENTENCE_MODES = new Set(["always", "fallback", "off"]);
 const RETENTION_MAX_DAYS = 3650;
 const MASTERY_THRESHOLD_MIN = 2;
 const MASTERY_THRESHOLD_MAX = 20;
@@ -41,6 +43,12 @@ function normalizeTheme(value: unknown): typeof DEFAULTS.theme {
   return typeof value === "string" && THEME_MODES.has(value)
     ? (value as typeof DEFAULTS.theme)
     : DEFAULTS.theme;
+}
+
+function normalizeSentenceMode(value: unknown): typeof DEFAULTS.sentenceMode {
+  return typeof value === "string" && SENTENCE_MODES.has(value)
+    ? (value as typeof DEFAULTS.sentenceMode)
+    : DEFAULTS.sentenceMode;
 }
 
 function normalizeRetention(value: unknown): number | null {
@@ -97,6 +105,7 @@ export async function GET() {
     flashSkipMinLevel: settings.flashSkipMinLevel ?? null,
     soundEnabled: settings.soundEnabled,
     theme,
+    sentenceMode: normalizeSentenceMode(settings.sentenceMode),
   });
 }
 
@@ -145,13 +154,14 @@ export async function PUT(request: Request) {
   const soundEnabled = typeof body.soundEnabled === "boolean"
     ? body.soundEnabled
     : DEFAULTS.soundEnabled;
+  const current = await ensureSettings(user.id);
   const theme = body.theme !== undefined
     ? normalizeTheme(body.theme)
-    : normalizeTheme(
-        (await prisma.userSettings.findUnique({ where: { userId: user.id }, select: { theme: true } }))?.theme,
-      );
+    : normalizeTheme(current.theme);
+  const sentenceMode = body.sentenceMode !== undefined
+    ? normalizeSentenceMode(body.sentenceMode)
+    : normalizeSentenceMode(current.sentenceMode);
 
-  const current = await ensureSettings(user.id);
   const lowered = masteryThreshold < current.masteryThreshold;
   const updateData = {
     flashMs,
@@ -165,6 +175,7 @@ export async function PUT(request: Request) {
     flashSkipMinLevel,
     soundEnabled,
     theme,
+    sentenceMode,
   };
 
   let promotedCount = 0;
@@ -195,6 +206,7 @@ export async function PUT(request: Request) {
     flashSkipMinLevel: updated.flashSkipMinLevel ?? null,
     soundEnabled: updated.soundEnabled,
     theme,
+    sentenceMode,
     ...(lowered ? { promotedCount } : {}),
   });
 }

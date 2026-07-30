@@ -78,6 +78,10 @@ model Word {
   pos       String?  // combined POS string e.g. "n./v." or null
   glosses   String   // JSON: [{pos: "n.", meaning: "..."}]
   flags     String?  // JSON: ["cross_line_gloss"] or null
+  // JSON: [{en, zh, source?}] — bilingual example sentences for "sentence mode"
+  // (variant-C practice UI). nullable + default '[]' per expand-and-contract;
+  // NOT NULL contraction deferred to a follow-up PR.
+  examples  String?  // JSON: [{en, zh, source?}] or null
 
   // Per-user memory state lives in UserWord. Word itself is shared and
   // stateless across all users.
@@ -225,6 +229,12 @@ model UserSettings {
   // via /api/settings. Defaults to "system" so first-time users get
   // OS-preference behavior without an extra click.
   theme                 String   @default("system")
+  // "always" | "fallback" | "off" — controls /practice example-card rendering.
+  // "fallback" (default): show sentence card if Word.examples is non-empty,
+  //   else render bare word flash. "always": always try sentence card (render
+  //   bare flash only when examples are empty/null). "off": always bare flash.
+  //   nullable + default "fallback" per expand-and-contract.
+  sentenceMode          String   @default("fallback")
   updatedAt             DateTime @updatedAt
 }
 

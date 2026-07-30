@@ -1,15 +1,52 @@
 import { PrismaClient } from "@prisma/client";
-import { readFileSync } from "fs";
+import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 import { hashPassword } from "../src/lib/password";
 
 const prisma = new PrismaClient();
+
+const SEED_DIR = join(process.cwd(), "seed");
+
+type ExamplesFile = Record<string, Array<{ en: string; zh: string; source?: string }>>;
 
 interface SeedWord {
   spelling: string;
   pos: string | null;
   glosses: { pos: string; meaning: string }[];
   flags?: string[];
+}
+
+function loadExamplesFile(slug: string): ExamplesFile {
+  const path = join(SEED_DIR, `examples_${slug}.json`);
+  if (!existsSync(path)) {
+    console.warn(`[seed] ${path} not found — Word.examples will be NULL for all words in ${slug}`);
+    return {};
+  }
+  try {
+    const data = JSON.parse(readFileSync(path, "utf-8")) as ExamplesFile;
+    if (typeof data !== "object" || data === null || Array.isArray(data)) {
+      console.warn(`[seed] ${path} has unexpected shape; ignoring`);
+      return {};
+    }
+    return data;
+  } catch (e) {
+    console.warn(`[seed] failed to parse ${path}: ${e instanceof Error ? e.message : "unknown"}`);
+    return {};
+  }
+}
+
+const FALLBACK_PATH = join(SEED_DIR, "examples-fallback.json");
+let fallbackCache: Record<string, ExamplesFile> | null = null;
+function loadFallbackFile(slug: string): ExamplesFile {
+  if (!fallbackCache) {
+    if (!existsSync(FALLBACK_PATH)) return {};
+    try {
+      fallbackCache = JSON.parse(readFileSync(FALLBACK_PATH, "utf-8"));
+    } catch {
+      fallbackCache = {};
+    }
+  }
+  return fallbackCache?.[slug] ?? {};
 }
 
 const WORDBOOKS = [
@@ -97,11 +134,9 @@ async function ensureAdmin() {
 async function main() {
   await ensureAdmin();
 
-  const seedDir = join(process.cwd(), "seed");
-
   for (const wb of WORDBOOKS) {
     console.log(`Seeding ${wb.slug}...`);
-    const path = join(seedDir, wb.seedFile);
+    const path = join(SEED_DIR, wb.seedFile);
     const words: SeedWord[] = JSON.parse(readFileSync(path, "utf-8"));
 
     await prisma.wordbook.upsert({
@@ -116,6 +151,15 @@ async function main() {
     const wbRow = await prisma.wordbook.findUnique({ where: { slug: wb.slug } });
     if (!wbRow) throw new Error(`failed to upsert wordbook ${wb.slug}`);
 
+    const examplesBySpelling = loadExamplesFile(wb.slug);
+    if (Object.keys(examplesBySpelling).length > 0) {
+      console.log(`  loaded ${Object.keys(examplesBySpelling).length} words with examples from examples_${wb.slug}.json`);
+    }
+    const fallbackBySpelling = loadFallbackFile(wb.slug);
+    if (Object.keys(fallbackBySpelling).length > 0) {
+      console.log(`  loaded ${Object.keys(fallbackBySpelling).length} words with examples from examples-fallback.json`);
+    }
+
     const BATCH = 500;
     for (let i = 0; i < words.length; i += BATCH) {
       const batch = words.slice(i, i + BATCH);
@@ -129,6 +173,9 @@ async function main() {
               pos: w.pos,
               glosses: JSON.stringify(w.glosses),
               flags: w.flags ? JSON.stringify(w.flags) : null,
+              examples: examplesBySpelling[w.spelling] || fallbackBySpelling[w.spelling]
+                ? JSON.stringify(examplesBySpelling[w.spelling] || fallbackBySpelling[w.spelling])
+                : null,
             },
             create: {
               wordbookId: wbRow.id,
@@ -136,6 +183,9 @@ async function main() {
               pos: w.pos,
               glosses: JSON.stringify(w.glosses),
               flags: w.flags ? JSON.stringify(w.flags) : null,
+              examples: examplesBySpelling[w.spelling] || fallbackBySpelling[w.spelling]
+                ? JSON.stringify(examplesBySpelling[w.spelling] || fallbackBySpelling[w.spelling])
+                : null,
             },
           })
         )

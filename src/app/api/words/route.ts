@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { requireUser, authErrorResponse, ApiAuthError } from "@/lib/api";
+import { parseExamples } from "@/lib/parse-examples";
 
 const MAX_LIMIT = 200;
 const RANDOM_HARD_CAP = 20;
@@ -16,6 +17,7 @@ interface WordDto {
   correct: number;
   masteredAt: string | null;
   wordbookId: number;
+  examples: { en: string; zh: string; source?: string }[];
 }
 
 type PullMode = "review" | "balanced" | "new";
@@ -66,6 +68,7 @@ function rowToDto(w: {
   correct: number;
   masteredAt: Date | null;
   wordbookId: number;
+  examples: string | null;
 }): WordDto {
   return {
     id: w.id,
@@ -77,6 +80,7 @@ function rowToDto(w: {
     correct: w.correct,
     masteredAt: w.masteredAt ? w.masteredAt.toISOString() : null,
     wordbookId: w.wordbookId,
+    examples: parseExamples(w.examples),
   };
 }
 
@@ -135,6 +139,7 @@ export async function GET(request: Request) {
         correct: uw?.correct ?? 0,
         masteredAt: uw?.masteredAt ?? null,
         wordbookId: r.wordbookId,
+        examples: r.examples,
       });
     });
   } else if (random && weighted) {
@@ -223,6 +228,7 @@ export async function GET(request: Request) {
           correct: uw?.correct ?? 0,
           masteredAt: uw?.masteredAt ?? null,
           wordbookId: r.wordbookId,
+          examples: r.examples,
         });
       });
   } else if (random) {
@@ -268,6 +274,7 @@ export async function GET(request: Request) {
           correct: uw?.correct ?? 0,
           masteredAt: uw?.masteredAt ?? null,
           wordbookId: r.wordbookId,
+          examples: r.examples,
         });
       });
   } else {
@@ -292,6 +299,7 @@ export async function GET(request: Request) {
         correct: uw?.correct ?? 0,
         masteredAt: uw?.masteredAt ?? null,
         wordbookId: r.wordbookId,
+        examples: r.examples,
       });
     });
   }

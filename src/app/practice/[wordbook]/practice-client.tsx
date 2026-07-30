@@ -1,9 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { PartyPopper, Volume2, Pin, Flame, Check, X, Sparkles, ArrowRight, ArrowLeft } from "lucide-react";
+import { PartyPopper, Volume2, Pin, Flame, Check, X, ArrowRight, ArrowLeft } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { usePracticeAudio } from "@/lib/use-practice-audio";
 import { useRouter } from "next/navigation";
+import { pickSentence, type Example } from "@/lib/sentence-mode";
+import { WordMeaningCard } from "./word-meaning-card";
+import { SentenceCard } from "./sentence-card";
 
 interface Word {
   id: number;
@@ -14,6 +18,7 @@ interface Word {
   attempts: number;
   correct: number;
   masteredAt: string | null;
+  examples: Example[];
 }
 
 const FADE_MS = 300;
@@ -47,11 +52,48 @@ export function cleanInput(raw: string, maxLen: number): string {
 }
 
 /**
- * Decide whether the visual flash phase should be skipped for a word.
- * When the user opts in to skip (flashSkipMinLevel set) and the word
- * is at or above the configured rung, the spelling text stays hidden
- * but pronunciation (if enabled) still plays. Exported for unit testing.
+ * Verify the user's input against the expected spelling, accounting for
+ * hint positions. Two cases:
+ *   1. user typed every position (length matches) → check all positions,
+ *      including hints (any wrong hint override is wrong).
+ *   2. user typed fewer chars than expected → align user chars to word
+ *      positions by skipping BOTH hint positions in expected AND matching
+ *      user chars at hint positions. This means a user who retypes a hint
+ *      char doesn't get penalised for it.
  */
+export function checkAnswer(
+  expected: string,
+  input: string,
+  hints: ReadonlySet<number>,
+): boolean {
+  const exp = expected.toLowerCase();
+  const user = input.toLowerCase();
+  if (user.length > exp.length) return false;
+  if (user.length === exp.length) {
+    for (let i = 0; i < exp.length; i++) {
+      if (user[i] !== exp[i]) return false;
+    }
+    return true;
+  }
+  let expIdx = 0;
+  let userIdx = 0;
+  while (expIdx < exp.length) {
+    const isHint = hints.has(expIdx);
+    if (isHint) {
+      if (userIdx < user.length && user[userIdx] === exp[expIdx]) {
+        userIdx++;
+      }
+      expIdx++;
+      continue;
+    }
+    if (userIdx >= user.length) return false;
+    if (user[userIdx] !== exp[expIdx]) return false;
+    expIdx++;
+    userIdx++;
+  }
+  return userIdx === user.length;
+}
+
 export function shouldSkipFlash(
   flashSkipMinLevel: number | null,
   currentLevel: number,
@@ -71,6 +113,24 @@ function computeHintPositions(spelling: string, level: number): Set<number> {
     hints.add(0);
   }
   return hints;
+}
+
+/**
+ * Decide whether to render the SentenceCard or the bare word flash.
+ * "off" -> always bare.
+ * "always" / "fallback" -> sentence when examples is non-empty; otherwise bare.
+ *   (Both modes share the same fallback: when no examples exist for a word,
+ *   we silently fall back to the bare-word flash. The UI label "总是例句
+ *   (无例句的词回退裸单词)" reflects this — "always" means "always try
+ *   sentence first", not "force sentence card even with no data".)
+ * Exported for unit testing.
+ */
+export function pickDisplayMode(
+  settings: { sentenceMode: "always" | "fallback" | "off" },
+  examples: ReadonlyArray<unknown>,
+): "bare" | "sentence" {
+  if (settings.sentenceMode === "off") return "bare";
+  return examples.length > 0 ? "sentence" : "bare";
 }
 
 interface ActiveSessionResponse {
@@ -106,6 +166,7 @@ export function PracticeClient({
     masteryThreshold: number | null;
     flashSkipMinLevel: number | null;
     soundEnabled: boolean;
+    sentenceMode: "always" | "fallback" | "off";
   };
 }) {
   const router = useRouter();
@@ -137,8 +198,8 @@ export function PracticeClient({
   const [masteryThreshold, setMasteryThreshold] = useState(initialSettings.masteryThreshold ?? MASTERY_THRESHOLD_FALLBACK);
   const [flashSkipMinLevel, setFlashSkipMinLevel] = useState<number | null>(initialSettings.flashSkipMinLevel ?? null);
   const [soundEnabled, setSoundEnabled] = useState(initialSettings.soundEnabled ?? true);
+  const [sentenceMode, setSentenceMode] = useState<"always" | "fallback" | "off">(initialSettings.sentenceMode);
   const inputRef = useRef<HTMLInputElement>(null);
-  const soundEnabledRef = useRef(true);
   // ponytail: gates /api/attempts + stats on retries; reset on word change.
   const retryModeRef = useRef(false);
   // ponytail: snapshots the user's first-try typed value when wrong, so
@@ -165,6 +226,7 @@ export function PracticeClient({
           masteryThreshold: number;
           flashSkipMinLevel: number | null;
           soundEnabled: boolean;
+          sentenceMode: "always" | "fallback" | "off";
         } = await settingsRes.json();
         const active: ActiveSessionResponse = await activeRes.json();
         if (cancelled) return;
@@ -175,7 +237,7 @@ export function PracticeClient({
         setMasteryThreshold(settings.masteryThreshold ?? MASTERY_THRESHOLD_FALLBACK);
         setFlashSkipMinLevel(settings.flashSkipMinLevel ?? null);
         setSoundEnabled(settings.soundEnabled ?? true);
-        soundEnabledRef.current = settings.soundEnabled ?? true;
+        if (settings.sentenceMode) setSentenceMode(settings.sentenceMode);
 
         let sid: string;
         if (practiceWordIds) {
@@ -299,133 +361,8 @@ export function PracticeClient({
     retryModeRef.current = false;
   }, [current?.id]);
 
-  function playPronunciation(spelling: string) {
-    playAudioWithFallback(`/audio/${normalizeSpelling(spelling)}.${accent}.mp3`);
-  }
-
-  function playAudioWithFallback(primaryUrl: string) {
-    try {
-      const audio = new Audio(primaryUrl);
-      audio.volume = 0.8;
-      // Guard fallback chain: previously play().catch(() => dispatchEvent('error'))
-      // caused a synthetic error → fallback Audio() → second play(), so one
-      // primary URL could trigger 2–3 network requests.
-      let tried = false;
-      const other = primaryUrl.replace(/\.(us|uk)\.mp3$/, (_, a) => (a === "us" ? ".uk.mp3" : ".us.mp3"));
-      audio.onerror = () => {
-        if (tried || other === primaryUrl) return;
-        tried = true;
-        const fb = new Audio(other);
-        fb.volume = 0.8;
-        fb.play().catch(() => {});
-      };
-      // Swallow autoplay rejections — they're a browser policy, not a 404,
-      // and the `error` listener above already handles missing files.
-      audio.play().catch(() => {});
-    } catch {
-      // ignore
-    }
-  }
-
-  function playTone(freq: number, ms: number, type: OscillatorType = "sine", vol = 0.18) {
-    if (!soundEnabledRef.current) return;
-    try {
-      const Ctx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-      const ctx = new Ctx();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.frequency.value = freq;
-      osc.type = type;
-      const t0 = ctx.currentTime;
-      gain.gain.setValueAtTime(vol, t0);
-      gain.gain.exponentialRampToValueAtTime(0.001, t0 + ms / 1000);
-      osc.start(t0);
-      osc.stop(t0 + ms / 1000 + 0.02);
-      osc.onended = () => ctx.close();
-    } catch {
-      // ignore
-    }
-  }
-
-  function playCorrectChime() {
-    if (!soundEnabledRef.current) return;
-    playTone(1046, 110, "sine");
-    window.setTimeout(() => playTone(1568, 140, "sine"), 90);
-  }
-
-  function playStreakChime(streak: number) {
-    if (!soundEnabledRef.current) return;
-    const tier =
-      streak >= 15 ? 4 :
-      streak >= 12 ? 3 :
-      streak >= 9  ? 2 :
-      streak >= 6  ? 1 :
-      0;
-    const baseFreq = 1320 + Math.min(streak, 12) * 80;
-    if (tier === 0) {
-      playTone(baseFreq, 120, "triangle");
-      window.setTimeout(() => playTone(baseFreq * 1.5, 140, "triangle"), 60);
-      window.setTimeout(() => playTone(baseFreq * 2, 180, "sine"), 130);
-    } else if (tier === 1) {
-      [1, 1.25, 1.5, 2].forEach((m, i) =>
-        window.setTimeout(() => playTone(baseFreq * m, 130, "triangle"), i * 70));
-    } else if (tier === 2) {
-      for (let i = 0; i < 8; i++) {
-        const f = baseFreq * (1 + i * 0.2);
-        window.setTimeout(() => playTone(f, 80, "triangle", 0.12), i * 40);
-      }
-    } else {
-      [1, 1.25, 1.5, 1.75, 2, 2.5].forEach((m, i) =>
-        window.setTimeout(() => playTone(baseFreq * m, 200, "sine", 0.2), i * 60));
-      setTimeout(() => {
-        playTone(baseFreq * 2,   600, "sine",     0.18);
-        playTone(baseFreq * 2.5, 600, "triangle", 0.15);
-        playTone(baseFreq * 3,   600, "sine",     0.12);
-      }, 350);
-    }
-  }
-
-  function triggerMilestoneFx(streak: number) {
-    if (!soundEnabledRef.current) return;
-    if (typeof document === "undefined") return;
-    const root = document.body;
-    if (streak % 3 === 0 && streak > 0) {
-      root.animate(
-        [
-          { transform: "translate(0,0)" },
-          { transform: "translate(-1px,1px)" },
-          { transform: "translate(1px,-1px)" },
-          { transform: "translate(0,0)" },
-        ],
-        { duration: 90, iterations: 1, easing: "ease-out" },
-      );
-    }
-    if (streak === 6 || streak === 9 || streak === 12 || streak === 15) {
-      const intensity = streak === 15 ? 4 : streak === 12 ? 3 : streak === 9 ? 2 : 1;
-      root.animate(
-        Array.from({ length: 5 }, (_, i) => ({
-          transform: `translate(${(i % 2 === 0 ? -1 : 1) * intensity}px, ${(i % 2 === 0 ? 1 : -1) * intensity}px)`,
-        })).concat([{ transform: "translate(0,0)" }]),
-        { duration: 120, easing: "ease-out" },
-      );
-    }
-    if (streak % 3 === 0) {
-      const el = document.getElementById("streak-banner");
-      if (el) {
-        el.classList.remove("streak-flash");
-        void el.offsetWidth;
-        el.classList.add("streak-flash");
-      }
-    }
-  }
-
-  function playWrongBuzz() {
-    if (!soundEnabledRef.current) return;
-    playTone(440, 130, "sawtooth");
-    window.setTimeout(() => playTone(330, 180, "sawtooth"), 100);
-  }
+  const { playPronunciation, playCorrectChime, playWrongBuzz, playStreakChime, triggerMilestoneFx } =
+    usePracticeAudio(accent, soundEnabled);
 
   useEffect(() => {
     if (!showSpelling && !feedback) {
@@ -544,20 +481,13 @@ export function PracticeClient({
     }
   }
 
-  function checkAnswer(word: Word, input: string): boolean {
-    const expected = word.spelling.toLowerCase();
-    const user = input.toLowerCase();
-    if (user.length !== expected.length) return false;
-    for (let i = 0; i < expected.length; i++) {
-      if (hintPositions.has(i)) continue;
-      if (expected[i] !== user[i]) return false;
-    }
-    return true;
+  function checkAnswerImpl(word: Word, input: string, hints: Set<number>): boolean {
+    return checkAnswer(word.spelling, input, hints);
   }
 
   function submit() {
     if (!current || feedback) return;
-    const isCorrect = checkAnswer(current, userInput);
+    const isCorrect = checkAnswerImpl(current, userInput, hintPositions);
     const isRetry = retryModeRef.current;
     setFeedback({
       correct: isCorrect,
@@ -799,8 +729,11 @@ export function PracticeClient({
     );
   }
 
-  const meaning = current.glosses.map((g) => g.meaning).join("; ");
   const len = current.spelling.length;
+  const displayMode = pickDisplayMode(
+    { sentenceMode },
+    current.examples,
+  );
 
   return (
     <div className="space-y-8">
@@ -865,87 +798,58 @@ export function PracticeClient({
       )}
 
       <div className="text-center min-h-[3.5rem] flex items-center justify-center">
-        {showSpelling && !feedback ? (
-          <button
-            type="button"
-            onClick={() => playPronunciation(current.spelling)}
-            className="group relative text-4xl font-bold tracking-wider transition-opacity cursor-pointer hover:text-accent"
-            style={{ opacity: spellingOpacity, transitionDuration: `${FADE_MS}ms` }}
-            title="点击重播发音"
-          >
-            {current.spelling}
-            <span className="absolute -right-7 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity select-none" aria-hidden>
-              <Volume2 className="h-4 w-4" />
-            </span>
-          </button>
-        ) : null}
-        {feedback && feedback.correct && (
-          <button
-            type="button"
-            key={`ok-${current.id}-${stats.correct}`}
-            onClick={() => playPronunciation(current.spelling)}
-            className="group relative text-3xl font-bold text-success animate-pop-in cursor-pointer hover:text-success/70"
-            title="点击重播发音"
-          >
-            {current.spelling}
-            <span className="absolute -right-7 top-1/2 -translate-y-1/2 opacity-50 group-hover:opacity-100 transition-opacity select-none" aria-hidden>
-              <Volume2 className="h-4 w-4" />
-            </span>
-          </button>
-        )}
-        {feedback && !feedback.correct && (
-          <button
-            type="button"
-            key={`wrong-${current.id}-${stats.wrong}`}
-            onClick={() => playPronunciation(current.spelling)}
-            className="group relative text-3xl font-bold text-error animate-shake cursor-pointer hover:text-error/70"
-            title="点击重播发音"
-          >
-            {current.spelling}
-            <span className="absolute -right-7 top-1/2 -translate-y-1/2 opacity-50 group-hover:opacity-100 transition-opacity select-none" aria-hidden>
-              <Volume2 className="h-4 w-4" />
-            </span>
-          </button>
-        )}
+    {displayMode === "sentence" ? (
+      <div className="w-full">
+        <SentenceCard
+          spelling={current.spelling}
+          sentence={pickSentence(current.examples)}
+          phase={feedback ? "feedback" : "typing"}
+          isCorrect={feedback ? feedback.correct : true}
+          userTyped={userInput}
+          showSpelling={showSpelling}
+          spellingOpacity={spellingOpacity}
+          hintPositions={hintPositions}
+        />
       </div>
-
-      <div className="text-center text-lg text-muted-foreground min-h-[2rem]">
-        {current.pos && <span className="mr-2 font-mono text-sm">{current.pos}</span>}
-        <span>{meaning}</span>
-      </div>
-
-      <div className="flex items-center justify-center gap-3 text-xs flex-wrap">
-        {current.masteredAt ? (
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-success/15 text-success rounded-full font-medium">
-            <Sparkles className="h-3.5 w-3.5" /> 已熟练
-            <span className="text-success/70">· 第 {current.attempts} 次（答对 {current.correct} 次）</span>
-            <span className="text-success/70">· 复习中</span>
-          </span>
-        ) : current.attempts > 0 ? (
-          <>
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-accent-soft text-accent rounded-full font-medium">
-              等级 {current.level} / {masteryThreshold}
-            </span>
-            <span className="text-muted-foreground">
-              已答对 {current.correct} 次 · 总尝试 {current.attempts}
-            </span>
-          </>
-        ) : (
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-muted text-muted-foreground rounded-full">
-            <Sparkles className="h-3.5 w-3.5" /> 新词
-          </span>
-        )}
-      </div>
-
-      <div className="space-y-5">
+    ) : (
+      <div
+        onClick={() => playPronunciation(current.spelling)}
+        className={
+          feedback?.correct
+            ? "cursor-pointer animate-pop-in"
+            : feedback && !feedback.correct
+              ? "cursor-pointer animate-shake"
+              : "cursor-pointer"
+        }
+        title="点击重播发音"
+        style={{
+          opacity: !feedback && showSpelling ? spellingOpacity : 1,
+          transitionDuration: !feedback && showSpelling ? `${FADE_MS}ms` : "0ms",
+        }}
+      >
         <DiffRow
           expected={current.spelling}
           typed={userInput}
           hintPositions={hintPositions}
           showTyped={!!feedback && !feedback.correct}
-          showExpected={!!feedback}
+          showExpected={!!feedback || showSpelling}
+          isCorrect={!!feedback?.correct}
         />
+      </div>
+    )}
+      </div>
 
+      <WordMeaningCard
+        pos={current.pos}
+        glosses={current.glosses}
+        level={current.level}
+        attempts={current.attempts}
+        correct={current.correct}
+        masteryThreshold={masteryThreshold}
+        masteredAt={current.masteredAt}
+      />
+
+      <div className="space-y-5">
         <input
           ref={inputRef}
           type="text"
@@ -1127,12 +1031,14 @@ function DiffRow({
   hintPositions,
   showTyped,
   showExpected,
+  isCorrect,
 }: {
   expected: string;
   typed: string;
   hintPositions: Set<number>;
   showTyped: boolean;
   showExpected: boolean;
+  isCorrect: boolean;
 }) {
   const expLower = expected.toLowerCase();
   const usrLower = typed.toLowerCase();
@@ -1164,16 +1070,31 @@ function DiffRow({
           }
         } else if (showExpected) {
           display = expChar;
-          className = isHint
-            ? "text-accent border-b-2 border-accent px-1.5"
-            : "text-foreground border-b-2 border-accent px-1.5";
+          className = isCorrect
+            ? "text-success border-b-2 border-success px-1.5 bg-success-soft/40"
+            : isHint
+              ? "text-accent border-b-2 border-accent px-1.5"
+              : "text-foreground border-b-2 border-accent px-1.5";
         } else {
-          display = isHint ? expChar : usrChar || "_";
-          className = isHint
-            ? "text-accent border-b-2 border-accent px-1.5"
-            : usrChar
-            ? "text-foreground border-b-2 border-accent px-1.5"
-            : "text-muted-foreground/50 border-b-2 border-border px-1.5";
+          if (isHint) {
+            if (usrChar) {
+              if (usrChar.toLowerCase() === expChar.toLowerCase()) {
+                display = usrChar;
+                className = "text-accent border-b-2 border-accent px-1.5";
+              } else {
+                display = usrChar;
+                className = "text-error border-b-2 border-error px-1.5 bg-error/10 line-through";
+              }
+            } else {
+              display = expChar;
+              className = "text-accent border-b-2 border-accent px-1.5";
+            }
+          } else {
+            display = usrChar || "_";
+            className = usrChar
+              ? "text-foreground border-b-2 border-accent px-1.5"
+              : "text-muted-foreground/50 border-b-2 border-border px-1.5";
+          }
         }
 
         return (
