@@ -11,6 +11,14 @@ export interface SentenceCardProps {
   showSpelling?: boolean;
   spellingOpacity?: number;
   hintPositions?: ReadonlySet<number>;
+  /**
+   * In the typing phase, render the target word's FULL spelling (instead of
+   * the masked _ placeholders) inside the BlankPill. Mirrors the bare-mode
+   * DiffRow behavior where the flash window shows expected letters before
+   * fading. Without this prop the flash stage is invisible to the user
+   * because the mask is rendered with full opacity the entire time.
+   */
+  showExpected?: boolean;
 }
 
 function escapeRegExp(s: string): string {
@@ -79,6 +87,8 @@ function BlankPill({
   showSpelling,
   spellingOpacity,
   mask,
+  hintPositions,
+  showExpected,
 }: {
   spelling: string;
   isFeedback: boolean;
@@ -87,7 +97,12 @@ function BlankPill({
   showSpelling: boolean;
   spellingOpacity: number;
   mask: { char: string; className: string }[];
+  hintPositions: ReadonlySet<number>;
+  showExpected: boolean;
 }) {
+  // ponytail: feedback already reveals the full word; showExpected is the
+  // typing-phase flash window (mirrors DiffRow's showExpected behavior).
+  const renderFullSpelling = isFeedback || showExpected;
   return (
     <span
       data-testid={isFeedback ? (isWrong ? "sentence-revealed-wrong" : "sentence-revealed") : "sentence-mask"}
@@ -103,15 +118,28 @@ function BlankPill({
         transitionDuration: !isFeedback && showSpelling ? "300ms" : "0ms",
       }}
     >
-      {isFeedback
+      {renderFullSpelling
         ? spelling.split("").map((char, j) => {
-            const isCharCorrect =
-              !isWrong ||
-              (userTyped[j]?.toLowerCase() === char.toLowerCase());
+            if (isFeedback) {
+              const isCharCorrect =
+                !isWrong ||
+                (userTyped[j]?.toLowerCase() === char.toLowerCase());
+              return (
+                <span
+                  key={j}
+                  className={isCharCorrect ? "text-success" : "text-error"}
+                >
+                  {char}
+                </span>
+              );
+            }
+            // ponytail: flash window — hint positions stay accent-highlighted,
+            // other positions are white. Single-color so the user reads the
+            // whole word without per-letter color noise.
             return (
               <span
                 key={j}
-                className={isCharCorrect ? "text-success" : "text-error"}
+                className={hintPositions.has(j) ? "text-accent" : "text-white"}
               >
                 {char}
               </span>
@@ -135,6 +163,7 @@ export function SentenceCard({
   showSpelling = false,
   spellingOpacity = 1,
   hintPositions = new Set(),
+  showExpected = false,
 }: SentenceCardProps) {
   if (!sentence) return null;
 
@@ -160,6 +189,8 @@ export function SentenceCard({
           showSpelling={showSpelling}
           spellingOpacity={spellingOpacity}
           mask={mask}
+          hintPositions={hintPositions}
+          showExpected={showExpected}
         />{" "}
         {after}
       </div>

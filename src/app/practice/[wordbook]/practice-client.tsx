@@ -809,6 +809,7 @@ export function PracticeClient({
           showSpelling={showSpelling}
           spellingOpacity={spellingOpacity}
           hintPositions={hintPositions}
+          showExpected={showSpelling}
         />
       </div>
     ) : (

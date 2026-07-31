@@ -199,6 +199,52 @@ describe("SentenceCard (S7)", () => {
     expect(html).not.toMatch(/text-error/);
   });
 
+  it("typing phase + showExpected: renders full spelling in flash window (hint positions accent-colored, others white)", () => {
+    const html = stripComments(
+      renderToString(
+        <SentenceCard
+          spelling="bank"
+          sentence={{ en: "I went to the bank.", zh: "我去了银行。" }}
+          phase="typing"
+          hintPositions={new Set([0])}
+          showExpected={true}
+        />,
+      ),
+    );
+    // Full spelling rendered (every letter present, no underscore placeholders)
+    expect(html).toContain(">b<");
+    expect(html).toContain(">a<");
+    expect(html).toContain(">n<");
+    expect(html).toContain(">k<");
+    const underscoreCount = (html.match(/>_</g) ?? []).length;
+    expect(underscoreCount).toBe(0);
+    // Hint position 0 ("b") uses accent color; non-hint positions white
+    expect(html).toMatch(/text-accent[^>]*>b</);
+    expect(html).toMatch(/text-white[^>]*>a</);
+    expect(html).toMatch(/text-white[^>]*>n</);
+    expect(html).toMatch(/text-white[^>]*>k</);
+    // No feedback-phase colors leak in
+    expect(html).not.toContain("text-success");
+    expect(html).not.toContain("text-error");
+    expect(html).not.toContain("animate-revealPulse");
+    expect(html).not.toContain("animate-shake");
+  });
+
+  it("typing phase + showExpected=false (default): still masks as before (no regression)", () => {
+    const html = stripComments(
+      renderToString(
+        <SentenceCard
+          spelling="bank"
+          sentence={{ en: "I went to the bank.", zh: "我去了银行。" }}
+          phase="typing"
+          hintPositions={new Set([0])}
+        />,
+      ),
+    );
+    const underscoreCount = (html.match(/>_</g) ?? []).length;
+    expect(underscoreCount).toBe(3);
+  });
+
   it("renders dark-mode CSS classes for the card container", () => {
     const html = renderToString(
       <SentenceCard
