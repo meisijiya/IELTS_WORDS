@@ -1,5 +1,6 @@
 import type { Example } from "@/lib/sentence-mode";
 import type { ChangeEvent, KeyboardEvent, RefObject } from "react";
+import { Volume2 } from "lucide-react";
 
 type Phase = "typing" | "feedback";
 
@@ -26,6 +27,8 @@ export interface SentenceCardProps {
   onInputKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
   onInputFocus?: () => void;
   onInputBlur?: () => void;
+  /** Manually replay pronunciation. Renders a speaker button in card header. */
+  onReplayAudio?: () => void;
 }
 
 function escapeRegExp(s: string): string {
@@ -212,6 +215,7 @@ export function SentenceCard({
   onInputKeyDown,
   onInputFocus,
   onInputBlur,
+  onReplayAudio,
 }: SentenceCardProps) {
   if (!sentence) return null;
 
@@ -225,7 +229,19 @@ export function SentenceCard({
       className="rounded-2xl border border-accent-soft/60 dark:border-accent/30 bg-gradient-to-br from-white to-[#FFFAF5] dark:from-slate-900 dark:to-slate-800 p-8 space-y-4 max-w-2xl mx-auto"
       data-testid="sentence-card"
     >
-      <div className="text-[11px] tracking-[0.1em] uppercase text-accent font-bold text-center">例句</div>
+      <div className="flex items-center justify-center gap-2">
+        <div className="text-[11px] tracking-[0.1em] uppercase text-accent font-bold">例句</div>
+        {onReplayAudio && (
+          <button
+            type="button"
+            onClick={onReplayAudio}
+            aria-label="播放发音"
+            className="p-1 rounded-full text-muted-foreground hover:text-accent hover:bg-accent/10 active:bg-accent/20 transition"
+          >
+            <Volume2 className="h-3.5 w-3.5" />
+          </button>
+        )}
+      </div>
 
       <div className="text-center text-[19px] leading-[1.8] text-foreground/90 font-medium">
         {before}{" "}

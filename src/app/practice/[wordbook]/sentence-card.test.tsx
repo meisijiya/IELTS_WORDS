@@ -370,4 +370,36 @@ describe("SentenceCard (S7)", () => {
       expect(html).toContain(">b<");
     });
   });
+
+  describe("speaker replay button", () => {
+    it("renders a speaker button next to '例句' when onReplayAudio is provided", () => {
+      const html = stripComments(
+        renderToString(
+          <SentenceCard
+            spelling="bank"
+            sentence={{ en: "I went to the bank.", zh: "我去了银行。" }}
+            phase="typing"
+            onReplayAudio={() => {}}
+          />,
+        ),
+      );
+      expect(html).toContain("例句");
+      expect(html).toContain('aria-label="播放发音"');
+      expect(html).toContain("<button");
+    });
+
+    it("omits the speaker button when onReplayAudio is not provided", () => {
+      const html = stripComments(
+        renderToString(
+          <SentenceCard
+            spelling="bank"
+            sentence={{ en: "I went to the bank.", zh: "我去了银行。" }}
+            phase="typing"
+          />,
+        ),
+      );
+      expect(html).toContain("例句");
+      expect(html).not.toContain('aria-label="播放发音"');
+    });
+  });
 });

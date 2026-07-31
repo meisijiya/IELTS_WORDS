@@ -379,6 +379,34 @@ export function PracticeClient({
     }
   }, [feedback, pronunciationMode]);
 
+  // ponytail: with the input embedded inside the word pill/row, the input
+  // element unmounts in feedback phase (isInteractive = !isFeedback). Pressing
+  // Enter then has no input target, so keyboard advance stops working — the
+  // user has to mouse-click "下一个". Re-add a window keydown listener while
+  // feedback is showing so Enter continues to advance (correct) / retry
+  // (wrong). Skip when focus is on a button so button activation isn't
+  // duplicated; skip when modals are open so they own Enter.
+  useEffect(() => {
+    if (!feedback || !current) return;
+    if (showEndDialog || historyModal) return;
+    function onKeyDown(e: globalThis.KeyboardEvent) {
+      if (e.key !== "Enter") return;
+      if (e.target instanceof HTMLButtonElement) return;
+      e.preventDefault();
+      if (!feedback || !current) return;
+      if (feedback.correct) {
+        if (retryModeRef.current) pushBackCurrent();
+        else advance(current, true);
+      } else {
+        setFeedback(null);
+        setUserInput("");
+        retryModeRef.current = true;
+      }
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [feedback, current, showEndDialog, historyModal]);
+
   async function postAttempt(word: Word, input: string, correct: boolean) {
     if (!sessionId) return;
     const ac = new AbortController();
@@ -823,19 +851,18 @@ export function PracticeClient({
           onInputKeyDown={handleKeyDown}
           onInputFocus={() => setInputFocused(true)}
           onInputBlur={() => setInputFocused(false)}
+          onReplayAudio={() => playPronunciation(current.spelling)}
         />
       </div>
     ) : (
       <div
-        onClick={() => playPronunciation(current.spelling)}
         className={
           feedback?.correct
-            ? "cursor-pointer animate-pop-in"
+            ? "animate-pop-in"
             : feedback && !feedback.correct
-              ? "cursor-pointer animate-shake"
-              : "cursor-pointer"
+              ? "animate-shake"
+              : ""
         }
-        title="点击重播发音"
         style={{
           opacity: !feedback && showSpelling ? spellingOpacity : 1,
           transitionDuration: !feedback && showSpelling ? `${FADE_MS}ms` : "0ms",
@@ -853,6 +880,7 @@ export function PracticeClient({
           onInputKeyDown={handleKeyDown}
           onInputFocus={() => setInputFocused(true)}
           onInputBlur={() => setInputFocused(false)}
+          onAudioReplay={() => playPronunciation(current.spelling)}
         />
       </div>
     )}
@@ -1043,6 +1071,7 @@ function DiffRow({
   onInputKeyDown,
   onInputFocus,
   onInputBlur,
+  onAudioReplay,
 }: {
   expected: string;
   typed: string;
@@ -1055,6 +1084,7 @@ function DiffRow({
   onInputKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
   onInputFocus?: () => void;
   onInputBlur?: () => void;
+  onAudioReplay?: () => void;
 }) {
   const expLower = expected.toLowerCase();
   const usrLower = typed.toLowerCase();
@@ -1126,8 +1156,18 @@ const sizeClass = scale === 0 ? "text-4xl" : scale === 1 ? "text-3xl" : "text-2x
   return (
     <div
       ref={containerRef}
-      className={`relative flex justify-center ${gapClass} ${sizeClass} font-mono font-bold min-h-[3rem] w-full max-w-full`}
+      className={`relative flex items-center justify-center ${gapClass} ${sizeClass} font-mono font-bold min-h-[3rem] w-full max-w-full`}
     >
+      {onAudioReplay && (
+        <button
+          type="button"
+          onClick={onAudioReplay}
+          aria-label="播放发音"
+          className="shrink-0 mr-3 p-2 rounded-full text-muted-foreground hover:text-accent hover:bg-accent/10 active:bg-accent/20 transition"
+        >
+          <Volume2 className="h-5 w-5" />
+        </button>
+      )}
       {Array.from({ length: len }).map((_, i) => {
         const expChar = expected[i];
         const usrChar = typed[i] ?? "";
