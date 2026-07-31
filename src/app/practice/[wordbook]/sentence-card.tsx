@@ -192,8 +192,8 @@ function BlankPill({
           autoComplete="off"
           autoCapitalize="off"
           spellCheck={false}
-          className="absolute inset-0 w-full h-full bg-transparent text-transparent outline-none px-2 rounded-md"
-          style={{ caretColor: "white" }}
+          className="absolute inset-0 w-full h-full bg-transparent text-transparent outline-none rounded-md"
+          style={{ caretColor: "white", paddingLeft: "8px", letterSpacing: "3px" }}
         />
       )}
     </span>

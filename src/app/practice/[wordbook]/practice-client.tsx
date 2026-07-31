@@ -392,6 +392,14 @@ export function PracticeClient({
     function onKeyDown(e: globalThis.KeyboardEvent) {
       if (e.key !== "Enter") return;
       if (e.target instanceof HTMLButtonElement) return;
+      // ponytail: skip when the Enter originated from the in-pill input —
+      // React's onKeyDown on the input handles submit/advance directly. Without
+      // this guard, the very first Enter that flips phase into feedback would
+      // both fire the input handler (sets feedback) and, once useEffect has
+      // registered this listener mid-propagation, the window handler too
+      // (clears feedback again). Net result: feedback is set and cleared
+      // within the same keydown event — animation class flickers for ~10ms.
+      if (e.target instanceof HTMLInputElement) return;
       e.preventDefault();
       if (!feedback || !current) return;
       if (feedback.correct) {
@@ -1248,7 +1256,7 @@ const sizeClass = scale === 0 ? "text-4xl" : scale === 1 ? "text-3xl" : "text-2x
           autoCapitalize="off"
           spellCheck={false}
           className="absolute inset-0 w-full h-full bg-transparent text-transparent outline-none"
-          style={{ caretColor: "rgb(232 132 95)" }}
+          style={{ caretColor: "rgb(232 132 95)", paddingLeft: "52px", letterSpacing: "16px" }}
         />
       )}
     </div>
