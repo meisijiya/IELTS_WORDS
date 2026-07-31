@@ -136,9 +136,9 @@ function BlankPill({
       className={
         isFeedback
           ? isWrong
-            ? "inline-block align-bottom bg-error/15 text-error px-2 rounded-md font-mono font-bold text-[26px] tracking-[3px] shadow-[0_3px_10px_rgba(220,38,38,0.28)] animate-shake"
-            : "inline-block align-bottom bg-success-soft text-success px-2 rounded-md font-mono font-bold text-[26px] tracking-[3px] shadow-[0_3px_10px_rgba(13,148,136,0.28)] animate-revealPulse"
-          : "relative inline-block align-bottom bg-accent text-white px-2 rounded-md font-mono font-bold text-[26px] tracking-[3px] shadow-[0_3px_0_rgba(232,132,95,0.35)]"
+            ? "inline-block align-bottom bg-error/15 text-error px-2 rounded-md font-mono font-bold text-[26px] md:text-[34px] tracking-[3px] shadow-[0_3px_10px_rgba(220,38,38,0.28)] animate-shake"
+            : "inline-block align-bottom bg-success-soft text-success px-2 rounded-md font-mono font-bold text-[26px] md:text-[34px] tracking-[3px] shadow-[0_3px_10px_rgba(13,148,136,0.28)] animate-revealPulse"
+          : "relative inline-block align-bottom bg-accent text-white px-2 rounded-md font-mono font-bold text-[26px] md:text-[34px] tracking-[3px] shadow-[0_3px_0_rgba(232,132,95,0.35)]"
       }
       style={{
         opacity: !isFeedback && showSpelling ? spellingOpacity : 1,
@@ -243,7 +243,7 @@ export function SentenceCard({
         )}
       </div>
 
-      <div className="text-center text-[19px] leading-[1.8] text-foreground/90 font-medium">
+      <div className="text-center text-[19px] md:text-[25px] leading-[1.8] text-foreground/90 font-medium">
         {before}{" "}
         <BlankPill
           spelling={spelling}
@@ -264,7 +264,7 @@ export function SentenceCard({
         {after}
       </div>
 
-      <div className="text-sm text-muted-foreground font-sans text-center">
+      <div className="text-sm md:text-lg text-muted-foreground font-sans text-center">
         <span className="text-[10px] tracking-[0.1em] uppercase text-muted-foreground font-bold mr-1.5">中文</span>
         <span>{sentence.zh}</span>
       </div>

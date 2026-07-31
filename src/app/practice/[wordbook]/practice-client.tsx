@@ -835,11 +835,11 @@ export function PracticeClient({
       )}
 
       <div
-        className={
+        className={`pb-3 ${
           inputFocused
             ? "sticky top-14 z-30 bg-background transition-[box-shadow] duration-150 shadow-[0_4px_12px_-6px_rgb(var(--shadow-color)/0.15)]"
             : ""
-        }
+        }`}
       >
       <div className="text-center min-h-[3.5rem] flex items-center justify-center">
     {displayMode === "sentence" ? (
@@ -1106,6 +1106,9 @@ function DiffRow({
   const scaleRef = useRef<0 | 1 | 2>(0);
   const isMobileRef = useRef<boolean>(false);
   const [scale, setScaleState] = useState<0 | 1 | 2>(0);
+  // ponytail: rendered state mirror of isMobileRef so sizeClass can branch
+  // on viewport in the render path; ref alone wouldn't trigger a re-render.
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   function setScale(next: 0 | 1 | 2) {
     scaleRef.current = next;
     setScaleState(next);
@@ -1114,6 +1117,7 @@ function DiffRow({
     const mql = window.matchMedia("(max-width: 640px)");
     const sync = () => {
       isMobileRef.current = mql.matches;
+      setIsMobile(mql.matches);
       // ponytail: reset to default when leaving mobile so we don't carry a
       // shrunk scale back into the desktop layout.
       if (!mql.matches) {
@@ -1152,7 +1156,13 @@ function DiffRow({
     return () => ro.disconnect();
   }, []);
 
-const sizeClass = scale === 0 ? "text-4xl" : scale === 1 ? "text-3xl" : "text-2xl";
+  // ponytail: mobile starts one tier smaller (text-3xl) so 10–20 letter
+  // words don't overflow a ~640px viewport at the default size; auto-shrink
+  // steps further down to text-2xl / text-xl as needed. Desktop starts at
+  // text-5xl to match the larger screen real estate.
+  const sizeClass = isMobile
+    ? scale === 0 ? "text-3xl" : scale === 1 ? "text-2xl" : "text-xl"
+    : scale === 0 ? "text-5xl" : scale === 1 ? "text-4xl" : "text-3xl";
   const gapClass = scale === 0 ? "gap-1" : scale === 1 ? "gap-0.5" : "gap-0";
   const pxClass = scale === 0 ? "px-1.5" : scale === 1 ? "px-1" : "px-0.5";
   // ponytail: typing phase + handlers provided → row IS the input. Visible
@@ -1164,7 +1174,7 @@ const sizeClass = scale === 0 ? "text-4xl" : scale === 1 ? "text-3xl" : "text-2x
   return (
     <div
       ref={containerRef}
-      className={`relative flex items-center justify-center ${gapClass} ${sizeClass} font-mono font-bold min-h-[3rem] w-full max-w-full`}
+      className={`relative flex items-center justify-center ${gapClass} ${sizeClass} font-mono font-bold min-h-[3.5rem] w-full max-w-full`}
     >
       {onAudioReplay && (
         <button

@@ -33,7 +33,7 @@ export function WordMeaningCard({
   const meaning = glosses.map((g) => g.meaning).join("; ");
   return (
     <>
-      <div className="text-center text-lg text-muted-foreground min-h-[2rem]">
+      <div className="text-center text-lg md:text-2xl text-muted-foreground min-h-[2rem]">
         {pos && <span className="mr-2 font-mono text-sm">{pos}</span>}
         <span>{meaning}</span>
       </div>
