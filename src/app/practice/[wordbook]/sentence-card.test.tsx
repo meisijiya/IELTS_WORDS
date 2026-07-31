@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { renderToString } from "react-dom/server";
+import { createRef } from "react";
 import { SentenceCard } from "./sentence-card";
 
 const stripComments = (s: string) => s.replace(/<!--[^>]*-->/g, "");
@@ -304,5 +305,69 @@ describe("SentenceCard (S7)", () => {
     expect(html).toContain("data-testid=\"sentence-revealed\"");
     expect(html).not.toContain("text-error");
     expect(html).not.toContain("animate-shake");
+  });
+
+  describe("interactive pill (in-pill input overlay)", () => {
+    it("typing phase + handlers provided: renders transparent <input> overlay inside the pill", () => {
+      const html = stripComments(
+        renderToString(
+          <SentenceCard
+            spelling="bank"
+            sentence={{ en: "I went to the bank.", zh: "我去了银行。" }}
+            phase="typing"
+            hintPositions={new Set([0])}
+            inputRef={createRef<HTMLInputElement>()}
+            onInputChange={() => {}}
+            onInputKeyDown={() => {}}
+            onInputFocus={() => {}}
+            onInputBlur={() => {}}
+          />,
+        ),
+      );
+      // Overlay input rendered with absolute positioning + transparent text
+      expect(html).toMatch(/<input[^>]*type="text"[^>]*absolute[^>]*text-transparent/);
+      expect(html).toContain('aria-label="拼写 bank"');
+      expect(html).toContain(">b<");
+      expect(html).toMatch(/>_</);
+      // No feedback-phase animations or colors leak in
+      expect(html).not.toContain("animate-revealPulse");
+      expect(html).not.toContain("animate-shake");
+    });
+
+    it("feedback phase: NO input overlay rendered (pill is read-only)", () => {
+      const html = stripComments(
+        renderToString(
+          <SentenceCard
+            spelling="bank"
+            sentence={{ en: "I went to the bank.", zh: "我去了银行。" }}
+            phase="feedback"
+            inputRef={createRef<HTMLInputElement>()}
+            onInputChange={() => {}}
+            onInputKeyDown={() => {}}
+          />,
+        ),
+      );
+      // No <input> overlay in feedback (would let user keep typing after submit)
+      expect(html).not.toMatch(/<input[^>]*aria-label="拼写/);
+      expect(html).toContain("text-success");
+      expect(html).toContain("animate-revealPulse");
+    });
+
+    it("typing phase WITHOUT handlers: pill is read-only (no input overlay)", () => {
+      // Defensive: legacy callers / tests that don't pass handlers should
+      // still render a static pill. Without overlay, no keyboard can open.
+      const html = stripComments(
+        renderToString(
+          <SentenceCard
+            spelling="bank"
+            sentence={{ en: "I went to the bank.", zh: "我去了银行。" }}
+            phase="typing"
+            hintPositions={new Set([0])}
+          />,
+        ),
+      );
+      expect(html).not.toMatch(/<input/);
+      expect(html).toContain(">b<");
+    });
   });
 });

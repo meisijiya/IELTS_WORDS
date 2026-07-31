@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { PartyPopper, Volume2, Pin, Flame, Check, X, ArrowRight, ArrowLeft } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type KeyboardEvent, type RefObject } from "react";
 import { usePracticeAudio } from "@/lib/use-practice-audio";
 import { useRouter } from "next/navigation";
 import { pickSentence, type Example } from "@/lib/sentence-mode";
@@ -818,6 +818,11 @@ export function PracticeClient({
           spellingOpacity={spellingOpacity}
           hintPositions={hintPositions}
           showExpected={showSpelling}
+          inputRef={inputRef}
+          onInputChange={handleChange}
+          onInputKeyDown={handleKeyDown}
+          onInputFocus={() => setInputFocused(true)}
+          onInputBlur={() => setInputFocused(false)}
         />
       </div>
     ) : (
@@ -843,6 +848,11 @@ export function PracticeClient({
           showTyped={!!feedback && !feedback.correct}
           showExpected={!!feedback || showSpelling}
           isCorrect={!!feedback?.correct}
+          inputRef={inputRef}
+          onInputChange={handleChange}
+          onInputKeyDown={handleKeyDown}
+          onInputFocus={() => setInputFocused(true)}
+          onInputBlur={() => setInputFocused(false)}
         />
       </div>
     )}
@@ -860,22 +870,6 @@ export function PracticeClient({
       </div>
 
       <div className="space-y-5">
-        <input
-          ref={inputRef}
-          type="text"
-          value={userInput}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          onFocus={() => setInputFocused(true)}
-          onBlur={() => setInputFocused(false)}
-          placeholder={feedback ? "按 Enter 进入下一个" : "输入拼写…"}
-          className="w-full px-4 py-3 text-lg bg-surface border-2 border-border rounded-lg focus:border-accent focus:outline-none transition"
-          autoComplete="off"
-          autoCapitalize="off"
-          spellCheck={false}
-          readOnly={!!feedback}
-        />
-
         <div className="flex justify-center gap-2">
           {feedback ? (
             <>
@@ -1044,6 +1038,11 @@ function DiffRow({
   showTyped,
   showExpected,
   isCorrect,
+  inputRef,
+  onInputChange,
+  onInputKeyDown,
+  onInputFocus,
+  onInputBlur,
 }: {
   expected: string;
   typed: string;
@@ -1051,6 +1050,11 @@ function DiffRow({
   showTyped: boolean;
   showExpected: boolean;
   isCorrect: boolean;
+  inputRef?: RefObject<HTMLInputElement | null>;
+  onInputChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onInputKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
+  onInputFocus?: () => void;
+  onInputBlur?: () => void;
 }) {
   const expLower = expected.toLowerCase();
   const usrLower = typed.toLowerCase();
@@ -1110,14 +1114,19 @@ function DiffRow({
     return () => ro.disconnect();
   }, []);
 
-  const sizeClass = scale === 0 ? "text-4xl" : scale === 1 ? "text-3xl" : "text-2xl";
-  const gapClass = scale === 0 ? "gap-1" : "gap-0.5";
-  const pxClass = scale === 0 ? "px-1.5" : "px-1";
+const sizeClass = scale === 0 ? "text-4xl" : scale === 1 ? "text-3xl" : "text-2xl";
+  const gapClass = scale === 0 ? "gap-1" : scale === 1 ? "gap-0.5" : "gap-0";
+  const pxClass = scale === 0 ? "px-1.5" : scale === 1 ? "px-1" : "px-0.5";
+  // ponytail: typing phase + handlers provided → row IS the input. Visible
+  // char tiles sit behind a transparent <input> overlay (absolute inset-0)
+  // so tapping anywhere on the row focuses the input → mobile keyboard
+  // opens with no page scroll (no separate input box anymore).
+  const isInteractive = !showExpected && !showTyped && !!inputRef && !!onInputChange && !!onInputKeyDown;
 
   return (
     <div
       ref={containerRef}
-      className={`flex justify-center ${gapClass} ${sizeClass} font-mono font-bold min-h-[3rem] w-full max-w-full`}
+      className={`relative flex justify-center ${gapClass} ${sizeClass} font-mono font-bold min-h-[3rem] w-full max-w-full`}
     >
       {Array.from({ length: len }).map((_, i) => {
         const expChar = expected[i];
@@ -1184,6 +1193,23 @@ function DiffRow({
         <span className={`text-error border-b-2 border-error ${pxClass} bg-error/10 rounded`}>
           +{typed.length - expected.length}
         </span>
+      )}
+      {isInteractive && (
+        <input
+          ref={inputRef}
+          type="text"
+          value={typed}
+          onChange={onInputChange}
+          onKeyDown={onInputKeyDown}
+          onFocus={onInputFocus}
+          onBlur={onInputBlur}
+          aria-label={`拼写 ${expected}`}
+          autoComplete="off"
+          autoCapitalize="off"
+          spellCheck={false}
+          className="absolute inset-0 w-full h-full bg-transparent text-transparent outline-none"
+          style={{ caretColor: "rgb(232 132 95)" }}
+        />
       )}
     </div>
   );

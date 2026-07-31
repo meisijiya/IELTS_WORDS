@@ -1,4 +1,5 @@
 import type { Example } from "@/lib/sentence-mode";
+import type { ChangeEvent, KeyboardEvent, RefObject } from "react";
 
 type Phase = "typing" | "feedback";
 
@@ -19,6 +20,12 @@ export interface SentenceCardProps {
    * because the mask is rendered with full opacity the entire time.
    */
   showExpected?: boolean;
+  /** In-typing-phase interactive pill. Pass through from practice-client. */
+  inputRef?: RefObject<HTMLInputElement | null>;
+  onInputChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onInputKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
+  onInputFocus?: () => void;
+  onInputBlur?: () => void;
 }
 
 function escapeRegExp(s: string): string {
@@ -89,6 +96,11 @@ function BlankPill({
   mask,
   hintPositions,
   showExpected,
+  inputRef,
+  onInputChange,
+  onInputKeyDown,
+  onInputFocus,
+  onInputBlur,
 }: {
   spelling: string;
   isFeedback: boolean;
@@ -99,10 +111,22 @@ function BlankPill({
   mask: { char: string; className: string }[];
   hintPositions: ReadonlySet<number>;
   showExpected: boolean;
+  inputRef?: RefObject<HTMLInputElement | null>;
+  onInputChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onInputKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
+  onInputFocus?: () => void;
+  onInputBlur?: () => void;
 }) {
   // ponytail: feedback already reveals the full word; showExpected is the
   // typing-phase flash window (mirrors DiffRow's showExpected behavior).
   const renderFullSpelling = isFeedback || showExpected;
+  // ponytail: typing phase + handlers provided → pill IS the input box.
+  // The visible chars (hint + userInput + _) sit behind a transparent
+  // <input> overlay (absolute inset-0, text-transparent, white caret).
+  // This eliminates the separate input element below — clicking the pill
+  // focuses the input and opens the mobile keyboard with no page scroll,
+  // because there is no separate scroll target anymore.
+  const isInteractive = !isFeedback && !!inputRef && !!onInputChange && !!onInputKeyDown;
   return (
     <span
       data-testid={isFeedback ? (isWrong ? "sentence-revealed-wrong" : "sentence-revealed") : "sentence-mask"}
@@ -111,7 +135,7 @@ function BlankPill({
           ? isWrong
             ? "inline-block align-bottom bg-error/15 text-error px-2 rounded-md font-mono font-bold text-[26px] tracking-[3px] shadow-[0_3px_10px_rgba(220,38,38,0.28)] animate-shake"
             : "inline-block align-bottom bg-success-soft text-success px-2 rounded-md font-mono font-bold text-[26px] tracking-[3px] shadow-[0_3px_10px_rgba(13,148,136,0.28)] animate-revealPulse"
-          : "inline-block align-bottom bg-accent text-white px-2 rounded-md font-mono font-bold text-[26px] tracking-[3px] shadow-[0_3px_0_rgba(232,132,95,0.35)]"
+          : "relative inline-block align-bottom bg-accent text-white px-2 rounded-md font-mono font-bold text-[26px] tracking-[3px] shadow-[0_3px_0_rgba(232,132,95,0.35)]"
       }
       style={{
         opacity: !isFeedback && showSpelling ? spellingOpacity : 1,
@@ -152,6 +176,23 @@ function BlankPill({
               {m.char}
             </span>
           ))}
+      {isInteractive && (
+        <input
+          ref={inputRef}
+          type="text"
+          value={userTyped}
+          onChange={onInputChange}
+          onKeyDown={onInputKeyDown}
+          onFocus={onInputFocus}
+          onBlur={onInputBlur}
+          aria-label={`拼写 ${spelling}`}
+          autoComplete="off"
+          autoCapitalize="off"
+          spellCheck={false}
+          className="absolute inset-0 w-full h-full bg-transparent text-transparent outline-none px-2 rounded-md"
+          style={{ caretColor: "white" }}
+        />
+      )}
     </span>
   );
 }
@@ -166,6 +207,11 @@ export function SentenceCard({
   spellingOpacity = 1,
   hintPositions = new Set(),
   showExpected = false,
+  inputRef,
+  onInputChange,
+  onInputKeyDown,
+  onInputFocus,
+  onInputBlur,
 }: SentenceCardProps) {
   if (!sentence) return null;
 
@@ -193,6 +239,11 @@ export function SentenceCard({
           mask={mask}
           hintPositions={hintPositions}
           showExpected={showExpected}
+          inputRef={inputRef}
+          onInputChange={onInputChange}
+          onInputKeyDown={onInputKeyDown}
+          onInputFocus={onInputFocus}
+          onInputBlur={onInputBlur}
         />{" "}
         {after}
       </div>
