@@ -133,13 +133,15 @@ function BlankPill({
                 </span>
               );
             }
-            // ponytail: flash window — hint positions stay accent-highlighted,
-            // other positions are white. Single-color so the user reads the
-            // whole word without per-letter color noise.
+            // ponytail: flash window — hint positions white, others at 70%
+            // opacity. text-accent would be invisible here because the pill
+            // background is also bg-accent. Visual hierarchy mirrors the
+            // mask-phase convention (hint = bright white, blank = dim) so
+            // the two phases share the same reading grammar.
             return (
               <span
                 key={j}
-                className={hintPositions.has(j) ? "text-accent" : "text-white"}
+                className={hintPositions.has(j) ? "text-white" : "text-white/70"}
               >
                 {char}
               </span>

@@ -199,7 +199,7 @@ describe("SentenceCard (S7)", () => {
     expect(html).not.toMatch(/text-error/);
   });
 
-  it("typing phase + showExpected: renders full spelling in flash window (hint positions accent-colored, others white)", () => {
+  it("typing phase + showExpected: renders full spelling in flash window (hint positions bright white, others dim)", () => {
     const html = stripComments(
       renderToString(
         <SentenceCard
@@ -218,11 +218,13 @@ describe("SentenceCard (S7)", () => {
     expect(html).toContain(">k<");
     const underscoreCount = (html.match(/>_</g) ?? []).length;
     expect(underscoreCount).toBe(0);
-    // Hint position 0 ("b") uses accent color; non-hint positions white
-    expect(html).toMatch(/text-accent[^>]*>b</);
-    expect(html).toMatch(/text-white[^>]*>a</);
-    expect(html).toMatch(/text-white[^>]*>n</);
-    expect(html).toMatch(/text-white[^>]*>k</);
+    // Hint position 0 ("b") uses bright text-white (NOT text-accent — same
+    // color as the bg-accent pill background would be invisible there).
+    expect(html).toMatch(/text-white[^>]*>b</);
+    // Non-hint positions use dim text-white/70
+    expect(html).toMatch(/text-white\/70[^>]*>a</);
+    expect(html).toMatch(/text-white\/70[^>]*>n</);
+    expect(html).toMatch(/text-white\/70[^>]*>k</);
     // No feedback-phase colors leak in
     expect(html).not.toContain("text-success");
     expect(html).not.toContain("text-error");
