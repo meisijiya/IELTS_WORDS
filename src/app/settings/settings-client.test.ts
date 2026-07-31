@@ -39,27 +39,24 @@ vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
 import { renderToString } from "react-dom/server";
 import { SettingsClient } from "./settings-client";
 
-describe("SettingsClient sentenceMode section (S9)", () => {
+describe("SettingsClient page", () => {
   beforeEach(() => {
     reactState.call = 0;
   });
 
-  it("renders the two-way selector with all labels", () => {
+  // ponytail: pullPriority + sentenceMode controls moved to TopBar's
+  // <PracticeQuickSwitch /> (auto-save). Settings page no longer renders
+  // them. Tests below cover the remaining sections on this page.
+  it("renders the remaining sections without the migrated controls", () => {
     const html = renderToString(
       createElement(SettingsClient, { currentUsername: "u", currentRole: "user" }),
     );
 
-    expect(html).toContain("例句模式");
-    expect(html).toContain("总是例句");
-    expect(html).toContain("关闭例句");
-  });
-
-  it("highlights 'always' as the default option", () => {
-    const html = renderToString(
-      createElement(SettingsClient, { currentUsername: "u", currentRole: "user" }),
-    );
-
-    expect(html).toContain("总是例句");
-    expect(html).toContain("推荐");
+    expect(html).not.toContain("拉取优先级");
+    expect(html).not.toContain("例句模式");
+    expect(html).toContain("默认主题");
+    expect(html).toContain("闪现时长");
+    expect(html).toContain("单词发音");
+    expect(html).toContain("熟练阈值");
   });
 });
