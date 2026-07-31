@@ -180,6 +180,7 @@ export function PracticeClient({
   const current = queue[0] ?? null;
   const originalSize = answered;
   const [hintPositions, setHintPositions] = useState<Set<number>>(new Set());
+  const [inputFocused, setInputFocused] = useState(false);
   const [userInput, setUserInput] = useState("");
   const [feedback, setFeedback] = useState<{ correct: boolean; expected?: string; typed?: string } | null>(null);
   const [showSpelling, setShowSpelling] = useState(false);
@@ -797,6 +798,13 @@ export function PracticeClient({
         </p>
       )}
 
+      <div
+        className={
+          inputFocused
+            ? "sticky top-14 z-30 bg-background transition-[box-shadow] duration-150 shadow-[0_4px_12px_-6px_rgb(var(--shadow-color)/0.15)]"
+            : ""
+        }
+      >
       <div className="text-center min-h-[3.5rem] flex items-center justify-center">
     {displayMode === "sentence" ? (
       <div className="w-full">
@@ -849,6 +857,7 @@ export function PracticeClient({
         masteryThreshold={masteryThreshold}
         masteredAt={current.masteredAt}
       />
+      </div>
 
       <div className="space-y-5">
         <input
@@ -857,6 +866,8 @@ export function PracticeClient({
           value={userInput}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
+          onFocus={() => setInputFocused(true)}
+          onBlur={() => setInputFocused(false)}
           placeholder={feedback ? "按 Enter 进入下一个" : "输入拼写…"}
           className="w-full px-4 py-3 text-lg bg-surface border-2 border-border rounded-lg focus:border-accent focus:outline-none transition"
           autoComplete="off"
