@@ -38,7 +38,7 @@ README.md 是项目门面，最新重写于 2026-07；阅读顺序：README → 
 
 | 任务 | 位置 | 关键事实 |
 |---|---|---|
-| 练习主循环 | `src/app/practice/[wordbook]/practice-client.tsx` | 最大 client file；wordHistory 栈 cap 20 + HistoryModal |
+| 练习主循环 | `src/app/practice/[wordbook]/practice-client.tsx` | 最大 client file (~1260 行)；wordHistory 栈 cap 20 + HistoryModal；**pill 本身就是 input**（详见 ANTI-PATTERNS） |
 | Auth gate | `src/lib/auth.ts`, `src/middleware.ts`, `src/lib/api.ts` | Web Crypto HMAC；page + API 双重校验；`requireUser()` 是 route 入口 |
 | DB 单例 | `src/lib/db.ts`, `prisma/schema.prisma` | Prisma 单例；schema 是数据模型唯一源 |
 | 取词 + 答题 | `src/app/api/words/route.ts`, `src/app/api/attempts/route.ts` | PULL_CONFIG；drill/review 分叉；firstAttemptedAt 在 create 路径写入 |
@@ -181,6 +181,8 @@ ssh <host> 'ls /opt/yasi-words/backups/ | wc -l'   # 期望 ≤ 14（备份 rota
 - ⚠️ **修改 `prisma/schema.prisma` 必须先 expand-and-contract**：单事务 rollback 已经在坑 13 / Schema 升级规范章节记录。
 - ⚠️ **不要把 `/api/auth/register` 当普通 join** — username 重复 409 + invitation code 无效 400 是**两个独立错误**，不要合二为一。
 - ⚠️ **`backup-database.yml` 的 artifact upload path 不匹配**：`pg_dump` 写到 `/opt/yasi-words/backups/` 但 `actions/upload-artifact@v4` 引用 `/tmp/transfer/${env.BACKUP_FILE}` — artifact 步骤会 `if-no-files-found: error` 静默失败。当前 GH Actions 把 `backup-database.yml` 的 artifact 步骤删了即可恢复备份可见性；或改 `actions/upload-artifact` 从 server fetch。
+- ⚠️ **不要在 pill/row 下方加独立 input 元素** — pill/row 本身就是 input（SentenceCard 的 BlankPill 和 DiffRow 各自包了 `<input className="absolute inset-0 text-transparent" />`）。新增独立 input 会触发两个 bug：(1) 移动键盘弹起时浏览器为滚动到 input 而非 pill，导致页面跳动；(2) pill 上的 click 冒泡会同时触发 wrapper onClick（音频重播）和 input focus，状态错乱。
+- ⚠️ **feedback phase 没有 input 元素，Enter 键 advance 必须用 window-level keydown 兜底** — pill 在 feedback 时 unmount（`isInteractive = !isFeedback`），input.onKeyDown 不再触发。需要 useEffect 注册 `window.addEventListener("keydown", ...)`，并加 `if (e.target instanceof HTMLInputElement) return` 跳过 input 的 keydown（防止 React 同步提交 + useEffect 注册监听器 + 同一 keydown 事件冒泡到 window 三件事在同一事件循环里发生时，wrapper handler 误清掉刚 set 的 feedback，导致 animate-shake/pop-in 在 ~10ms 内被截断）。
 
 ## COMMANDS
 
