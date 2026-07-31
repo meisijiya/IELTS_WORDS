@@ -927,12 +927,26 @@ export function PracticeClient({
                         // to queue tail; first-try correct → pop.
                         if (retryModeRef.current) pushBackCurrent();
                         else advance(current!, true);
+                        // ponytail: focus the in-pill input within the click
+                        // handler so iOS Safari opens the virtual keyboard
+                        // before the user-gesture window expires. The existing
+                        // useEffect focus (line 368) waits for showSpelling to
+                        // clear (~2.3s after a first-try correct) — by then
+                        // Safari no longer treats focus as user-initiated and
+                        // drops the keyboard open. DiffRow keeps the input
+                        // mounted across feedback/flash phases via readOnly,
+                        // so inputRef.current is always valid here.
+                        inputRef.current?.focus();
                       }
                     : () => {
                         // ponytail: same Enter handler as keyboard path — arm retry.
                         setFeedback(null);
                         setUserInput("");
                         retryModeRef.current = true;
+                        // see focus note above — retry path skips the flash
+                        // (showSpelling flips false immediately) so this focus
+                        // is doubly safe but kept here for consistency.
+                        inputRef.current?.focus();
                       }
                 }
                 className="flex-1 md:flex-none md:w-auto px-8 py-3 text-lg bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent-hover active:scale-[0.98] transition"
@@ -1252,23 +1266,22 @@ function DiffRow({
           +{typed.length - expected.length}
         </span>
       )}
-      {isInteractive && (
-        <input
-          ref={inputRef}
-          type="text"
-          value={typed}
-          onChange={onInputChange}
-          onKeyDown={onInputKeyDown}
-          onFocus={onInputFocus}
-          onBlur={onInputBlur}
-          aria-label={`拼写 ${expected}`}
-          autoComplete="off"
-          autoCapitalize="off"
-          spellCheck={false}
-          className="absolute inset-0 w-full h-full bg-transparent text-transparent outline-none"
-          style={{ caretColor: "rgb(232 132 95)", paddingLeft: "52px", letterSpacing: "16px" }}
-        />
-      )}
+      <input
+        ref={inputRef}
+        type="text"
+        value={typed}
+        onChange={onInputChange}
+        onKeyDown={onInputKeyDown}
+        onFocus={onInputFocus}
+        onBlur={onInputBlur}
+        readOnly={!isInteractive}
+        aria-label={`拼写 ${expected}`}
+        autoComplete="off"
+        autoCapitalize="off"
+        spellCheck={false}
+        className="absolute inset-0 w-full h-full bg-transparent text-transparent outline-none"
+        style={{ caretColor: "rgb(232 132 95)", paddingLeft: "52px", letterSpacing: "16px" }}
+      />
     </div>
   );
 }
