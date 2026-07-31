@@ -110,6 +110,44 @@ ssh <host> 'docker compose exec -T app find /app/public/audio -name "*.mp3" | wc
 ssh <host> 'ls /opt/yasi-words/backups/ | wc -l'   # 期望 ≤ 14（备份 rotate）
 ```
 
+## 分支工作流（`fix` / `feature` 仅本地，不推远程）
+
+`fix` 和 `feature` 是 **只在本地存在的开发分支**，永远不要 push 到 `origin`。
+deploy pipeline（`deploy.yml` 监听 push main）和公开仓库历史只需要看到 `main`。
+
+| 分支 | 用途 | 推荐 commit 前缀 |
+|---|---|---|
+| `fix` | bug 修复 | `fix(scope):` |
+| `feature` | 新功能开发 | `feat(scope):` |
+
+**开发 → 上线循环**（同一台机器本地完成）：
+
+```bash
+# 1. 切到开发分支，编码并自测
+git checkout fix           # 或 feature
+npm run lint typecheck test
+git add -A && git commit -m "fix(practice): ..."
+
+# 2. 测试通过后合到 main
+git checkout main
+git merge --ff-only fix    # 或 feature；--ff-only 拒绝非线性合并
+
+# 3. 推 main 到 origin（push main 触发 deploy）
+git push origin main
+
+# 4. 把「另一个」本地分支拉到 main 最新，保持同步
+git checkout feature && git merge --ff-only main
+# 或（反过来）
+git checkout fix && git merge --ff-only main
+```
+
+**硬约束**：
+
+- **永远不要 `git push origin fix`** 或 `git push origin feature`**，本地分支不污染远端。
+- 步骤 4 **不能省**：合并主分支后另一条开发分支必须同步到 main 最新，否则下一笔开发提交基于过期状态。两个分支交替维护是常态：fix 推完 → feature 同步拉一次；feature 推完 → fix 同步拉一次。
+- 用 `--ff-only` 而非默认 merge：拒绝历史分叉，强制 fix / feature 始终是 main 的直系后裔。
+- **误推修复**：已推到 origin 的 `fix` / `feature` 分支用 `git push origin --delete <branch>` 删除（只删远端引用，不动本地分支和 commit）。
+
 ## PITFALLS（deploy / upgrade 前先扫）
 
 完整 + 修复历史见 [CICD.md](CICD.md) 末尾「我们踩过的 12 个坑」。最常踩的 6 个：
