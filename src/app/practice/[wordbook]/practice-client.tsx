@@ -937,12 +937,19 @@ export function PracticeClient({
                         // to queue tail; first-try correct → pop.
                         if (retryModeRef.current) pushBackCurrent();
                         else advance(current!, true);
-                        // ponytail: defensive refocus — the input keeps
-                        // focus via onMouseDown.preventDefault above, so
-                        // this rAF call is a no-op on Android/iOS tap.
-                        // Kept for a11y tab nav (Tab activates button
-                        // → focus shifts off input) and OEM WebViews
-                        // that occasionally ignore preventDefault.
+                        // ponytail: blur → rAF focus triggers a real
+                        // focus transition that Android Chrome's IME
+                        // pipeline recognises. Chromium's ImeAdapter
+                        // gates showSoftKeyboard() on focusedNodeChanged
+                        // — readOnly toggle on the same focused input
+                        // does not re-emit a focus event, so a plain
+                        // focus() lands as a no-op and the keyboard
+                        // stays closed (Google AOSP b/246909589,
+                        // Firefox Bugzilla 488420). Same code path on
+                        // iOS is a visual no-op (Safari keeps the IME
+                        // open across attribute changes), so the
+                        // blur+focus pair is symmetric.
+                        inputRef.current?.blur();
                         requestAnimationFrame(() =>
                           inputRef.current?.focus({ preventScroll: true }),
                         );
@@ -952,6 +959,10 @@ export function PracticeClient({
                         setFeedback(null);
                         setUserInput("");
                         retryModeRef.current = true;
+                        // see focus transition note above — the readOnly
+                        // flip on the focused input is what blocks the
+                        // IME reopen on Android; blur+focus is the fix.
+                        inputRef.current?.blur();
                         requestAnimationFrame(() =>
                           inputRef.current?.focus({ preventScroll: true }),
                         );
