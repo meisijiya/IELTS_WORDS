@@ -934,14 +934,25 @@ export function PracticeClient({
                         // feedback); a synchronous focus() inside this click
                         // handler targets the just-unmounted node and no-ops.
                         // rAF fires after React commits, when inputRef.current
-                        // points at the freshly mounted input. The ~16ms rAF
-                        // delay also sits well inside Android Chrome's gesture
-                        // window — sync focus worked on iOS Safari but
-                        // Android's stricter window dropped the keyboard open
-                        // after a button click. DiffRow mounts the input at
-                        // all times (readOnly only toggles interactivity), so
-                        // there this is functionally equivalent to a sync focus.
-                        requestAnimationFrame(() => inputRef.current?.focus());
+                        // points at the freshly mounted input.
+                        //
+                        // preventScroll: true skips the browser's automatic
+                        // scroll-into-view pass that Android Chrome runs on
+                        // focus(). After advance, the BlankPill width jumps
+                        // to fit the new word's spelling and the parent span
+                        // starts an opacity transition (showSpelling: 1→0);
+                        // in that window Android treats focus + scroll as a
+                        // programmatic (non-user) focus and silently drops the
+                        // keyboard open, even though the focus event itself
+                        // still fires (cursor blinks, but no IME). The retry
+                        // branch below doesn't hit this because the pill
+                        // width is unchanged on the same word, so the scroll
+                        // pass is a no-op there. iOS Safari ignores
+                        // preventScroll and behaves as before. DiffRow paths
+                        // are unaffected (input always mounted).
+                        requestAnimationFrame(() =>
+                          inputRef.current?.focus({ preventScroll: true }),
+                        );
                       }
                     : () => {
                         // ponytail: same Enter handler as keyboard path — arm retry.
