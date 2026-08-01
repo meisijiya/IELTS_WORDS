@@ -927,26 +927,32 @@ export function PracticeClient({
                         // to queue tail; first-try correct → pop.
                         if (retryModeRef.current) pushBackCurrent();
                         else advance(current!, true);
-                        // ponytail: focus the in-pill input within the click
-                        // handler so iOS Safari opens the virtual keyboard
-                        // before the user-gesture window expires. The existing
-                        // useEffect focus (line 368) waits for showSpelling to
-                        // clear (~2.3s after a first-try correct) — by then
-                        // Safari no longer treats focus as user-initiated and
-                        // drops the keyboard open. DiffRow keeps the input
-                        // mounted across feedback/flash phases via readOnly,
-                        // so inputRef.current is always valid here.
-                        inputRef.current?.focus();
+                        // ponytail: defer focus to the next animation frame
+                        // so React has committed the new word's render first.
+                        // In SentenceCard mode BlankPill conditionally renders
+                        // the input (isInteractive=false → unmounted during
+                        // feedback); a synchronous focus() inside this click
+                        // handler targets the just-unmounted node and no-ops.
+                        // rAF fires after React commits, when inputRef.current
+                        // points at the freshly mounted input. The ~16ms rAF
+                        // delay also sits well inside Android Chrome's gesture
+                        // window — sync focus worked on iOS Safari but
+                        // Android's stricter window dropped the keyboard open
+                        // after a button click. DiffRow mounts the input at
+                        // all times (readOnly only toggles interactivity), so
+                        // there this is functionally equivalent to a sync focus.
+                        requestAnimationFrame(() => inputRef.current?.focus());
                       }
                     : () => {
                         // ponytail: same Enter handler as keyboard path — arm retry.
                         setFeedback(null);
                         setUserInput("");
                         retryModeRef.current = true;
-                        // see focus note above — retry path skips the flash
-                        // (showSpelling flips false immediately) so this focus
-                        // is doubly safe but kept here for consistency.
-                        inputRef.current?.focus();
+                        // see focus note above — retry skips the flash so
+                        // showSpelling is already false at render time; rAF
+                        // still needs to fire before the BlankPill input
+                        // re-mounts. Same rAF rationale as the correct branch.
+                        requestAnimationFrame(() => inputRef.current?.focus());
                       }
                 }
                 className="flex-1 md:flex-none md:w-auto px-8 py-3 text-lg bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent-hover active:scale-[0.98] transition"
