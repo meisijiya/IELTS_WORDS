@@ -179,7 +179,7 @@ function BlankPill({
               {m.char}
             </span>
           ))}
-      {isInteractive && (
+      {inputRef && (
         <input
           ref={inputRef}
           type="text"
@@ -188,6 +188,13 @@ function BlankPill({
           onKeyDown={onInputKeyDown}
           onFocus={onInputFocus}
           onBlur={onInputBlur}
+          // ponytail: Android Chrome closes the IME whenever an input
+          // unmounts; iOS Safari doesn't. Always-mounting the input
+          // (gated by readOnly on the feedback phase) keeps the IME
+          // open across all phases, matching iOS behaviour. readOnly
+          // still gates typing so users can't edit their submitted
+          // answer during feedback.
+          readOnly={!isInteractive}
           aria-label={`拼写 ${spelling}`}
           autoComplete="off"
           autoCapitalize="off"

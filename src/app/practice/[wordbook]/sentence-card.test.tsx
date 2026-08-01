@@ -334,7 +334,7 @@ describe("SentenceCard (S7)", () => {
       expect(html).not.toContain("animate-shake");
     });
 
-    it("feedback phase: NO input overlay rendered (pill is read-only)", () => {
+    it("feedback phase: input overlay stays mounted but readOnly (mirrors DiffRow)", () => {
       const html = stripComments(
         renderToString(
           <SentenceCard
@@ -347,8 +347,8 @@ describe("SentenceCard (S7)", () => {
           />,
         ),
       );
-      // No <input> overlay in feedback (would let user keep typing after submit)
-      expect(html).not.toMatch(/<input[^>]*aria-label="拼写/);
+      expect(html).toMatch(/<input[^>]*aria-label="拼写 bank"/);
+      expect(html).toMatch(/readOnly/i);
       expect(html).toContain("text-success");
       expect(html).toContain("animate-revealPulse");
     });

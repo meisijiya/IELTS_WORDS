@@ -911,6 +911,15 @@ export function PracticeClient({
             <>
               <button
                 type="button"
+                // ponytail: onMouseDown.preventDefault stops the button
+                // from stealing focus on tap. Combined with the
+                // BlankPill input being always-mounted (sentence-card.tsx)
+                // and gated by readOnly on the feedback phase, the input
+                // keeps focus across submit→next and Android's IME stays
+                // open the whole time, matching iOS behaviour. Keyboard
+                // (Tab) and screen-reader focus flows are unaffected —
+                // mousedown is mouse/touch specific.
+                onMouseDown={(e) => e.preventDefault()}
                 onClick={() => setHistoryModal(wordHistory[wordHistory.length - 1] ?? null)}
                 disabled={wordHistory.length === 0}
                 title={wordHistory.length === 0 ? "还没有历史" : "查看上一个单词"}
@@ -920,36 +929,20 @@ export function PracticeClient({
               </button>
               <button
                 type="button"
+                onMouseDown={(e) => e.preventDefault()}
                 onClick={
                   feedback.correct
                     ? () => {
-                        // ponytail: retry-correct (originally wrong) → push back
+                        // retry-correct (originally wrong) → push back
                         // to queue tail; first-try correct → pop.
                         if (retryModeRef.current) pushBackCurrent();
                         else advance(current!, true);
-                        // ponytail: defer focus to the next animation frame
-                        // so React has committed the new word's render first.
-                        // In SentenceCard mode BlankPill conditionally renders
-                        // the input (isInteractive=false → unmounted during
-                        // feedback); a synchronous focus() inside this click
-                        // handler targets the just-unmounted node and no-ops.
-                        // rAF fires after React commits, when inputRef.current
-                        // points at the freshly mounted input.
-                        //
-                        // preventScroll: true skips the browser's automatic
-                        // scroll-into-view pass that Android Chrome runs on
-                        // focus(). After advance, the BlankPill width jumps
-                        // to fit the new word's spelling and the parent span
-                        // starts an opacity transition (showSpelling: 1→0);
-                        // in that window Android treats focus + scroll as a
-                        // programmatic (non-user) focus and silently drops the
-                        // keyboard open, even though the focus event itself
-                        // still fires (cursor blinks, but no IME). The retry
-                        // branch below doesn't hit this because the pill
-                        // width is unchanged on the same word, so the scroll
-                        // pass is a no-op there. iOS Safari ignores
-                        // preventScroll and behaves as before. DiffRow paths
-                        // are unaffected (input always mounted).
+                        // ponytail: defensive refocus — the input keeps
+                        // focus via onMouseDown.preventDefault above, so
+                        // this rAF call is a no-op on Android/iOS tap.
+                        // Kept for a11y tab nav (Tab activates button
+                        // → focus shifts off input) and OEM WebViews
+                        // that occasionally ignore preventDefault.
                         requestAnimationFrame(() =>
                           inputRef.current?.focus({ preventScroll: true }),
                         );
@@ -959,11 +952,9 @@ export function PracticeClient({
                         setFeedback(null);
                         setUserInput("");
                         retryModeRef.current = true;
-                        // see focus note above — retry skips the flash so
-                        // showSpelling is already false at render time; rAF
-                        // still needs to fire before the BlankPill input
-                        // re-mounts. Same rAF rationale as the correct branch.
-                        requestAnimationFrame(() => inputRef.current?.focus());
+                        requestAnimationFrame(() =>
+                          inputRef.current?.focus({ preventScroll: true }),
+                        );
                       }
                 }
                 className="flex-1 md:flex-none md:w-auto px-8 py-3 text-lg bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent-hover active:scale-[0.98] transition"
@@ -978,6 +969,7 @@ export function PracticeClient({
           ) : (
             <button
               type="submit"
+              onMouseDown={(e) => e.preventDefault()}
               onClick={submit}
               disabled={!userInput}
               className="w-full md:w-auto px-8 py-3 text-lg bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent-hover active:scale-[0.98] transition disabled:opacity-50 disabled:cursor-not-allowed"
