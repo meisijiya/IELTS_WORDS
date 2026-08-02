@@ -29,6 +29,34 @@ const QUEUE_HARD_CAP = 60;
 const HISTORY_CAP = 20;
 const MASTERY_THRESHOLD_FALLBACK = 5;
 
+// ponytail: deterministic length-based scale picker. Each tier maps to
+// a Tailwind text-* class further down. The previous scrollWidth-based
+// reactive shrink caused a visible flash of overflow on the first paint
+// before stepping down. Length-based picks the right tier on the very
+// first render so 7+ letter words never overflow even briefly.
+const LENGTH_TIERS_MOBILE: ReadonlyArray<{ max: number; scale: 0 | 1 | 2 | 3 }> = [
+  { max: 6, scale: 0 },     // text-3xl
+  { max: 9, scale: 1 },     // text-2xl
+  { max: 13, scale: 2 },    // text-xl
+  { max: Infinity, scale: 3 }, // text-lg
+];
+const LENGTH_TIERS_DESKTOP: ReadonlyArray<{ max: number; scale: 0 | 1 | 2 | 3 }> = [
+  { max: 8, scale: 0 },     // text-5xl
+  { max: 12, scale: 1 },    // text-4xl
+  { max: 16, scale: 2 },    // text-3xl
+  { max: Infinity, scale: 3 }, // text-2xl
+];
+function pickScaleByLength(len: number, isMobile: boolean): 0 | 1 | 2 | 3 {
+  const tiers = isMobile ? LENGTH_TIERS_MOBILE : LENGTH_TIERS_DESKTOP;
+  for (const tier of tiers) {
+    if (len <= tier.max) return tier.scale;
+  }
+  return 3;
+}
+// ponytail: exported for unit testing the length→tier mapping without
+// having to render the full DiffRow (which depends on browser-only APIs).
+export { pickScaleByLength };
+
 function normalizeSpelling(spelling: string): string {
   return spelling
     .toLowerCase()
@@ -1132,73 +1160,47 @@ export function DiffRow({
   const usrLower = typed.toLowerCase();
   const len = expected.length;
 
-  // ponytail: shrink the letter grid only when content overflows on mobile
-  // viewports; desktop keeps text-4xl unconditionally. matchMedia gates the
-  // measurement logic so wide screens never run scrollWidth probes or
-  // ResizeObserver; ResizeObserver fires on rotation / viewport changes.
+  // ponytail: deterministic length-based scale. Replaces the previous
+  // scrollWidth / ResizeObserver reactive shrink — that approach was
+  // post-render, so a long word flashed at the default size before
+  // stepping down. Length-based picks the right tier on first paint.
+  // Tier breakpoints calibrated for ~360px mobile viewport (smallest
+  // common iPhone width) minus audio button (~40px) and container
+  // padding (~64px) → ~256px available for the letter row.
   const containerRef = useRef<HTMLDivElement>(null);
-  const scaleRef = useRef<0 | 1 | 2>(0);
-  const isMobileRef = useRef<boolean>(false);
-  const [scale, setScaleState] = useState<0 | 1 | 2>(0);
-  // ponytail: rendered state mirror of isMobileRef so sizeClass can branch
-  // on viewport in the render path; ref alone wouldn't trigger a re-render.
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  function setScale(next: 0 | 1 | 2) {
-    scaleRef.current = next;
-    setScaleState(next);
-  }
+  const [scale, setScaleState] = useState<0 | 1 | 2 | 3>(() =>
+    pickScaleByLength(len, false),
+  );
   useEffect(() => {
     const mql = window.matchMedia("(max-width: 640px)");
     const sync = () => {
-      isMobileRef.current = mql.matches;
-      setIsMobile(mql.matches);
-      // ponytail: reset to default when leaving mobile so we don't carry a
-      // shrunk scale back into the desktop layout.
-      if (!mql.matches) {
-        scaleRef.current = 0;
-        setScaleState(0);
-      }
+      const mobile = mql.matches;
+      setIsMobile(mobile);
+      // ponytail: recompute on viewport change (rotation / resize) so
+      // the scale matches the current breakpoint, not the SSR default.
+      setScaleState(pickScaleByLength(len, mobile));
     };
     sync();
     mql.addEventListener("change", sync);
     return () => mql.removeEventListener("change", sync);
-  }, []);
+  }, [len]);
+  // ponytail: if the word changes (next / retry) the length-based scale
+  // must follow; the matchMedia effect above only re-fires on viewport
+  // change, not on `expected` updates.
   useEffect(() => {
-    if (!isMobileRef.current) return;
-    const el = containerRef.current;
-    if (!el) return;
-    const cur = scaleRef.current;
-    if (el.scrollWidth > el.clientWidth + 1) {
-      if (cur < 2) setScale(((cur + 1) as 0 | 1 | 2));
-    } else if (el.scrollWidth + 60 < el.clientWidth && cur > 0) {
-      setScale(((cur - 1) as 0 | 1 | 2));
-    }
-  }, [expected, typed]);
-  useEffect(() => {
-    if (!isMobileRef.current) return;
-    const el = containerRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver(() => {
-      const cur = scaleRef.current;
-      if (el.scrollWidth > el.clientWidth + 1) {
-        if (cur < 2) setScale(((cur + 1) as 0 | 1 | 2));
-      } else if (el.scrollWidth + 60 < el.clientWidth && cur > 0) {
-        setScale(((cur - 1) as 0 | 1 | 2));
-      }
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
+    setScaleState(pickScaleByLength(len, isMobile));
+  }, [len, isMobile]);
 
-  // ponytail: mobile starts one tier smaller (text-3xl) so 10–20 letter
-  // words don't overflow a ~640px viewport at the default size; auto-shrink
-  // steps further down to text-2xl / text-xl as needed. Desktop starts at
-  // text-5xl to match the larger screen real estate.
+  // ponytail: scale 0 = comfortable, 3 = tightest (text-lg mobile /
+  // text-2xl desktop). Long words step down to keep the row within the
+  // viewport, narrow on the left/right side as the user asked.
   const sizeClass = isMobile
-    ? scale === 0 ? "text-3xl" : scale === 1 ? "text-2xl" : "text-xl"
-    : scale === 0 ? "text-5xl" : scale === 1 ? "text-4xl" : "text-3xl";
+    ? scale === 0 ? "text-3xl" : scale === 1 ? "text-2xl" : scale === 2 ? "text-xl" : "text-lg"
+    : scale === 0 ? "text-5xl" : scale === 1 ? "text-4xl" : scale === 2 ? "text-3xl" : "text-2xl";
   const gapClass = scale === 0 ? "gap-1" : scale === 1 ? "gap-0.5" : "gap-0";
   const pxClass = scale === 0 ? "px-1.5" : scale === 1 ? "px-1" : "px-0.5";
+
   // ponytail: typing phase + handlers provided → row IS the input. Visible
   // char tiles sit behind a transparent <input> overlay (absolute inset-0)
   // so tapping anywhere on the row focuses the input → mobile keyboard
