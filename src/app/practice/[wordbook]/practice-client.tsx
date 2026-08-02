@@ -1101,7 +1101,7 @@ export function PracticeClient({
   );
 }
 
-function DiffRow({
+export function DiffRow({
   expected,
   typed,
   hintPositions,
@@ -1203,7 +1203,10 @@ function DiffRow({
   // char tiles sit behind a transparent <input> overlay (absolute inset-0)
   // so tapping anywhere on the row focuses the input → mobile keyboard
   // opens with no page scroll (no separate input box anymore).
-  const isInteractive = !showExpected && !showTyped && !!inputRef && !!onInputChange && !!onInputKeyDown;
+  // ponytail: !showTyped && !isCorrect gates on feedback state only
+  // (not showExpected), so the new-word flash phase stays editable.
+  // SentenceCard (BlankPill) already uses the same !isFeedback gating.
+  const isInteractive = !showTyped && !isCorrect && !!inputRef && !!onInputChange && !!onInputKeyDown;
 
   return (
     <div
