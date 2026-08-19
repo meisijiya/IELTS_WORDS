@@ -50,7 +50,9 @@
           "multi_word_spelling",
           "unmatched_pos",
           "duplicate_word",
-          "cross_line_gloss"
+          "cross_line_gloss",
+          "synonym_substitution",
+          "marker_word"
         ]
       }
     }
