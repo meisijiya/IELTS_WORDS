@@ -40,6 +40,13 @@ jobs:
         with:
           context: .
           push: true
+          # Aliyun ACR Personal Edition rejects the OCI empty manifest
+          # (application/vnd.oci.empty.v1+json) that build-push-action@v6
+          # attaches by default. Disable provenance + sbom so only the
+          # image manifest is pushed. (Discovered after push to
+          # audio-full-2026-08-19.)
+          provenance: false
+          sbom: false
           build-args: |
             # Full audio bundle (20194 mp3 files, 238 MB). Manually uploaded to the
             # release page since GH Release Assets API caps uploads at 100 MB per
