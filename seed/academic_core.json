@@ -1,0 +1,5060 @@
+[
+  {
+    "spelling": "abandon",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "放弃"
+      }
+    ]
+  },
+  {
+    "spelling": "abstract",
+    "pos": "adj./n.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "抽象的"
+      },
+      {
+        "pos": "n.",
+        "meaning": "摘要"
+      }
+    ]
+  },
+  {
+    "spelling": "academic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "学术的"
+      }
+    ]
+  },
+  {
+    "spelling": "access",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "入口"
+      },
+      {
+        "pos": "v.",
+        "meaning": "进入"
+      }
+    ]
+  },
+  {
+    "spelling": "accommodation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "住宿"
+      }
+    ]
+  },
+  {
+    "spelling": "accompany",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "陪同, 伴随"
+      }
+    ]
+  },
+  {
+    "spelling": "accumulation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "积累"
+      }
+    ]
+  },
+  {
+    "spelling": "accurate",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "精确的"
+      }
+    ]
+  },
+  {
+    "spelling": "achieve",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "凭长期努力达到某目标地位标准"
+      }
+    ]
+  },
+  {
+    "spelling": "acknowledge",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "承认"
+      }
+    ]
+  },
+  {
+    "spelling": "acquisition",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "知识技能等的获得"
+      }
+    ]
+  },
+  {
+    "spelling": "adaptation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "适应"
+      }
+    ]
+  },
+  {
+    "spelling": "adequate",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "足够的"
+      }
+    ]
+  },
+  {
+    "spelling": "adjacent",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "邻近的"
+      }
+    ]
+  },
+  {
+    "spelling": "adjustment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "调整, 适应"
+      }
+    ]
+  },
+  {
+    "spelling": "administration",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "企业学校等的行政管理"
+      }
+    ]
+  },
+  {
+    "spelling": "adults",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "成年人"
+      }
+    ]
+  },
+  {
+    "spelling": "advocate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "倡导, 提倡"
+      }
+    ]
+  },
+  {
+    "spelling": "affect",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "影响"
+      }
+    ]
+  },
+  {
+    "spelling": "aggregate",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "总和"
+      }
+    ]
+  },
+  {
+    "spelling": "aid",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "援助"
+      },
+      {
+        "pos": "v.",
+        "meaning": "援助"
+      }
+    ]
+  },
+  {
+    "spelling": "albeit",
+    "pos": "conj.",
+    "glosses": [
+      {
+        "pos": "conj.",
+        "meaning": "尽管"
+      }
+    ]
+  },
+  {
+    "spelling": "allocation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "分配"
+      }
+    ]
+  },
+  {
+    "spelling": "alte",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使改变"
+      }
+    ]
+  },
+  {
+    "spelling": "alternative",
+    "pos": "adj./n.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "可供替代的"
+      },
+      {
+        "pos": "n.",
+        "meaning": "可供选择的事物"
+      }
+    ]
+  },
+  {
+    "spelling": "ambiguous",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "模棱两可的, 含糊其辞的"
+      }
+    ]
+  },
+  {
+    "spelling": "amendment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "修订, 改良"
+      }
+    ]
+  },
+  {
+    "spelling": "analogous",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "相似的"
+      }
+    ]
+  },
+  {
+    "spelling": "analysis",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "对事物的分析"
+      }
+    ]
+  },
+  {
+    "spelling": "annual",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "一年一次的, 每年的"
+      }
+    ]
+  },
+  {
+    "spelling": "anticipate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "预期"
+      }
+    ]
+  },
+  {
+    "spelling": "apparent",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "显然的, 明显的"
+      }
+    ]
+  },
+  {
+    "spelling": "appendix",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "附录"
+      }
+    ]
+  },
+  {
+    "spelling": "appreciation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "欣赏, 感激"
+      }
+    ]
+  },
+  {
+    "spelling": "approach",
+    "pos": "v./n.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "接近"
+      },
+      {
+        "pos": "n.",
+        "meaning": "方法"
+      }
+    ]
+  },
+  {
+    "spelling": "appropriate",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "恰当的"
+      }
+    ]
+  },
+  {
+    "spelling": "approximate",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "大约的"
+      }
+    ]
+  },
+  {
+    "spelling": "arbitrary",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "武断的"
+      }
+    ]
+  },
+  {
+    "spelling": "area",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "地方城市国家世界的地区区域"
+      }
+    ]
+  },
+  {
+    "spelling": "aspects",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "方面"
+      }
+    ]
+  },
+  {
+    "spelling": "assembly",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "集会"
+      }
+    ]
+  },
+  {
+    "spelling": "assessment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "评价"
+      }
+    ]
+  },
+  {
+    "spelling": "assign",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "分配"
+      }
+    ]
+  },
+  {
+    "spelling": "assistance",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "帮助"
+      }
+    ]
+  },
+  {
+    "spelling": "assume",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "假设"
+      }
+    ]
+  },
+  {
+    "spelling": "assurance",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "保证"
+      }
+    ]
+  },
+  {
+    "spelling": "attach",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "附上"
+      }
+    ]
+  },
+  {
+    "spelling": "attain",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "获得"
+      }
+    ]
+  },
+  {
+    "spelling": "attitudes",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "态度"
+      }
+    ]
+  },
+  {
+    "spelling": "attribute",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "把归因于"
+      }
+    ]
+  },
+  {
+    "spelling": "auth",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "作家"
+      }
+    ]
+  },
+  {
+    "spelling": "authority",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "权威"
+      }
+    ]
+  },
+  {
+    "spelling": "automatically",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "自动地"
+      }
+    ]
+  },
+  {
+    "spelling": "available",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "可获得的, 可用的"
+      }
+    ]
+  },
+  {
+    "spelling": "aware",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有意识的, 意识到的"
+      }
+    ]
+  },
+  {
+    "spelling": "behalf",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "代表或代替某人"
+      }
+    ]
+  },
+  {
+    "spelling": "benefit",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "利益, 益处"
+      },
+      {
+        "pos": "v.",
+        "meaning": "使受益"
+      }
+    ]
+  },
+  {
+    "spelling": "bias",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "偏见"
+      }
+    ]
+  },
+  {
+    "spelling": "bond",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "联系, 纽带"
+      }
+    ]
+  },
+  {
+    "spelling": "brief",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "简洁的"
+      }
+    ]
+  },
+  {
+    "spelling": "bulk",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "大部分, 大块, 大批"
+      }
+    ]
+  },
+  {
+    "spelling": "capable",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有能力的"
+      }
+    ]
+  },
+  {
+    "spelling": "capacity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "容量"
+      }
+    ]
+  },
+  {
+    "spelling": "categories",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "种类"
+      }
+    ]
+  },
+  {
+    "spelling": "cease",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "停止"
+      }
+    ]
+  },
+  {
+    "spelling": "challenge",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "挑战"
+      },
+      {
+        "pos": "v.",
+        "meaning": "向挑战"
+      }
+    ]
+  },
+  {
+    "spelling": "channel",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "渠道, 通道"
+      }
+    ]
+  },
+  {
+    "spelling": "chapte",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "书的章节"
+      }
+    ]
+  },
+  {
+    "spelling": "chart",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "图表"
+      }
+    ]
+  },
+  {
+    "spelling": "chemical",
+    "pos": "adj./n.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "与化学有关的, 化学的"
+      },
+      {
+        "pos": "n.",
+        "meaning": "化学制品"
+      }
+    ]
+  },
+  {
+    "spelling": "circumstances",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "环境, 情况"
+      }
+    ]
+  },
+  {
+    "spelling": "cite",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "引用"
+      }
+    ]
+  },
+  {
+    "spelling": "civil",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "市民的, 国内的"
+      }
+    ]
+  },
+  {
+    "spelling": "clarity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "清楚"
+      }
+    ]
+  },
+  {
+    "spelling": "classical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "经典的"
+      }
+    ]
+  },
+  {
+    "spelling": "clause",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "从句, 条款"
+      }
+    ]
+  },
+  {
+    "spelling": "code",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "代码, 密码"
+      },
+      {
+        "pos": "v.",
+        "meaning": "为编码"
+      }
+    ]
+  },
+  {
+    "spelling": "coherence",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "一致"
+      }
+    ]
+  },
+  {
+    "spelling": "coincide",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "同时发生"
+      }
+    ]
+  },
+  {
+    "spelling": "collapse",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "崩溃"
+      }
+    ]
+  },
+  {
+    "spelling": "colleagues",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "同事"
+      }
+    ]
+  },
+  {
+    "spelling": "commence",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "开始"
+      }
+    ]
+  },
+  {
+    "spelling": "comments",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "评论"
+      }
+    ]
+  },
+  {
+    "spelling": "commission",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "使命, 委员会"
+      }
+    ]
+  },
+  {
+    "spelling": "commitment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "承诺"
+      }
+    ]
+  },
+  {
+    "spelling": "commodity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "商品"
+      }
+    ]
+  },
+  {
+    "spelling": "communication",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "交流"
+      }
+    ]
+  },
+  {
+    "spelling": "community",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "社区"
+      }
+    ]
+  },
+  {
+    "spelling": "compensation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "弥补"
+      }
+    ]
+  },
+  {
+    "spelling": "compile",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "汇编"
+      }
+    ]
+  },
+  {
+    "spelling": "complement",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "补充物"
+      },
+      {
+        "pos": "v.",
+        "meaning": "补充, 补偿"
+      }
+    ]
+  },
+  {
+    "spelling": "complex",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "复杂的"
+      }
+    ]
+  },
+  {
+    "spelling": "components",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "组成部分"
+      }
+    ]
+  },
+  {
+    "spelling": "compounds",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "化合物"
+      }
+    ]
+  },
+  {
+    "spelling": "comprehensive",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "全面的"
+      }
+    ]
+  },
+  {
+    "spelling": "comprise",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "由组成, 包含"
+      }
+    ]
+  },
+  {
+    "spelling": "compute",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "计算机"
+      }
+    ]
+  },
+  {
+    "spelling": "conceive",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "构想"
+      }
+    ]
+  },
+  {
+    "spelling": "concentration",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "集中注意力"
+      }
+    ]
+  },
+  {
+    "spelling": "concept",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "概念, 观念"
+      }
+    ]
+  },
+  {
+    "spelling": "conclusion",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "结论"
+      }
+    ]
+  },
+  {
+    "spelling": "concurrent",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "同时的, 并发的"
+      }
+    ]
+  },
+  {
+    "spelling": "conduct",
+    "pos": "v./n.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "实施, 进行"
+      },
+      {
+        "pos": "n.",
+        "meaning": "行为"
+      }
+    ]
+  },
+  {
+    "spelling": "conference",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "通常持续几天的大型正式会议"
+      }
+    ]
+  },
+  {
+    "spelling": "confine",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "限制"
+      }
+    ]
+  },
+  {
+    "spelling": "confirm",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "确认"
+      }
+    ]
+  },
+  {
+    "spelling": "conflict",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "冲突"
+      }
+    ]
+  },
+  {
+    "spelling": "conformity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "一致, 对社会规则的遵守"
+      }
+    ]
+  },
+  {
+    "spelling": "consent",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "同意"
+      },
+      {
+        "pos": "v.",
+        "meaning": "同意"
+      }
+    ]
+  },
+  {
+    "spelling": "consequences",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "后果"
+      }
+    ]
+  },
+  {
+    "spelling": "considerable",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "相当大的"
+      }
+    ]
+  },
+  {
+    "spelling": "consistent",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "一致的"
+      }
+    ]
+  },
+  {
+    "spelling": "constant",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "持续的, 不断的"
+      }
+    ]
+  },
+  {
+    "spelling": "constitutional",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "宪法的"
+      }
+    ]
+  },
+  {
+    "spelling": "constraints",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "限制"
+      }
+    ]
+  },
+  {
+    "spelling": "construction",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "修建, 构建"
+      }
+    ]
+  },
+  {
+    "spelling": "consultation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "咨询"
+      }
+    ]
+  },
+  {
+    "spelling": "consume",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "消费者"
+      }
+    ]
+  },
+  {
+    "spelling": "contact",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "联系"
+      },
+      {
+        "pos": "v.",
+        "meaning": "联系, 使接触"
+      }
+    ]
+  },
+  {
+    "spelling": "contemporary",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "当代的, 同时代的"
+      }
+    ]
+  },
+  {
+    "spelling": "context",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "场景, 环境"
+      }
+    ]
+  },
+  {
+    "spelling": "contract",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "合同"
+      }
+    ]
+  },
+  {
+    "spelling": "contradiction",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "矛盾"
+      }
+    ]
+  },
+  {
+    "spelling": "contrary",
+    "pos": "adj./n.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "相反的"
+      },
+      {
+        "pos": "n.",
+        "meaning": "相反"
+      }
+    ]
+  },
+  {
+    "spelling": "contrast",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "明显的差异"
+      },
+      {
+        "pos": "v.",
+        "meaning": "对比"
+      }
+    ]
+  },
+  {
+    "spelling": "contribution",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "贡献"
+      }
+    ]
+  },
+  {
+    "spelling": "controversy",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "公开的争论"
+      }
+    ]
+  },
+  {
+    "spelling": "convention",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "传统"
+      }
+    ]
+  },
+  {
+    "spelling": "conversely",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "相反地"
+      }
+    ]
+  },
+  {
+    "spelling": "convert",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使转化"
+      }
+    ]
+  },
+  {
+    "spelling": "convince",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "说服"
+      }
+    ]
+  },
+  {
+    "spelling": "cooperative",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "合作的"
+      }
+    ]
+  },
+  {
+    "spelling": "coordination",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "协作, 协调"
+      }
+    ]
+  },
+  {
+    "spelling": "core",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "核心"
+      }
+    ]
+  },
+  {
+    "spelling": "corporate",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "企业的, 公司的"
+      }
+    ]
+  },
+  {
+    "spelling": "corresponding",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "相应的"
+      }
+    ]
+  },
+  {
+    "spelling": "couple",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "一对"
+      }
+    ]
+  },
+  {
+    "spelling": "create",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "创造"
+      }
+    ]
+  },
+  {
+    "spelling": "credit",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "信用"
+      }
+    ]
+  },
+  {
+    "spelling": "criteria",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "评判或作决定的标准"
+      }
+    ]
+  },
+  {
+    "spelling": "crucial",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "重要的, 决定性的"
+      }
+    ]
+  },
+  {
+    "spelling": "cultural",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "文化的"
+      }
+    ]
+  },
+  {
+    "spelling": "currency",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "货币"
+      }
+    ]
+  },
+  {
+    "spelling": "cycle",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "周期, 循环"
+      },
+      {
+        "pos": "v.",
+        "meaning": "骑自行车"
+      }
+    ]
+  },
+  {
+    "spelling": "data",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "数据"
+      }
+    ]
+  },
+  {
+    "spelling": "debate",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "辩论"
+      },
+      {
+        "pos": "v.",
+        "meaning": "尤指正式讨论"
+      }
+    ]
+  },
+  {
+    "spelling": "decades",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "几十年"
+      }
+    ]
+  },
+  {
+    "spelling": "decline",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "下降, 拒绝"
+      }
+    ]
+  },
+  {
+    "spelling": "deduction",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "推断, 推论"
+      }
+    ]
+  },
+  {
+    "spelling": "definite",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "确定的"
+      }
+    ]
+  },
+  {
+    "spelling": "definition",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "尤指词典里的词或短语的定义"
+      }
+    ]
+  },
+  {
+    "spelling": "demonstrate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "表明, 演示"
+      }
+    ]
+  },
+  {
+    "spelling": "denote",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "表示"
+      }
+    ]
+  },
+  {
+    "spelling": "deny",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "否认"
+      }
+    ]
+  },
+  {
+    "spelling": "depression",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "沮丧"
+      }
+    ]
+  },
+  {
+    "spelling": "derive",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "起源于"
+      }
+    ]
+  },
+  {
+    "spelling": "design",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "设计"
+      },
+      {
+        "pos": "v.",
+        "meaning": "设计"
+      }
+    ]
+  },
+  {
+    "spelling": "despite",
+    "pos": "prep.",
+    "glosses": [
+      {
+        "pos": "prep.",
+        "meaning": "尽管"
+      }
+    ]
+  },
+  {
+    "spelling": "detect",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "察觉"
+      }
+    ]
+  },
+  {
+    "spelling": "deviation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "偏离, 脱离"
+      }
+    ]
+  },
+  {
+    "spelling": "device",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "装置, 设备"
+      }
+    ]
+  },
+  {
+    "spelling": "devote",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "把奉献给"
+      }
+    ]
+  },
+  {
+    "spelling": "differentiation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "区别"
+      }
+    ]
+  },
+  {
+    "spelling": "dimensions",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "维度, 尺寸"
+      }
+    ]
+  },
+  {
+    "spelling": "diminish",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "减少"
+      }
+    ]
+  },
+  {
+    "spelling": "discretion",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "决断能力"
+      }
+    ]
+  },
+  {
+    "spelling": "discrimination",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "歧视"
+      }
+    ]
+  },
+  {
+    "spelling": "displacement",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "取代"
+      }
+    ]
+  },
+  {
+    "spelling": "display",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "表明, 陈列"
+      }
+    ]
+  },
+  {
+    "spelling": "disposal",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "处置, 处理"
+      }
+    ]
+  },
+  {
+    "spelling": "distinction",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "区别"
+      }
+    ]
+  },
+  {
+    "spelling": "distortion",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "扭曲"
+      }
+    ]
+  },
+  {
+    "spelling": "distribution",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "分配, 分发, 散布"
+      }
+    ]
+  },
+  {
+    "spelling": "diversity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "多样性"
+      }
+    ]
+  },
+  {
+    "spelling": "document",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "文件"
+      }
+    ]
+  },
+  {
+    "spelling": "domain",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "知识活动的领域"
+      }
+    ]
+  },
+  {
+    "spelling": "domestic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "国内的, 家庭的"
+      }
+    ]
+  },
+  {
+    "spelling": "dominant",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "占主导地位的"
+      }
+    ]
+  },
+  {
+    "spelling": "draft",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "草稿"
+      }
+    ]
+  },
+  {
+    "spelling": "dramatic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "引人注目的"
+      }
+    ]
+  },
+  {
+    "spelling": "duration",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "持续时间"
+      }
+    ]
+  },
+  {
+    "spelling": "dynamic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有活力的, 动态的"
+      }
+    ]
+  },
+  {
+    "spelling": "economic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "经济的"
+      }
+    ]
+  },
+  {
+    "spelling": "edition",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "版本"
+      }
+    ]
+  },
+  {
+    "spelling": "elements",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "要素"
+      }
+    ]
+  },
+  {
+    "spelling": "eliminate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "消除, 除去"
+      }
+    ]
+  },
+  {
+    "spelling": "emerge",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "出现"
+      }
+    ]
+  },
+  {
+    "spelling": "emphasis",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "强调"
+      }
+    ]
+  },
+  {
+    "spelling": "empirical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "以实验或经验为依据的, 经验主义的"
+      }
+    ]
+  },
+  {
+    "spelling": "enable",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使能够"
+      }
+    ]
+  },
+  {
+    "spelling": "encounte",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "遇到"
+      }
+    ]
+  },
+  {
+    "spelling": "energy",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "能量"
+      }
+    ]
+  },
+  {
+    "spelling": "enforcement",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "加强"
+      }
+    ]
+  },
+  {
+    "spelling": "enhance",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "提高"
+      }
+    ]
+  },
+  {
+    "spelling": "enormous",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "巨大的, 庞大的"
+      }
+    ]
+  },
+  {
+    "spelling": "ensure",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "保证"
+      }
+    ]
+  },
+  {
+    "spelling": "entities",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "实体"
+      }
+    ]
+  },
+  {
+    "spelling": "environment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "环境"
+      }
+    ]
+  },
+  {
+    "spelling": "equation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "等式"
+      }
+    ]
+  },
+  {
+    "spelling": "equipment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "设备, 装备"
+      }
+    ]
+  },
+  {
+    "spelling": "equivalent",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "等同的, 相同的"
+      }
+    ]
+  },
+  {
+    "spelling": "erosion",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "侵蚀"
+      }
+    ]
+  },
+  {
+    "spelling": "establish",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "建立"
+      }
+    ]
+  },
+  {
+    "spelling": "estate",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "地产"
+      }
+    ]
+  },
+  {
+    "spelling": "estimate",
+    "pos": "v./n.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "估价, 估计"
+      },
+      {
+        "pos": "n.",
+        "meaning": "估价"
+      }
+    ]
+  },
+  {
+    "spelling": "ethical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有关道德的"
+      }
+    ]
+  },
+  {
+    "spelling": "ethnic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "民族的"
+      }
+    ]
+  },
+  {
+    "spelling": "evaluation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "评估"
+      }
+    ]
+  },
+  {
+    "spelling": "eventually",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "最后"
+      }
+    ]
+  },
+  {
+    "spelling": "evidence",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "证据"
+      }
+    ]
+  },
+  {
+    "spelling": "evolution",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "进化"
+      }
+    ]
+  },
+  {
+    "spelling": "exceed",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "超过数目或数量"
+      }
+    ]
+  },
+  {
+    "spelling": "exclude",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "排除"
+      }
+    ]
+  },
+  {
+    "spelling": "exhibit",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "展览"
+      }
+    ]
+  },
+  {
+    "spelling": "expansion",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "扩张, 扩大"
+      }
+    ]
+  },
+  {
+    "spelling": "expert",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "专家"
+      }
+    ]
+  },
+  {
+    "spelling": "explicit",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "清楚的"
+      }
+    ]
+  },
+  {
+    "spelling": "exploitation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "利用, 开采"
+      }
+    ]
+  },
+  {
+    "spelling": "export",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "出口, 输出"
+      },
+      {
+        "pos": "v.",
+        "meaning": "出口, 输出"
+      }
+    ]
+  },
+  {
+    "spelling": "exposure",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "暴露"
+      }
+    ]
+  },
+  {
+    "spelling": "external",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "外部的"
+      }
+    ]
+  },
+  {
+    "spelling": "extract",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "提取"
+      }
+    ]
+  },
+  {
+    "spelling": "facilitate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "促进"
+      }
+    ]
+  },
+  {
+    "spelling": "factors",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "因素"
+      }
+    ]
+  },
+  {
+    "spelling": "features",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "特色"
+      }
+    ]
+  },
+  {
+    "spelling": "federal",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "联邦的"
+      }
+    ]
+  },
+  {
+    "spelling": "fees",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "费用"
+      }
+    ]
+  },
+  {
+    "spelling": "file",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "文件夹"
+      }
+    ]
+  },
+  {
+    "spelling": "final",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "最后的"
+      }
+    ]
+  },
+  {
+    "spelling": "financial",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "金融的"
+      }
+    ]
+  },
+  {
+    "spelling": "finite",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有限制的"
+      }
+    ]
+  },
+  {
+    "spelling": "flexibility",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "灵活"
+      }
+    ]
+  },
+  {
+    "spelling": "fluctuations",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "波动"
+      }
+    ]
+  },
+  {
+    "spelling": "focus",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "集中注意力精力"
+      }
+    ]
+  },
+  {
+    "spelling": "format",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "格式, 设计"
+      }
+    ]
+  },
+  {
+    "spelling": "formula",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "公式"
+      }
+    ]
+  },
+  {
+    "spelling": "forthcoming",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "即将到来的"
+      }
+    ]
+  },
+  {
+    "spelling": "found",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "成立"
+      }
+    ]
+  },
+  {
+    "spelling": "foundation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "基础"
+      }
+    ]
+  },
+  {
+    "spelling": "framework",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "建筑物或物体的构架, 框架"
+      }
+    ]
+  },
+  {
+    "spelling": "function",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "功能"
+      }
+    ]
+  },
+  {
+    "spelling": "fundamental",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "基本的"
+      }
+    ]
+  },
+  {
+    "spelling": "funds",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "资金"
+      },
+      {
+        "pos": "v.",
+        "meaning": "资助"
+      }
+    ]
+  },
+  {
+    "spelling": "furthermore",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "此外, 而且"
+      }
+    ]
+  },
+  {
+    "spelling": "gende",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "性别尤指社会和文化差异而非生理差异"
+      }
+    ]
+  },
+  {
+    "spelling": "generate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "产生"
+      }
+    ]
+  },
+  {
+    "spelling": "generation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "代, 一代"
+      }
+    ]
+  },
+  {
+    "spelling": "global",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "全球的"
+      }
+    ]
+  },
+  {
+    "spelling": "goals",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "目标"
+      }
+    ]
+  },
+  {
+    "spelling": "grade",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "等级"
+      }
+    ]
+  },
+  {
+    "spelling": "grant",
+    "pos": "v./n.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "同意"
+      },
+      {
+        "pos": "n.",
+        "meaning": "拨款"
+      }
+    ]
+  },
+  {
+    "spelling": "guarantee",
+    "pos": "v./n.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "保证"
+      },
+      {
+        "pos": "n.",
+        "meaning": "保证"
+      }
+    ]
+  },
+  {
+    "spelling": "guidelines",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "指导方针"
+      }
+    ]
+  },
+  {
+    "spelling": "hence",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "因此"
+      }
+    ]
+  },
+  {
+    "spelling": "hierarchical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "按等级划分的"
+      }
+    ]
+  },
+  {
+    "spelling": "hypothesis",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "有少量事实依据但未被证实的假说"
+      }
+    ]
+  },
+  {
+    "spelling": "identical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "相同的"
+      }
+    ]
+  },
+  {
+    "spelling": "identify",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "识别"
+      }
+    ]
+  },
+  {
+    "spelling": "ideology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "意识形态"
+      }
+    ]
+  },
+  {
+    "spelling": "ignore",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "忽视"
+      }
+    ]
+  },
+  {
+    "spelling": "illustrate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "阐明"
+      }
+    ]
+  },
+  {
+    "spelling": "image",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "图形, 形象"
+      }
+    ]
+  },
+  {
+    "spelling": "immigration",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "移民"
+      }
+    ]
+  },
+  {
+    "spelling": "impact",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "巨大影响"
+      },
+      {
+        "pos": "v.",
+        "meaning": "对人或事物有影响"
+      }
+    ]
+  },
+  {
+    "spelling": "implementation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "执行"
+      }
+    ]
+  },
+  {
+    "spelling": "implications",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "可能的影响或作用结果"
+      }
+    ]
+  },
+  {
+    "spelling": "implicit",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "含蓄的"
+      }
+    ]
+  },
+  {
+    "spelling": "imply",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "含有的意思"
+      }
+    ]
+  },
+  {
+    "spelling": "impose",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "强制实行"
+      }
+    ]
+  },
+  {
+    "spelling": "incentive",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "激励"
+      }
+    ]
+  },
+  {
+    "spelling": "incidence",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "事件, 发生率"
+      }
+    ]
+  },
+  {
+    "spelling": "inclination",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "倾向"
+      }
+    ]
+  },
+  {
+    "spelling": "income",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "收入"
+      }
+    ]
+  },
+  {
+    "spelling": "incompatible",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "不兼容的"
+      }
+    ]
+  },
+  {
+    "spelling": "incorporate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "包含"
+      }
+    ]
+  },
+  {
+    "spelling": "index",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "索引, 指示"
+      }
+    ]
+  },
+  {
+    "spelling": "indicate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "表明"
+      }
+    ]
+  },
+  {
+    "spelling": "individual",
+    "pos": "n./adj.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "个人"
+      },
+      {
+        "pos": "adj.",
+        "meaning": "个别的"
+      }
+    ]
+  },
+  {
+    "spelling": "induce",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "诱使, 引起"
+      }
+    ]
+  },
+  {
+    "spelling": "inevitably",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "不可避免地"
+      }
+    ]
+  },
+  {
+    "spelling": "parallel",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "平行的"
+      }
+    ]
+  },
+  {
+    "spelling": "parameters",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "参数"
+      }
+    ]
+  },
+  {
+    "spelling": "participation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "参与, 参加"
+      }
+    ]
+  },
+  {
+    "spelling": "partnership",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "伙伴关系, 搭档"
+      }
+    ]
+  },
+  {
+    "spelling": "passive",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "被动的"
+      }
+    ]
+  },
+  {
+    "spelling": "perceive",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "意识到"
+      }
+    ]
+  },
+  {
+    "spelling": "percent",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "百分之"
+      }
+    ]
+  },
+  {
+    "spelling": "period",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "某一时期"
+      }
+    ]
+  },
+  {
+    "spelling": "persistent",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "执着的"
+      }
+    ]
+  },
+  {
+    "spelling": "perspective",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "角度, 态度"
+      }
+    ]
+  },
+  {
+    "spelling": "phase",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "阶段"
+      }
+    ]
+  },
+  {
+    "spelling": "phenomenon",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "现象"
+      }
+    ]
+  },
+  {
+    "spelling": "philosophy",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "哲学"
+      }
+    ]
+  },
+  {
+    "spelling": "physical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "身体的, 实体的"
+      }
+    ]
+  },
+  {
+    "spelling": "plus",
+    "pos": "prep./adv.",
+    "glosses": [
+      {
+        "pos": "prep.",
+        "meaning": "加上"
+      },
+      {
+        "pos": "adv.",
+        "meaning": "外加地"
+      }
+    ]
+  },
+  {
+    "spelling": "policy",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "政策"
+      }
+    ]
+  },
+  {
+    "spelling": "portion",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "比例, 部分"
+      }
+    ]
+  },
+  {
+    "spelling": "pose",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "引起"
+      }
+    ]
+  },
+  {
+    "spelling": "positive",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "积极的"
+      }
+    ]
+  },
+  {
+    "spelling": "potential",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "潜力"
+      }
+    ]
+  },
+  {
+    "spelling": "practitioners",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "从业人员"
+      }
+    ]
+  },
+  {
+    "spelling": "preceding",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "前一个的"
+      }
+    ]
+  },
+  {
+    "spelling": "precise",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "精确的"
+      }
+    ]
+  },
+  {
+    "spelling": "predict",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "预测"
+      }
+    ]
+  },
+  {
+    "spelling": "predominantly",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "主要地"
+      }
+    ]
+  },
+  {
+    "spelling": "preliminary",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "预备的, 初步的"
+      }
+    ]
+  },
+  {
+    "spelling": "presumption",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "假设, 料想"
+      }
+    ]
+  },
+  {
+    "spelling": "previous",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "先前的, 以前的"
+      }
+    ]
+  },
+  {
+    "spelling": "primary",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "主要的, 首要的"
+      }
+    ]
+  },
+  {
+    "spelling": "prime",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "主要的"
+      }
+    ]
+  },
+  {
+    "spelling": "principal",
+    "pos": "adj./n.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "最重要的"
+      },
+      {
+        "pos": "n.",
+        "meaning": "校长"
+      }
+    ]
+  },
+  {
+    "spelling": "principle",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "原则, 原理"
+      }
+    ]
+  },
+  {
+    "spelling": "pri",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "在前的, 先前的"
+      }
+    ]
+  },
+  {
+    "spelling": "priority",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "优先事项"
+      }
+    ]
+  },
+  {
+    "spelling": "procedure",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "步骤"
+      }
+    ]
+  },
+  {
+    "spelling": "process",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "过程"
+      },
+      {
+        "pos": "v.",
+        "meaning": "加工"
+      }
+    ]
+  },
+  {
+    "spelling": "professional",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "专业的, 职业的"
+      }
+    ]
+  },
+  {
+    "spelling": "prohibit",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "禁止"
+      }
+    ]
+  },
+  {
+    "spelling": "project",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "项目"
+      }
+    ]
+  },
+  {
+    "spelling": "promote",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "促进, 晋升"
+      }
+    ]
+  },
+  {
+    "spelling": "proportion",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "比例"
+      }
+    ]
+  },
+  {
+    "spelling": "prospect",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "前途"
+      }
+    ]
+  },
+  {
+    "spelling": "protocol",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "协议"
+      }
+    ]
+  },
+  {
+    "spelling": "psychology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "心理学"
+      }
+    ]
+  },
+  {
+    "spelling": "publication",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "出版, 出版物"
+      }
+    ]
+  },
+  {
+    "spelling": "publish",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "出版"
+      }
+    ]
+  },
+  {
+    "spelling": "purchase",
+    "pos": "v./n.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "购买"
+      },
+      {
+        "pos": "n.",
+        "meaning": "购买"
+      }
+    ]
+  },
+  {
+    "spelling": "pursue",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "追求, 追赶"
+      }
+    ]
+  },
+  {
+    "spelling": "qualitative",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "性质的"
+      }
+    ]
+  },
+  {
+    "spelling": "quotation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "引语"
+      }
+    ]
+  },
+  {
+    "spelling": "radical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "根本的, 激进的"
+      }
+    ]
+  },
+  {
+    "spelling": "random",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "随机的"
+      }
+    ]
+  },
+  {
+    "spelling": "range",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "范围"
+      }
+    ]
+  },
+  {
+    "spelling": "rati",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "比率"
+      }
+    ]
+  },
+  {
+    "spelling": "rational",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "合理的, 理性的"
+      }
+    ]
+  },
+  {
+    "spelling": "reaction",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "反应"
+      }
+    ]
+  },
+  {
+    "spelling": "recovery",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "恢复"
+      }
+    ]
+  },
+  {
+    "spelling": "refine",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "提炼, 精炼"
+      }
+    ]
+  },
+  {
+    "spelling": "regime",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "政体"
+      }
+    ]
+  },
+  {
+    "spelling": "region",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "地区"
+      }
+    ]
+  },
+  {
+    "spelling": "registe",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "注册"
+      }
+    ]
+  },
+  {
+    "spelling": "regulations",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "规定"
+      }
+    ]
+  },
+  {
+    "spelling": "reinforce",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "加强"
+      }
+    ]
+  },
+  {
+    "spelling": "reject",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "拒绝"
+      }
+    ]
+  },
+  {
+    "spelling": "relax",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "放松"
+      }
+    ]
+  },
+  {
+    "spelling": "release",
+    "pos": "v./n.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "释放"
+      },
+      {
+        "pos": "n.",
+        "meaning": "释放"
+      }
+    ]
+  },
+  {
+    "spelling": "relevant",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "相关的, 有关的"
+      }
+    ]
+  },
+  {
+    "spelling": "reliance",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "依靠"
+      }
+    ]
+  },
+  {
+    "spelling": "reluctant",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "不情愿的"
+      }
+    ]
+  },
+  {
+    "spelling": "remove",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "消除, 移动"
+      }
+    ]
+  },
+  {
+    "spelling": "require",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "要求, 需要"
+      }
+    ]
+  },
+  {
+    "spelling": "research",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "研究"
+      },
+      {
+        "pos": "v.",
+        "meaning": "研究"
+      }
+    ]
+  },
+  {
+    "spelling": "resident",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "居民"
+      }
+    ]
+  },
+  {
+    "spelling": "resolution",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "决心"
+      }
+    ]
+  },
+  {
+    "spelling": "resources",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "资源"
+      }
+    ]
+  },
+  {
+    "spelling": "response",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "回答, 回应"
+      }
+    ]
+  },
+  {
+    "spelling": "restore",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "恢复"
+      }
+    ]
+  },
+  {
+    "spelling": "restraints",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "约束, 限制"
+      }
+    ]
+  },
+  {
+    "spelling": "restrict",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "限制"
+      }
+    ]
+  },
+  {
+    "spelling": "retain",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "保留, 保持"
+      }
+    ]
+  },
+  {
+    "spelling": "reveal",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "透露"
+      }
+    ]
+  },
+  {
+    "spelling": "revenue",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "收入"
+      }
+    ]
+  },
+  {
+    "spelling": "reverse",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "颠倒, 反转"
+      }
+    ]
+  },
+  {
+    "spelling": "revision",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "修正, 修改"
+      }
+    ]
+  },
+  {
+    "spelling": "revolution",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "革命"
+      }
+    ]
+  },
+  {
+    "spelling": "rigid",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "死板的, 严格的"
+      }
+    ]
+  },
+  {
+    "spelling": "role",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "角色"
+      }
+    ]
+  },
+  {
+    "spelling": "route",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "路线"
+      }
+    ]
+  },
+  {
+    "spelling": "scenari",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "场景, 情形"
+      }
+    ]
+  },
+  {
+    "spelling": "schedule",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "工作计划, 日程安排"
+      },
+      {
+        "pos": "v.",
+        "meaning": "为安排时间"
+      }
+    ]
+  },
+  {
+    "spelling": "scheme",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "方案, 计划, 阴谋"
+      }
+    ]
+  },
+  {
+    "spelling": "scope",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "范围"
+      }
+    ]
+  },
+  {
+    "spelling": "section",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "部分, 区"
+      }
+    ]
+  },
+  {
+    "spelling": "sect",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "部门, 行业"
+      }
+    ]
+  },
+  {
+    "spelling": "security",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "安全"
+      }
+    ]
+  },
+  {
+    "spelling": "seek",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "寻找"
+      }
+    ]
+  },
+  {
+    "spelling": "select",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "选择"
+      }
+    ]
+  },
+  {
+    "spelling": "sequence",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "顺序"
+      }
+    ]
+  },
+  {
+    "spelling": "series",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "一系列"
+      }
+    ]
+  },
+  {
+    "spelling": "sex",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "性别"
+      }
+    ]
+  },
+  {
+    "spelling": "shift",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "转换"
+      },
+      {
+        "pos": "v.",
+        "meaning": "转移, 改变, 转换"
+      }
+    ]
+  },
+  {
+    "spelling": "significant",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有重大意义的, 重要的"
+      }
+    ]
+  },
+  {
+    "spelling": "simila",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "相像的, 类似的"
+      }
+    ]
+  },
+  {
+    "spelling": "simulation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "模拟, 模仿"
+      }
+    ]
+  },
+  {
+    "spelling": "infer",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "推断"
+      }
+    ]
+  },
+  {
+    "spelling": "infrastructure",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "基础设施"
+      }
+    ]
+  },
+  {
+    "spelling": "inherent",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "固有的"
+      }
+    ]
+  },
+  {
+    "spelling": "inhibition",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "抑制"
+      }
+    ]
+  },
+  {
+    "spelling": "initial",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "最初的, 开始的"
+      }
+    ]
+  },
+  {
+    "spelling": "initiatives",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "措施"
+      }
+    ]
+  },
+  {
+    "spelling": "injury",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "伤害"
+      }
+    ]
+  },
+  {
+    "spelling": "innovation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "创新"
+      }
+    ]
+  },
+  {
+    "spelling": "input",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "输入"
+      },
+      {
+        "pos": "v.",
+        "meaning": "输入"
+      }
+    ]
+  },
+  {
+    "spelling": "insert",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "插入"
+      }
+    ]
+  },
+  {
+    "spelling": "insights",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "洞察力, 领悟"
+      }
+    ]
+  },
+  {
+    "spelling": "inspection",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "检查"
+      }
+    ]
+  },
+  {
+    "spelling": "instance",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "例子"
+      }
+    ]
+  },
+  {
+    "spelling": "institute",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "机构, 学院"
+      }
+    ]
+  },
+  {
+    "spelling": "instructions",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "用法说明, 说明书"
+      }
+    ]
+  },
+  {
+    "spelling": "integral",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "必需的"
+      }
+    ]
+  },
+  {
+    "spelling": "integration",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "结合"
+      }
+    ]
+  },
+  {
+    "spelling": "integrity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "诚实正直, 完整"
+      }
+    ]
+  },
+  {
+    "spelling": "intelligence",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "智慧"
+      }
+    ]
+  },
+  {
+    "spelling": "intensity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "强度"
+      }
+    ]
+  },
+  {
+    "spelling": "interaction",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "互动"
+      }
+    ]
+  },
+  {
+    "spelling": "intermediate",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "中间的"
+      }
+    ]
+  },
+  {
+    "spelling": "internal",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "内部的"
+      }
+    ]
+  },
+  {
+    "spelling": "interpretation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "理解"
+      }
+    ]
+  },
+  {
+    "spelling": "interval",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "间隔"
+      }
+    ]
+  },
+  {
+    "spelling": "intrinsic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "固有的"
+      }
+    ]
+  },
+  {
+    "spelling": "investigation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "调查"
+      }
+    ]
+  },
+  {
+    "spelling": "investment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "投资"
+      }
+    ]
+  },
+  {
+    "spelling": "invoke",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "援引"
+      }
+    ]
+  },
+  {
+    "spelling": "involve",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "包含"
+      }
+    ]
+  },
+  {
+    "spelling": "isolate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "分离"
+      }
+    ]
+  },
+  {
+    "spelling": "issues",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "问题"
+      }
+    ]
+  },
+  {
+    "spelling": "items",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "项目, 物品, 商品"
+      }
+    ]
+  },
+  {
+    "spelling": "job",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "工作"
+      }
+    ]
+  },
+  {
+    "spelling": "journal",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "期刊"
+      }
+    ]
+  },
+  {
+    "spelling": "justification",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "正当的理由"
+      }
+    ]
+  },
+  {
+    "spelling": "label",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "标签"
+      },
+      {
+        "pos": "v.",
+        "meaning": "在……上贴标签"
+      }
+    ]
+  },
+  {
+    "spelling": "labou",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "劳动"
+      }
+    ]
+  },
+  {
+    "spelling": "laye",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "层"
+      }
+    ]
+  },
+  {
+    "spelling": "lecture",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "讲座, 讲课"
+      },
+      {
+        "pos": "v.",
+        "meaning": "开讲座, 讲课"
+      }
+    ]
+  },
+  {
+    "spelling": "legal",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "合法的"
+      }
+    ]
+  },
+  {
+    "spelling": "legislation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "立法"
+      }
+    ]
+  },
+  {
+    "spelling": "levy",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "征收"
+      }
+    ]
+  },
+  {
+    "spelling": "liberal",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "自由的"
+      }
+    ]
+  },
+  {
+    "spelling": "licence",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "证件, 许可证"
+      }
+    ]
+  },
+  {
+    "spelling": "likewise",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "同样地"
+      }
+    ]
+  },
+  {
+    "spelling": "link",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "链接, 联系"
+      }
+    ]
+  },
+  {
+    "spelling": "location",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "位置"
+      }
+    ]
+  },
+  {
+    "spelling": "logic",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "逻辑"
+      }
+    ]
+  },
+  {
+    "spelling": "maintenance",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "维护, 保持"
+      }
+    ]
+  },
+  {
+    "spelling": "maj",
+    "pos": "adj./n.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "主要的"
+      },
+      {
+        "pos": "n.",
+        "meaning": "专业"
+      }
+    ]
+  },
+  {
+    "spelling": "manipulation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "操纵"
+      }
+    ]
+  },
+  {
+    "spelling": "manual",
+    "pos": "adj./n.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "体力的, 用手做的"
+      },
+      {
+        "pos": "n.",
+        "meaning": "手册"
+      }
+    ]
+  },
+  {
+    "spelling": "marginal",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "边际的"
+      }
+    ]
+  },
+  {
+    "spelling": "mature",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "成熟的"
+      }
+    ]
+  },
+  {
+    "spelling": "maximum",
+    "pos": "adj./n.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "最大极限的"
+      },
+      {
+        "pos": "n.",
+        "meaning": "最大值"
+      }
+    ]
+  },
+  {
+    "spelling": "mechanism",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "机械装置, 机制"
+      }
+    ]
+  },
+  {
+    "spelling": "media",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "传播媒介, 媒体"
+      }
+    ]
+  },
+  {
+    "spelling": "mediation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "调解"
+      }
+    ]
+  },
+  {
+    "spelling": "medical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "医疗的, 医学的"
+      }
+    ]
+  },
+  {
+    "spelling": "medium",
+    "pos": "adj./n.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "中等的"
+      },
+      {
+        "pos": "n.",
+        "meaning": "媒体"
+      }
+    ]
+  },
+  {
+    "spelling": "mental",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "精神的, 思想的"
+      }
+    ]
+  },
+  {
+    "spelling": "method",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "方法"
+      }
+    ]
+  },
+  {
+    "spelling": "migration",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "迁徙"
+      }
+    ]
+  },
+  {
+    "spelling": "military",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "军事的"
+      }
+    ]
+  },
+  {
+    "spelling": "minimal",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "最小的, 最低限度的"
+      }
+    ]
+  },
+  {
+    "spelling": "minimise",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使……减少到最低限度, 最大化减少"
+      }
+    ]
+  },
+  {
+    "spelling": "minimum",
+    "pos": "adj./n.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "最低的"
+      },
+      {
+        "pos": "n.",
+        "meaning": "最低值"
+      }
+    ]
+  },
+  {
+    "spelling": "ministry",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "部"
+      }
+    ]
+  },
+  {
+    "spelling": "minorities",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "少数"
+      }
+    ]
+  },
+  {
+    "spelling": "mode",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "模式"
+      }
+    ]
+  },
+  {
+    "spelling": "modify",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "修改"
+      }
+    ]
+  },
+  {
+    "spelling": "monit",
+    "pos": "v./n.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "监控, 监测"
+      },
+      {
+        "pos": "n.",
+        "meaning": "监控器, 班长"
+      }
+    ]
+  },
+  {
+    "spelling": "motivation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "动机"
+      }
+    ]
+  },
+  {
+    "spelling": "mutual",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "相互的"
+      }
+    ]
+  },
+  {
+    "spelling": "negative",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "否定的"
+      }
+    ]
+  },
+  {
+    "spelling": "network",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "网络"
+      }
+    ]
+  },
+  {
+    "spelling": "neutral",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "中立的"
+      }
+    ]
+  },
+  {
+    "spelling": "nevertheless",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "然而"
+      }
+    ]
+  },
+  {
+    "spelling": "nonetheless",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "尽管如此"
+      }
+    ]
+  },
+  {
+    "spelling": "normal",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "正常的"
+      }
+    ]
+  },
+  {
+    "spelling": "norms",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "社会准则, 规范, 常态"
+      }
+    ]
+  },
+  {
+    "spelling": "notion",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "观念"
+      }
+    ]
+  },
+  {
+    "spelling": "notwithstanding",
+    "pos": "prep./adv.",
+    "glosses": [
+      {
+        "pos": "prep.",
+        "meaning": "尽管"
+      },
+      {
+        "pos": "adv.",
+        "meaning": "尽管如此"
+      }
+    ]
+  },
+  {
+    "spelling": "nuclea",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "核能的, 核的"
+      }
+    ]
+  },
+  {
+    "spelling": "objective",
+    "pos": "n./adj.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "目标"
+      },
+      {
+        "pos": "adj.",
+        "meaning": "客观的"
+      }
+    ]
+  },
+  {
+    "spelling": "obtain",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "获得"
+      }
+    ]
+  },
+  {
+    "spelling": "obvious",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "明显的"
+      }
+    ]
+  },
+  {
+    "spelling": "occupational",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "职业的"
+      }
+    ]
+  },
+  {
+    "spelling": "occu",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "发生"
+      }
+    ]
+  },
+  {
+    "spelling": "odd",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "奇怪的, 奇特的"
+      }
+    ]
+  },
+  {
+    "spelling": "offset",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "抵消"
+      }
+    ]
+  },
+  {
+    "spelling": "ongoing",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "持续存在的, 进行的"
+      }
+    ]
+  },
+  {
+    "spelling": "option",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "选择, 选项"
+      }
+    ]
+  },
+  {
+    "spelling": "orientation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "方向, 迎新会"
+      }
+    ]
+  },
+  {
+    "spelling": "outcomes",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "结果"
+      }
+    ]
+  },
+  {
+    "spelling": "output",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "输出"
+      },
+      {
+        "pos": "v.",
+        "meaning": "输出"
+      }
+    ]
+  },
+  {
+    "spelling": "overall",
+    "pos": "adj./adv.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "全面的"
+      },
+      {
+        "pos": "adv.",
+        "meaning": "总体上"
+      }
+    ]
+  },
+  {
+    "spelling": "overlap",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "部分重叠"
+      }
+    ]
+  },
+  {
+    "spelling": "overseas",
+    "pos": "adv./adj.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "在国外"
+      },
+      {
+        "pos": "adj.",
+        "meaning": "海外的"
+      }
+    ]
+  },
+  {
+    "spelling": "panel",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "嵌板"
+      }
+    ]
+  },
+  {
+    "spelling": "paradigm",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "范例"
+      }
+    ]
+  },
+  {
+    "spelling": "paragraph",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "段落"
+      }
+    ]
+  }
+]

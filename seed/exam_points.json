@@ -1,0 +1,9220 @@
+[
+  {
+    "spelling": "resemble",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "像，与……相似"
+      }
+    ]
+  },
+  {
+    "spelling": "like",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "像，与……相似"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "look",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "像，与……相似"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "be similar to",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "像，与……相似"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "recognize",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "认出，识别；承认"
+      }
+    ]
+  },
+  {
+    "spelling": "perceive",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "认出，识别；承认"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "acknowledge",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "认出，识别；承认"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "realize",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "认出，识别；承认"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "appreciate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "认出，识别；承认"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "admit",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "认出，识别；承认"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "identify",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "认出，识别；承认"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "comprehend",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "认出，识别；承认"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "understand",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "认出，识别；承认"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "know",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "认出，识别；承认"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "adjust",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "调整，使适合"
+      }
+    ]
+  },
+  {
+    "spelling": "change",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "调整，使适合"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "modify",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "调整，使适合"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "shift",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "调整，使适合"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "alter",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "调整，使适合"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "approach",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "方法"
+      }
+    ]
+  },
+  {
+    "spelling": "method",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "方法"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "way",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "方法"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "fundamental",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "基本的，基础的"
+      }
+    ]
+  },
+  {
+    "spelling": "rudimentary",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "基本的，基础的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "preliminary",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "基本的，基础的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "basic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "基本的，基础的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "rely on",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "依靠，依赖"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "depend on",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "依靠，依赖"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "domestic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "家庭的；国内的"
+      }
+    ]
+  },
+  {
+    "spelling": "home",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "家庭的；国内的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "local",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "家庭的；国内的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "national",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "家庭的；国内的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "measure",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "测量"
+      }
+    ]
+  },
+  {
+    "spelling": "calculate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "测量"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "assess",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "测量"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "evaluate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "测量"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "trait",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "特性，特征"
+      }
+    ]
+  },
+  {
+    "spelling": "characteristic",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "特性，特征"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "feature",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "特性，特征"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "property",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "特性，特征"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "coin",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "创造"
+      }
+    ]
+  },
+  {
+    "spelling": "first used",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "创造"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "invent",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "创造"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "artificial",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "人造的，仿造的"
+      }
+    ]
+  },
+  {
+    "spelling": "synthetic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "人造的，仿造的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "man-made",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "人造的，仿造的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "prompt",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "促进，激起"
+      }
+    ]
+  },
+  {
+    "spelling": "initiate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "促进，激起"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "immediately",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "促进，激起"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "exchange",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "交换"
+      }
+    ]
+  },
+  {
+    "spelling": "share",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "交换"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "apply A to B",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "交换"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "underlie",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "成为……基础"
+      }
+    ]
+  },
+  {
+    "spelling": "based on",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "成为……基础"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "ground",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "成为……基础"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "root",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "成为……基础"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "ignore",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "忽视，不顾"
+      }
+    ]
+  },
+  {
+    "spelling": "neglect",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "忽视，不顾"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "overlook",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "忽视，不顾"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "underestimate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "忽视，不顾"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "diversity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "多样性，差异"
+      }
+    ]
+  },
+  {
+    "spelling": "variety",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "多样性，差异"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "difference",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "多样性，差异"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "detect",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "查明，发现"
+      }
+    ]
+  },
+  {
+    "spelling": "find",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "查明，发现"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "look for",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "查明，发现"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "seek",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "查明，发现"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "search",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "查明，发现"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "isolate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使隔离，使孤立"
+      }
+    ]
+  },
+  {
+    "spelling": "inaccessible",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使隔离，使孤立"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "avoid",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "避免"
+      }
+    ]
+  },
+  {
+    "spelling": "escape",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "避免"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "evitable",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "避免"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "budget",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "预算"
+      }
+    ]
+  },
+  {
+    "spelling": "fund",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "预算"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "financial",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "预算"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "adapt to",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "使适应"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "fit",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "使适应"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "suit",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "使适应"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "alternative",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "供替代的，供选择的n.替代品"
+      }
+    ]
+  },
+  {
+    "spelling": "compensate",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "补偿，赔偿"
+      }
+    ]
+  },
+  {
+    "spelling": "make up",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "补偿，赔偿"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "offset",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "补偿，赔偿"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "component",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "成分，要素"
+      }
+    ]
+  },
+  {
+    "spelling": "proportion",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "成分，要素"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "military",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "军事的"
+      }
+    ]
+  },
+  {
+    "spelling": "weapon",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "军事的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "army",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "军事的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "criteria",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "标准"
+      }
+    ]
+  },
+  {
+    "spelling": "standard",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "标准"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "curriculum",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "课程"
+      }
+    ]
+  },
+  {
+    "spelling": "syllabus",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "课程"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "course of study",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "课程"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "feasible",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "可行的"
+      }
+    ]
+  },
+  {
+    "spelling": "realistic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "可行的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "viable",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "可行的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "constrain",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "束缚，限制"
+      }
+    ]
+  },
+  {
+    "spelling": "stop",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "束缚，限制"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "control",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "束缚，限制"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "deficiency",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "缺陷，缺点"
+      }
+    ]
+  },
+  {
+    "spelling": "shortage",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "缺陷，缺点"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "defect",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "缺陷，缺点"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "weakness",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "缺陷，缺点"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "supplement",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "补充"
+      }
+    ]
+  },
+  {
+    "spelling": "provision",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "补充"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "distinguish",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "区别，辨别"
+      }
+    ]
+  },
+  {
+    "spelling": "separate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "区别，辨别"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "differentiate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "区别，辨别"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "analyze",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "分析，解释"
+      }
+    ]
+  },
+  {
+    "spelling": "examine",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "分析，解释"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "diagnose",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "分析，解释"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "emphasize",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "强调，着重"
+      }
+    ]
+  },
+  {
+    "spelling": "focus on",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "强调，着重"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "stress",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "强调，着重"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "enormous",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "庞大的巨大的，"
+      }
+    ]
+  },
+  {
+    "spelling": "massive",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "庞大的巨大的，"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "large",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "庞大的巨大的，"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "imitate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "模仿"
+      }
+    ]
+  },
+  {
+    "spelling": "mimic",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "模仿"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "copy",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "模仿"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "impair",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "削弱，减少"
+      }
+    ]
+  },
+  {
+    "spelling": "damage",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "削弱，减少"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "diminish",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "削弱，减少"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "decrease",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "削弱，减少"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "hinder",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "阻碍"
+      }
+    ]
+  },
+  {
+    "spelling": "impede",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "阻碍"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "prevent",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "阻碍"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "deter",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "阻碍"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "obstacle",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "阻碍"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "legitimate",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "合法的"
+      }
+    ]
+  },
+  {
+    "spelling": "legal",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "合法的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "limitation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "限制"
+      }
+    ]
+  },
+  {
+    "spelling": "restriction",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "限制"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "convention",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "手法；习俗"
+      }
+    ]
+  },
+  {
+    "spelling": "tradition",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "手法；习俗"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "demanding",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "苛求的"
+      }
+    ]
+  },
+  {
+    "spelling": "troublesome",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "苛求的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "determine",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "决定"
+      }
+    ]
+  },
+  {
+    "spelling": "decide",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "决定"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "accelerate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "加速，促进；强调"
+      }
+    ]
+  },
+  {
+    "spelling": "speed up",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "加速，促进；强调"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "ancient",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "古代的;古老的"
+      }
+    ]
+  },
+  {
+    "spelling": "aged",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "古代的;古老的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "old",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "古代的;古老的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "beneficial",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有益的"
+      }
+    ]
+  },
+  {
+    "spelling": "helpful",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有益的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "advantageous",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有益的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "wholesome",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有益的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "chronic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "慢性的，长期性的"
+      }
+    ]
+  },
+  {
+    "spelling": "lasting",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "慢性的，长期性的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "conscious",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有意识的，神志清醒的"
+      }
+    ]
+  },
+  {
+    "spelling": "aware",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有意识的，神志清醒的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "knowing",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有意识的，神志清醒的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "minimize",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "最小化，使……减少到最少"
+      }
+    ]
+  },
+  {
+    "spelling": "reduce",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "最小化，使……减少到最少"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "lessen",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "最小化，使……减少到最少"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "immunity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "免疫力"
+      }
+    ]
+  },
+  {
+    "spelling": "resistance",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "免疫力"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "Imperative",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "必要的，紧急的"
+      }
+    ]
+  },
+  {
+    "spelling": "compelling",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "必要的，紧急的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "necessary",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "必要的，紧急的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "urgent",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "必要的，紧急的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "secrete",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "分泌"
+      }
+    ]
+  },
+  {
+    "spelling": "discharge",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "分泌"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "exude",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "分泌"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "exaggerate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "夸大，夸张"
+      }
+    ]
+  },
+  {
+    "spelling": "overstate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "夸大，夸张"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "transmit",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "传达，传输"
+      }
+    ]
+  },
+  {
+    "spelling": "pass",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "传达，传输"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "send",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "传达，传输"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "transfer",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "传达，传输"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "extinct",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "灭绝"
+      }
+    ]
+  },
+  {
+    "spelling": "die out",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "灭绝"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "lost",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "灭绝"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "exclusive",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "独有的；排外的；专一的"
+      }
+    ]
+  },
+  {
+    "spelling": "only",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "独有的；排外的；专一的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "guarantee",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "保证，担保"
+      }
+    ]
+  },
+  {
+    "spelling": "assure",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "保证，担保"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "inherit",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "继承"
+      }
+    ]
+  },
+  {
+    "spelling": "receive",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "继承"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "witness",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "见证，证据；目击者"
+      }
+    ]
+  },
+  {
+    "spelling": "view",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "见证，证据；目击者"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "see",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "见证，证据；目击者"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "magnetic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有磁性的"
+      }
+    ]
+  },
+  {
+    "spelling": "attractive",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有磁性的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "loss",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "减少；亏损；失败；遗失的"
+      }
+    ]
+  },
+  {
+    "spelling": "waste",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "减少；亏损；失败；遗失的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "gone",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "减少；亏损；失败；遗失的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "option",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "选择"
+      }
+    ]
+  },
+  {
+    "spelling": "choice",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "选择"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "prefer to",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "更喜欢"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "rather",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "更喜欢"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "priority",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "优先权"
+      }
+    ]
+  },
+  {
+    "spelling": "preference",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "优先权"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "preferential",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "优先权"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "primary",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "主要的"
+      }
+    ]
+  },
+  {
+    "spelling": "principle",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "主要的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "main",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "主要的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "principle",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "原理"
+      }
+    ]
+  },
+  {
+    "spelling": "rule",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "原理"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "potential",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "潜能adj.潜在的"
+      }
+    ]
+  },
+  {
+    "spelling": "possibility",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "潜能adj.潜在的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "quantity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "量，数量"
+      }
+    ]
+  },
+  {
+    "spelling": "number",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "量，数量"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "settle",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "解决；定居，稳定"
+      }
+    ]
+  },
+  {
+    "spelling": "fix",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "解决；定居，稳定"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "figure out",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "解决；定居，稳定"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "sophisticate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使复杂"
+      }
+    ]
+  },
+  {
+    "spelling": "complicate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使复杂"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "specific",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "明确的；特殊的"
+      }
+    ]
+  },
+  {
+    "spelling": "detailed",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "明确的；特殊的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "particular",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "明确的；特殊的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "survive",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "存活，幸存"
+      }
+    ]
+  },
+  {
+    "spelling": "remain",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "存活，幸存"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "swift",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "迅速的，敏捷的，立刻的"
+      }
+    ]
+  },
+  {
+    "spelling": "quick",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "迅速的，敏捷的，立刻的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "rapid",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "迅速的，敏捷的，立刻的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "unexpectedly",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "出乎意料的"
+      }
+    ]
+  },
+  {
+    "spelling": "surprising",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "出乎意料的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "surrounding",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "环境"
+      }
+    ]
+  },
+  {
+    "spelling": "setting",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "环境"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "environment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "环境"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "attempt",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "试图，尝试"
+      }
+    ]
+  },
+  {
+    "spelling": "try",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "试图，尝试"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "test",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "试图，尝试"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "expertise",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "专门技术"
+      }
+    ]
+  },
+  {
+    "spelling": "knowledge",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "专门技术"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "skill",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "专门技术"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "faculty",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "能力，才能；全体教员"
+      }
+    ]
+  },
+  {
+    "spelling": "ability",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "能力，才能；全体教员"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "donate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "捐赠"
+      }
+    ]
+  },
+  {
+    "spelling": "contribute",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "捐赠"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "dynamics",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "动力学"
+      }
+    ]
+  },
+  {
+    "spelling": "energy",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "动力学"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "force",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "动力学"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "move",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "动力学"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "incentive",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "刺激,鼓励;动机"
+      }
+    ]
+  },
+  {
+    "spelling": "motive",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "刺激,鼓励;动机"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "stimulus",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "刺激,鼓励;动机"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "mortality",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "死亡率"
+      }
+    ]
+  },
+  {
+    "spelling": "death",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "死亡率"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "peripheral",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "外围的，次要的"
+      }
+    ]
+  },
+  {
+    "spelling": "unimportant",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "外围的，次要的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "minor",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "外围的，次要的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "vicinity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "邻近，附近"
+      }
+    ]
+  },
+  {
+    "spelling": "neighbourhood",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "邻近，附近"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "nearby",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "邻近，附近"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "threaten",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "威胁，危及"
+      }
+    ]
+  },
+  {
+    "spelling": "endanger",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "威胁，危及"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "jeopardize",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "威胁，危及"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "risk",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "威胁，危及"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "hazard",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "威胁，危及"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "practice",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "实行；练习"
+      }
+    ]
+  },
+  {
+    "spelling": "exercise",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "实行；练习"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "bacteria",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "细菌"
+      }
+    ]
+  },
+  {
+    "spelling": "virus",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "细菌"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "germ",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "细菌"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "microbe",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "细菌"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "be subject to",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "受…...支配"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "face",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "受…...支配"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "be liable to",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "易于……"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "innate",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "天生的；内在的，直觉的"
+      }
+    ]
+  },
+  {
+    "spelling": "built-in",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "天生的；内在的，直觉的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "inborn",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "天生的；内在的，直觉的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "pattern",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "模式"
+      }
+    ]
+  },
+  {
+    "spelling": "formation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "模式"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "therapy",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "治疗，理疗"
+      }
+    ]
+  },
+  {
+    "spelling": "treatment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "治疗，理疗"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "original",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "原始的,最初的"
+      }
+    ]
+  },
+  {
+    "spelling": "initial",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "原始的,最初的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "fist",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "原始的,最初的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "confidential",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "机密的,秘密的"
+      }
+    ]
+  },
+  {
+    "spelling": "undisclosed",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "机密的,秘密的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "secret",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "机密的,秘密的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "hidden",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "机密的,秘密的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "cognitive",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "认知的"
+      }
+    ]
+  },
+  {
+    "spelling": "mental",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "认知的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "comply with",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "照做，遵守"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "obey",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "照做，遵守"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "consult",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "查阅,商量,请教,咨询"
+      }
+    ]
+  },
+  {
+    "spelling": "ask for advice",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "查阅,商量,请教,咨询"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "superior",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "上级的;优秀的"
+      }
+    ]
+  },
+  {
+    "spelling": "higher",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "上级的;优秀的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "upper",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "上级的;优秀的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "co-operation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "合作，协作"
+      }
+    ]
+  },
+  {
+    "spelling": "support",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "合作，协作"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "work together",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "合作，协作"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "co-ordinate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使……协调"
+      }
+    ]
+  },
+  {
+    "spelling": "organize",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使……协调"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "harmonize",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使……协调"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "differ",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使……相异；使……不同"
+      }
+    ]
+  },
+  {
+    "spelling": "vary",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使……相异；使……不同"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "cue",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "线索"
+      }
+    ]
+  },
+  {
+    "spelling": "hint",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "线索"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "clue",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "线索"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "signal",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "信号"
+      }
+    ]
+  },
+  {
+    "spelling": "symbol",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "信号"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "mark",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "信号"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "sign",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "信号"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "abandon",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "放弃，遗弃"
+      }
+    ]
+  },
+  {
+    "spelling": "quit",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "放弃，遗弃"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "give up",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "放弃，遗弃"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "forsake",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "放弃，遗弃"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "derelict",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "放弃，遗弃"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "halt",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "停止"
+      }
+    ]
+  },
+  {
+    "spelling": "fragile",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "脆弱的"
+      }
+    ]
+  },
+  {
+    "spelling": "vulnerable",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "脆弱的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "retain",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "记住"
+      }
+    ]
+  },
+  {
+    "spelling": "maintain",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "记住"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "vanish",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "消失，绝迹"
+      }
+    ]
+  },
+  {
+    "spelling": "disappear",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "消失，绝迹"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "delivery",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "递送"
+      }
+    ]
+  },
+  {
+    "spelling": "erode",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "侵蚀"
+      }
+    ]
+  },
+  {
+    "spelling": "rust",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "侵蚀"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "induce",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "引起，引诱"
+      }
+    ]
+  },
+  {
+    "spelling": "cause",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "引起，引诱"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "lead to",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "引起，引诱"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "stable",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "稳定的"
+      }
+    ]
+  },
+  {
+    "spelling": "constant",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "稳定的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "unchanged",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "稳定的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "integrate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使……成整体"
+      }
+    ]
+  },
+  {
+    "spelling": "combine",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使……成整体"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "whole",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使……成整体"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "equal",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "平等的;相等的；胜任的"
+      }
+    ]
+  },
+  {
+    "spelling": "fair",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "平等的;相等的；胜任的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "even",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "平等的;相等的；胜任的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "grant",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "拨款；授予"
+      }
+    ]
+  },
+  {
+    "spelling": "offer",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "拨款；授予"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "accumulate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "积累，积聚"
+      }
+    ]
+  },
+  {
+    "spelling": "gather",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "积累，积聚"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "addictive",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "上瘾的"
+      }
+    ]
+  },
+  {
+    "spelling": "habit",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "上瘾的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "adversity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "逆境，不幸"
+      }
+    ]
+  },
+  {
+    "spelling": "trouble",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "逆境，不幸"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "aggression",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "侵犯，侵害"
+      }
+    ]
+  },
+  {
+    "spelling": "attack",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "侵犯，侵害"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "agreeable",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "令人愉快的；合适的；和蔼可亲的"
+      }
+    ]
+  },
+  {
+    "spelling": "pleasant",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "令人愉快的；合适的；和蔼可亲的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "aid",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "援助，帮助"
+      }
+    ]
+  },
+  {
+    "spelling": "help",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "援助，帮助"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "allergic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "过敏的；对……极讨厌的"
+      }
+    ]
+  },
+  {
+    "spelling": "irritate",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "过敏的；对……极讨厌的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "altitude",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "高度，海拔"
+      }
+    ]
+  },
+  {
+    "spelling": "height",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "高度，海拔"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "application",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "应用"
+      }
+    ]
+  },
+  {
+    "spelling": "utilization",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "应用"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "approve",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "批准"
+      }
+    ]
+  },
+  {
+    "spelling": "agree",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "批准"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "array",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "排列，大批"
+      }
+    ]
+  },
+  {
+    "spelling": "order",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "排列，大批"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "assign",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "分配，指派"
+      }
+    ]
+  },
+  {
+    "spelling": "allocate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "分配，指派"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "association",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "协会，联盟；联系"
+      }
+    ]
+  },
+  {
+    "spelling": "union",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "协会，联盟；联系"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "attitude",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "看法，态度"
+      }
+    ]
+  },
+  {
+    "spelling": "opinion",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "看法，态度"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "authority",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "当局，权威"
+      }
+    ]
+  },
+  {
+    "spelling": "government",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "当局，权威"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "be consistent with",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "与……一致"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "compatible",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "与……一致"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "bear",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "承担；忍受"
+      }
+    ]
+  },
+  {
+    "spelling": "tolerate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "承担；忍受"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "blight",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "损害；枯萎"
+      }
+    ]
+  },
+  {
+    "spelling": "destroy",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "损害；枯萎"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "boundary",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "边界；底线"
+      }
+    ]
+  },
+  {
+    "spelling": "barrier",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "边界；底线"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "bungle",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "搞糟，拙劣地工作"
+      }
+    ]
+  },
+  {
+    "spelling": "mishandle",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "搞糟，拙劣地工作"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "burden",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "负担"
+      }
+    ]
+  },
+  {
+    "spelling": "load",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "负担"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "calamity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "灾难"
+      }
+    ]
+  },
+  {
+    "spelling": "disaster",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "灾难"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "capacity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "容量"
+      }
+    ]
+  },
+  {
+    "spelling": "volume",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "容量"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "catastrophic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "灾难的"
+      }
+    ]
+  },
+  {
+    "spelling": "disastrous",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "灾难的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "cater",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "迎合；满足需求"
+      }
+    ]
+  },
+  {
+    "spelling": "serve",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "迎合；满足需求"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "certify",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "证明,保证"
+      }
+    ]
+  },
+  {
+    "spelling": "verify",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "证明,保证"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "civic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "实名的"
+      }
+    ]
+  },
+  {
+    "spelling": "municipal",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "实名的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "comment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "评论；意见v.评论"
+      }
+    ]
+  },
+  {
+    "spelling": "remark",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "评论；意见v.评论"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "commitment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "承诺，许诺，义务；致力"
+      }
+    ]
+  },
+  {
+    "spelling": "engagement",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "承诺，许诺，义务；致力"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "communal",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "公共的，公社的"
+      }
+    ]
+  },
+  {
+    "spelling": "public",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "公共的，公社的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "commute",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "通勤；用……交换"
+      }
+    ]
+  },
+  {
+    "spelling": "travel",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "通勤；用……交换"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "compare",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "与……相比较"
+      }
+    ]
+  },
+  {
+    "spelling": "contrast",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "与……相比较"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "conceal",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "隐藏；隐瞒"
+      }
+    ]
+  },
+  {
+    "spelling": "hide",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "隐藏；隐瞒"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "concentrate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "专心于；集中"
+      }
+    ]
+  },
+  {
+    "spelling": "focus",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "专心于；集中"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "concur",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "同意"
+      }
+    ]
+  },
+  {
+    "spelling": "confer",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "授予，给予"
+      }
+    ]
+  },
+  {
+    "spelling": "conflict",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "冲突，矛盾"
+      }
+    ]
+  },
+  {
+    "spelling": "unharmonious",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "冲突，矛盾"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "confuse",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使混乱，使迷惑"
+      }
+    ]
+  },
+  {
+    "spelling": "puzzle",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使混乱，使迷惑"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "conservative",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "保守的"
+      }
+    ]
+  },
+  {
+    "spelling": "traditional",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "保守的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "considerable",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "相当大的，重要的"
+      }
+    ]
+  },
+  {
+    "spelling": "significant",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "相当大的，重要的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "contingent",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "因情况而异的"
+      }
+    ]
+  },
+  {
+    "spelling": "uncertain",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "因情况而异的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "controversial",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有争论的"
+      }
+    ]
+  },
+  {
+    "spelling": "disputable",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有争论的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "correlation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "相关，关联"
+      }
+    ]
+  },
+  {
+    "spelling": "link",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "相关，关联"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "courtship",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "求爱（时期）"
+      }
+    ]
+  },
+  {
+    "spelling": "mate",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "求爱（时期）"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "crash",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "碰撞"
+      }
+    ]
+  },
+  {
+    "spelling": "collapse",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "碰撞"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "credibility",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "可信性"
+      }
+    ]
+  },
+  {
+    "spelling": "reliance",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "可信性"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "criminal",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "罪犯，犯人"
+      }
+    ]
+  },
+  {
+    "spelling": "conviction",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "罪犯，犯人"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "crisis",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "危机"
+      }
+    ]
+  },
+  {
+    "spelling": "criticism",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "评论"
+      }
+    ]
+  },
+  {
+    "spelling": "condemn",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "评论"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "curb",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "限制，抑制"
+      }
+    ]
+  },
+  {
+    "spelling": "restrict",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "限制，抑制"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "damp",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "潮湿的"
+      }
+    ]
+  },
+  {
+    "spelling": "wet",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "潮湿的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "dazzle",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使目眩；使……眼花"
+      }
+    ]
+  },
+  {
+    "spelling": "flash",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使目眩；使……眼花"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "deadline",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "最后期限"
+      }
+    ]
+  },
+  {
+    "spelling": "limit",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "最后期限"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "delay",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "延期，耽搁"
+      }
+    ]
+  },
+  {
+    "spelling": "postpone",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "延期，耽搁"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "democratic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "民主的"
+      }
+    ]
+  },
+  {
+    "spelling": "republic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "民主的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "demographic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "人口统计学的；人口学"
+      }
+    ]
+  },
+  {
+    "spelling": "population statistic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "人口统计学的；人口学"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "dental",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "牙科的，牙齿的"
+      }
+    ]
+  },
+  {
+    "spelling": "teeth",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "牙科的，牙齿的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "depression",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "抑郁，沮丧"
+      }
+    ]
+  },
+  {
+    "spelling": "frustration",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "抑郁，沮丧"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "designate",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "指定；指派，标出"
+      }
+    ]
+  },
+  {
+    "spelling": "appoint",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "指定；指派，标出"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "detain",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "留住"
+      }
+    ]
+  },
+  {
+    "spelling": "hold",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "留住"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "devastate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "毁坏，毁灭"
+      }
+    ]
+  },
+  {
+    "spelling": "wreck",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "毁坏，毁灭"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "disclose",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "公开；揭露"
+      }
+    ]
+  },
+  {
+    "spelling": "expose",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "公开；揭露"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "disparate",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "不同的"
+      }
+    ]
+  },
+  {
+    "spelling": "different",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "不同的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "display",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "显示"
+      }
+    ]
+  },
+  {
+    "spelling": "show",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "显示"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "disrupt",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "破坏"
+      }
+    ]
+  },
+  {
+    "spelling": "distract",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "转移，分心"
+      }
+    ]
+  },
+  {
+    "spelling": "divert",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "转移，分心"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "distribute",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "分配，分发"
+      }
+    ]
+  },
+  {
+    "spelling": "spread",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "分配，分发"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "documentation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "文件；文献"
+      }
+    ]
+  },
+  {
+    "spelling": "record",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "文件；文献"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "domain",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "领域"
+      }
+    ]
+  },
+  {
+    "spelling": "field",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "领域"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "dominant",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "占优势的，占支配地位的"
+      }
+    ]
+  },
+  {
+    "spelling": "overbearing",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "占优势的，占支配地位的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "dramatic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "戏剧化的；激动人心的，引人注意的"
+      }
+    ]
+  },
+  {
+    "spelling": "striking",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "戏剧化的；激动人心的，引人注意的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "drought",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "干旱"
+      }
+    ]
+  },
+  {
+    "spelling": "dry",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "干旱"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "durable",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "持久的"
+      }
+    ]
+  },
+  {
+    "spelling": "eco-friendly",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "生态有好的，环保的"
+      }
+    ]
+  },
+  {
+    "spelling": "environmentally-friendly",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "生态有好的，环保的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "elaborate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "详细阐述，详细叙述"
+      }
+    ]
+  },
+  {
+    "spelling": "elderly",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "高龄的"
+      }
+    ]
+  },
+  {
+    "spelling": "eliminate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "消除，排除"
+      }
+    ]
+  },
+  {
+    "spelling": "dispose",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "消除，排除"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "elusive",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "难懂的，难捉摸的；行踪隐秘的"
+      }
+    ]
+  },
+  {
+    "spelling": "hard",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "难懂的，难捉摸的；行踪隐秘的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "encyclopaedia",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "百科全书"
+      }
+    ]
+  },
+  {
+    "spelling": "entire range of knowledge",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "百科全书"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "entrepreneur",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "企业家"
+      }
+    ]
+  },
+  {
+    "spelling": "equator",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "赤道"
+      }
+    ]
+  },
+  {
+    "spelling": "geography",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "赤道"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "erratically",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "不定的，无视规律地"
+      }
+    ]
+  },
+  {
+    "spelling": "unpredictably",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "不定的，无视规律地"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "established",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "确定的；已制定的，已建立的"
+      }
+    ]
+  },
+  {
+    "spelling": "built",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "确定的；已制定的，已建立的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "estate",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "房地产"
+      }
+    ]
+  },
+  {
+    "spelling": "ethical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "道德的"
+      }
+    ]
+  },
+  {
+    "spelling": "eventually",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "最后，终于"
+      }
+    ]
+  },
+  {
+    "spelling": "finally",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "最后，终于"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "evidence",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "迹象；证据"
+      }
+    ]
+  },
+  {
+    "spelling": "proof",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "迹象；证据"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "evolve",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "进化，发展；逐渐形成"
+      }
+    ]
+  },
+  {
+    "spelling": "develop",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "进化，发展；逐渐形成"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "exhausted",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "疲惫的，耗尽的"
+      }
+    ]
+  },
+  {
+    "spelling": "fatigue",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "疲惫的，耗尽的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "experiment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "试验，试验"
+      }
+    ]
+  },
+  {
+    "spelling": "exceptional",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "异常的，特别出色的"
+      }
+    ]
+  },
+  {
+    "spelling": "extreme",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "异常的，特别出色的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "utmost",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "异常的，特别出色的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "explicit",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "明确的"
+      }
+    ]
+  },
+  {
+    "spelling": "exploit",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "开发，利用"
+      }
+    ]
+  },
+  {
+    "spelling": "use",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "开发，利用"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "extend",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "扩展，延伸，推广"
+      }
+    ]
+  },
+  {
+    "spelling": "expand",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "扩展，延伸，推广"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "extract",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "摘录v.提取"
+      }
+    ]
+  },
+  {
+    "spelling": "quotation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "摘录v.提取"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "famine",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "饥荒"
+      }
+    ]
+  },
+  {
+    "spelling": "hunger",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "饥荒"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "finite",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有限的"
+      }
+    ]
+  },
+  {
+    "spelling": "limited",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有限的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "fitness",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "健康的"
+      }
+    ]
+  },
+  {
+    "spelling": "health",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "健康的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "foe",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "敌人，危害物"
+      }
+    ]
+  },
+  {
+    "spelling": "enemy",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "敌人，危害物"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "format",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "格式"
+      }
+    ]
+  },
+  {
+    "spelling": "structure",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "格式"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "fragment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "碎片"
+      }
+    ]
+  },
+  {
+    "spelling": "piece",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "碎片"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "freeze",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "冰冻，冻结"
+      }
+    ]
+  },
+  {
+    "spelling": "chill",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "冰冻，冻结"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "fulfill",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "满足，实现"
+      }
+    ]
+  },
+  {
+    "spelling": "gene",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "基因"
+      }
+    ]
+  },
+  {
+    "spelling": "factor",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "基因"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "gifted",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有天赋的，有才华的"
+      }
+    ]
+  },
+  {
+    "spelling": "talented",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有天赋的，有才华的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "graphic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "形象的；图解的"
+      }
+    ]
+  },
+  {
+    "spelling": "picture",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "形象的；图解的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "habitat",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "栖息地，住所"
+      }
+    ]
+  },
+  {
+    "spelling": "residence",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "栖息地，住所"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "harbor",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "怀有n.海港"
+      }
+    ]
+  },
+  {
+    "spelling": "hardship",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "困苦；苦难"
+      }
+    ]
+  },
+  {
+    "spelling": "difficult",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "困苦；苦难"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "harsh",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "艰难的；严酷的"
+      }
+    ]
+  },
+  {
+    "spelling": "rough",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "艰难的；严酷的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "hypothesis",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "假设"
+      }
+    ]
+  },
+  {
+    "spelling": "assumption",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "假设"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "impact",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "影响"
+      }
+    ]
+  },
+  {
+    "spelling": "influence",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "影响"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "impressive",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "感人的；给人深刻印象的"
+      }
+    ]
+  },
+  {
+    "spelling": "touching",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "感人的；给人深刻印象的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "in accordance with",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "依照；与……一致"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "conform",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "依照；与……一致"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "inaccurate",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "错误的"
+      }
+    ]
+  },
+  {
+    "spelling": "inactive",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "不活跃的，不活动的"
+      }
+    ]
+  },
+  {
+    "spelling": "passive",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "不活跃的，不活动的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "inappropriate",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "不适当的"
+      }
+    ]
+  },
+  {
+    "spelling": "indulge",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "沉溺（于）"
+      }
+    ]
+  },
+  {
+    "spelling": "spoil",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "沉溺（于）"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "infest",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "侵害；寄生于"
+      }
+    ]
+  },
+  {
+    "spelling": "plague",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "侵害；寄生于"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "installment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "安装；分期付款"
+      }
+    ]
+  },
+  {
+    "spelling": "payment on its completion",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "安装；分期付款"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "intelligence",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "智力"
+      }
+    ]
+  },
+  {
+    "spelling": "mind",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "智力"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "intense",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "强烈的；紧张的；热情的"
+      }
+    ]
+  },
+  {
+    "spelling": "strong",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "强烈的；紧张的；热情的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "interaction",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "相互作用，交流互动"
+      }
+    ]
+  },
+  {
+    "spelling": "social activities",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "相互作用，交流互动"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "interference",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "干涉"
+      }
+    ]
+  },
+  {
+    "spelling": "interdependence",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "干涉"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "interior",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "内部adj.内部的"
+      }
+    ]
+  },
+  {
+    "spelling": "inner",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "内部adj.内部的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "interrupt",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "中断"
+      }
+    ]
+  },
+  {
+    "spelling": "introverted",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "内向的，含蓄的"
+      }
+    ]
+  },
+  {
+    "spelling": "shyness",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "内向的，含蓄的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "involve",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "包含，牵涉"
+      }
+    ]
+  },
+  {
+    "spelling": "associate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "包含，牵涉"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "keen",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "热切的；强迫的，强烈的"
+      }
+    ]
+  },
+  {
+    "spelling": "label",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "打上标签"
+      }
+    ]
+  },
+  {
+    "spelling": "lack",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "缺乏；不足"
+      }
+    ]
+  },
+  {
+    "spelling": "landscape",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "风景"
+      }
+    ]
+  },
+  {
+    "spelling": "likelihood",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "可能性"
+      }
+    ]
+  },
+  {
+    "spelling": "chance",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "可能性"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "limb",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "四肢"
+      }
+    ]
+  },
+  {
+    "spelling": "arm or leg",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "四肢"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "linguistic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "语言(学)的"
+      }
+    ]
+  },
+  {
+    "spelling": "language",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "语言(学)的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "log",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "记录n.原木"
+      }
+    ]
+  },
+  {
+    "spelling": "look-in",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "成功的机会"
+      }
+    ]
+  },
+  {
+    "spelling": "opportunity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "成功的机会"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "lopsided",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "不平衡的"
+      }
+    ]
+  },
+  {
+    "spelling": "uneven",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "不平衡的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "mainly",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "主要的，大体的"
+      }
+    ]
+  },
+  {
+    "spelling": "primarily",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "主要的，大体的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "malfunction",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "发生故障;不起作用"
+      }
+    ]
+  },
+  {
+    "spelling": "breakdown",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "发生故障;不起作用"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "mammal",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "哺乳动物"
+      }
+    ]
+  },
+  {
+    "spelling": "creature",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "哺乳动物"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "mange to do",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "设法完成某事"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "success",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "设法完成某事"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "manifest",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "出现，表现"
+      }
+    ]
+  },
+  {
+    "spelling": "obvious",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "出现，表现"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "manufacture",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "生产"
+      }
+    ]
+  },
+  {
+    "spelling": "produce",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "生产"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "marine",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "海产的；航海的；海运的"
+      }
+    ]
+  },
+  {
+    "spelling": "sea",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "海产的；航海的；海运的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "mate",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "配偶"
+      }
+    ]
+  },
+  {
+    "spelling": "spouse",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "配偶"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "mechanism",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "机制，原理"
+      }
+    ]
+  },
+  {
+    "spelling": "mental",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "精神的，心理的"
+      }
+    ]
+  },
+  {
+    "spelling": "intelligent",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "精神的，心理的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "mercury",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "汞，水银"
+      }
+    ]
+  },
+  {
+    "spelling": "liquid metal",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "汞，水银"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "meteorological",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "气象学的"
+      }
+    ]
+  },
+  {
+    "spelling": "weather",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "气象学的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "migrate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "转移,迁移"
+      }
+    ]
+  },
+  {
+    "spelling": "moisture",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "水分，湿度"
+      }
+    ]
+  },
+  {
+    "spelling": "humidity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "水分，湿度"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "monitor",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "监控"
+      }
+    ]
+  },
+  {
+    "spelling": "surveillance",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "监控"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "motif",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "主题；图形"
+      }
+    ]
+  },
+  {
+    "spelling": "theme",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "主题；图形"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "mould",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "模压，塑造；塑造成"
+      }
+    ]
+  },
+  {
+    "spelling": "form",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "模压，塑造；塑造成"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "native",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "本国的，土著的；天然的；天赋的"
+      }
+    ]
+  },
+  {
+    "spelling": "nocturnal",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "夜间的,夜间发生的"
+      }
+    ]
+  },
+  {
+    "spelling": "night",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "夜间的,夜间发生的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "norm",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "规范"
+      }
+    ]
+  },
+  {
+    "spelling": "regulation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "规范"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "notoriety",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "名声"
+      }
+    ]
+  },
+  {
+    "spelling": "famous",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "名声"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "objective",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "目标，目的adj.客观的"
+      }
+    ]
+  },
+  {
+    "spelling": "goal",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "目标，目的adj.客观的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "obligation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "义务"
+      }
+    ]
+  },
+  {
+    "spelling": "responsibility",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "义务"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "obscure",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "掩盖，使模糊不清"
+      }
+    ]
+  },
+  {
+    "spelling": "obtain",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "获得"
+      }
+    ]
+  },
+  {
+    "spelling": "get",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "获得"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "odd",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "古怪的"
+      }
+    ]
+  },
+  {
+    "spelling": "strange",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "古怪的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "odour",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "气味"
+      }
+    ]
+  },
+  {
+    "spelling": "smell",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "气味"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "offensive",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "冒犯的，无礼的"
+      }
+    ]
+  },
+  {
+    "spelling": "official",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "官员adj.官方的"
+      }
+    ]
+  },
+  {
+    "spelling": "optimum",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "最佳效果adj.最适宜的"
+      }
+    ]
+  },
+  {
+    "spelling": "best",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "最佳效果adj.最适宜的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "ordinary",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "普通的；平凡的；平常的"
+      }
+    ]
+  },
+  {
+    "spelling": "common",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "普通的；平凡的；平常的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "organ",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "器官；机构"
+      }
+    ]
+  },
+  {
+    "spelling": "a part of a body",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "器官；机构"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "out of the question",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "不可能"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "impossible",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "不可能"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "overcome",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "克服"
+      }
+    ]
+  },
+  {
+    "spelling": "defeat",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "克服"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "overtake",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "赶上"
+      }
+    ]
+  },
+  {
+    "spelling": "surpass",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "赶上"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "paralyse",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使……麻痹；使……瘫痪"
+      }
+    ]
+  },
+  {
+    "spelling": "cannot move",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使……麻痹；使……瘫痪"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "paramount",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "最重要的，主要的"
+      }
+    ]
+  },
+  {
+    "spelling": "principal",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "最重要的，主要的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "participate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "参加"
+      }
+    ]
+  },
+  {
+    "spelling": "join",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "参加"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "patient",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有耐性的，能容忍的n.病人；患者"
+      }
+    ]
+  },
+  {
+    "spelling": "repetitive",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有耐性的，能容忍的n.病人；患者"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "peak",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "最高峰，顶点v.使……达到顶峰"
+      }
+    ]
+  },
+  {
+    "spelling": "top",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "最高峰，顶点v.使……达到顶峰"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "permit",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "许可证，执照v.许可"
+      }
+    ]
+  },
+  {
+    "spelling": "allow",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "许可证，执照v.许可"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "persuade",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "说服，劝说"
+      }
+    ]
+  },
+  {
+    "spelling": "pessimistic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "悲观的"
+      }
+    ]
+  },
+  {
+    "spelling": "negative",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "悲观的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "phase",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "阶段"
+      }
+    ]
+  },
+  {
+    "spelling": "process",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "阶段"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "physical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "身体上的；物质的"
+      }
+    ]
+  },
+  {
+    "spelling": "body",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "身体上的；物质的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "plagiarise",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "抄袭"
+      }
+    ]
+  },
+  {
+    "spelling": "plenty of",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "大量的"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "many",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "大量的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "plot",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "密谋"
+      }
+    ]
+  },
+  {
+    "spelling": "plan",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "密谋"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "pose",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "提出，造成，形成"
+      }
+    ]
+  },
+  {
+    "spelling": "portable",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "可携带的"
+      }
+    ]
+  },
+  {
+    "spelling": "conveyable",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "可携带的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "poverty",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "贫穷"
+      }
+    ]
+  },
+  {
+    "spelling": "poor",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "贫穷"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "praise",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "赞扬"
+      }
+    ]
+  },
+  {
+    "spelling": "commend",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "赞扬"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "predict",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "预测，预知"
+      }
+    ]
+  },
+  {
+    "spelling": "expect",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "预测，预知"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "pressing",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "迫切的"
+      }
+    ]
+  },
+  {
+    "spelling": "private",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "私人的；私有的；私下的"
+      }
+    ]
+  },
+  {
+    "spelling": "personal",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "私人的；私有的；私下的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "prohibit",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "禁止的"
+      }
+    ]
+  },
+  {
+    "spelling": "not allowed",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "禁止的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "prolong",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "拉长，延长"
+      }
+    ]
+  },
+  {
+    "spelling": "promote",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "促进，推销"
+      }
+    ]
+  },
+  {
+    "spelling": "improve",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "促进，推销"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "prosper",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使成功，使繁荣"
+      }
+    ]
+  },
+  {
+    "spelling": "purify",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "净化"
+      }
+    ]
+  },
+  {
+    "spelling": "clean",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "净化"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "qualify",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "取得资格"
+      }
+    ]
+  },
+  {
+    "spelling": "radical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "彻底的，根本的"
+      }
+    ]
+  },
+  {
+    "spelling": "range",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "范围；幅度"
+      }
+    ]
+  },
+  {
+    "spelling": "rare",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "稀有的"
+      }
+    ]
+  },
+  {
+    "spelling": "unusual",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "稀有的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "rate",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "等级v.评估"
+      }
+    ]
+  },
+  {
+    "spelling": "rank",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "等级v.评估"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "react",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "反应"
+      }
+    ]
+  },
+  {
+    "spelling": "respond",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "反应"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "recreation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "娱乐，消遣"
+      }
+    ]
+  },
+  {
+    "spelling": "entertainment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "娱乐，消遣"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "reduction",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "下降，减少"
+      }
+    ]
+  },
+  {
+    "spelling": "refer to",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "指(的是)，涉及，提及"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "talk about",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "指(的是)，涉及，提及"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "rehearsal",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "排演；预演；练习"
+      }
+    ]
+  },
+  {
+    "spelling": "preparation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "排演；预演；练习"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "reject",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "拒绝，排斥，丢弃"
+      }
+    ]
+  },
+  {
+    "spelling": "exclude",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "拒绝，排斥，丢弃"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "relevant",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "相关的"
+      }
+    ]
+  },
+  {
+    "spelling": "relative",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "相关的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "religious",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "宗教的；虔诚的"
+      }
+    ]
+  },
+  {
+    "spelling": "sacred",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "宗教的；虔诚的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "reluctant",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "不情愿的"
+      }
+    ]
+  },
+  {
+    "spelling": "unwilling",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "不情愿的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "reproduce",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "繁殖"
+      }
+    ]
+  },
+  {
+    "spelling": "breed",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "繁殖"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "responsible",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "负责的，可靠的；有责任的"
+      }
+    ]
+  },
+  {
+    "spelling": "revision",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "修正"
+      }
+    ]
+  },
+  {
+    "spelling": "editing",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "修正"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "revive",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使复苏，恢复"
+      }
+    ]
+  },
+  {
+    "spelling": "renaissance",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "使复苏，恢复"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "ruin",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "毁灭"
+      }
+    ]
+  },
+  {
+    "spelling": "scenic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "风景优美的"
+      }
+    ]
+  },
+  {
+    "spelling": "beautiful",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "风景优美的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "shade",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "遮阳；阴影"
+      }
+    ]
+  },
+  {
+    "spelling": "shelter",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "遮阳；阴影"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "skepticism",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "怀疑"
+      }
+    ]
+  },
+  {
+    "spelling": "doubt",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "怀疑"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "soar",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "激增"
+      }
+    ]
+  },
+  {
+    "spelling": "increase",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "激增"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "solely",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "唯一地"
+      }
+    ]
+  },
+  {
+    "spelling": "alone",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "唯一地"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "solicitor",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "律师"
+      }
+    ]
+  },
+  {
+    "spelling": "lawyer",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "律师"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "steer",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "控制，引导"
+      }
+    ]
+  },
+  {
+    "spelling": "manage",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "控制，引导"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "stimulate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "刺激，激励"
+      }
+    ]
+  },
+  {
+    "spelling": "stride",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "进展"
+      }
+    ]
+  },
+  {
+    "spelling": "progress advance",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "进展"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "succumb",
+    "pos": "vi.",
+    "glosses": [
+      {
+        "pos": "vi.",
+        "meaning": "屈服"
+      }
+    ]
+  },
+  {
+    "spelling": "subdivide",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "把……细分"
+      }
+    ]
+  },
+  {
+    "spelling": "break down",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "把……细分"
+      }
+    ],
+    "flags": [
+      "synonym_substitution",
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "subtle",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "微妙的"
+      }
+    ]
+  },
+  {
+    "spelling": "substance",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "物质；实质"
+      }
+    ]
+  },
+  {
+    "spelling": "matter",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "物质；实质"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "sufficiency",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "足量，充足"
+      }
+    ]
+  },
+  {
+    "spelling": "sufficien",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "足够的"
+      }
+    ]
+  },
+  {
+    "spelling": "supersede",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "取代，代替"
+      }
+    ]
+  },
+  {
+    "spelling": "replace",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "取代，代替"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "suppress",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "抑制，隐瞒"
+      }
+    ]
+  },
+  {
+    "spelling": "inferior",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "至高无上，很高的地位"
+      }
+    ]
+  },
+  {
+    "spelling": "prioritize",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "至高无上，很高的地位"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "suspicious",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "可疑的"
+      }
+    ]
+  },
+  {
+    "spelling": "sustainable",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "可持续的"
+      }
+    ]
+  },
+  {
+    "spelling": "long-term",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "可持续的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "symptom",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "症状，征兆"
+      }
+    ]
+  },
+  {
+    "spelling": "tension",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "紧张，不安"
+      }
+    ]
+  },
+  {
+    "spelling": "upset",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "紧张，不安"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "term",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "术语"
+      }
+    ]
+  },
+  {
+    "spelling": "word",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "术语"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "throughout",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "自始至终，到处；全部"
+      }
+    ]
+  },
+  {
+    "spelling": "anywhere",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "自始至终，到处；全部"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "toll",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "通行费v.征收"
+      }
+    ]
+  },
+  {
+    "spelling": "charge",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "通行费v.征收"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "trace",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "追溯；痕迹"
+      }
+    ]
+  },
+  {
+    "spelling": "track",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "追溯；痕迹"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "transcend",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "胜过，超越"
+      }
+    ]
+  },
+  {
+    "spelling": "excel",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "胜过，超越"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "transit",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "运输；经过v.运送"
+      }
+    ]
+  },
+  {
+    "spelling": "tremendous",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "巨大的，惊人的"
+      }
+    ]
+  },
+  {
+    "spelling": "vast",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "巨大的，惊人的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "trigger",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "触发，引发，引起"
+      }
+    ]
+  },
+  {
+    "spelling": "begin",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "触发，引发，引起"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "tropical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "热带的"
+      }
+    ]
+  },
+  {
+    "spelling": "hot",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "热带的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "unbiased",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "公正的，无偏见的"
+      }
+    ]
+  },
+  {
+    "spelling": "uniform",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "始终如一的"
+      }
+    ]
+  },
+  {
+    "spelling": "consistent",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "始终如一的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "valuable",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "宝贵的，有价值的"
+      }
+    ]
+  },
+  {
+    "spelling": "benefit",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "宝贵的，有价值的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "versatile",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "多功能"
+      }
+    ]
+  },
+  {
+    "spelling": "all-around",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "多功能"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "view",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "看"
+      }
+    ]
+  },
+  {
+    "spelling": "violent",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "暴力的；猛烈的"
+      }
+    ]
+  },
+  {
+    "spelling": "fierce",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "暴力的；猛烈的"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "visible",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "明显的，看得见的"
+      }
+    ]
+  },
+  {
+    "spelling": "visual",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "是觉得"
+      }
+    ]
+  },
+  {
+    "spelling": "image",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "是觉得"
+      }
+    ],
+    "flags": [
+      "synonym_substitution"
+    ]
+  },
+  {
+    "spelling": "well-being",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "健康，康乐"
+      }
+    ]
+  }
+]

@@ -1,0 +1,834 @@
+[
+  {
+    "spelling": "a sense of belonging",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "归属感"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "be deeply rooted in",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "深深扎根于"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "develop practical skills",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "培养实践技能"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "keep up with the latest developments",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "跟上最新发展"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a peaceful environment",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "安静舒适的环境"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "meet my needs",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "满足我的需求"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "have easy access to",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "方便获得/去往"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a well-connected area",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "交通便利的区域"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a fast-paced lifestyle",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "快节奏生活"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a high standard of living",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "高生活水平"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "green spaces",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "绿色空间"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "unwind after a long day",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "忙碌一天后放松"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "spark my curiosity",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "激发我的好奇心"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "scientific breakthroughs",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "科学突破"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "architectural features",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "建筑特色"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "cultural significance",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "文化意义"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "breathtaking scenery",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "令人惊叹的风景"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "natural beauty",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "自然美景"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "enjoy a panoramic view of",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "欣赏全景"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a sense of tranquillity",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "宁静感"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "scientific discoveries",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "科学发现"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "practical applications",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "实际应用"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "fuel-efficient vehicles",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "节能汽车"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a convenient means of transportation",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "便利的交通方式"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "have a positive influence on",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "产生积极影响"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "inspire students to",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "激励学生去……"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "stay connected with",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "保持联系"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "addictive nature",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "容易上瘾的特性"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "keep track of time",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "掌握时间/记录时间"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "serve a practical purpose",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "具有实际用途"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "reliable sources of information",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "可靠的信息来源"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "user-friendly interface",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "用户友好的界面"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pay attention to my appearance",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "注意自己的外表"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "personal grooming",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "个人仪表管理"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a thoughtful gift",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "用心准备的礼物"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "show appreciation",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "表达感谢"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "provide emotional support",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "提供情感支持"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "take responsibility for",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "承担责任"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a balanced diet",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "均衡饮食"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "traditional cuisine",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "传统美食"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "work as a team",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "团队合作"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "build team spirit",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "培养团队精神"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "create lasting memories",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "创造持久的回忆"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "spend time outdoors",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "花时间在户外"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "make an informed decision",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "做出明智决定"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "good value for money",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "物有所值"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "express my emotions",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "表达情感"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "boost my mood",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "改善心情"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "go through different stages of life",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "经历不同人生阶段"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "personal growth",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "个人成长"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "start the day on the right foot",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "以良好状态开始一天"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "morning routine",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "早晨习惯"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "broaden my knowledge",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "拓宽知识面"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "get absorbed in a book",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "沉浸在书中"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "clear my mind",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "放空思绪"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "stay physically active",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "保持身体活跃"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "improve my efficiency",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "提高效率"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "digital skills",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "数字技能"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "keep my surroundings tidy",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "保持周围整洁"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a clutter-free environment",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "没有杂物的环境"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "have a strong emotional connection with",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "与……有强烈情感联系"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a source of relaxation",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "放松来源"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pursue a hobby",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "培养/追求兴趣爱好"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "take up a new hobby",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "开始一个新爱好"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  }
+]

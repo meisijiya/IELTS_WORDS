@@ -1,0 +1,2840 @@
+[
+  {
+    "spelling": "life",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "生命"
+      }
+    ]
+  },
+  {
+    "spelling": "an easy life",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "安逸的生活"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "start a new life",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "开始新的生活"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "social life",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "社交生活"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "come to life",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "变得更有趣"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "be full of life",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "充满活力"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "lifelong friend",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一生的挚友"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "vitality",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "生命力"
+      }
+    ]
+  },
+  {
+    "spelling": "vitamin",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "维生素"
+      }
+    ]
+  },
+  {
+    "spelling": "vivid",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "生动的"
+      }
+    ]
+  },
+  {
+    "spelling": "vibrant",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有活力的"
+      }
+    ]
+  },
+  {
+    "spelling": "Viva La Vida",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "生命万岁"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "enjoy",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "喜欢, 享受, 享有"
+      }
+    ]
+  },
+  {
+    "spelling": "enjoyable",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "享受的"
+      }
+    ]
+  },
+  {
+    "spelling": "enjoyment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "快乐"
+      }
+    ]
+  },
+  {
+    "spelling": "catch a film",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "看电影"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "catch my eye",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "吸引我"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "catch my fancy",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "让我中意"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "catch up with someone",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "叙旧"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "catchy lyrics and tunes",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "朗朗上口的歌词和曲调"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "an open person",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "开朗的人"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "open my mind",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "打开思路"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "open my eyes",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "开阔视野"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "open the door t",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "打开通往...的大门"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "hit the shops",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "到达"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "hit the gym",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "到达"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "hit the town",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "到达"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "hit the street",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "到达"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "hit the market",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "到达"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "hit it off",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "投缘, 相处的融洽"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a hit film",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "火"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a hit song",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "火"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "fix my mind on",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "专注"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "fix a problem",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "解决问题"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "fix the environment",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "治理环境"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "fixed",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "固定的"
+      }
+    ]
+  },
+  {
+    "spelling": "fancy",
+    "pos": "adj./v.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "精致的, 高级的"
+      },
+      {
+        "pos": "v.",
+        "meaning": "喜欢"
+      }
+    ]
+  },
+  {
+    "spelling": "fancy someone",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "喜欢"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a fancy gift",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "精致的, 高级的"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a fancy restaurant",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "精致的, 高级的"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "look at the stars",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "星星"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a famous sta",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "明星"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "star someone",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "由...出演"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "rise to fame",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "成名"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "famous",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "著名的"
+      }
+    ]
+  },
+  {
+    "spelling": "go on a long journey",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "长途旅行"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "enjoy long history",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "享有悠久的历史"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "long to do something",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "渴望做某事"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "have peace of mind",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "心平气和"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "beautiful mind",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "美丽心灵"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "have a good state of mind",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "有好的心态"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "have a keen mind",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "有敏锐的头脑"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a keen hike",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "热衷于...的人"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a keen swimme",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "热衷于...的人"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "be in two minds about",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "纠结"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "make up my mind",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "决定"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "blow my mind",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "打动我的心"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "For example",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "例如"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "Take ... for example",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "例如"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a perfect example",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一个典型的例子"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "set a good example f",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "树立好的榜样"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "build up confidence",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "建立信心"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "hang out",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "出去玩"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "hang around",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "闲逛"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "get the hang of",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "熟练的运用"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "language sense",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "预感"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a sense of inner peace",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一种感觉"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a sense of excitement",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一种感觉"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a sense of happiness",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一种感觉"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a sense of security",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一种感觉"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a sense of freedom",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一种感觉"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a sense of humou",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一种感觉"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "make sense",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "有道理"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a sense of humou",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "幽默感"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling",
+      "duplicate_word"
+    ]
+  },
+  {
+    "spelling": "humorous",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "幽默的"
+      }
+    ]
+  },
+  {
+    "spelling": "British Humou",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "英式幽默"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "be keen on",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "喜爱"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a keen reade",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "热衷于...的人"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a keen playe",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "热衷于...的人"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "chic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "时尚的"
+      }
+    ]
+  },
+  {
+    "spelling": "a coffee shop",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "咖啡厅"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "cafe",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "咖啡厅"
+      }
+    ]
+  },
+  {
+    "spelling": "lie at or on or in",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "位于"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "lie back",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "放松"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "tell a lie",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "说谎"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pick",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "选择"
+      }
+    ]
+  },
+  {
+    "spelling": "pick and choose",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "精挑细选"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pick some out",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "选出"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pick up something",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学习"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pick up a skill",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学习一个技能"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pick one's brains",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学习某人的智慧"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a picky person",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "挑剔的人"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a pick-me-up",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "提神的饮料"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a favourite of mine",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "最爱"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "old favourites",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "最爱"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "my all-time favourite",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "最爱"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "favourite music",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "最爱"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "favour doing",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "偏爱某事"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "fit me well",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "适合我"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "fit in with someone",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "和某人相处的很融洽"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "keep fit",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "保持健康"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "be fit as a fiddle",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "特别健康"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "take a phot",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "照相"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "photography",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "摄影"
+      }
+    ]
+  },
+  {
+    "spelling": "photogenic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "上相的"
+      }
+    ]
+  },
+  {
+    "spelling": "hold all the aces",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "占据天时地利"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "be ace at",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "擅长"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "have an ace time",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "度过愉快的时光"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "keep in shape",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "保持身材"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "shape the mind",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "塑造思想"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "reflect well on someone",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "给某人好的印象"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "reflect on my life",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "反思生活"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "get lost",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "迷路"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "get lost",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "迷失"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling",
+      "duplicate_word"
+    ]
+  },
+  {
+    "spelling": "be lost in something",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "沉浸在其中"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "deep",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有深度的"
+      }
+    ]
+  },
+  {
+    "spelling": "be in a deep sleep",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "深度睡眠"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "deep conversation",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "有深度的交流"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "think deeply",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "深度思考"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "deep into the night",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "深夜"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "leave a deep impression on",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "留下深刻的印象"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a salty or bitter or sweet or spicy taste",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "味道"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "my first taste",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "第一次体验"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "have very good taste in",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "对...有很高的鉴赏力"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "be a matter of personal taste",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "个人爱好的问题"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "acquire a taste of",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "尝试"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "inspire someone",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "激励"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "inspire me with confidence",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "给我信心"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "inspiration",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "灵感"
+      }
+    ]
+  },
+  {
+    "spelling": "inspirational",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "鼓舞人心的"
+      }
+    ]
+  },
+  {
+    "spelling": "gift",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "礼物"
+      }
+    ]
+  },
+  {
+    "spelling": "work",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "工作"
+      }
+    ]
+  },
+  {
+    "spelling": "work hard",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "努力"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "work for peace",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "努力取得和平"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "work out",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "锻炼身体"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "art work",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "艺术品"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a genuine art work",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "真迹"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "have a genuine liking f",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "真心喜欢"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "genuinely",
+    "pos": "adv.",
+    "glosses": [
+      {
+        "pos": "adv.",
+        "meaning": "衷心地"
+      }
+    ]
+  },
+  {
+    "spelling": "approach",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "方法"
+      }
+    ]
+  },
+  {
+    "spelling": "approachable",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "平易近人的"
+      }
+    ]
+  },
+  {
+    "spelling": "feel down",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "感到不开心"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "be down-to-earth",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "脚踏实地"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "let someone down",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "让某人失望"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "have a down on sb or sth",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "差评"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "look down on my phone",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "看手机"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "gravity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "重力"
+      }
+    ]
+  },
+  {
+    "spelling": "the gravity of the situation",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "问题的严重性"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "gravitate to someone",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "被...所吸引"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "share something",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "分享"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "share the bill",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "AA"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "shared bicycle",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "共享单车"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "freezing days",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "寒冷的天"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "freeze happy moments",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "定格快乐的时刻"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "muse",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "谬斯女神"
+      }
+    ]
+  },
+  {
+    "spelling": "muse",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "灵感"
+      }
+    ],
+    "flags": [
+      "duplicate_word"
+    ]
+  },
+  {
+    "spelling": "a muse",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "艺术方面有造诣的人"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "amusement",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "愉悦"
+      }
+    ]
+  },
+  {
+    "spelling": "amusing",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有趣的"
+      }
+    ]
+  },
+  {
+    "spelling": "interest",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "好处, 利益"
+      }
+    ]
+  },
+  {
+    "spelling": "have an interest in",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "有利益关系"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "show great interest in",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "特别感兴趣"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "show no interest in",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "没兴趣"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "interesting",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有趣的"
+      }
+    ]
+  },
+  {
+    "spelling": "interested",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "感兴趣的"
+      }
+    ]
+  },
+  {
+    "spelling": "word",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "单词"
+      }
+    ]
+  },
+  {
+    "spelling": "words",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "语言"
+      }
+    ]
+  },
+  {
+    "spelling": "words of wisdom",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "智慧的语言"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "give someone my word",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "承诺"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "keep my word",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "遵守承诺"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "have a word with someone",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "和某人私聊"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "In a word",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "总之"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a book love",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "喜欢读书的人"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a book of stamps",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一套邮票"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "book hotels",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "预定酒店"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "an open book",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "开朗的人"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "be full of energy",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "充满精力"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "put all his or her heart and energy int",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "全身心投入"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "give someone positive energy",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "给我正能量"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "energetic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有活力的"
+      }
+    ]
+  },
+  {
+    "spelling": "raise salaries or prices or taxes",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "提高"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "raise money",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "众筹"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "raise our green awareness",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "提升我们的环保意识"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "raise someone up",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "抚养, 培育"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "be born and raised",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "土生土长"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pay a bill",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "支付"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pay me compliments",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "赞美我"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pay good money for something",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "花很多钱"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pay off",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "功不唐援"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pay attention t",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "关注"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "credit cards",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "信用卡"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "give someone a credit",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "赞美某人"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "take a pride in someone",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "为某人感到骄傲自豪"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "be worth doing",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "值得做某事"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "worthwhile",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "值得的"
+      }
+    ]
+  },
+  {
+    "spelling": "It is worthwhile to d",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "值得做某事"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "perform well",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "表现地好"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a singing performance",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "演唱会"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a born performe",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "天生的演员"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "give someone a buzz",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "打电话"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "get buzz out of something",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "获得快乐感"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a buzz of excitement",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "十分兴奋, 期待"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a buzz of expectation",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "十分兴奋, 期待"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "bring me a lot of fun",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "给我带来快乐"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "bring people closer togethe",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "拉近人们直接的距离"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "play an important role in",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "扮演重要的角色"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "gain benefits",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "获得好处"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "gain in confidence",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "增加信心"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "gain an insight int",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "深度了解"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "have a better understanding of",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "更好的理解"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "engage in",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "参加"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "engaging",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有趣的"
+      }
+    ]
+  },
+  {
+    "spelling": "harbou",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "海港, 拥抱, 持有"
+      }
+    ]
+  },
+  {
+    "spelling": "pool",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "池子, 整合, 汇聚"
+      }
+    ]
+  },
+  {
+    "spelling": "mi",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "镜子, 反映"
+      }
+    ]
+  },
+  {
+    "spelling": "bridge",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "桥, 连接"
+      }
+    ]
+  },
+  {
+    "spelling": "tail",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "裁缝, 定制"
+      }
+    ]
+  },
+  {
+    "spelling": "harness",
+    "pos": "n./v.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "马具, 利用"
+      }
+    ]
+  },
+  {
+    "spelling": "hook",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "钩子"
+      }
+    ]
+  },
+  {
+    "spelling": "be hooked on",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "着迷"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "have positive or negative effect on",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "有影响"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "have a direct impact on",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "有直接影响"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "have the great impact on",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "有重要影响"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "help a lot in doing",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "有助于做某事"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "come to an end",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "结束"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "at the end of the day",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "在最后"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "end up doing something",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "结果..."
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "end up becoming a teache",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "结果成了一名老师"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  }
+]

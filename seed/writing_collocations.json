@@ -1,0 +1,1610 @@
+[
+  {
+    "spelling": "subject",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "科目"
+      }
+    ]
+  },
+  {
+    "spelling": "humanities",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "人文学科"
+      }
+    ]
+  },
+  {
+    "spelling": "social sciences",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "社会学科"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "natural science",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "自然学科"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "basic sciences",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "基础学科"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "applied science",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "应用学科"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "distance education",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "远程教育"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "compulsory course",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "必修课"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "optional course",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "选修课"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "credits",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "学分"
+      }
+    ]
+  },
+  {
+    "spelling": "awareness",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "意识"
+      }
+    ]
+  },
+  {
+    "spelling": "creative",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有创造性的"
+      }
+    ]
+  },
+  {
+    "spelling": "original",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "新颖的,原创的"
+      }
+    ]
+  },
+  {
+    "spelling": "physical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "身体上的,生理上的"
+      }
+    ]
+  },
+  {
+    "spelling": "emotional",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "情感上的"
+      }
+    ]
+  },
+  {
+    "spelling": "psychological",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "心理上的"
+      }
+    ]
+  },
+  {
+    "spelling": "peers",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "同龄人"
+      }
+    ]
+  },
+  {
+    "spelling": "motivation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "动力"
+      }
+    ]
+  },
+  {
+    "spelling": "stimulating",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "令人激动的"
+      }
+    ]
+  },
+  {
+    "spelling": "acquire",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "获取"
+      }
+    ]
+  },
+  {
+    "spelling": "practical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "实际的"
+      }
+    ]
+  },
+  {
+    "spelling": "philosophical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "哲学的;抽象的"
+      }
+    ]
+  },
+  {
+    "spelling": "develop",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "培养"
+      }
+    ]
+  },
+  {
+    "spelling": "versatile",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "全面发展的;多才多艺的"
+      }
+    ]
+  },
+  {
+    "spelling": "theoretical knowledge",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "理论知识"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "draw inspiration",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "获取灵感"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "teaching method",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "教学方法"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "job skills",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "就业技能"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "expectation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "期望"
+      }
+    ]
+  },
+  {
+    "spelling": "ambition",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "志向"
+      }
+    ]
+  },
+  {
+    "spelling": "competitive",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "竞争激烈的"
+      }
+    ]
+  },
+  {
+    "spelling": "self-esteem",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "自尊"
+      }
+    ]
+  },
+  {
+    "spelling": "think independently",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "独立思考"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "think critically",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "批判地思考"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "evaluate",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "评价"
+      }
+    ]
+  },
+  {
+    "spelling": "feedback",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "反馈"
+      }
+    ]
+  },
+  {
+    "spelling": "sense of frustration",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "挫败感"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a positive attitude toward life",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "积极的人生态度"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "scope of knowledge",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "知识面"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "comprehensive knowledge",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "广博的知识"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "multimedia teaching",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "多媒体教学"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "solid professional working experience",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "扎实的职业工作经验"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "vocational education",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "职业教育"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "stress-related illness",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "与压力有关的疾病"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "the cultural diversity",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "文化的多元性"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "vocational guidance",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "职业指导"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "vocational training",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "职业训练"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "exam-oriented education",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "应试教育"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "education for all-round development",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "全面发展教育"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "fake diplomas",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "假文凭"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "compulsory education",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "义务教育"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "quality education",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "素质教育"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "rote learning",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "死记硬背"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "student-oriented education",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "以学生为主体的教育"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "bias of culture",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "文化偏见"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "cradle of culture",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "文化摇篮"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "mainstream culture",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "主流文化"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "system of education",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "教育体制"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "intellectual development",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "智力发展"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "thinking capacity",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "思考能力"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "universal language",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "世界语"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "linguistic studies",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "语言学研究"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a means of communication",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一种交流工具"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "mechanical translation",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "机械翻译"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "verbal communication",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "口头交流"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "grammatical rules",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "语法规则"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a complex progress",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一个复杂过程"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "an unrealistic dream",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一个不切实际的梦想"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "face-to-face communication",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "面对面交流"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "artificial intelligence",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "人工智能"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "easy accessibility",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "易于操作"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "speedy communication",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "快速的交流"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "language acquisition",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "语言习得"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "precious gift",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "宝贵的礼物"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "mission impossible",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "不可能的任务"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "cultural insights",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "文化视野"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "culture shock",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "文化冲击"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "explore the foreign culture",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "探索外国文化"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "conflict",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "冲突;争端"
+      }
+    ]
+  },
+  {
+    "spelling": "overcome the prejudices",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "克服偏见"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "exotic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "异族的;异国风味的"
+      }
+    ]
+  },
+  {
+    "spelling": "first-hand experience",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "亲身体验"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "second-hand source",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "二手资源"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "refreshing",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "提神的"
+      }
+    ]
+  },
+  {
+    "spelling": "tourist attractions",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "旅游景点"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "expand one's vision",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "开阔眼界"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "Tourists can interact with the locals",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "游客可以和当地人互动"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "promote cultural communication",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "促进文化交流"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "mutual understanding",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "相互了解"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "seclude the tourists from the locals",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "把游客和当地人隔离"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "tourist trap",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "欺骗游客的手段文化视角"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a thrilling experience",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一种令人激动的经历"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "lasting artistic works",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "永恒的艺术作品"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "direct experience",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "直接经验"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "spiritual enhancement",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "精神升华"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "a sense of cool and satisfaction",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一种惬意的感觉"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "an essence of immortality",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "永恒的精髓"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "value of knowledge",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "知识的价值"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "cultural differences",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "文化差异性"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "cultural diversity",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "文化多元化"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "cultural treasures",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "文化宝藏"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "cross-cultural communication",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "跨文化交流"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "cultural reconstruction",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "文化重建"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "spiritual civilization",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "精神文明"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "achievements of art",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "艺术成就"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "humane historical sites",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "人文历史遗址"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "high-rise office buildings",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "高层写字楼"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "city construction",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "城市建设"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "visual enjoyment",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "视觉享受"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "driving force",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "驱动力"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "architectural industry",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "建筑工业"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "city designing",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "城市设计"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "architectural vandalism",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "破坏建筑行为"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "cultural needs",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "文化需求"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "Independent travel",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "自由行"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "Group travel",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "跟团旅行"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "tourist-facing businesses",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "旅游产业"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "Voyagers",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "游客"
+      }
+    ]
+  },
+  {
+    "spelling": "right to know",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "知情权"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "information era",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "信息时代"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "audience",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "观众"
+      }
+    ]
+  },
+  {
+    "spelling": "information-explosion society",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "信息爆炸的社会"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "various thrilling programs",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "各种各样激动人心的节目"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "Popula",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "流行的;受欢迎的"
+      }
+    ]
+  },
+  {
+    "spelling": "Famous",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "著名的"
+      }
+    ]
+  },
+  {
+    "spelling": "Objective",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "客观的"
+      }
+    ]
+  },
+  {
+    "spelling": "subjective",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "主观的"
+      }
+    ]
+  },
+  {
+    "spelling": "be biased against",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "有偏见的"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "celebrity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "名人"
+      }
+    ]
+  },
+  {
+    "spelling": "journalist",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "记者"
+      }
+    ]
+  },
+  {
+    "spelling": "propaganda",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "宣传"
+      }
+    ]
+  },
+  {
+    "spelling": "popularity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "知名度"
+      }
+    ]
+  }
+]

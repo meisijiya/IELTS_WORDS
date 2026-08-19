@@ -1,0 +1,9301 @@
+[
+  {
+    "spelling": "campus",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "校园"
+      }
+    ]
+  },
+  {
+    "spelling": "live on campus",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "住学校"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "dormitory",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "宿舍"
+      }
+    ]
+  },
+  {
+    "spelling": "hall of residence",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学生公寓, 大学宿舍"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "student hostel",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学生宿舍"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "live off campus",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "住校外"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "homestay",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "寄宿家庭"
+      }
+    ]
+  },
+  {
+    "spelling": "rent a house",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "租房"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "rent a room",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "租房"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "apartment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "公寓"
+      }
+    ]
+  },
+  {
+    "spelling": "flat",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "公寓"
+      }
+    ]
+  },
+  {
+    "spelling": "studio apartment",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "单间公寓"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "en-suite",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "带独立卫生间的套间"
+      }
+    ]
+  },
+  {
+    "spelling": "en-suite",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "带独立卫生间的"
+      }
+    ]
+  },
+  {
+    "spelling": "bedsit",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "卧室兼起居室"
+      }
+    ]
+  },
+  {
+    "spelling": "house",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "独幢住宅"
+      }
+    ]
+  },
+  {
+    "spelling": "cottage",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "村舍, 小别墅"
+      }
+    ]
+  },
+  {
+    "spelling": "village",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "村庄"
+      }
+    ]
+  },
+  {
+    "spelling": "noisy",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "吵闹的"
+      }
+    ]
+  },
+  {
+    "spelling": "environment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "环境"
+      }
+    ]
+  },
+  {
+    "spelling": "surroundings",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "环境"
+      }
+    ]
+  },
+  {
+    "spelling": "neighbourhood",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "小区"
+      }
+    ]
+  },
+  {
+    "spelling": "no privacy",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "没有私人空间"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "private",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "私密的"
+      }
+    ]
+  },
+  {
+    "spelling": "owner of the house",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "房东"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "unhelpful owne",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "不合作的房东"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "unsympathetic owne",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "不具有同情心的房东"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "landlord",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "房东"
+      }
+    ]
+  },
+  {
+    "spelling": "landlady",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "女房东"
+      }
+    ]
+  },
+  {
+    "spelling": "tenant",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "房客"
+      }
+    ]
+  },
+  {
+    "spelling": "close to work",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "离工作地点近"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "close to school",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "离学校近"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "close to station",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "离公交车站近"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pet",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "宠物"
+      }
+    ]
+  },
+  {
+    "spelling": "pets are not allowed",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "禁止养宠物"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "location",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "位置"
+      }
+    ]
+  },
+  {
+    "spelling": "urban",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "城市"
+      }
+    ]
+  },
+  {
+    "spelling": "suburb",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "城郊"
+      }
+    ]
+  },
+  {
+    "spelling": "rural area",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "乡村"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "city centre",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "市中心"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "north-eastern part",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "东北部"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "hall",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "大厅"
+      }
+    ]
+  },
+  {
+    "spelling": "main hall",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "大厅"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "entrance hall",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "入口"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "dining hall",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "餐厅"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "Town Hall",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "市政厅"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "lobby",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "大厅, 休息室"
+      }
+    ]
+  },
+  {
+    "spelling": "lounge",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "休息室"
+      }
+    ]
+  },
+  {
+    "spelling": "corrid",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "走廊"
+      }
+    ]
+  },
+  {
+    "spelling": "room",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "房间"
+      }
+    ]
+  },
+  {
+    "spelling": "single room",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "单人间"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "twin room",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "两个单人床的双人间"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "double room",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一张双人床的双人间"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "triple room",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "三人间"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "bedroom",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "卧室"
+      }
+    ]
+  },
+  {
+    "spelling": "living room",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "起居室, 客厅"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "study",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "书房"
+      }
+    ]
+  },
+  {
+    "spelling": "basement",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "地下室"
+      }
+    ]
+  },
+  {
+    "spelling": "balcony",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "阳台"
+      }
+    ]
+  },
+  {
+    "spelling": "garage",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "车库"
+      }
+    ]
+  },
+  {
+    "spelling": "furnished",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "有家具的"
+      }
+    ]
+  },
+  {
+    "spelling": "furniture",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "家具"
+      }
+    ]
+  },
+  {
+    "spelling": "decoration",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "装饰"
+      }
+    ]
+  },
+  {
+    "spelling": "carpet",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "地毯, 毯子"
+      }
+    ]
+  },
+  {
+    "spelling": "cushion",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "垫子"
+      }
+    ]
+  },
+  {
+    "spelling": "roof",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "屋顶"
+      }
+    ]
+  },
+  {
+    "spelling": "ceiling",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "天花板"
+      }
+    ]
+  },
+  {
+    "spelling": "curtain",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "窗帘"
+      }
+    ]
+  },
+  {
+    "spelling": "cabinet",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "橱柜, 内阁"
+      }
+    ]
+  },
+  {
+    "spelling": "closet",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "衣橱"
+      }
+    ]
+  },
+  {
+    "spelling": "bookshelf",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "书橱"
+      }
+    ]
+  },
+  {
+    "spelling": "mattress",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "床垫"
+      }
+    ]
+  },
+  {
+    "spelling": "bed sheet",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "床单"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pillow",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "枕头"
+      }
+    ]
+  },
+  {
+    "spelling": "oven",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "烤箱"
+      }
+    ]
+  },
+  {
+    "spelling": "microwave oven",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "微波炉"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "toaste",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "烤面包机"
+      }
+    ]
+  },
+  {
+    "spelling": "washing machine",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "洗衣机"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "refrigerat",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "电冰箱"
+      }
+    ]
+  },
+  {
+    "spelling": "heate",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "暖气"
+      }
+    ]
+  },
+  {
+    "spelling": "window",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "窗户"
+      }
+    ]
+  },
+  {
+    "spelling": "d",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "门"
+      }
+    ]
+  },
+  {
+    "spelling": "back d",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "后门"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "water heate",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "热水器"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "fire",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "火"
+      }
+    ]
+  },
+  {
+    "spelling": "fire blanket",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "灭火毯"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "fire alarm",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "报火警"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "air conditione",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "空调"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "air conditioning",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "空调"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "rent",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "房租"
+      }
+    ]
+  },
+  {
+    "spelling": "deposit",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "押金"
+      }
+    ]
+  },
+  {
+    "spelling": "bill",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "账单"
+      }
+    ]
+  },
+  {
+    "spelling": "water bill",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "水费"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "electricity bill",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "电费"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "gas bill",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "煤气费"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "phone bill",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "电话费"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "internet bill",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "网费"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "payment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "支付"
+      }
+    ]
+  },
+  {
+    "spelling": "tou",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "旅行"
+      }
+    ]
+  },
+  {
+    "spelling": "trip",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "旅行"
+      }
+    ]
+  },
+  {
+    "spelling": "travel",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "旅行"
+      }
+    ]
+  },
+  {
+    "spelling": "journey",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "旅行"
+      }
+    ]
+  },
+  {
+    "spelling": "voyage",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "航海"
+      }
+    ]
+  },
+  {
+    "spelling": "guided tou",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "有向导的旅行"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "self-service tou",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "自助游"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "package tou",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "团队游"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "travel agency",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "旅行社"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "excursion",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "短途旅行"
+      }
+    ]
+  },
+  {
+    "spelling": "expedition",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "远征, 探险"
+      }
+    ]
+  },
+  {
+    "spelling": "picnic",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "野餐"
+      }
+    ]
+  },
+  {
+    "spelling": "tourism",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "旅游业"
+      }
+    ]
+  },
+  {
+    "spelling": "tourist industry",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "旅游业"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "ecotourism",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "生态游"
+      }
+    ]
+  },
+  {
+    "spelling": "reserve",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "预订"
+      }
+    ]
+  },
+  {
+    "spelling": "reservation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "预订"
+      }
+    ]
+  },
+  {
+    "spelling": "seat reservation",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "预订一个座位"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "to reserve a seat",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "预订一个座位"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "booking",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "预订"
+      }
+    ]
+  },
+  {
+    "spelling": "cancel",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "取消"
+      }
+    ]
+  },
+  {
+    "spelling": "cancellation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "取消"
+      }
+    ]
+  },
+  {
+    "spelling": "notice",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "通知"
+      }
+    ]
+  },
+  {
+    "spelling": "notice board",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "公告栏"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "transport",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "交通运输"
+      }
+    ]
+  },
+  {
+    "spelling": "public transport",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "公共交通"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "transportation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "交通运输"
+      }
+    ]
+  },
+  {
+    "spelling": "traffic",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "交通"
+      }
+    ]
+  },
+  {
+    "spelling": "traffic jam",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "交通堵塞"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "traffic lights",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "交通信号灯"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "congestion",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "拥挤"
+      }
+    ]
+  },
+  {
+    "spelling": "vehicle",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "交通工具"
+      }
+    ]
+  },
+  {
+    "spelling": "flight",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "航班"
+      }
+    ]
+  },
+  {
+    "spelling": "flight numbe",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "航班号"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "boarding pass",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "登机牌"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "terminal",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "航站楼"
+      }
+    ]
+  },
+  {
+    "spelling": "first class",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "头等舱"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "business class",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "商务舱"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "economy class",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "经济舱"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "coach",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "长途汽车"
+      }
+    ]
+  },
+  {
+    "spelling": "train",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "火车"
+      }
+    ]
+  },
+  {
+    "spelling": "underground",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "地下的"
+      }
+    ]
+  },
+  {
+    "spelling": "underground railway",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "地铁"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "tube",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "地铁"
+      }
+    ]
+  },
+  {
+    "spelling": "subway",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "地铁"
+      }
+    ]
+  },
+  {
+    "spelling": "underground car park",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "地下停车场"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "wheel",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "车轮, 方向盘"
+      }
+    ]
+  },
+  {
+    "spelling": "four-wheel drive",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "四轮驱动"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "wheelchai",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "轮椅"
+      }
+    ]
+  },
+  {
+    "spelling": "cab",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "出租车"
+      }
+    ]
+  },
+  {
+    "spelling": "taxi",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "出租车"
+      }
+    ]
+  },
+  {
+    "spelling": "bus",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "公交车"
+      }
+    ]
+  },
+  {
+    "spelling": "bus system",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "公交系统"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "bus route",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "公交线路"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "hotel",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "酒店"
+      }
+    ]
+  },
+  {
+    "spelling": "motel",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "汽车旅馆"
+      }
+    ]
+  },
+  {
+    "spelling": "hostel",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "旅社, 招待所"
+      }
+    ]
+  },
+  {
+    "spelling": "youth hostel",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "青年旅馆"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "holiday house",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "度假屋"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "campsite",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "营地"
+      }
+    ]
+  },
+  {
+    "spelling": "passport",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "护照"
+      }
+    ]
+  },
+  {
+    "spelling": "visa",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "签证"
+      }
+    ]
+  },
+  {
+    "spelling": "driving license",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "驾照"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "driving licence",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "驾照"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "insurance",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "保险"
+      }
+    ]
+  },
+  {
+    "spelling": "charge",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "收费, 费用"
+      }
+    ]
+  },
+  {
+    "spelling": "service charge",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "服务费"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "free of charge",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "免费"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "refund",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "退款"
+      }
+    ]
+  },
+  {
+    "spelling": "refund",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "退款"
+      }
+    ]
+  },
+  {
+    "spelling": "full refund",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "全额退款"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "traveler's check",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "旅行支票"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "currency",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "货币"
+      }
+    ]
+  },
+  {
+    "spelling": "torch",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "手电筒"
+      }
+    ]
+  },
+  {
+    "spelling": "flashlight",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "手电筒"
+      }
+    ]
+  },
+  {
+    "spelling": "sunglasses",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "太阳镜"
+      }
+    ]
+  },
+  {
+    "spelling": "tent",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "帐篷"
+      }
+    ]
+  },
+  {
+    "spelling": "boot",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "靴子"
+      }
+    ]
+  },
+  {
+    "spelling": "walking boots",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "步行靴"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "hiking boots",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "步行靴"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "compass",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "指南针"
+      }
+    ]
+  },
+  {
+    "spelling": "sun cream",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "防晒霜"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "sun lotion",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "防晒霜"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "landscape",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "风景"
+      }
+    ]
+  },
+  {
+    "spelling": "scenery",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "风景"
+      }
+    ]
+  },
+  {
+    "spelling": "picturesque scenery",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "风景如画"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "resort",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "旅游胜地"
+      }
+    ]
+  },
+  {
+    "spelling": "historical interest",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "历史名胜"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "tourist attraction",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "旅游景点"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "scenic spot",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "旅游景点"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "indigenous",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "本土的"
+      }
+    ]
+  },
+  {
+    "spelling": "domestic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "国内的"
+      }
+    ]
+  },
+  {
+    "spelling": "local",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "当地的"
+      }
+    ]
+  },
+  {
+    "spelling": "exotic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "异国的, 外来的"
+      }
+    ]
+  },
+  {
+    "spelling": "museum",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "博物馆"
+      }
+    ]
+  },
+  {
+    "spelling": "American Museum",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "美国博物馆"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "gallery",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "画廊"
+      }
+    ]
+  },
+  {
+    "spelling": "art gallery",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "艺术画廊"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "castle",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "城堡"
+      }
+    ]
+  },
+  {
+    "spelling": "towe",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "塔"
+      }
+    ]
+  },
+  {
+    "spelling": "Tower of London",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "伦敦塔"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "waterfall",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "瀑布"
+      }
+    ]
+  },
+  {
+    "spelling": "temple",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "庙, 寺"
+      }
+    ]
+  },
+  {
+    "spelling": "harbou",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "海港"
+      }
+    ]
+  },
+  {
+    "spelling": "harb",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "海港"
+      }
+    ]
+  },
+  {
+    "spelling": "church",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "教堂"
+      }
+    ]
+  },
+  {
+    "spelling": "cathedral",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "大教堂"
+      }
+    ]
+  },
+  {
+    "spelling": "wetland",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "湿地, 沼泽地"
+      }
+    ]
+  },
+  {
+    "spelling": "marshland",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "沼泽地"
+      }
+    ]
+  },
+  {
+    "spelling": "souveni",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "纪念品"
+      }
+    ]
+  },
+  {
+    "spelling": "souvenir shop",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "纪念品商店"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "gift shop",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "纪念品商店"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "viewpoint",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "观点"
+      }
+    ]
+  },
+  {
+    "spelling": "footbridge",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "步行桥"
+      }
+    ]
+  },
+  {
+    "spelling": "activity",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "活动"
+      }
+    ]
+  },
+  {
+    "spelling": "cycling",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "骑脚踏车"
+      }
+    ]
+  },
+  {
+    "spelling": "camping",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "露营"
+      }
+    ]
+  },
+  {
+    "spelling": "hiking",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "徒步旅行"
+      }
+    ]
+  },
+  {
+    "spelling": "surfing",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "冲浪"
+      }
+    ]
+  },
+  {
+    "spelling": "driving",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "潜水"
+      }
+    ]
+  },
+  {
+    "spelling": "cruising",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "游轮观光"
+      }
+    ]
+  },
+  {
+    "spelling": "bushwalking",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "丛林探险"
+      }
+    ]
+  },
+  {
+    "spelling": "bird watching",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "欣赏鸟类"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "horse riding",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "骑马"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "caving",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "洞穴探险"
+      }
+    ]
+  },
+  {
+    "spelling": "cave",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "洞穴"
+      }
+    ]
+  },
+  {
+    "spelling": "explore caves",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "洞穴探险"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "festival",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "节日"
+      }
+    ]
+  },
+  {
+    "spelling": "music festival",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "音乐节"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "art festival",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "艺术节"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "account",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "账户"
+      }
+    ]
+  },
+  {
+    "spelling": "open an account",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "开户"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "savings account",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "储蓄账户"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "current account",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "活期账户"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "deposit account",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "定期账户"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "select account",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "精选账户"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "joint account",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "联名账户"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "instant account",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "快速账户"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "deposit",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "存钱"
+      }
+    ]
+  },
+  {
+    "spelling": "withdraw",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "取钱"
+      }
+    ]
+  },
+  {
+    "spelling": "overdraw",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "透支"
+      }
+    ]
+  },
+  {
+    "spelling": "overdraft",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "透支"
+      }
+    ]
+  },
+  {
+    "spelling": "cash",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "现金"
+      }
+    ]
+  },
+  {
+    "spelling": "cash",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "兑现"
+      }
+    ]
+  },
+  {
+    "spelling": "credit card",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "信用卡"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "credit limit",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "信用额度"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "money",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "钱"
+      }
+    ]
+  },
+  {
+    "spelling": "money orde",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "汇票"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "password",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "密码"
+      }
+    ]
+  },
+  {
+    "spelling": "internet",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "网络"
+      }
+    ]
+  },
+  {
+    "spelling": "internet service",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "网络服务"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "email",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "电子邮件"
+      }
+    ]
+  },
+  {
+    "spelling": "change",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "零钱"
+      }
+    ]
+  },
+  {
+    "spelling": "cover charge",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "服务费"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "rate",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "率"
+      }
+    ]
+  },
+  {
+    "spelling": "exchange rate",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "汇率"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "interest rate",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "利率"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "loan",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "贷款"
+      }
+    ]
+  },
+  {
+    "spelling": "be on loan",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "暂借的"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "low-interest loan",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "低息贷款"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "no-interest loan",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "无息贷款"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "debt",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "债务"
+      }
+    ]
+  },
+  {
+    "spelling": "statement",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "银行对账单"
+      }
+    ]
+  },
+  {
+    "spelling": "balance",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "余额"
+      }
+    ]
+  },
+  {
+    "spelling": "unit",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "货币单位"
+      }
+    ]
+  },
+  {
+    "spelling": "pound",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "英镑"
+      }
+    ]
+  },
+  {
+    "spelling": "penny",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "便士"
+      }
+    ]
+  },
+  {
+    "spelling": "dolla",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "美元"
+      }
+    ]
+  },
+  {
+    "spelling": "cent",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "分"
+      }
+    ]
+  },
+  {
+    "spelling": "eu",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "欧元"
+      }
+    ]
+  },
+  {
+    "spelling": "telle",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "出纳员"
+      }
+    ]
+  },
+  {
+    "spelling": "cashie",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "收银员"
+      }
+    ]
+  },
+  {
+    "spelling": "clerk",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "职工"
+      }
+    ]
+  },
+  {
+    "spelling": "facility",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "设施"
+      }
+    ]
+  },
+  {
+    "spelling": "equipment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "设备"
+      }
+    ]
+  },
+  {
+    "spelling": "infrastructure",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "基础设施"
+      }
+    ]
+  },
+  {
+    "spelling": "accommodation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "食宿"
+      }
+    ]
+  },
+  {
+    "spelling": "live on campus",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "住校内"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "live off campus",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "住校外"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "dormitory",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "宿舍"
+      }
+    ]
+  },
+  {
+    "spelling": "dining hall",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "食堂"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "cafeteria",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "食堂, 自助餐厅"
+      }
+    ]
+  },
+  {
+    "spelling": "canteen",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "食堂"
+      }
+    ]
+  },
+  {
+    "spelling": "refectory",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "食堂"
+      }
+    ]
+  },
+  {
+    "spelling": "common room",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "师生共用休息室"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "restroom",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "公共厕所"
+      }
+    ]
+  },
+  {
+    "spelling": "foye",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "门厅, 休息室"
+      }
+    ]
+  },
+  {
+    "spelling": "main building",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "主楼"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "main hall",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "大厅, 大礼堂"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "auditorium",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "大礼堂"
+      }
+    ]
+  },
+  {
+    "spelling": "school",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "院, 系"
+      }
+    ]
+  },
+  {
+    "spelling": "division",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "院, 系"
+      }
+    ]
+  },
+  {
+    "spelling": "department",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "学院"
+      }
+    ]
+  },
+  {
+    "spelling": "faculty",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "院, 系"
+      }
+    ]
+  },
+  {
+    "spelling": "conference room",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "会议室"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "lecture room",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "阶梯教室"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "lecture theatre",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "阶梯教室"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "teaching building",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "教学楼"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "administrating office",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "行政办公室"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "faculty room",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "教师办公室"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "laboratory",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "实验室"
+      }
+    ]
+  },
+  {
+    "spelling": "student union",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学生会"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "club",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "学生俱乐部"
+      }
+    ]
+  },
+  {
+    "spelling": "society",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "学生社团"
+      }
+    ]
+  },
+  {
+    "spelling": "lavatory",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "卫生间"
+      }
+    ]
+  },
+  {
+    "spelling": "bathroom",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "浴室, 卫生间"
+      }
+    ]
+  },
+  {
+    "spelling": "toilet",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "厕所"
+      }
+    ]
+  },
+  {
+    "spelling": "washroom",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "卫生间"
+      }
+    ]
+  },
+  {
+    "spelling": "cloakroom",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "盥洗室, 衣物寄存处"
+      }
+    ]
+  },
+  {
+    "spelling": "library",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "图书馆"
+      }
+    ]
+  },
+  {
+    "spelling": "reception",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "接待处"
+      }
+    ]
+  },
+  {
+    "spelling": "language centre",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "语言中心"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "computer laboratory",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "机房"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "health care",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "医院"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "medical centre",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "医院"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "nursery",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "幼儿园"
+      }
+    ]
+  },
+  {
+    "spelling": "locker room",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "更衣室"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "parking lot",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "停车场"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "car park",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "停车场"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "playground",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "操场"
+      }
+    ]
+  },
+  {
+    "spelling": "counselling centre",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "咨询中心"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "career advice centre",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "就业咨询中心"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "fitness centre",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "健身中心"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "gym",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "健身中心"
+      }
+    ]
+  },
+  {
+    "spelling": "sports centre",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "健身中心"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "ind",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "室内的"
+      }
+    ]
+  },
+  {
+    "spelling": "indoor arena",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "室内竞技场"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "indoor stadium",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "室内体育馆"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "entertainment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "娱乐"
+      }
+    ]
+  },
+  {
+    "spelling": "entertainment complex",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "综合娱乐中心"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "stadium",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "体育场"
+      }
+    ]
+  },
+  {
+    "spelling": "apply",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "申请"
+      }
+    ]
+  },
+  {
+    "spelling": "apply f",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "申请"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "reference",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "推荐信, 推荐人"
+      }
+    ]
+  },
+  {
+    "spelling": "referee",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "推荐人"
+      }
+    ]
+  },
+  {
+    "spelling": "letter of recommendation",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "推荐信"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "transcript",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "成绩单"
+      }
+    ]
+  },
+  {
+    "spelling": "enrollment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "注册, 登记, 报道"
+      }
+    ]
+  },
+  {
+    "spelling": "enrolment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "注册, 登记, 报道"
+      }
+    ]
+  },
+  {
+    "spelling": "enrol in",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "注册, 登记, 报道"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "register f",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "注册, 登记, 报道"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "sign up f",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "注册, 登记, 报道"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "eligible",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "符合条件的, 合格的"
+      }
+    ]
+  },
+  {
+    "spelling": "be eligible f",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "符合于, 对合格"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "orientation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "新生入学培训, 新员工培训"
+      }
+    ]
+  },
+  {
+    "spelling": "orientation day",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "报到日"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "orientation week",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "入学周"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "orientation tou",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "校园参观"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "orientation talk",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "情况介绍"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "welcome package",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "入学欢迎辞"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pack",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "包裹"
+      }
+    ]
+  },
+  {
+    "spelling": "student pack",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学生包裹"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "conference pack",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "会议包裹"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "packing material",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "包装材料"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "baggage",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "行李"
+      }
+    ]
+  },
+  {
+    "spelling": "luggage",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "行李"
+      }
+    ]
+  },
+  {
+    "spelling": "test",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "测试"
+      }
+    ]
+  },
+  {
+    "spelling": "placement test",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "分班测试"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "test of leadership",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "领导才能的测试"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "primary school",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "小学"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "elementary school",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "小学"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "pupil",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "小学生, 瞳孔"
+      }
+    ]
+  },
+  {
+    "spelling": "secondary school",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "中学"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "higher education",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "高等教育"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "college",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "大学, 学院"
+      }
+    ]
+  },
+  {
+    "spelling": "university",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "大学"
+      }
+    ]
+  },
+  {
+    "spelling": "institute",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "学院, 研究所"
+      }
+    ]
+  },
+  {
+    "spelling": "boarding school",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "寄宿学校"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "fee",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "费用"
+      }
+    ]
+  },
+  {
+    "spelling": "tuition fee",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学费"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "living cost",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "生活费"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "cost",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "花费"
+      }
+    ]
+  },
+  {
+    "spelling": "expenditure",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "花费, 费用"
+      }
+    ]
+  },
+  {
+    "spelling": "expense",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "花费"
+      }
+    ]
+  },
+  {
+    "spelling": "grant",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "奖学金, 助学金"
+      }
+    ]
+  },
+  {
+    "spelling": "scholarship",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "奖学金"
+      }
+    ]
+  },
+  {
+    "spelling": "fellowship",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "奖学金"
+      }
+    ]
+  },
+  {
+    "spelling": "assistantship",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "助学金"
+      }
+    ]
+  },
+  {
+    "spelling": "qualification",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "资格, 资历, 条件"
+      }
+    ]
+  },
+  {
+    "spelling": "certificate",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "证书"
+      }
+    ]
+  },
+  {
+    "spelling": "diploma",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "学历"
+      }
+    ]
+  },
+  {
+    "spelling": "undergraduate diploma",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "本科学历"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "postgraduate diploma",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "研究生学历"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "vocational diploma",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "职业学历证书"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "associate diploma",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "专科学历"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "degree",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "学位"
+      }
+    ]
+  },
+  {
+    "spelling": "bachelor's degree",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学士学位"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "master's degree",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "硕士学位"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "doctor's degree",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "博士学位"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "applicant",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "申请者"
+      }
+    ]
+  },
+  {
+    "spelling": "candidate",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "候选人"
+      }
+    ]
+  },
+  {
+    "spelling": "representative",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "代表"
+      }
+    ]
+  },
+  {
+    "spelling": "deputy",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "代表"
+      }
+    ]
+  },
+  {
+    "spelling": "student representative",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学生代表"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "local student",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "当地学生"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "resident student",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "当地学生"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "domestic student",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "当地学生"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "overseas student",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "留学生"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "international student",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "国际学生"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "transfer student",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "转校生"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "adult student",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "成年学生"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "mature student",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "成年学生"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "undergraduate",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "本科生"
+      }
+    ]
+  },
+  {
+    "spelling": "postgraduate",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "研究生"
+      }
+    ]
+  },
+  {
+    "spelling": "doct",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "博士"
+      }
+    ]
+  },
+  {
+    "spelling": "graduate",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "毕业生"
+      }
+    ]
+  },
+  {
+    "spelling": "freshman",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "大一学生"
+      }
+    ]
+  },
+  {
+    "spelling": "first-year student",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "大一学生"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "sophomore",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "大二学生"
+      }
+    ]
+  },
+  {
+    "spelling": "second-year student",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "大二学生"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "juni",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "大三学生"
+      }
+    ]
+  },
+  {
+    "spelling": "third-year student",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "大三学生"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "seni",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "大四学生"
+      }
+    ]
+  },
+  {
+    "spelling": "fourth-year student",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "大四学生"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "full-time student",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "全日制学生"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "part-time student",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "兼职学生"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "maj",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "专业"
+      }
+    ]
+  },
+  {
+    "spelling": "major in",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "主修"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "specialise in",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "专攻, 主修"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "subject",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "专业"
+      }
+    ]
+  },
+  {
+    "spelling": "specialty",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "专业"
+      }
+    ]
+  },
+  {
+    "spelling": "discipline",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "纪律, 学科"
+      }
+    ]
+  },
+  {
+    "spelling": "school of Arts",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "文学院"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "school of Sciences",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "理学院"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "school of law",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "法学院"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "education department",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "教育学院"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "department store",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "百货公司"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "course",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "课程"
+      }
+    ]
+  },
+  {
+    "spelling": "session",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "课程"
+      }
+    ]
+  },
+  {
+    "spelling": "curriculum",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "课程"
+      }
+    ]
+  },
+  {
+    "spelling": "compulsory course",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "必修课"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "required course",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "必修课"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "selective course",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "选修课"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "optional course",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "选修课"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "modular course",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "单元课程"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "advanced course",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "高级课程"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "intermediate course",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "中级课程"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "beginning course",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "初级课程"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "basic course",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "入门课程"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "intensive course",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "强化课"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "refresher course",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "进修课"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "specialised course",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "专业课"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "extra-curriculum",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "课外"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "extra-curriculum activity",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "课外活动"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "after-school activity",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "课外活动"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "lecture",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "授课"
+      }
+    ]
+  },
+  {
+    "spelling": "semina",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "研讨会"
+      }
+    ]
+  },
+  {
+    "spelling": "workshop",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "研讨会"
+      }
+    ]
+  },
+  {
+    "spelling": "tutorial",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "个人辅导课程"
+      }
+    ]
+  },
+  {
+    "spelling": "discussion",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "讨论"
+      }
+    ]
+  },
+  {
+    "spelling": "group discussion",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "小组讨论"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "syllabus",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "教学大纲"
+      }
+    ]
+  },
+  {
+    "spelling": "study",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "学习, 研究"
+      }
+    ]
+  },
+  {
+    "spelling": "environmental studies",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "环境学"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "business studies",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "商业研究"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "Advanced English Studies",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "高级英语学"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "case study",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "案例分析"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "study aids",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "教具"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "term",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "学期"
+      }
+    ]
+  },
+  {
+    "spelling": "semeste",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "学期"
+      }
+    ]
+  },
+  {
+    "spelling": "end of term",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学期末"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "academic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "学术的"
+      }
+    ]
+  },
+  {
+    "spelling": "an academic yea",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "一学年"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "academic study",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学术研究"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "academic circle",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学术界"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "academic record",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学习成绩"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "academic writing",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学术著作"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "science",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "理科"
+      }
+    ]
+  },
+  {
+    "spelling": "arts",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "文科"
+      }
+    ]
+  },
+  {
+    "spelling": "Sociology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "社会学"
+      }
+    ]
+  },
+  {
+    "spelling": "Psychology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "心理学"
+      }
+    ]
+  },
+  {
+    "spelling": "Physiology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "生理学"
+      }
+    ]
+  },
+  {
+    "spelling": "Geology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "地质学"
+      }
+    ]
+  },
+  {
+    "spelling": "Biology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "生物学"
+      }
+    ]
+  },
+  {
+    "spelling": "Microbiology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "微生物学"
+      }
+    ]
+  },
+  {
+    "spelling": "Anthropology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "人类学"
+      }
+    ]
+  },
+  {
+    "spelling": "Archaeology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "考古学"
+      }
+    ]
+  },
+  {
+    "spelling": "Linguistics",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "语言学"
+      }
+    ]
+  },
+  {
+    "spelling": "Sociolinguistics",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "社会语言学"
+      }
+    ]
+  },
+  {
+    "spelling": "Politics",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "政治"
+      }
+    ]
+  },
+  {
+    "spelling": "Statistics",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "统计学"
+      }
+    ]
+  },
+  {
+    "spelling": "Economics",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "经济学"
+      }
+    ]
+  },
+  {
+    "spelling": "Physics",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "物理学"
+      }
+    ]
+  },
+  {
+    "spelling": "Literature",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "文学"
+      }
+    ]
+  },
+  {
+    "spelling": "Architecture",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "建筑学"
+      }
+    ]
+  },
+  {
+    "spelling": "Agriculture",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "农学"
+      }
+    ]
+  },
+  {
+    "spelling": "Engineering",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "工程学"
+      }
+    ]
+  },
+  {
+    "spelling": "Marketing",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "市场营销学"
+      }
+    ]
+  },
+  {
+    "spelling": "Accounting",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "会计学"
+      }
+    ]
+  },
+  {
+    "spelling": "Computing",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "计算机"
+      }
+    ]
+  },
+  {
+    "spelling": "Nursing",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "护理专业"
+      }
+    ]
+  },
+  {
+    "spelling": "Philosophy",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "哲学"
+      }
+    ]
+  },
+  {
+    "spelling": "Geography",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "地理"
+      }
+    ]
+  },
+  {
+    "spelling": "Medicine",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "医学"
+      }
+    ]
+  },
+  {
+    "spelling": "Finance",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "金融学"
+      }
+    ]
+  },
+  {
+    "spelling": "Astronomy",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "天文学"
+      }
+    ]
+  },
+  {
+    "spelling": "History",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "历史"
+      }
+    ]
+  },
+  {
+    "spelling": "Environment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "环境"
+      }
+    ]
+  },
+  {
+    "spelling": "Business",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "商学"
+      }
+    ]
+  },
+  {
+    "spelling": "sociology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "社会学"
+      }
+    ]
+  },
+  {
+    "spelling": "psychology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "心理学"
+      }
+    ]
+  },
+  {
+    "spelling": "psychologist",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "心理学家"
+      }
+    ]
+  },
+  {
+    "spelling": "psychological",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "心理的"
+      }
+    ]
+  },
+  {
+    "spelling": "psychological problem",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "心理问题"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "physiology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "生理学"
+      }
+    ]
+  },
+  {
+    "spelling": "geology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "地质学"
+      }
+    ]
+  },
+  {
+    "spelling": "geological feature",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "地质特征"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "biology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "生物学"
+      }
+    ]
+  },
+  {
+    "spelling": "biologist",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "生物学家"
+      }
+    ]
+  },
+  {
+    "spelling": "biological",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "生物的"
+      }
+    ]
+  },
+  {
+    "spelling": "microbiology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "微生物学"
+      }
+    ]
+  },
+  {
+    "spelling": "anthropology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "人类学"
+      }
+    ]
+  },
+  {
+    "spelling": "archaeology",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "考古学"
+      }
+    ]
+  },
+  {
+    "spelling": "linguistics",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "语言学"
+      }
+    ]
+  },
+  {
+    "spelling": "sociolinguistics",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "社会语言学"
+      }
+    ]
+  },
+  {
+    "spelling": "politics",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "政治"
+      }
+    ]
+  },
+  {
+    "spelling": "statistics",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "统计学"
+      }
+    ]
+  },
+  {
+    "spelling": "economics",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "经济学"
+      }
+    ]
+  },
+  {
+    "spelling": "economy",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "经济"
+      }
+    ]
+  },
+  {
+    "spelling": "economic",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "经济的"
+      }
+    ]
+  },
+  {
+    "spelling": "economical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "节俭的, 合算的"
+      }
+    ]
+  },
+  {
+    "spelling": "uneconomical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "不划算的"
+      }
+    ]
+  },
+  {
+    "spelling": "physics",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "物理学"
+      }
+    ]
+  },
+  {
+    "spelling": "literature",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "文学"
+      }
+    ]
+  },
+  {
+    "spelling": "literature review",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "文献综述"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "architecture",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "建筑学, 建筑"
+      }
+    ]
+  },
+  {
+    "spelling": "architect",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "建筑师"
+      }
+    ]
+  },
+  {
+    "spelling": "agriculture",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "农学"
+      }
+    ]
+  },
+  {
+    "spelling": "agricultural",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "农业的"
+      }
+    ]
+  },
+  {
+    "spelling": "engineering",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "工程学"
+      }
+    ]
+  },
+  {
+    "spelling": "enginee",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "工程师"
+      }
+    ]
+  },
+  {
+    "spelling": "marketing",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "市场营销学"
+      }
+    ]
+  },
+  {
+    "spelling": "marketing management",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "市场营销学"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "accounting",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "会计学"
+      }
+    ]
+  },
+  {
+    "spelling": "accountancy",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "会计学"
+      }
+    ]
+  },
+  {
+    "spelling": "accountant",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "会计"
+      }
+    ]
+  },
+  {
+    "spelling": "computing",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "计算机"
+      }
+    ]
+  },
+  {
+    "spelling": "nursing",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "护理专业"
+      }
+    ]
+  },
+  {
+    "spelling": "philosophy",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "哲学"
+      }
+    ]
+  },
+  {
+    "spelling": "geography",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "地理"
+      }
+    ]
+  },
+  {
+    "spelling": "medicine",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "医学"
+      }
+    ]
+  },
+  {
+    "spelling": "finance",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "金融学"
+      }
+    ]
+  },
+  {
+    "spelling": "financial",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "财政的, 金融的"
+      }
+    ]
+  },
+  {
+    "spelling": "astronomy",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "天文学"
+      }
+    ]
+  },
+  {
+    "spelling": "astronaut",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "宇航员"
+      }
+    ]
+  },
+  {
+    "spelling": "history",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "历史"
+      }
+    ]
+  },
+  {
+    "spelling": "local history",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "当地历史"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "medical history",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "疾病史"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "historian",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "历史学家"
+      }
+    ]
+  },
+  {
+    "spelling": "historical",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "历史的"
+      }
+    ]
+  },
+  {
+    "spelling": "historical interest",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "名胜古迹"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "environmental",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "环境的"
+      }
+    ]
+  },
+  {
+    "spelling": "environmental studies",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "环境学"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "environmental-friendly",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "环保的"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "business",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "商学"
+      }
+    ]
+  },
+  {
+    "spelling": "international business",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "国际贸易"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "assignment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "作业, 论文"
+      }
+    ]
+  },
+  {
+    "spelling": "essay",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "文章, 短论文"
+      }
+    ]
+  },
+  {
+    "spelling": "pape",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "论文"
+      }
+    ]
+  },
+  {
+    "spelling": "thesis",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "论文"
+      }
+    ]
+  },
+  {
+    "spelling": "dissertation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "毕业论文, 博士论文"
+      }
+    ]
+  },
+  {
+    "spelling": "dissertation tutorial",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "论文辅导"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "report",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "报告"
+      }
+    ]
+  },
+  {
+    "spelling": "report",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "报告"
+      }
+    ]
+  },
+  {
+    "spelling": "report writing",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "报告撰写"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "reporte",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "记者"
+      }
+    ]
+  },
+  {
+    "spelling": "conference reports",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "会议报告"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "study report",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "研究报告"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "academic report",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学术报告"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "annual report",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "年度报告"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "report to cop",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "报警"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "journal",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "日记, 期刊"
+      }
+    ]
+  },
+  {
+    "spelling": "diary",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "日记"
+      }
+    ]
+  },
+  {
+    "spelling": "case study",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "案例分析"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "project",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "项目, 计划, 课题"
+      }
+    ]
+  },
+  {
+    "spelling": "written work",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "书面作业"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "oral work",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "口头作业"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "course work",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "课程作业"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "content",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "内容, 目录"
+      }
+    ]
+  },
+  {
+    "spelling": "abstract",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "摘要"
+      }
+    ]
+  },
+  {
+    "spelling": "index",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "索引"
+      }
+    ]
+  },
+  {
+    "spelling": "keyword",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "关键词"
+      }
+    ]
+  },
+  {
+    "spelling": "summary",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "概要"
+      }
+    ]
+  },
+  {
+    "spelling": "summarise",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "总结"
+      }
+    ]
+  },
+  {
+    "spelling": "title",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "标题"
+      }
+    ]
+  },
+  {
+    "spelling": "subtitle",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "副标题, 字幕"
+      }
+    ]
+  },
+  {
+    "spelling": "heading",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "标题"
+      }
+    ]
+  },
+  {
+    "spelling": "subheading",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "副标题"
+      }
+    ]
+  },
+  {
+    "spelling": "outline",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "提纲"
+      }
+    ]
+  },
+  {
+    "spelling": "slide",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "幻灯片"
+      }
+    ]
+  },
+  {
+    "spelling": "handout",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "讲义"
+      }
+    ]
+  },
+  {
+    "spelling": "teaching material",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "讲义"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "worksheet",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "工作记录表"
+      }
+    ]
+  },
+  {
+    "spelling": "background",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "背景"
+      }
+    ]
+  },
+  {
+    "spelling": "theoretical background",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "理论背景"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "example",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "例子"
+      }
+    ]
+  },
+  {
+    "spelling": "purpose",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "目的"
+      }
+    ]
+  },
+  {
+    "spelling": "aim",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "目的"
+      }
+    ]
+  },
+  {
+    "spelling": "goal",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "目的"
+      }
+    ]
+  },
+  {
+    "spelling": "area",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "部分"
+      }
+    ]
+  },
+  {
+    "spelling": "chapte",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "章节"
+      }
+    ]
+  },
+  {
+    "spelling": "review",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "评论"
+      }
+    ]
+  },
+  {
+    "spelling": "review",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "评论"
+      }
+    ]
+  },
+  {
+    "spelling": "review of literature",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "文献综述"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "revision",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "修改"
+      }
+    ]
+  },
+  {
+    "spelling": "analysis",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "分析"
+      }
+    ]
+  },
+  {
+    "spelling": "method",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "方法"
+      }
+    ]
+  },
+  {
+    "spelling": "teaching method",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "教学方法"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "assessment method",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "评估方法"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "payment method",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "付款方式"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "selection method",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "选择方法"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "research method",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "研究方法"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "approach",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "方法, 接近"
+      }
+    ]
+  },
+  {
+    "spelling": "key approach",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "主要方法"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "strategy",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "方法, 技巧"
+      }
+    ]
+  },
+  {
+    "spelling": "skill",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "方法, 技巧"
+      }
+    ]
+  },
+  {
+    "spelling": "tactic",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "战略, 技巧"
+      }
+    ]
+  },
+  {
+    "spelling": "reference material",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "参考资料"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "reference list",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "参考书目"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "well-organised",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "结构很好"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "presentation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "演讲"
+      }
+    ]
+  },
+  {
+    "spelling": "presentation skill",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "演讲技巧"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "white board",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "白板"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "submit",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "上交"
+      }
+    ]
+  },
+  {
+    "spelling": "hand in",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "上交"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "draft",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "草稿"
+      }
+    ]
+  },
+  {
+    "spelling": "duration",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "期限"
+      }
+    ]
+  },
+  {
+    "spelling": "due",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "到期的"
+      }
+    ]
+  },
+  {
+    "spelling": "due date",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "到期日"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "be due",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "到期"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "overdue",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "过期的"
+      }
+    ]
+  },
+  {
+    "spelling": "deadline",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "截止日期"
+      }
+    ]
+  },
+  {
+    "spelling": "extension",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "延期"
+      }
+    ]
+  },
+  {
+    "spelling": "length",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "长度"
+      }
+    ]
+  },
+  {
+    "spelling": "requirement",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "要求"
+      }
+    ]
+  },
+  {
+    "spelling": "word",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "字数"
+      }
+    ]
+  },
+  {
+    "spelling": "word limit",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "字数要求"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "topic",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "题目"
+      }
+    ]
+  },
+  {
+    "spelling": "subject",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "主题"
+      }
+    ]
+  },
+  {
+    "spelling": "plagiarism",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "抄袭, 剽窃"
+      }
+    ]
+  },
+  {
+    "spelling": "credit",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "学分"
+      }
+    ]
+  },
+  {
+    "spelling": "transfer credit",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "转学分"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "credit system",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学分制"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "mark",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "分数"
+      }
+    ]
+  },
+  {
+    "spelling": "score",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "分数"
+      }
+    ]
+  },
+  {
+    "spelling": "grade",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "分数"
+      }
+    ]
+  },
+  {
+    "spelling": "assessment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "评估"
+      }
+    ]
+  },
+  {
+    "spelling": "evaluation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "评估"
+      }
+    ]
+  },
+  {
+    "spelling": "participation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "出勤"
+      }
+    ]
+  },
+  {
+    "spelling": "attendance",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "出勤率"
+      }
+    ]
+  },
+  {
+    "spelling": "placement test",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "分班考试"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "quiz",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "课堂小测试"
+      }
+    ]
+  },
+  {
+    "spelling": "plus",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "加"
+      }
+    ]
+  },
+  {
+    "spelling": "plus",
+    "pos": "prep.",
+    "glosses": [
+      {
+        "pos": "prep.",
+        "meaning": "加"
+      }
+    ]
+  },
+  {
+    "spelling": "honou",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "优秀"
+      }
+    ]
+  },
+  {
+    "spelling": "pass",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "及格"
+      }
+    ]
+  },
+  {
+    "spelling": "pass",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "及格"
+      }
+    ]
+  },
+  {
+    "spelling": "fail",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "不及格"
+      }
+    ]
+  },
+  {
+    "spelling": "fail",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "不及格"
+      }
+    ]
+  },
+  {
+    "spelling": "fail the exam",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "挂科"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "failure",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "不及格"
+      }
+    ]
+  },
+  {
+    "spelling": "resit",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "补考"
+      }
+    ]
+  },
+  {
+    "spelling": "sit in",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "试听"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "drop-out",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "辍学"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "drop-out rate",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "辍学率"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "drop out of the course",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "辍课"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "incomplete",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "未完成的"
+      }
+    ]
+  },
+  {
+    "spelling": "cheating",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "作弊"
+      }
+    ]
+  },
+  {
+    "spelling": "feedback",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "反馈"
+      }
+    ]
+  },
+  {
+    "spelling": "proofread",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "校对"
+      }
+    ]
+  },
+  {
+    "spelling": "proofreade",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "校对员"
+      }
+    ]
+  },
+  {
+    "spelling": "data",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "数据"
+      }
+    ]
+  },
+  {
+    "spelling": "data analysis",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "数据分析"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "database",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "数据库"
+      }
+    ]
+  },
+  {
+    "spelling": "collect data",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "收集数据"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "statistic",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "数据"
+      }
+    ]
+  },
+  {
+    "spelling": "figure",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "数据"
+      }
+    ]
+  },
+  {
+    "spelling": "survey",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "调查研究"
+      }
+    ]
+  },
+  {
+    "spelling": "investigation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "调查研究"
+      }
+    ]
+  },
+  {
+    "spelling": "research",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "研究"
+      }
+    ]
+  },
+  {
+    "spelling": "research methodology",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "研究方法"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "research instrument",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "研究手段"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "research results",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "研究结果"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "independent research",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "独立研究"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "scientific research",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "科学研究"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "questionnaire",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "问卷调查"
+      }
+    ]
+  },
+  {
+    "spelling": "interview",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "采访"
+      }
+    ]
+  },
+  {
+    "spelling": "interview",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "采访"
+      }
+    ]
+  },
+  {
+    "spelling": "face-to-face interview",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "面对面采访"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "telephone interview",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "电话访问"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "observation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "观察"
+      }
+    ]
+  },
+  {
+    "spelling": "field trip",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "实地考察"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "sample",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "抽样样本"
+      }
+    ]
+  },
+  {
+    "spelling": "interviewe",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "采访者, 面试官"
+      }
+    ]
+  },
+  {
+    "spelling": "interviewee",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "受访者"
+      }
+    ]
+  },
+  {
+    "spelling": "respondent",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "回答者"
+      }
+    ]
+  },
+  {
+    "spelling": "participant",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "参与者"
+      }
+    ]
+  },
+  {
+    "spelling": "random",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "随机的"
+      }
+    ]
+  },
+  {
+    "spelling": "random selection",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "随机挑选"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "objective",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "目的"
+      }
+    ]
+  },
+  {
+    "spelling": "principal",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "校长"
+      }
+    ]
+  },
+  {
+    "spelling": "president",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "校长"
+      }
+    ]
+  },
+  {
+    "spelling": "headmaste",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "校长"
+      }
+    ]
+  },
+  {
+    "spelling": "vice-president",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "副校长"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "dean",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "系主任, 学院院长"
+      }
+    ]
+  },
+  {
+    "spelling": "profess",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "教授"
+      }
+    ]
+  },
+  {
+    "spelling": "associate profess",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "副教授"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "assistant profess",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "助理教授"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "lecture",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "讲师"
+      }
+    ]
+  },
+  {
+    "spelling": "tut",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "导师"
+      }
+    ]
+  },
+  {
+    "spelling": "tutorial",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "辅导课程"
+      }
+    ]
+  },
+  {
+    "spelling": "chancell",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "名誉校长, 教育官员"
+      }
+    ]
+  },
+  {
+    "spelling": "advis",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "导师"
+      }
+    ]
+  },
+  {
+    "spelling": "ment",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "导师"
+      }
+    ]
+  },
+  {
+    "spelling": "supervis",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "导师"
+      }
+    ]
+  },
+  {
+    "spelling": "instruct",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "讲师, 教师"
+      }
+    ]
+  },
+  {
+    "spelling": "direct",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "主任, 主管"
+      }
+    ]
+  },
+  {
+    "spelling": "head",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "主任"
+      }
+    ]
+  },
+  {
+    "spelling": "counsel",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "顾问"
+      }
+    ]
+  },
+  {
+    "spelling": "consultant",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "顾问"
+      }
+    ]
+  },
+  {
+    "spelling": "expert",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "专家"
+      }
+    ]
+  },
+  {
+    "spelling": "expertise",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "专业知识"
+      }
+    ]
+  },
+  {
+    "spelling": "specialist knowledge",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "专业知识"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "teaching assistant",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "助教"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "office assistant",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "办公室助理"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "research assistant",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "研究助理"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "library assistant",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "图书馆员"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "staff",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "全体员工"
+      }
+    ]
+  },
+  {
+    "spelling": "staff membe",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "职员"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "newspape",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "报纸"
+      }
+    ]
+  },
+  {
+    "spelling": "pape",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "报纸"
+      }
+    ]
+  },
+  {
+    "spelling": "local pape",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "地方性报纸"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "national pape",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "国家性报纸"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "video tape",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "录像带"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "cassette",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "磁带"
+      }
+    ]
+  },
+  {
+    "spelling": "magazine",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "杂志"
+      }
+    ]
+  },
+  {
+    "spelling": "journal article",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "期刊论文"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "journalism",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "新闻业"
+      }
+    ]
+  },
+  {
+    "spelling": "journalist",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "记者"
+      }
+    ]
+  },
+  {
+    "spelling": "periodical",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "期刊"
+      }
+    ]
+  },
+  {
+    "spelling": "volume",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "卷, 册"
+      }
+    ]
+  },
+  {
+    "spelling": "bound volume",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "合订本"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "encyclopedia",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "百科全书"
+      }
+    ]
+  },
+  {
+    "spelling": "dictionary",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "字典"
+      }
+    ]
+  },
+  {
+    "spelling": "biography",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "传记"
+      }
+    ]
+  },
+  {
+    "spelling": "textbook",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "课本, 教科书"
+      }
+    ]
+  },
+  {
+    "spelling": "key textbook",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "核心教科书"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "issue",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "刊物, 出版物"
+      }
+    ]
+  },
+  {
+    "spelling": "current issue",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "现期期刊"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "back issue",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "过期期刊"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "reference",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "参考书"
+      }
+    ]
+  },
+  {
+    "spelling": "reference materials",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "参考资料"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "reference book",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "参考书"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "reference resources",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "参考资料"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "fiction",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "小说"
+      }
+    ]
+  },
+  {
+    "spelling": "novel",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "小说"
+      }
+    ]
+  },
+  {
+    "spelling": "short story",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "小说"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "poem",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "诗"
+      }
+    ]
+  },
+  {
+    "spelling": "librarian",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "图书管理员"
+      }
+    ]
+  },
+  {
+    "spelling": "information desk",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "问讯处"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "inquiry desk",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "问讯处"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "delivery desk",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "借书台"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "circulation desk",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "借书台"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "reference section",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "参考书部"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "card index",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "卡片索引"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "classification",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "分类"
+      }
+    ]
+  },
+  {
+    "spelling": "category",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "种类, 类别"
+      }
+    ]
+  },
+  {
+    "spelling": "open shelves",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "开架书库"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "close shelves",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "闭架书库"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "stack",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "书库"
+      }
+    ]
+  },
+  {
+    "spelling": "reference stack",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "工具书库"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "catalog",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "目录"
+      }
+    ]
+  },
+  {
+    "spelling": "return area",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "还书处"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "audio-visual resource centre",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "视听资料室"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "photocopy room",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "复印室"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "photocopie",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "复印机"
+      }
+    ]
+  },
+  {
+    "spelling": "copy machine",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "复印机"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "copie",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "复印机"
+      }
+    ]
+  },
+  {
+    "spelling": "color copie",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "彩色打印机"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "printe",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "打印机"
+      }
+    ]
+  },
+  {
+    "spelling": "laptop",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "笔记本电脑"
+      }
+    ]
+  },
+  {
+    "spelling": "scanne",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "扫描仪"
+      }
+    ]
+  },
+  {
+    "spelling": "interlibrary service",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "图书馆互服务"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "internet access",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "网络接入"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "digital system",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "数字系统"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "computer terminal",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "电脑终端"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "auth",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "作者"
+      }
+    ]
+  },
+  {
+    "spelling": "write",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "作家"
+      }
+    ]
+  },
+  {
+    "spelling": "publishe",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "出版者, 发行人"
+      }
+    ]
+  },
+  {
+    "spelling": "publication",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "发行"
+      }
+    ]
+  },
+  {
+    "spelling": "press",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "出版社, 新闻"
+      }
+    ]
+  },
+  {
+    "spelling": "press conference",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "新闻发布会"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "Oxford University Press",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "牛津大学出版社"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "Cambridge University Press",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "剑桥大学出版社"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "library card",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "借书卡"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "admission card",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "借书卡"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "passport phot",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "护照照片"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "driving licence",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "驾照"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "driving license",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "驾照"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "bank statement",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "银行对账单"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "student card",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "学生证"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "call slip",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "索书单"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "checklist",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "选书清单"
+      }
+    ]
+  },
+  {
+    "spelling": "bibliography",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "参考文献"
+      }
+    ]
+  },
+  {
+    "spelling": "available",
+    "pos": "adj.",
+    "glosses": [
+      {
+        "pos": "adj.",
+        "meaning": "可借阅的, 可利用的"
+      }
+    ]
+  },
+  {
+    "spelling": "on the shelf",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "在书架上"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "loan",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "借出"
+      }
+    ]
+  },
+  {
+    "spelling": "out on loan",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "已借出"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "loan period",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "截止日期"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "circulation",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "流通"
+      }
+    ]
+  },
+  {
+    "spelling": "reserved in circulation",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "在书库里"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "out of circulation",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "借出"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "not for circulation",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "不外借"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "reserve",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "预订"
+      }
+    ]
+  },
+  {
+    "spelling": "reserve section",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "预借书库"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "closed reserve",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "非外借书库"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "book in advance",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "预借"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "check out",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "登记借出"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "issue",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "借书"
+      }
+    ]
+  },
+  {
+    "spelling": "renew",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "续借, 更新"
+      }
+    ]
+  },
+  {
+    "spelling": "renew the book",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "续借这本书"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "renewal",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "续借, 更新"
+      }
+    ]
+  },
+  {
+    "spelling": "request",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "索求"
+      }
+    ]
+  },
+  {
+    "spelling": "request",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "索求"
+      }
+    ]
+  },
+  {
+    "spelling": "require",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "要求"
+      }
+    ]
+  },
+  {
+    "spelling": "recall",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "召回"
+      }
+    ]
+  },
+  {
+    "spelling": "recall",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "召回"
+      }
+    ]
+  },
+  {
+    "spelling": "recall system",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "召回系统"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "return",
+    "pos": "n.",
+    "glosses": [
+      {
+        "pos": "n.",
+        "meaning": "归还"
+      }
+    ]
+  },
+  {
+    "spelling": "return",
+    "pos": "v.",
+    "glosses": [
+      {
+        "pos": "v.",
+        "meaning": "归还"
+      }
+    ]
+  },
+  {
+    "spelling": "return in time",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "及时归还"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  },
+  {
+    "spelling": "return within seven working days",
+    "pos": "phr.",
+    "glosses": [
+      {
+        "pos": "phr.",
+        "meaning": "七个工作日内归还"
+      }
+    ],
+    "flags": [
+      "multi_word_spelling"
+    ]
+  }
+]
