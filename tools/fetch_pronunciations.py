@@ -52,7 +52,17 @@ def normalize(spelling: str) -> str:
 
 def collect_words(book: str) -> list[tuple[str, str]]:
     """Return list of (spelling, book_slug)."""
-    file_map = {"concise": "yasi_concise.json", "full": "ielts_full.json", "cet6": "cet6.json"}
+    file_map = {
+        "concise": "yasi_concise.json",
+        "full": "ielts_full.json",
+        "cet6": "cet6.json",
+        "exam_points": "exam_points.json",
+        "speaking_collocations": "speaking_collocations.json",
+        "writing_collocations": "writing_collocations.json",
+        "oral_vocabulary": "oral_vocabulary.json",
+        "listening_highfreq": "listening_highfreq.json",
+        "academic_core": "academic_core.json",
+    }
     path = SEED / file_map[book]
     data = json.loads(path.read_text(encoding="utf-8"))
     out = []
@@ -107,7 +117,7 @@ def fetch(spelling: str, type_id: int = 2, retries: int = 3) -> bytes | None:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--book", choices=["concise", "full", "cet6"], action="append", help="limit to specific book(s)")
+    ap.add_argument("--book", choices=["concise", "full", "cet6", "exam_points", "speaking_collocations", "writing_collocations", "oral_vocabulary", "listening_highfreq", "academic_core"], action="append", help="limit to specific book(s)")
     ap.add_argument("--us", action="store_true", help="US English only (skip UK)")
     ap.add_argument("--uk", action="store_true", help="UK English only (skip US)")
     ap.add_argument("--concurrency", type=int, default=8, help="concurrent requests (default 8; lower if rate-limited)")
