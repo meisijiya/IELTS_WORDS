@@ -68,6 +68,42 @@ const WORDBOOKS = [
     description: "CET-6 5518 词 · 含真人发音",
     seedFile: "cet6.json",
   },
+  {
+    slug: "exam_points",
+    name: "雅思阅读考点词 538",
+    description: "刘洪波《阅读考点词真经》精选 538 词 · 阅读 7 分+高频",
+    seedFile: "exam_points.json",
+  },
+  {
+    slug: "speaking_collocations",
+    name: "口语 Part 1 词组（5–8 月）",
+    description: "雅思口语 Part 1 高频话题词组 · 32 话题 × 2 词组",
+    seedFile: "speaking_collocations.json",
+  },
+  {
+    slug: "writing_collocations",
+    name: "雅思写作常见搭配",
+    description: "写作高频 collocation · 扫描件 OCR",
+    seedFile: "writing_collocations.json",
+  },
+  {
+    slug: "oral_vocabulary",
+    name: "剑桥雅思口语写作词汇",
+    description: "剑雅口语 + 写作话题词汇 · 扫描件 OCR",
+    seedFile: "oral_vocabulary.json",
+  },
+  {
+    slug: "listening_highfreq",
+    name: "听力高频词汇",
+    description: "雅思听力高频核心词汇 · 扫描件 OCR",
+    seedFile: "listening_highfreq.json",
+  },
+  {
+    slug: "academic_core",
+    name: "核心学术词汇",
+    description: "学术英语核心词汇 · 扫描件 OCR",
+    seedFile: "academic_core.json",
+  },
 ];
 
 async function ensureAdmin() {
@@ -137,8 +173,9 @@ async function main() {
   for (const wb of WORDBOOKS) {
     console.log(`Seeding ${wb.slug}...`);
     const path = join(SEED_DIR, wb.seedFile);
-    const words: SeedWord[] = JSON.parse(readFileSync(path, "utf-8"));
-
+    // Register the wordbook row even if its seed JSON is missing — the slot
+    // appears in the UI so users can retry seed after the JSON lands (e.g.
+    // OCR pipeline finished). We only seed words when the file exists.
     await prisma.wordbook.upsert({
       where: { slug: wb.slug },
       update: { name: wb.name, description: wb.description },
@@ -150,6 +187,13 @@ async function main() {
     });
     const wbRow = await prisma.wordbook.findUnique({ where: { slug: wb.slug } });
     if (!wbRow) throw new Error(`failed to upsert wordbook ${wb.slug}`);
+
+    if (!existsSync(path)) {
+      console.warn(`[seed] ${path} not found — Wordbook "${wb.slug}" registered with 0 words`);
+      continue;
+    }
+
+    const words: SeedWord[] = JSON.parse(readFileSync(path, "utf-8"));
 
     const examplesBySpelling = loadExamplesFile(wb.slug);
     if (Object.keys(examplesBySpelling).length > 0) {
