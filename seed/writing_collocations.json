@@ -1515,13 +1515,16 @@
     ]
   },
   {
-    "spelling": "Popula",
+    "spelling": "Popular",
     "pos": "adj.",
     "glosses": [
       {
         "pos": "adj.",
         "meaning": "流行的;受欢迎的"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {

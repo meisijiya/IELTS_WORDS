@@ -698,13 +698,16 @@
     ]
   },
   {
-    "spelling": "chapte",
+    "spelling": "chapter",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "书的章节"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -1972,13 +1975,16 @@
     ]
   },
   {
-    "spelling": "encounte",
+    "spelling": "encounter",
     "pos": "v.",
     "glosses": [
       {
         "pos": "v.",
         "meaning": "遇到"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -2524,13 +2530,16 @@
     ]
   },
   {
-    "spelling": "gende",
+    "spelling": "gender",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "性别尤指社会和文化差异而非生理差异"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -3516,13 +3525,16 @@
     ]
   },
   {
-    "spelling": "registe",
+    "spelling": "register",
     "pos": "v.",
     "glosses": [
       {
         "pos": "v.",
         "meaning": "注册"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -3804,13 +3816,16 @@
     ]
   },
   {
-    "spelling": "scenari",
+    "spelling": "scenario",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "场景, 情形"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -3952,13 +3967,16 @@
     ]
   },
   {
-    "spelling": "simila",
+    "spelling": "similar",
     "pos": "adj.",
     "glosses": [
       {
         "pos": "adj.",
         "meaning": "相像的, 类似的"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -4350,13 +4368,16 @@
     ]
   },
   {
-    "spelling": "labou",
+    "spelling": "labour",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "劳动"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -4852,13 +4873,16 @@
     ]
   },
   {
-    "spelling": "nuclea",
+    "spelling": "nuclear",
     "pos": "adj.",
     "glosses": [
       {
         "pos": "adj.",
         "meaning": "核能的, 核的"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -4906,13 +4930,16 @@
     ]
   },
   {
-    "spelling": "occu",
+    "spelling": "occur",
     "pos": "v.",
     "glosses": [
       {
         "pos": "v.",
         "meaning": "发生"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {

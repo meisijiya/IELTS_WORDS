@@ -1286,7 +1286,7 @@
     ]
   },
   {
-    "spelling": "take a phot",
+    "spelling": "take a photo",
     "pos": "phr.",
     "glosses": [
       {
@@ -1295,7 +1295,8 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {

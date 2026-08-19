@@ -6934,7 +6934,7 @@
     ]
   },
   {
-    "spelling": "mange to do",
+    "spelling": "manage to do",
     "pos": "phr.",
     "glosses": [
       {
@@ -6943,7 +6943,8 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {
@@ -8737,13 +8738,16 @@
     ]
   },
   {
-    "spelling": "sufficien",
+    "spelling": "sufficient",
     "pos": "phr.",
     "glosses": [
       {
         "pos": "phr.",
         "meaning": "足够的"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {

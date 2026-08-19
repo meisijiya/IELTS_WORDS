@@ -277,7 +277,7 @@
     ]
   },
   {
-    "spelling": "unhelpful owne",
+    "spelling": "unhelpful owner",
     "pos": "phr.",
     "glosses": [
       {
@@ -286,11 +286,12 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {
-    "spelling": "unsympathetic owne",
+    "spelling": "unsympathetic owner",
     "pos": "phr.",
     "glosses": [
       {
@@ -299,7 +300,8 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {
@@ -546,13 +548,16 @@
     ]
   },
   {
-    "spelling": "corrid",
+    "spelling": "corridor",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "走廊"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -847,13 +852,16 @@
     ]
   },
   {
-    "spelling": "toaste",
+    "spelling": "toaster",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "烤面包机"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -870,13 +878,16 @@
     ]
   },
   {
-    "spelling": "refrigerat",
+    "spelling": "refrigerator",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "电冰箱"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -910,7 +921,7 @@
     ]
   },
   {
-    "spelling": "back d",
+    "spelling": "back door",
     "pos": "phr.",
     "glosses": [
       {
@@ -919,11 +930,12 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {
-    "spelling": "water heate",
+    "spelling": "water heater",
     "pos": "phr.",
     "glosses": [
       {
@@ -932,7 +944,8 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {
@@ -972,7 +985,7 @@
     ]
   },
   {
-    "spelling": "air conditione",
+    "spelling": "air conditioner",
     "pos": "phr.",
     "glosses": [
       {
@@ -981,7 +994,8 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {
@@ -1153,7 +1167,7 @@
     ]
   },
   {
-    "spelling": "guided tou",
+    "spelling": "guided tour",
     "pos": "phr.",
     "glosses": [
       {
@@ -1162,7 +1176,8 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {
@@ -1179,7 +1194,7 @@
     ]
   },
   {
-    "spelling": "package tou",
+    "spelling": "package tour",
     "pos": "phr.",
     "glosses": [
       {
@@ -1188,7 +1203,8 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {
@@ -1466,7 +1482,7 @@
     ]
   },
   {
-    "spelling": "flight numbe",
+    "spelling": "flight number",
     "pos": "phr.",
     "glosses": [
       {
@@ -1475,7 +1491,8 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {
@@ -1640,13 +1657,16 @@
     ]
   },
   {
-    "spelling": "wheelchai",
+    "spelling": "wheelchair",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "轮椅"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -2313,13 +2333,16 @@
     ]
   },
   {
-    "spelling": "souveni",
+    "spelling": "souvenir",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "纪念品"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -2741,7 +2764,7 @@
     ]
   },
   {
-    "spelling": "money orde",
+    "spelling": "money order",
     "pos": "phr.",
     "glosses": [
       {
@@ -2750,7 +2773,8 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {
@@ -3005,13 +3029,16 @@
     ]
   },
   {
-    "spelling": "cashie",
+    "spelling": "cashier",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "收银员"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -3327,7 +3354,8 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {
@@ -3564,7 +3592,8 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {
@@ -3577,7 +3606,8 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {
@@ -3636,7 +3666,8 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {
@@ -3785,7 +3816,7 @@
     ]
   },
   {
-    "spelling": "register f",
+    "spelling": "register for",
     "pos": "phr.",
     "glosses": [
       {
@@ -3794,7 +3825,8 @@
       }
     ],
     "flags": [
-      "multi_word_spelling"
+      "multi_word_spelling",
+      "ocr_corrected"
     ]
   },
   {
@@ -5185,13 +5217,16 @@
     ]
   },
   {
-    "spelling": "semeste",
+    "spelling": "semester",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "学期"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -6682,13 +6717,16 @@
     ]
   },
   {
-    "spelling": "chapte",
+    "spelling": "chapter",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "章节"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -7279,13 +7317,16 @@
     ]
   },
   {
-    "spelling": "honou",
+    "spelling": "honour",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "优秀"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -7454,13 +7495,16 @@
     ]
   },
   {
-    "spelling": "proofreade",
+    "spelling": "proofreader",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "校对员"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -7714,13 +7758,16 @@
     ]
   },
   {
-    "spelling": "interviewe",
+    "spelling": "interviewer",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "采访者, 面试官"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -7807,13 +7854,16 @@
     ]
   },
   {
-    "spelling": "headmaste",
+    "spelling": "headmaster",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "校长"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -7906,23 +7956,29 @@
     ]
   },
   {
-    "spelling": "chancell",
+    "spelling": "chancellor",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "名誉校长, 教育官员"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
-    "spelling": "advis",
+    "spelling": "advisor",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "导师"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -7936,13 +7992,16 @@
     ]
   },
   {
-    "spelling": "supervis",
+    "spelling": "supervisor",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "导师"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -8104,13 +8163,16 @@
     ]
   },
   {
-    "spelling": "newspape",
+    "spelling": "newspaper",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "报纸"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -8636,13 +8698,16 @@
     ]
   },
   {
-    "spelling": "photocopie",
+    "spelling": "photocopier",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "复印机"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -8659,13 +8724,16 @@
     ]
   },
   {
-    "spelling": "copie",
+    "spelling": "copier",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "复印机"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -8682,13 +8750,16 @@
     ]
   },
   {
-    "spelling": "printe",
+    "spelling": "printer",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "打印机"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
@@ -8702,13 +8773,16 @@
     ]
   },
   {
-    "spelling": "scanne",
+    "spelling": "scanner",
     "pos": "n.",
     "glosses": [
       {
         "pos": "n.",
         "meaning": "扫描仪"
       }
+    ],
+    "flags": [
+      "ocr_corrected"
     ]
   },
   {
